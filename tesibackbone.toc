@@ -1,0 +1,27 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {italian}
+\defcounter {refsection}{0}\relax 
+\select@language {italian}
+\defcounter {refsection}{0}\relax 
+\contentsline {starchapter}{Introduzione}{v}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Il sistema di elaborazione di piani di trattamento \textit {RayStation}}{1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Lo Scanner NMR di Superficie}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Conclusioni}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Test ed Ottimizzazione dello Scanner NMR}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Conclusioni}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Misure NMR}{7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Conclusioni}{7}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclusioni e Sviluppi Futuri}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {starchapter}{Conclusioni}{11}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliografia}{15}

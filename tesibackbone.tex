@@ -1,0 +1,102 @@
+\documentclass[a4paper,12pt,italian,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[labelfont=bf]{caption}
+\usepackage{minitoc}
+\usepackage[binding=1.5cm]{layaureo}
+\usepackage{threeparttable}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{color}
+\usepackage{comment}
+\usepackage{ulem}\normalem
+
+\usepackage{csquotes}
+\usepackage[style=ieee, backend=biber]{biblatex}
+\addbibresource{./bibliografia/Th.bib}
+
+\hyphenation{MATLAB}
+\hyphenation{RayStation}
+\newcommand{\virg}[1]{\textquotedblleft \textbf{\emph{#1}}\textquotedblright{}}
+\newcommand{\de}{\,\text{d}}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}  %Per avere le subsubsection numerate
+
+%%%%%%AMBIENTE ABSTRACT%%%%%%%
+%\newcommand{\abstractmodificato}[1]{
+%
+%\vspace*{3cm}
+%\begin{center}
+%
+%\textbf{Abstract\\}
+%\begin{minipage}[t]{0.7\columnwidth}
+%
+%\begin{small}{#1}\end{small}
+%
+%\end{minipage}
+%
+%\end{center}
+%} 
+
+
+%%%%%%INTESTAZIONE ELEGANTE%%%%%%
+\pagestyle{fancy}
+% with this we ensure that the chapter and section
+% headings are in lowercase.
+\renewcommand{\chaptermark}[1]{%
+\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{%
+\markright{\thesection\ #1}}
+\fancyhf{} % delete current header and footer
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\rightmark}
+\fancyhead[RE]{\bfseries\leftmark}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{2.5pt} % space for the rule
+\fancypagestyle{plain}{%
+\fancyhead{} % get rid of headers on plain pages
+\renewcommand{\headrulewidth}{0pt} }
+%%%%%%INTESTAZIONE ELEGANTE%%%%%%
+
+%%%%%%INIZIO DOCUMENTO%%%%%%
+\begin{document}
+\dominitoc % Initialization minitocs
+
+\frontmatter
+%%%%%%FORNTESPIZIO%%%%%%
+\input{frontespizio/front.tex}
+%%%%%%DEDICA%%%%%%
+\chapter*{}
+\begin{flushright}
+\emph{Alla mia Famiglia che mi ha sempre \\sostenuto lungo il mio percorso.\\\vspace{.8cm} Ai miei Insegnanti che hanno\\ costruito tutto il mio sapere.}
+\end{flushright}
+\newpage
+\thispagestyle{empty}
+
+%%%%%%PREFAZIONE%%%%%%
+\input{prefazione/prefazione.tex}
+
+\tableofcontents
+
+%%%%%%CORPO DOCUMENTO%%%%%%
+\mainmatter
+\input{./cap1/cap1.tex}
+\input{./cap2/cap2.tex}
+\input{./cap3/cap3.tex}
+\input{./cap4/cap4.tex}
+\input{./cap5/cap5.tex}
+
+%\appendix
+%\input{./appendix/appendix.tex}
+
+%%%%%%BIBLIOGRAFIA%%%%%%
+\printbibliography[heading=bibintoc]
+%\input{./bibliografia/biblio.tex}
+\end{document}

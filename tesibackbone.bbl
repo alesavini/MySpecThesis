@@ -1,0 +1,53 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{none}{none}
+    \entry{Mzenda2014}{article}{}
+      \name{author}{5}{}{%
+        {{hash=52131613dd4614c6cd0d9a1e44215d94}{Mzenda}{M\bibinitperiod}{Bongile}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=b0657eff43927e1adc13908b6538080c}{Mugabe}{M\bibinitperiod}{Koki\bibnamedelima V.}{K\bibinitperiod\bibinitdelim V\bibinitperiod}{}{}{}{}}%
+        {{hash=d54994ba9d35a6c0b81335f1bf5247bc}{Sims}{S\bibinitperiod}{Rick}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=0950100bffd72a4617bf8f93d897e10e}{Godwin}{G\bibinitperiod}{Guy\bibnamedelima A.}{G\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{hash=686a5eb7a788db6c6509a2816866f488}{Loria}{L\bibinitperiod}{Dayan}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{22ca8773b084dc005bcb066161fb4ad4}
+      \strng{fullhash}{0615dd42c4a4c010db1a0b7cbdcdefff}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The physics modeling, dose calculation accuracy and plan quality assessment of the RayStation (v3.5) treatment planning system (TPS) is presented in this study, with appropriate comparisons to the more established Pinnacle (v9.2) TPS. Modeling and validation for the Elekta MLCi and Agility beam models resulted in a good match to treatment machine-measured data based on tolerances of 3{\%} for in-field and out-of-field regions, 10{\%} for buildup and penumbral regions, and a gamma 2{\%}/2 mm dose/distance acceptance criteria. TPS commissioning using a wide range of appropriately selected dosimetry equipment, and following published guidelines, established the MLC modeling and dose calculation accuracy to be within standard tolerances for all tests performed. In both homogeneous and heterogeneous medi-ums, central axis calculations agreed with measurements within 2{\%} for open fields and 3{\%} for wedged fields, and within 4{\%} off-axis. Treatment plan comparisons for identical clinical goals were made to Pinnacle for the following complex clinical cases: hypofractionated non-small cell lung carcinoma, head and neck, stereotactic spine, as well as for several standard clinical cases comprising of prostate, brain, and breast plans. DVHs, target, and critical organ doses, as well as measured point doses and gamma indices, applying both local and global (Van Dyk) normalization at 2{\%}/2 mm and 3{\%}/3 mm (10{\%} lower threshold) acceptance criteria for these com-posite plans were assessed. In addition 3DVH was used to compare the perturbed dose distributions to the TPS 3D dose distributions. For all 32 cases, the patients QA checks showed > 95{\%} of pixels passing 3{\%} global/3 mm gamma.}
+      \field{issn}{1526-9914}
+      \field{journaltitle}{Journal of Applied Clinical Medical Physics}
+      \field{number}{5}
+      \field{title}{{Modeling and dosimetric performance evaluation of the RayStation treatment planning system}}
+      \field{volume}{15}
+      \field{year}{2014}
+      \field{pages}{29\bibrangedash 46}
+      \range{pages}{18}
+      \verb{file}
+      \verb :D$\backslash$:/My Data/Work/Teramo/Lavori{\_}OLD/Commissioning/Raystation/Articoli/Mzenda{\_}2014 - Modeling and dosimetric performance of Raystation.pdf:pdf
+      \endverb
+      \keyw{commissioning,dosimetric accuracy,modeling,treatment planning system}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
