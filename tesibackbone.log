@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.11.22)  22 NOV 2015 18:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.11.22)  22 NOV 2015 19:03
 entering extended mode
 **tesibackbone.tex
 (tesibackbone.tex
@@ -1006,9 +1006,7 @@ tespizio/logo_aq.jpg> <./frontespizio/logo_dept.jpg>]) [2
 
 ] (cap1/cap1.tex
 Capitolo 1.
-Package minitoc Info: I0006
-(minitoc)             tesibackbone.mtc2 is empty on input line 4.
-) (cap2/cap2.tex [1
+(tesibackbone.mtc2)) (cap2/cap2.tex [1
 
 ] [2
 
@@ -1081,16 +1079,15 @@ Package minitoc(hints) Warning: W0024
 Package logreq Info: Writing requests to 'tesibackbone.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
- 12612 strings out of 493636
- 198928 string characters out of 3141310
+ 12611 strings out of 493636
+ 198919 string characters out of 3141310
  635614 words of memory out of 3000000
- 15538 multiletter control sequences out of 15000+200000
- 14351 words of font info for 53 fonts, out of 3000000 for 9000
+ 15536 multiletter control sequences out of 15000+200000
+ 13633 words of font info for 51 fonts, out of 3000000 for 9000
  1027 hyphenation exceptions out of 8191
  44i,11n,48p,1803b,1148s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
-:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:
 /Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pr
 ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Progr
@@ -1098,9 +1095,9 @@ am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program File
 s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on tesibackbone.pdf (23 pages, 213258 bytes).
+Output written on tesibackbone.pdf (23 pages, 206292 bytes).
 PDF statistics:
- 120 PDF objects out of 1000 (max. 8388607)
+ 116 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

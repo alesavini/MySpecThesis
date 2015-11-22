@@ -1,17 +1,17 @@
 [0] Config.pm:327> INFO - This is Biber 2.2
 [0] Config.pm:330> INFO - Logfile is 'tesibackbone.blg'
-[47] biber-MSWIN:283> INFO - === 
-[47] Biber.pm:334> INFO - Reading 'tesibackbone.bcf'
-[162] Biber.pm:677> INFO - Found 1 citekeys in bib section 0
-[186] Biber.pm:3054> INFO - Processing section 0
-[210] Biber.pm:3193> INFO - Looking for bibtex format file './bibliografia/Th.bib' for section 0
+[42] biber-MSWIN:283> INFO - === 
+[42] Biber.pm:334> INFO - Reading 'tesibackbone.bcf'
+[163] Biber.pm:677> INFO - Found 1 citekeys in bib section 0
+[187] Biber.pm:3054> INFO - Processing section 0
+[211] Biber.pm:3193> INFO - Looking for bibtex format file './bibliografia/Th.bib' for section 0
 [215] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
 [218] bibtex.pm:935> INFO - Found BibTeX data source './bibliografia/Th.bib'
-[224] Utils.pm:147> WARN - BibTeX subsystem: C:\Users\ALESSA~1\AppData\Local\Temp\Tk1sJvyB8x\Th.bib_2236.utf8, line 6, warning: 172 characters of junk seen at toplevel
-[248] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[248] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[248] Biber.pm:2931> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'it-IT'
-[248] Biber.pm:2935> INFO - No sort tailoring available for locale 'it-IT'
-[250] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
-[251] bbl.pm:596> INFO - Output to tesibackbone.bbl
-[251] Biber.pm:107> INFO - WARNINGS: 1
+[225] Utils.pm:147> WARN - BibTeX subsystem: C:\Users\ALESSA~1\AppData\Local\Temp\L16BR5R0Nu\Th.bib_5984.utf8, line 6, warning: 172 characters of junk seen at toplevel
+[249] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[249] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[249] Biber.pm:2931> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'it-IT'
+[249] Biber.pm:2935> INFO - No sort tailoring available for locale 'it-IT'
+[251] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
+[252] bbl.pm:596> INFO - Output to tesibackbone.bbl
+[252] Biber.pm:107> INFO - WARNINGS: 1

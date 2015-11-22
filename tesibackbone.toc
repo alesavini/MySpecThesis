@@ -6,7 +6,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {starchapter}{Introduzione}{v}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Il sistema di elaborazione di piani di trattamento \textit {RayStation}}{1}
+\contentsline {chapter}{\numberline {1}Il sistema di elaborazione di piani di trattamento RayStation}{1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Introduzione}{1}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}Lo Scanner NMR di Superficie}{3}
 \defcounter {refsection}{0}\relax 
