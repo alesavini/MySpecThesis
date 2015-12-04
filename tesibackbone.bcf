@@ -85,7 +85,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>999</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -2216,6 +2216,12 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">Mzenda2014</bcf:citekey>
+    <bcf:citekey order="2">ICRU85</bcf:citekey>
+    <bcf:citekey order="3">Fraass1995</bcf:citekey>
+    <bcf:citekey order="4">Ahnesjo1989</bcf:citekey>
+    <bcf:citekey order="4">Boyer1998</bcf:citekey>
+    <bcf:citekey order="4">Mackie1985</bcf:citekey>
+    <bcf:citekey order="4">Ahnesjo1987</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="none" type="entry" sortscheme="none">
   <bcf:sorting>

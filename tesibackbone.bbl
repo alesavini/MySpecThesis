@@ -27,7 +27,7 @@
         {{hash=0950100bffd72a4617bf8f93d897e10e}{Godwin}{G\bibinitperiod}{Guy\bibnamedelima A.}{G\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
         {{hash=686a5eb7a788db6c6509a2816866f488}{Loria}{L\bibinitperiod}{Dayan}{D\bibinitperiod}{}{}{}{}}%
       }
-      \strng{namehash}{22ca8773b084dc005bcb066161fb4ad4}
+      \strng{namehash}{0615dd42c4a4c010db1a0b7cbdcdefff}
       \strng{fullhash}{0615dd42c4a4c010db1a0b7cbdcdefff}
       \field{sortinit}{0}
       \field{sortinithash}{990108227b3316c02842d895999a0165}
@@ -46,6 +46,166 @@
       \verb :D$\backslash$:/My Data/Work/Teramo/Lavori{\_}OLD/Commissioning/Raystation/Articoli/Mzenda{\_}2014 - Modeling and dosimetric performance of Raystation.pdf:pdf
       \endverb
       \keyw{commissioning,dosimetric accuracy,modeling,treatment planning system}
+    \endentry
+    \entry{ICRU85}{article}{}
+      \name{author}{1}{}{%
+        {{hash=3879a0e653735384fef84e3760b041ed}{{THE\bibnamedelimb INTERNATIONAL\bibnamedelimb COMMISSION\bibnamedelimb ON\bibnamedelimb RADIATION\bibnamedelimb UNITS\bibnamedelimb AND\bibnamedelimb MEASUREMENTS}}{T\bibinitperiod}{-}{\bibinithyphendelim \bibinithyphendelim \bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{3879a0e653735384fef84e3760b041ed}
+      \strng{fullhash}{3879a0e653735384fef84e3760b041ed}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the ICRU Report 85}
+      \field{number}{1}
+      \field{title}{{FUNDAMENTAL QUANTITIES AND UNITS FOR IONIZING RADIATION ( Revised )}}
+      \field{volume}{11}
+      \field{year}{2011}
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/ICRU 85 - Fundamentals Quantities and Units for Inonizing Radiation (revised){\_}{\_}2011.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Fraass1995}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d0515bc79c1726124038d4814e33f673}{Fraass}{F\bibinitperiod}{Benedick\bibnamedelima a.}{B\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{d0515bc79c1726124038d4814e33f673}
+      \strng{fullhash}{d0515bc79c1726124038d4814e33f673}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical Physics}
+      \field{number}{1995}
+      \field{title}{{The development of conformal radiation therapy}}
+      \field{volume}{22}
+      \field{year}{1995}
+      \field{pages}{1911}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1118/1.597446
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Fraass{\_}1995 - The development of conformal radiation therapy.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Ahnesjo1989}{article}{}
+      \name{author}{1}{}{%
+        {{hash=be1bd42eb2805b41a2c16ff79ecc0e03}{Ahnesjö}{A\bibinitperiod}{Anders}{A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{be1bd42eb2805b41a2c16ff79ecc0e03}
+      \strng{fullhash}{be1bd42eb2805b41a2c16ff79ecc0e03}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical Physics}
+      \field{number}{4}
+      \field{title}{{Collapsed cone convolution of radiant energy for photon dose calculation in heterogeneous media}}
+      \field{volume}{16}
+      \field{year}{1989}
+      \field{pages}{577}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1118/1.596360
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Ahnesjo{\_}1989 - Collapsed cone convolution of radiant energy for photon dose calculation in heterogeneous media.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://scitation.aip.org/content/aapm/journal/medphys/16/4/10.1118/1.596360
+      \endverb
+    \endentry
+    \entry{Boyer1998}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b9536d7f4e00ceea96fbc5a14924958b}{Boyer}{B\bibinitperiod}{a}{a\bibinitperiod}{}{}{}{}}%
+        {{hash=f2865813a26cbb4330200e1a20b1fd1f}{Mok}{M\bibinitperiod}{E}{E\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{1894495ece12a8d5cd705284cd2d3787}
+      \strng{fullhash}{1894495ece12a8d5cd705284cd2d3787}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A three-dimensional photon beam calculation is described which models the primary, first-scatter, and multiple-scatter dose components from first principles. Three key features of the model are (1) a multiple-scatter calculation based on diffusion theory, (2) the demonstration of the modulation transfer function of the radiation dose transport process, and (3) the use of the finite fast Fourier transform to perform the required convolutions. The results of calculations for cobalt-60 in a homogeneous phantom are used to verify the accuracy of the model.}
+      \field{isbn}{doi:10.1118/1.595772}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical physics}
+      \field{number}{2}
+      \field{title}{{A photon dose distribution model employing convolution calculations.}}
+      \field{volume}{12}
+      \field{year}{1998}
+      \field{pages}{169\bibrangedash 177}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1118/1.595772
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Boyer{\_}1985 - A photon dose distribution model employing convolution calculations.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Mackie1985}{article}{}
+      \name{author}{1}{}{%
+        {{hash=491d2c72b87bdaca180c21608d564492}{Mackie}{M\bibinitperiod}{T.\bibnamedelimi R.}{T\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{491d2c72b87bdaca180c21608d564492}
+      \strng{fullhash}{491d2c72b87bdaca180c21608d564492}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical Physics}
+      \field{number}{2}
+      \field{title}{{A convolution method of calculating dose for 15-MV x rays}}
+      \field{volume}{12}
+      \field{year}{1985}
+      \field{pages}{188}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1118/1.595774
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Mackie{\_}1985 - A convolution method of calculating dose for 15 MV x-rays.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://scitation.aip.org/content/aapm/journal/medphys/12/2/10.1118/1.595774
+      \endverb
+    \endentry
+    \entry{Ahnesjo1987}{article}{}
+      \name{author}{3}{}{%
+        {{hash=273fd3ae9e03e61af580468be7adf492}{Ahnesjö}{A\bibinitperiod}{A.}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=da163864379997ef5dcf72a95216dc48}{Andreo}{A\bibinitperiod}{P.}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=146a94869d5416911bf2b65bb9226efd}{Brahme}{B\bibinitperiod}{A.}{A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{27a347aacd7d24568bb5f09ba4fcd222}
+      \strng{fullhash}{27a347aacd7d24568bb5f09ba4fcd222}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0284-186X}
+      \field{journaltitle}{Acta Oncologica}
+      \field{month}{01}
+      \field{number}{1}
+      \field{title}{{Calculation and Application of Point Spread Functions for Treatment Planning with High Energy Photon Beams}}
+      \field{volume}{26}
+      \field{year}{1987}
+      \field{pages}{49\bibrangedash 56}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.3109/02841868709092978
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Ahnesjo{\_}1987 - Calculation and application of point spread functions for treatment planning with high energy photon beams.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://www.tandfonline.com/doi/full/10.3109/02841868709092978
+      \endverb
+      \keyw{accurate dose planning is,comput-,dosimetry,high energy pho-,in radiation therapy,mental importance,of funda-,point spread functions,the increased availability of,tons,treatment planning}
     \endentry
   \endsortlist
 \endrefsection

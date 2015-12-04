@@ -16,17 +16,20 @@
 \usepackage{color}
 \usepackage{comment}
 \usepackage{ulem}\normalem
+\usepackage{textcomp}
 
 \usepackage{csquotes}
-\usepackage[style=ieee, backend=biber]{biblatex}
+\usepackage[style=ieee, backend=biber, citestyle=numeric-comp]{biblatex}
 \addbibresource{./bibliografia/Th.bib}
 
 \hyphenation{MATLAB}
 \hyphenation{RayStation}
 \hyphenation{IMRT}
 \hyphenation{VMAT}
-\newcommand{\virg}[1]{\textquotedblleft \textbf{\emph{#1}}\textquotedblright{}}
+\newcommand{\virg}[1]{\textquotedblleft \emph{#1}\textquotedblright{}}
+\newcommand{\virgbf}[1]{\textquotedblleft \textbf{\emph{#1}}\textquotedblright{}}
 \newcommand{\de}{\,\text{d}}
+\newcommand{\RS}{RayStation\textsuperscript{\textcopyright}}
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}  %Per avere le subsubsection numerate
 
