@@ -12,22 +12,30 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.2}Generalit\IeC {\`a} sugli algoritmi di calcolo della dose al paziente per fasci di fotoni}{3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.3}I principi di \textit {convolution/superposition}}{4}
+\contentsline {subsection}{\numberline {1.2.1}I principi di \textit {convolution} e \textit {superposition}}{4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Lo Scanner NMR di Superficie}{5}
+\contentsline {section}{\numberline {1.3}Teoria degli algoritmi \textit {convolution}/\textit {superposition}}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Conclusioni}{5}
+\contentsline {section}{\numberline {1.4}Il calcolo della dose in RayStation}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Test ed Ottimizzazione dello Scanner NMR}{7}
+\contentsline {subsection}{\numberline {1.4.1}Il calcolo della fluenza di energia}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Conclusioni}{7}
+\contentsline {subsection}{\numberline {1.4.2}Il calcolo del TERMA}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Misure NMR}{9}
+\contentsline {chapter}{\numberline {2}Lo Scanner NMR di Superficie}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Conclusioni}{9}
+\contentsline {section}{\numberline {2.1}Conclusioni}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusioni e Sviluppi Futuri}{11}
+\contentsline {chapter}{\numberline {3}Test ed Ottimizzazione dello Scanner NMR}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {starchapter}{Conclusioni}{13}
+\contentsline {section}{\numberline {3.1}Conclusioni}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliografia}{17}
+\contentsline {chapter}{\numberline {4}Misure NMR}{13}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Conclusioni}{13}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclusioni e Sviluppi Futuri}{15}
+\defcounter {refsection}{0}\relax 
+\contentsline {starchapter}{Conclusioni}{17}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliografia}{21}

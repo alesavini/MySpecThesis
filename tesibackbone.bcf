@@ -2222,6 +2222,10 @@
     <bcf:citekey order="4">Boyer1998</bcf:citekey>
     <bcf:citekey order="4">Mackie1985</bcf:citekey>
     <bcf:citekey order="4">Ahnesjo1987</bcf:citekey>
+    <bcf:citekey order="5">Ahnesjo1987</bcf:citekey>
+    <bcf:citekey order="6">Chaney1994</bcf:citekey>
+    <bcf:citekey order="7">Ahnesjo1999</bcf:citekey>
+    <bcf:citekey order="8">RaySearchLaboratories2014</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="none" type="entry" sortscheme="none">
   <bcf:sorting>

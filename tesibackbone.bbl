@@ -115,9 +115,6 @@
       \verb{file}
       \verb :C$\backslash$:/Th/docs/Arts/Ahnesjo{\_}1989 - Collapsed cone convolution of radiant energy for photon dose calculation in heterogeneous media.pdf:pdf
       \endverb
-      \verb{url}
-      \verb http://scitation.aip.org/content/aapm/journal/medphys/16/4/10.1118/1.596360
-      \endverb
     \endentry
     \entry{Boyer1998}{article}{}
       \name{author}{2}{}{%
@@ -171,9 +168,6 @@
       \verb{file}
       \verb :C$\backslash$:/Th/docs/Arts/Mackie{\_}1985 - A convolution method of calculating dose for 15 MV x-rays.pdf:pdf
       \endverb
-      \verb{url}
-      \verb http://scitation.aip.org/content/aapm/journal/medphys/12/2/10.1118/1.595774
-      \endverb
     \endentry
     \entry{Ahnesjo1987}{article}{}
       \name{author}{3}{}{%
@@ -202,10 +196,71 @@
       \verb{file}
       \verb :C$\backslash$:/Th/docs/Arts/Ahnesjo{\_}1987 - Calculation and application of point spread functions for treatment planning with high energy photon beams.pdf:pdf
       \endverb
-      \verb{url}
-      \verb http://www.tandfonline.com/doi/full/10.3109/02841868709092978
-      \endverb
       \keyw{accurate dose planning is,comput-,dosimetry,high energy pho-,in radiation therapy,mental importance,of funda-,point spread functions,the increased availability of,tons,treatment planning}
+    \endentry
+    \entry{Chaney1994}{article}{}
+      \name{author}{3}{}{%
+        {{hash=a911588c8efc1a2c85eeaf46eb604075}{Chaney}{C\bibinitperiod}{E\bibnamedelima L}{E\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=03ffd182784b26862d67ea23965711ae}{Cullip}{C\bibinitperiod}{T\bibnamedelima J}{T\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=fd5c797e2216026968164d05c78b2fb2}{Gabriel}{G\bibinitperiod}{T\bibnamedelima a}{T\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{e55f843a662db445d53f40174d09a5a3}
+      \strng{fullhash}{e55f843a662db445d53f40174d09a5a3}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The production of off-focus x rays in the head of a 6 MV linac has been investigated using the EGS4 Monte Carlo code. The purpose of the study was to identify the sources of off-focus radiation and the relative contribution for each source. Even though a particular energy and linac were modeled, the broad conclusions are expected to be general since the effects of head scatter are similar for most conventional head designs, regardless of manufacturer, energy, and model. The head components that were modeled include the exit window of the accelerating structure, target, beam stopper, flattening filter, monitor chamber, primary and secondary collimators, and air. Monoenergetic 6 MeV electrons were followed through the exit window, target, and beam stopper until all energy was expended. Primary- and higher-order x rays produced throughout the head were followed until they were either absorbed or passed through a plane at the isocenter. Sites of off-focus radiation were found to be diffusely distributed throughout the head, with the most intense sources being the primary collimator, flattening filter, and beam stopper. Data analysis shows that the collimator effect is determined primarily by the volume of the extended head-scatter source that is exposed to the point of measurement through the collimating system. The results of this study provide a rationale for developing extended source models to calculate the collimator factor for fields defined by arbitrary collimation. An additional advantage is an improvement in the agreement between measured and calculated isodose distributions.}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical physics}
+      \field{number}{9}
+      \field{title}{{A Monte Carlo study of accelerator head scatter.}}
+      \field{volume}{21}
+      \field{year}{1994}
+      \field{pages}{1383\bibrangedash 1390}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1118/1.597194
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Chaney{\_}1994 - A Montecarlo study of accelrator head scatter.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Ahnesjo1999}{article}{}
+      \name{author}{4}{}{%
+        {{hash=be1bd42eb2805b41a2c16ff79ecc0e03}{Ahnesjö}{A\bibinitperiod}{Anders}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=5ea213b8a1cca70722994cef13a9acb3}{Aspradakis}{A\bibinitperiod}{Maria\bibnamedelima Mania}{M\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=1182c4a107405ddbda8c44535b19c112}{Ahnesj}{A\bibinitperiod}{Anders}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=5ea213b8a1cca70722994cef13a9acb3}{Aspradakis}{A\bibinitperiod}{Maria\bibnamedelima Mania}{M\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{37298974b05f965ef543794b4b11b6d6}
+      \strng{fullhash}{37298974b05f965ef543794b4b11b6d6}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Med. Biol.}
+      \field{title}{{Dose calculations for external photon beams in radiotherapy Dose calculations for external photon beams in radiotherapy}}
+      \field{volume}{44}
+      \field{year}{1999}
+      \field{pages}{99\bibrangedash 155}
+      \range{pages}{57}
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Ahnesjo{\_}Aspr{\_}1999 - Dose calculations for external photon beams in radiotherapy.pdf:pdf
+      \endverb
+    \endentry
+    \entry{RaySearchLaboratories2014}{book}{}
+      \name{author}{1}{}{%
+        {{hash=bc7c635c01e289ff7842fe3d64cb8e2b}{{RaySearch\bibnamedelimb Laboratories}}{R\bibinitperiod}{}{}{}{}{}{}}%
+      }
+      \strng{namehash}{bc7c635c01e289ff7842fe3d64cb8e2b}
+      \strng{fullhash}{bc7c635c01e289ff7842fe3d64cb8e2b}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{RSL-D-61-218-REF-EN-2.0-2014-07-01 RayStation 4.5 Reference Manual.}}
+      \field{year}{2014}
     \endentry
   \endsortlist
 \endrefsection

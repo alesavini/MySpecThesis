@@ -2,7 +2,7 @@
 \setcounter{minitocdepth}{1}
 \minitoc
 \setcounter{minitocdepth}{2}
-\textsf{In questo capitolo verrà descritto l'algoritmo di calcolo dosimetrico collapsed-cone-convolution e la sua implementazione all'interno del treatment planning system (TPS) \RS. Ci si soffermerà in particolare sugli aspetti riguardanti le approssimazioni intrinseche dell'algoritmo assieme alle approssimazioni adottate in fase di implementazione nel TPS. Ciò è propedeutico alla comprensione dei limiti e delle precisioni raggiungibili durante la modellizzazione di un fascio clinico per trattamenti radioterapici che verrà discusso nei capitoli successivi.}
+%\textsf{In questo capitolo verrà descritto l'algoritmo di calcolo dosimetrico collapsed-cone-convolution e la sua %implementazione all'interno del treatment planning system (TPS) \RS. Ci si soffermerà in particolare sugli aspetti %riguardanti le approssimazioni intrinseche dell'algoritmo assieme alle approssimazioni adottate in fase di %implementazione nel TPS. Ciò è propedeutico alla comprensione dei limiti e delle precisioni raggiungibili durante %la modellizzazione di un fascio clinico per trattamenti radioterapici che verrà discusso nei capitoli successivi.}
 
 \section{Introduzione}
 Sin dagli albori della radioterapia la \textit{dose assorbita} è quella quantità che viene utilizzata al pari della dose farmacologica per ottenere un determinato effetto terapeutico. Più precisamente la definizione formale è fornita nel report ICRU n.85 \cite{ICRU85} come rapporto tra l'energia media $\de \bar{\varepsilon}$ impartita da radiazioni ionizzanti ad una massa $\de m$:
@@ -33,7 +33,7 @@ La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni ch
 \begin{enumerate}
 \item La dose primaria che rappresenta generalmente fino al 70\% della dose totale. Questa dose è generata dalla parte di fascio fotonico che non ha subito trasformazioni nella testata e che mette in moto particelle cariche le quali direttamente rilasciano la loro energia cinetica nella materia.
 \item La dose di scatter dovuta al paziente (\textit{phantom scatter dose}) che può rappresentare fino al 30\% della dose totale. Questa componente è dovuta a tutti i processi di scatter che si innescano nel paziente a partire dal fascio primario come ad esempio fotoni di bremsstrahlung o fotoni scatterati per effetto Compton che portano ad una ionizzazione della materia con lo stesso meccanismo del fascio primario (messa in moto di elettroni).
-\item La dose di scatter dovuta alla testata (\textit{head scatter dose}) che rappresenta generalmente il 5-10\% della dose totale. Questa parte della dose è dovuta al componente di fascio fotonico incidente sul paziente che ha subito interazioni nella testata (prevalentemente nel processo di filtraggio) e che presenta una distribuzione spaziale ed energetica differente dal fascio primario. Il meccanismo di rilascio dell'energia è esattamente analogo a quello del fascio primario.
+\item La dose di scatter dovuta alla testata (\textit{head scatter dose}) che rappresenta generalmente il 5-10\% della dose totale. Questa parte della dose è dovuta alla componente di fascio fotonico incidente sul paziente che ha subito interazioni nella testata (prevalentemente nel \textit{flattening-filter}\footnote{Il \textit{flattening-filter} è un dispositivo di forma piramidale che serve ad attenuare il fascio al centro in modo da realizzare una fluenza di fotoni uniforme lungo la direzione perpendicolare al fascio.}) e che presenta una distribuzione spaziale ed energetica differente dal fascio primario. Il meccanismo di rilascio dell'energia è esattamente analogo a quello del fascio primario.
 \item La dose dovuta alle particelle di contaminazione del fascio fotonico che hanno un effetto rilevante (comparabile con il fascio primario) soltanto nei primi centimetri di tessuto. Questa zona è conosciuta come \textit{regione di build-up} della dose e vedremo in seguito il motivo.
 \end{enumerate}
 
@@ -55,17 +55,101 @@ In questo caso il set di misure iniziali è unicamente utilizzato per ottimizzar
 
 Il TPS RayStation in particolare implementa una tecnica di tipo convolution/superposition conosciuta come \textit{collapsed cone convolution} sviluppata a partire dalla metà dagli anni '80 indipendentemente da Mackie e Ahnesj{\"{o} \cite{Ahnesjo1989, Boyer1998, Mackie1985, Ahnesjo1987}.
 
-\section{I principi di \textit{convolution} e \textit{superposition}}
-continua qui con la presentazione di Gunter dell'Estro
+\subsection{I principi di \textit{convolution} e \textit{superposition}}
+I principi di sovrapposizione e di convoluzione sono concetti matematici largamente utilizzati in fisica. In termini matematici l'operazione di sovrapposizione consiste nella somma di una serie di funzioni ognuna con un proprio peso.\\
+Nel caso continuo il principio di sovrapposizione può essere espresso con un integrale di volume tra una funzione primaria $p$ ed una funzione kernel $s$:
+\begin{equation}
+D(x,y,z) = \int_V p(x',y',z')\, s(x,x',y,y',z,z')\de x' \de y' \de z'
+\end{equation}
+Un particolare caso del principio di sovrapposizione è rappresentato dalla convoluzione che si realizza quando la funzione kernel è spazialmente invariante, ovvero dipende solo dalla differenza tra la coordinata $(x,y,z)$ e la variabile di integrazione $(x',y',z')$:
+\begin{equation}
+D(x,y,z) = \int_V p(x',y',z')\, s(x-x',y-y',z-z')\de x' \de y' \de z'
+\end{equation}
 
 
 
+\section{Teoria degli algoritmi \textit{convolution}/\textit{superposition}}
+\label{sec:teoria_conv}
+
+Il problema del calcolo della dose in un punto all'interno di un volume è in generale un problema di sovrapposizione.
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{./cap1/superp1.png}
+\includegraphics[width=.45\textwidth]{./cap1/superp2.png}
+\caption{Il calcolo della dose visto come principio di sovrapposizione.}
+\label{fig:superp}
+\end{figure}
+In particolare, osservando la Fig.\ref{fig:superp}, considerando un fascio di fotoni che investe interamente il volume, si nota come la quantità di energia che viene rilasciata in un punto $P$ dipende da infiniti contributi dovuti alle particelle ionizzanti messe in moto dai fotoni nei loro rispettivi centri di interazione primari $P'$.\\
+Le interazioni primarie dei fotoni che avvengono nei punti $P'$ sono direttamente collegabili ad una quantità denominata TERMA (total-energy-released-in-matter) \cite{Ahnesjo1987}. Questa quantità è esprimibile come il prodotto tra la \textit{fluenza di energia primaria} (quantità di energia radiante incidente per unità di superficie [J m$^{-2}$]) e il coefficiente di assorbimento lineare massico specifico del mezzo $\mu/\rho$.
+
+Dalla conoscenza del TERMA ($T(x,y,z)$) e della funzione di scatter $s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)$ che esprime l'ammontare di energia depositata nel punto $P(x,y,z)$ dovuta all'interazione del punto $P'(x',y',z')$, la dose assorbita nel punto $P$ è quindi esprimibile con il principio di sovrapposizione:
+\begin{align}
+D(x,y,z) &=  \int_V \frac{\mu(x',y',z')}{\rho(x',y',z')} \Psi(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
+         &= \int_V T(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
+         &= \int_V T(P')\,s(P'\rightarrow P)\, \de V
+\end{align}
+
+Questa equazione è valida nel caso di un fascio di fotoni monoenergetico, tuttavia la generalizzazione è semplice introducendo il TERMA differenziale in energia $T(P',E)$ e la funzione di scatter polienergetica $s(P'\rightarrow P,E)$ ed integrando su tutte le energie coinvolte:
+\begin{equation}
+\boxed{D(P) = \iint_{E,V} T(P',E)\,s(P'\rightarrow P,E)\, \de V \de E}
+\label{eq:superp}
+\end{equation}
+Questa equazione rappresenta il principio di sovrapposizione (\textit{superposition}) applicato al calcolo della dose in un volume investito da un fascio di fotoni polienergetico.
+
+Un caso di particolare interesse è quello di un fascio di fotoni monoenergetico e parallelo che investe un mezzo omogeneo. In queste condizioni la funzione di scatter (o meglio \textit{energy deposition point kernel}) è spazialmente invariante per cui l'integrale di sovrapposizione diventa a tutti gli effetti un integrale di convoluzione.\\
+Storicamente il passaggio è stato proprio partire da questo caso più semplice per poi aggiungere le variabili come la divergenza del fascio, la caratteristica polienergetica e le disomogeneità del mezzo che ci riportano al problema più complesso (ma più accurato) della sovrapposizione. Per questo motivo gli algoritmi basati su questa teoria sono denominati algoritmi di \textit{convolution/superposition}.
 
 
 
+\section{Il calcolo della dose in RayStation}
+Il calcolo della dose nel TPS RayStation fa uso del formalismo illustrato nelle sezioni precedenti e procede in quattro principali passaggi:
+\begin{enumerate}
+\item Il calcolo della fluenza di energia.
+\item Il calcolo del TERMA.
+\item L'applicazione delle opportune funzioni di scatter e del principio di sovrapposizione per il calcolo della dose finale.
+\item La somma del contributo dovuto alle particelle di contaminazione (elettroni).
+\end{enumerate}
 
+\subsection{Il calcolo della fluenza di energia}
+\label{sec:fluence}
+Questo primo step, consiste in un calcolo geometrico che non tiene conto della presenza del paziente. Si è già notato nella sezione introduttiva (Fig.\ref{fig:processes}) come il fascio in ingresso in un paziente sia costituito da una parte primaria e da una parte che ha interagito con il flattening-filter. RayStation tratta queste due componenti con un modello a due sorgenti poste ad una certa distanza lungo la direzione di propagazione del fascio (Fig.\ref{fig:twosources}).
+\begin{figure}
+\centering
+\includegraphics[width=.49\textwidth]{./cap1/twosources.png}
+\includegraphics[width=.49\textwidth]{./cap1/source_int.png}
+\caption{ (a) Modello a due sorgenti utilizzato per il calcolo della fluenza di energia. (b) Processo di integrazione della parte visibile della sorgente per il calcolo della fluenza.}
+\label{fig:twosources}
+\end{figure}
+La sorgente primaria è modellizzata con un profilo gaussiano ellittico esteso dell'ordine dei mm mentre la sorgente di scatter del flattening-filter è gaussiana circolare estesa dell'ordine dei cm \cite{Chaney1994}.\\
+Il calcolo della fluenza viene effettuato su un piano passante per il centro di simmetria rotazionale del LINAC denominato \textit{isocentro} e perpendicolare alla direzione del fascio (Fig.\ref{fig:twosources}a).
+Le sorgenti vengono geometricamente proiettate attraverso i collimatori indicati in Fig.\ref{fig:linac} costituiti da blocchi di materiale schermante (\textit{jaws}) e da un dispositivo fatto di lamelle retraibili (\textit{multi-leaf-collimator}) che serve generare conformazioni irregolari del fascio.\\
+Matematicamente l'operazione di calcolo della fluenza consiste in un'integrazione pixel per pixel della parte di sorgente \textquotedblleft visibile\textquotedblright{} attraverso i collimatori (Fig.\ref{fig:twosources}b) con un metodo di backprojection.\\
+La mappa di fluenza così ottenuta viene corretta per includere alcuni fenomeni come la trasmissione dei collimatori, trasmissione della punta e del bordo delle lamelle (\textit{leaf tip e tongue}\&\textit{groove}), peso relativo delle sorgenti ed altre che verrano discusse in seguito.
 
+In parallelo viene computata la mappa di fluenza per le sorgenti di elettroni di contaminazione. Queste ultime sono gaussiane circolari e poste alla stessa posizione delle sorgenti di fotoni. Esse sono divise in primaria e di scatter del flattening filter la cui intensità è espressa in percentuale rispetto alla fluenza dei fotoni.
 
+\subsection{Il calcolo del TERMA}
+Il TERMA costituisce la prima parte dell'integrale per il calcolo della dose assorbita. Esso rappresenta in pratica l'assorbimento della fluenza di energia che attraversa il paziente. A partire da questo assorbimento verranno poi applicate le funzioni di scatter per generare la vera distribuzione di dose.\\
+Il TERMA differenziale in energia è stato definito nella Sez.\ref{sec:teoria_conv} in accordo con \cite{Ahnesjo1999}:
+\begin{equation}
+\label{eq:termaE}
+T(\vec{r},E) = \frac{\mu}{\rho}(\vec{r},E)\,\Psi(\vec{r},E)
+\end{equation}
+
+Il paziente è modellizzato all'interno del TPS tramite uno studio di tomografia computerizzata che contiene una mappa di densità dei tessuti. Questo permette di conoscere il primo termine dell'Eq.\eqref{eq:termaE} \cite{RaySearchLaboratories2014}.\\
+Il secondo termine è la fluenza di energia calcolata nello step precedente. Per il calcolo del TERMA, detta fluenza viene proiettata verso la sorgente primaria fino a coincidere con la superficie del paziente ($\Psi_0(E)$) e poi viene riproiettata verso il basso tenendo conto dell'assorbimento nei tessuti (esponenziale con il coefficiente di assorbimento):
+\begin{equation}
+\Psi(\vec{r},E) = \Psi_0(E)\,\exp{\left( -\int_{\vec{r}_0}^{\vec{r}} \mu(\vec{r},E) \de l \right)}
+\end{equation}
+L'integrale del coefficiente di assorbimento viene discretizzato nel TPS su una griglia di voxel cubici che contengono un sampling delle densità fornite dalla CT (vedi Fig.\ref{fig:terma}). A questo punto, moltiplicando entrambi i termini dell'equazione \eqref{eq:termaE} si ottiene la distribuzione di TERMA.
+
+\begin{figure}
+\centering
+\includegraphics[width=.4\textwidth]{./cap1/terma_1.png}
+\includegraphics[width=.5\textwidth]{./cap1/terma_2.png}
+\caption{Sinistra: griglia per il calcolo del TERMA e della dose. Da notare che per motivi di velocità la divergenza del fascio viene approssimata come proveniente unicamente dalla sorgente primaria e non dal sorgente del flattening filter. Destra: distribuzione del TERMA computato su una CT.}
+\label{fig:terma}
+\end{figure}
 
 
 

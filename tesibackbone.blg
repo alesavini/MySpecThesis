@@ -1,18 +1,18 @@
 [0] Config.pm:327> INFO - This is Biber 2.2
-[1] Config.pm:330> INFO - Logfile is 'tesibackbone.blg'
-[47] biber-MSWIN:283> INFO - === 
-[47] Biber.pm:334> INFO - Reading 'tesibackbone.bcf'
-[179] Biber.pm:677> INFO - Found 7 citekeys in bib section 0
-[209] Biber.pm:3054> INFO - Processing section 0
-[235] Biber.pm:3193> INFO - Looking for bibtex format file './bibliografia/Th.bib' for section 0
-[240] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
-[245] bibtex.pm:935> INFO - Found BibTeX data source './bibliografia/Th.bib'
-[284] Utils.pm:147> WARN - ISBN 'doi:10.1118/1.595772' in entry 'Boyer1998' is invalid - run biber with '--validate_datamodel' for details.
-[300] Utils.pm:147> WARN - BibTeX subsystem: C:\Users\ALESSA~1\AppData\Local\Temp\dkeFPZXdQG\Th.bib_5628.utf8, line 6, warning: 172 characters of junk seen at toplevel
-[388] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[388] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[388] Biber.pm:2931> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'it-IT'
-[388] Biber.pm:2935> INFO - No sort tailoring available for locale 'it-IT'
-[397] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
-[399] bbl.pm:596> INFO - Output to tesibackbone.bbl
-[403] Biber.pm:107> INFO - WARNINGS: 2
+[0] Config.pm:330> INFO - Logfile is 'tesibackbone.blg'
+[46] biber-MSWIN:283> INFO - === 
+[46] Biber.pm:334> INFO - Reading 'tesibackbone.bcf'
+[169] Biber.pm:677> INFO - Found 10 citekeys in bib section 0
+[194] Biber.pm:3054> INFO - Processing section 0
+[221] Biber.pm:3193> INFO - Looking for bibtex format file './bibliografia/Th.bib' for section 0
+[228] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[236] bibtex.pm:935> INFO - Found BibTeX data source './bibliografia/Th.bib'
+[271] Utils.pm:147> WARN - ISBN 'doi:10.1118/1.595772' in entry 'Boyer1998' is invalid - run biber with '--validate_datamodel' for details.
+[280] Utils.pm:147> WARN - BibTeX subsystem: C:\Users\ALESSA~1\AppData\Local\Temp\iqimvgLK22\Th.bib_6284.utf8, line 6, warning: 172 characters of junk seen at toplevel
+[410] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[410] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[410] Biber.pm:2931> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'it-IT'
+[411] Biber.pm:2935> INFO - No sort tailoring available for locale 'it-IT'
+[424] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
+[426] bbl.pm:596> INFO - Output to tesibackbone.bbl
+[430] Biber.pm:107> INFO - WARNINGS: 2
