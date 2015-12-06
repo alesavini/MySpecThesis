@@ -262,6 +262,181 @@
       \field{title}{{RSL-D-61-218-REF-EN-2.0-2014-07-01 RayStation 4.5 Reference Manual.}}
       \field{year}{2014}
     \endentry
+    \entry{Reckwerdt1992}{article}{}
+      \name{author}{2}{}{%
+        {{hash=54ddd79c559d3179c6f19ed32704e741}{Reckwerdt}{R\bibinitperiod}{P.}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=491d2c72b87bdaca180c21608d564492}{Mackie}{M\bibinitperiod}{T.\bibnamedelimi R.}{T\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{4f55156c2fbcf78e160123749a85e315}
+      \strng{fullhash}{4f55156c2fbcf78e160123749a85e315}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{(Abstr.) Med. Phys.}
+      \field{title}{{Superposition/convolution speed improvements using run-length raytracing}}
+      \field{volume}{15}
+      \field{year}{1992}
+      \field{pages}{784}
+      \range{pages}{1}
+    \endentry
+    \entry{Boyer1989}{article}{}
+      \name{author}{1}{}{%
+        {{hash=7794cff085dc0434ea14a38b231af13c}{Boyer}{B\bibinitperiod}{Arthur\bibnamedelima L.}{A\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{7794cff085dc0434ea14a38b231af13c}
+      \strng{fullhash}{7794cff085dc0434ea14a38b231af13c}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical Physics}
+      \field{number}{2}
+      \field{title}{{Fast Fourier transform convolution calculations of x-ray isodose distributions in homogeneous media}}
+      \field{volume}{16}
+      \field{year}{1989}
+      \field{pages}{248}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1118/1.596375
+      \endverb
+      \verb{url}
+      \verb http://scitation.aip.org/content/aapm/journal/medphys/16/2/10.1118/1.596375
+      \endverb
+    \endentry
+    \entry{Zhu1995}{article}{}
+      \name{author}{1}{}{%
+        {{hash=8b1a3cbb84505f7836320908cce3e3ba}{Zhu}{Z\bibinitperiod}{Yunping}{Y\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{8b1a3cbb84505f7836320908cce3e3ba}
+      \strng{fullhash}{8b1a3cbb84505f7836320908cce3e3ba}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical Physics}
+      \field{number}{4}
+      \field{title}{{Accuracy requirements of the primary x-ray spectrum in dose calculations using FFT convolution techniques}}
+      \field{volume}{22}
+      \field{year}{1995}
+      \field{pages}{421}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1118/1.597467
+      \endverb
+      \verb{url}
+      \verb http://scitation.aip.org/content/aapm/journal/medphys/22/4/10.1118/1.597467
+      \endverb
+    \endentry
+    \entry{Papanikolaou1993}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d8d01b02fa339bd6c502e67cbcd9c9d8}{Papanikolaou}{P\bibinitperiod}{Nikos}{N\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{d8d01b02fa339bd6c502e67cbcd9c9d8}
+      \strng{fullhash}{d8d01b02fa339bd6c502e67cbcd9c9d8}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical Physics}
+      \field{number}{5}
+      \field{title}{{Investigation of the convolution method for polyenergetic spectra}}
+      \field{volume}{20}
+      \field{year}{1993}
+      \field{pages}{1327}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1118/1.597154
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Papanikolaou{\_}1993 - Investigation of the convolution method for polyenergetic spectra.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Woo1990}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=864d94181ce64e0c5209d18c9372f1ef}{Woo}{W\bibinitperiod}{M.K.}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=4f6bb8f0ae874a456416778b1f206402}{Cunningham}{C\bibinitperiod}{J.R.}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{5f92ad3ee634d64b6310b4a17389a224}
+      \strng{fullhash}{5f92ad3ee634d64b6310b4a17389a224}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Medical physics}
+      \field{number}{2}
+      \field{title}{{The validity of the density scaling method in primary electron transport for photon and electron beams}}
+      \field{volume}{17}
+      \field{year}{1990}
+      \field{pages}{187\bibrangedash 192}
+      \range{pages}{6}
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Woo{\_}1989 - The validity of the density scaling method in primary electron transport for photon and electron beams.pdf:pdf
+      \endverb
+    \endentry
+    \entry{OConnor1957}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d06a79e109e49979644c40b30a2debbb}{O'Connor}{O\bibinitperiod}{J\bibnamedelima E}{J\bibinitperiod\bibinitdelim E\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{d06a79e109e49979644c40b30a2debbb}
+      \strng{fullhash}{d06a79e109e49979644c40b30a2debbb}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{It is shown that, provided the effective atomic number remains constant, there is a general relationship between the variation of scatter with density and the variation with geometry of the system. A simplified analysis of the scatter contribution in water equivalent bodies is presented. This analysis leads to the definition of relative scatter absorption factors and the values of these factors in water equivalent materials are found by experiment for radiation with a half-value layer of 15 mm Cu. By the application of the general relationship between density of the body and geometry of the system values of the relative scatter absorption factors in bodies of other than unit density are deduced. These values may be employed in the calculation of the scatter dose delivered to points which lie in an inhomogeneous body. The practical importance of the results obtained is discussed with particular reference to the use of Transit Dose techniques.}
+      \field{issn}{00319155}
+      \field{journaltitle}{Physics in medicine and biology}
+      \field{number}{4}
+      \field{title}{{The variation of scattered x-rays with density in an irradiated body.}}
+      \field{volume}{1}
+      \field{year}{1957}
+      \field{pages}{352\bibrangedash 369}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1088/0031-9155/1/4/305
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/O'Connor{\_}1957 - The Variation of Scattered X-Rays with Density in an Irradiated Body.pdf:pdf
+      \endverb
+      \keyw{ROENTGEN RAYS}
+    \endentry
+    \entry{Arnfield2000}{article}{}
+      \name{author}{6}{}{%
+        {{hash=fbdb281b79552651f9c01552f627e95f}{Arnfield}{A\bibinitperiod}{M\bibnamedelima R}{M\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+        {{hash=5092dbd3f16330451056bb68a692f4ab}{Siantar}{S\bibinitperiod}{C\bibnamedelima H}{C\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+        {{hash=9af0d179c9a1da5d618700670ae1f0ac}{Siebers}{S\bibinitperiod}{J}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=76664ba88fb17e0442865e3aeb6fc125}{Garmon}{G\bibinitperiod}{P}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=32aaab85cb0975f998e36011c0a6bad2}{Cox}{C\bibinitperiod}{L}{L\bibinitperiod}{}{}{}{}}%
+        {{hash=2fe93205a3ecb5735cecd0e57b49a198}{Mohan}{M\bibinitperiod}{R}{R\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{1f2f71aab1f91852b3081611ebf6669e}
+      \strng{fullhash}{1f2f71aab1f91852b3081611ebf6669e}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The aim of this work was to investigate the accuracy of dose predicted by a Batho power law correction, and two models which account for electron range: A superposition/convolution algorithm and a Monte Carlo algorithm. The results of these models were compared in phantoms with cavities and low-density inhomogeneities. An idealized geometry was considered with inhomogeneities represented by regions of air and lung equivalent material. Measurements were performed with a parallel plate ionization chamber, thin TLDs (thermoluminescent dosimeters) and film. Dose calculations were done with a generalized Batho model, the Pinnacle collapsed cone convolution model (CCC), and the Peregrine Monte Carlo dose calculation algorithm. Absolute central axis and off axis dose data at various depths relative to interfaces of inhomogeneities were compared. Our results confirm that for a Batho correction, dose errors in the calculated depth dose arise from the neglect of electron transport. This effect increases as the field size decreases, as the density of the inhomogeneity decreases, and with the energy of incident photons. The CCC calculations were closer to measurements than the Batho model, but significant discrepancies remain. Monte Carlo results agree with measurements within the measurement and computational uncertainties.}
+      \field{isbn}{0094-2405 (Print)$\backslash$r0094-2405 (Linking)}
+      \field{issn}{00942405}
+      \field{journaltitle}{Medical physics}
+      \field{number}{6}
+      \field{title}{{The impact of electron transport on the accuracy of computed dose.}}
+      \field{volume}{27}
+      \field{year}{2000}
+      \field{pages}{1266\bibrangedash 1274}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1118/1.599004
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Arnfield{\_}2000 - The impact of electron transport on the accuracy of computed dose.pdf:pdf
+      \endverb
+      \keyw{dose calculation,dosimetry,inhomogeneity,monte carlo}
+    \endentry
   \endsortlist
 \endrefsection
 \endinput
