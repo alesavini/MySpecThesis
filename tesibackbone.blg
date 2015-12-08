@@ -1,19 +1,19 @@
 [0] Config.pm:327> INFO - This is Biber 2.2
 [0] Config.pm:330> INFO - Logfile is 'tesibackbone.blg'
 [42] biber-MSWIN:283> INFO - === 
-[42] Biber.pm:334> INFO - Reading 'tesibackbone.bcf'
-[162] Biber.pm:677> INFO - Found 19 citekeys in bib section 0
-[188] Biber.pm:3054> INFO - Processing section 0
-[216] Biber.pm:3193> INFO - Looking for bibtex format file './bibliografia/Th.bib' for section 0
-[225] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
-[233] bibtex.pm:935> INFO - Found BibTeX data source './bibliografia/Th.bib'
-[271] Utils.pm:147> WARN - ISBN 'doi:10.1118/1.595772' in entry 'Boyer1998' is invalid - run biber with '--validate_datamodel' for details.
-[292] Utils.pm:147> WARN - ISBN '0094-2405 (Print)$\backslash$r0094-2405 (Linking)' in entry 'Arnfield2000' is invalid - run biber with '--validate_datamodel' for details.
-[297] Utils.pm:147> WARN - BibTeX subsystem: C:\Users\ALESSA~1\AppData\Local\Temp\x2RHs5_eRV\Th.bib_6900.utf8, line 6, warning: 172 characters of junk seen at toplevel
-[528] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[528] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[529] Biber.pm:2931> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'it-IT'
-[529] Biber.pm:2935> INFO - No sort tailoring available for locale 'it-IT'
-[556] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
-[561] bbl.pm:596> INFO - Output to tesibackbone.bbl
-[564] Biber.pm:107> INFO - WARNINGS: 3
+[43] Biber.pm:334> INFO - Reading 'tesibackbone.bcf'
+[172] Biber.pm:677> INFO - Found 19 citekeys in bib section 0
+[208] Biber.pm:3054> INFO - Processing section 0
+[236] Biber.pm:3193> INFO - Looking for bibtex format file './bibliografia/Th.bib' for section 0
+[247] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[256] bibtex.pm:935> INFO - Found BibTeX data source './bibliografia/Th.bib'
+[294] Utils.pm:147> WARN - ISBN 'doi:10.1118/1.595772' in entry 'Boyer1998' is invalid - run biber with '--validate_datamodel' for details.
+[316] Utils.pm:147> WARN - ISBN '0094-2405 (Print)$\backslash$r0094-2405 (Linking)' in entry 'Arnfield2000' is invalid - run biber with '--validate_datamodel' for details.
+[322] Utils.pm:147> WARN - BibTeX subsystem: C:\Users\ALESSA~1\AppData\Local\Temp\IcJR1crGAx\Th.bib_1040.utf8, line 6, warning: 172 characters of junk seen at toplevel
+[583] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[583] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[583] Biber.pm:2931> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'it-IT'
+[583] Biber.pm:2935> INFO - No sort tailoring available for locale 'it-IT'
+[607] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
+[610] bbl.pm:596> INFO - Output to tesibackbone.bbl
+[614] Biber.pm:107> INFO - WARNINGS: 3

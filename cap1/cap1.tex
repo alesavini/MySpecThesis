@@ -281,9 +281,31 @@ Sharpe e Papanikolaou \cite{Sharpe1997,Papanikolaou1993} hanno evidenziato come 
 
 
 \subsection{Approssimazioni \textit{full-TERMA-deposition} e \textit{adaptive interpolation}}
+Queste due approssimazioni sono volte ad evitare di applicare rigorosamente il metodo di collapsed-cone-superposition su ogni voxel della griglia di dose.\\
+A questo proposito, una prima approssimazione consiste nella \textit{full-TERMA-deposition} che può essere riassunta in quattro principali step:
+\begin{enumerate}
+\item Alla fine del calcolo della distribuzione di TERMA vengono identificati quei voxel in cui è stato depositato un TERMA minore dello 0.5\% del massimo TERMA rilasciato nel volume.
+\item A partire da questi voxel viene costruita una iso-superficie che viene poi espansa di una lunghezza radiologica di 5 cm isotropicamente.
+\item Al di fuori della superficie precedentemente calcolata non viene effettuato il trasporto del TERMA con l'algoritmo collapsed-cone bensì si assume un rilascio locale di tutta l'energia.
+\item All'interno del volume compreso tra la superficie TERMA$_i= 0.5\%$ TERMA$_{max}$ e la sua espansione di $5$ cm  il trasporto avviene solo su alcune delle 128 direzioni del kernel di deposizione. 
+\end{enumerate}
+Questa approssimazione è stata osservata generare un'errore sul calcolo della dose minore dello 0.2\% su punti peraltro a bassa rilevanza clinica \cite{RaySearchLaboratories2014}.\\
 
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{./cap1/dose_interp.png}
+\caption{L'approssimazione di \textit{adaptive interpolation}. I voxel in blu sono quelli calcolati con l'algoritmo collapsed-cone.}
+\label{fig:dose_interp}
+\end{figure}
 
-
+La seconda approssimazione di \textit{adaptive interpolation} si basa su un preliminare calcolo della dose a bassa risoluzione per identificare zone a basso od alto gradiente. Per le zone a basso gradiente la dose nei voxel rimanenti viene calcolata con la media dei voxel adiacenti; per le zone ad alto gradiente viene applicato l'algoritmo completo. In particolare gli step che vengono seguiti sono riassumibili nei seguenti punti:
+\begin{enumerate}
+\item Dopo il calcolo della distribuzione di TERMA si effettua un primo calcolo della dose ogni due voxel come illustrato nella Fig.\ref{fig:dose_interp}.
+\item Un voxel viene considerato appartenere ad una zona a basso gradiente se la massima differenza tra il TERMA nei voxel adiacenti è minore dello 0.2\% e la massima differenza in dose è minore del 5\% della dose massima.
+\item Per i voxel appartenenti alla zona a basso gradiente la dose viene calcolata mediando i voxel adiacenti che possono essere in numero di 2, 4 o 8 a seconda della posizione (vedi Fig.\ref{fig:dose_interp}).
+\item Per i voxel appartenenti alla zona ad alto gradiente viene applicato l'algoritmo completo.
+\end{enumerate}
+Per un semplice campo $10x10$ cm$^2$ ed energia 6 MV, la distribuzione di dose calcolata senza applicare la \textit{adaptive interpolation} si correla con la dose calcolata utilizzando l'approssimazione con un coefficiente maggiore di 0.99999. Gli errori più rilevanti si registrano vicino alla penombra del fascio dove rimangono comunque entro il 2\% \cite{RaySearchLaboratories2014}.
 
 
 \section{Dose aggiuntiva da elettroni di contaminazione}
