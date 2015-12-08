@@ -30,20 +30,26 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.4.6}La generalizzazione al caso disomogeneo}{13}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Lo Scanner NMR di Superficie}{15}
+\contentsline {section}{\numberline {1.5}Approssimazioni aggiuntive}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Conclusioni}{15}
+\contentsline {subsection}{\numberline {1.5.1}L'approssimazione \textit {no-kernel-tilting}}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Test ed Ottimizzazione dello Scanner NMR}{17}
+\contentsline {subsection}{\numberline {1.5.2}Approssimazioni \textit {full-TERMA-deposition} e \textit {adaptive interpolation}}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Conclusioni}{17}
+\contentsline {chapter}{\numberline {2}Lo Scanner NMR di Superficie}{19}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Misure NMR}{19}
+\contentsline {section}{\numberline {2.1}Conclusioni}{19}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Conclusioni}{19}
+\contentsline {chapter}{\numberline {3}Test ed Ottimizzazione dello Scanner NMR}{21}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusioni e Sviluppi Futuri}{21}
+\contentsline {section}{\numberline {3.1}Conclusioni}{21}
 \defcounter {refsection}{0}\relax 
-\contentsline {starchapter}{Conclusioni}{23}
+\contentsline {chapter}{\numberline {4}Misure NMR}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliografia}{27}
+\contentsline {section}{\numberline {4.1}Conclusioni}{23}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclusioni e Sviluppi Futuri}{25}
+\defcounter {refsection}{0}\relax 
+\contentsline {starchapter}{Conclusioni}{27}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliografia}{31}

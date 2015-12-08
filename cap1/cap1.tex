@@ -133,13 +133,15 @@ Il TERMA costituisce la prima parte dell'integrale per il calcolo della dose ass
 Il TERMA differenziale in energia è stato definito nella Sez.\ref{sec:teoria_conv} in accordo con \cite{Ahnesjo1999}:
 \begin{equation}
 \label{eq:termaE}
-T(\vec{r},E) = \frac{\mu}{\rho}(\vec{r},E)\,\Psi(\vec{r},E)
+T(\vec{r'},E) = \frac{\mu}{\rho}(\vec{r'},E)\,\Psi(\vec{r'},E)
 \end{equation}
+dove $\vec{r'}$ è la coordinata del punto di interazione primaria.
 
 Il paziente è modellizzato all'interno del TPS tramite uno studio di tomografia computerizzata che contiene una mappa di densità dei tessuti. Questo permette di conoscere il primo termine dell'Eq.\eqref{eq:termaE} \cite{RaySearchLaboratories2014}.\\
-Il secondo termine è la fluenza di energia calcolata nello step precedente. Per il calcolo del TERMA, detta fluenza viene proiettata verso la sorgente primaria fino a coincidere con la superficie del paziente ($\Psi_0(E)$) e poi viene riproiettata verso il basso tenendo conto dell'assorbimento nei tessuti (esponenziale con il coefficiente di assorbimento):
+Il secondo termine è la fluenza di energia calcolata nello step precedente. Per il calcolo del TERMA, detta fluenza viene proiettata verso la sorgente primaria fino a coincidere con la superficie del paziente ($\Psi(\vec{r_0},E)$) e poi viene riproiettata verso il basso tenendo conto dell'assorbimento nei tessuti (esponenziale con il coefficiente di assorbimento) e della divergenza del fascio (decadimento col quadrato della distanza):
 \begin{equation}
-\Psi(\vec{r},E) = \Psi_0(E)\,\exp{\left( -\int_{\vec{r}_0}^{\vec{r}} \mu(\vec{r},E) \de l \right)}
+\label{eq:fluence}
+\Psi(\vec{r'},E) = \frac{|\vec{r_0}|^2}{|\vec{r'}|^2}\Psi(\vec{r_0},E)\,\exp{\left( -\int_{\vec{r_0}}^{\vec{r'}} \mu(\vec{r'},E) \de l \right)}
 \end{equation}
 L'integrale del coefficiente di assorbimento viene discretizzato nel TPS su una griglia di voxel cubici che contengono un sampling delle densità fornite dalla CT da cui viene ricavato il coefficiente di assorbimento locale (vedi Fig.\ref{fig:terma}). A questo punto, moltiplicando entrambi i termini dell'equazione \eqref{eq:termaE} si ottiene la distribuzione di TERMA.
 
@@ -208,7 +210,7 @@ Stabilendo un angolo solido $\Omega_i$, l'operazione di \virg{collapsing} è un'
 \iint_{\Omega_i} s(r,\theta) r^2\de \Omega_i = A_{\Omega_i} e^{-a_{\Omega_i} r} + B_{\Omega_i} e^{-b_{\Omega_i} r} \equiv K(r,\Omega_i)
 \end{equation}
 La funzione $K(r,\Omega_i)$ è quella da convolvere con la mappa del TERMA per arrivare alla mappa di dose assorbita (vedi Fig.\ref{fig:dose_terma_homo}).\\
-Il metodo collapsed-cone è stato dimostrato \cite{Ahnesjo1999} comportare un numero di operazioni dell'ordine di $MN^3$ dove $M$ è il numero di settori in cui viene diviso l'angolo solido ($N$ è il numero di voxel della griglia di dose/TERMA). Questo è da confrontare con l'ordine $N^7$ in caso di applicazione triviale del metodo di sovrapposizione.
+Il metodo collapsed-cone è stato dimostrato \cite{Ahnesjo1999} comportare un numero di operazioni dell'ordine di $MN^3$ dove $M$ è il numero di settori in cui viene diviso l'angolo solido ed $N$ è il numero di voxel della griglia di dose/TERMA. Questo è da confrontare con l'ordine $N^7$ in caso di applicazione triviale del metodo di sovrapposizione.
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap1/dose_terma_homo.png}
@@ -232,17 +234,59 @@ Woo e Cunningham \cite{Woo1990} assieme a Mackie \cite{Mackie1985} hanno dimostr
 \centering
 \includegraphics[width=.4\textwidth]{./cap1/kern_dens.png}
 \includegraphics[width=.59\textwidth]{./cap1/kern_dens2.png}
-\caption{Sinistra:Contronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee e riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). Destra: effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
+\caption{Sinistra: Contronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). Destra: effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
 \label{fig:kern_dens}
 \end{figure}
-Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone. Nonostante l'accordo non sia perfetto, Woo e Cunnigham \cite{Woo1990} assieme ad Arnfield et al. \cite{Arnfield2000} e lo stesso Ahnesj\"{o} \cite{Ahnesjo1989} hanno dimostrato che su un insieme di interazioni interviene un effetto di \textit{averaging} di tutti i kernel vicini per cui discrepanze significative rimangono solo in condizioni si estrema disomogeneità, ossia vicino a delle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens})
+Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone. Nonostante l'accordo non sia perfetto, Woo e Cunnigham \cite{Woo1990} assieme ad Arnfield et al. \cite{Arnfield2000} e lo stesso Ahnesj\"{o} \cite{Ahnesjo1989} hanno dimostrato che su un insieme di interazioni interviene un effetto di \textit{averaging} di tutti i kernel vicini per cui discrepanze significative rimangono solo in condizioni si estrema disomogeneità, ossia vicino a delle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
+
+Aggiungendo  la generalizzazione al caso disomogeneo l'equazione di sovrapposizione \eqref{eq:superp} per il calcolo della dose può essere riscritta \cite{Khan2010}:
+\begin{equation}
+D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E
+\end{equation}
+dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose.
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap1/kern_trans.png}
+\caption{Sinistra: figura schematica del metodo con cui si costruisce il kernel polienergetico (combinazione di kernel monoenergetici pesati con la componente spettrale). Destra: figura schematica che rappresenta come il kernel si modifica quando viene riscalato tenendo conto delle lunghezze radiologiche attraversate nelle varie direzioni.}
+\label{fig:kern_trans}
+\end{figure}
+
+In Fig.\ref{fig:kern_trans} sono riportati due diagrammi schematici riguardo le generalizzazioni al caso polienergetico e disomogeneo.
 
 
-CONTINUA VEDENDO SE METTERE L'EQAUZIONE CON RHO (dal KHAN) e poi prosegui con un paragrafo riepilogativo dove parli della superposition finale.
+\section{Approssimazioni aggiuntive}
+Nella sezione precedente sono state mostrate le approssimazioni intrinseche dell'algoritmo \textit{collapsed-cone}. In questa sezione evidenziamo delle ulteriori approssimazioni adottate in RayStation orientate all'aumento di velocità del calcolo della dose.
 
-Poi metti una nuova sezione sulle approssimazioni di speeding up: kernel tilt e interpolazione adattiva.
+\subsection{L'approssimazione \textit{no-kernel-tilting}}
+Un fascio di fotoni generato da un LINAC è tipicamente divergente all'aumentare della distanza dalla sorgente. I kernel di deposizione dell'energia sono calcolati per un fascio che incide verticalmente ed hanno l'asse orientato nella medesima direzione. Un'applicazione rigorosa del metodo convolution/superposition richiederebbe la rotazione dei kernel per allinearli lungo l'angolo di incidenza del raggio primario (vedi Fig.\ref{fig:kern_tilt}).\\
+\begin{figure}
+\centering
+\includegraphics[width=.35\textwidth]{./cap1/kern_tilt.png}
+\includegraphics[width=.6\textwidth]{./cap1/kern_tilt_b.png}
+\caption{Sinistra: I kernel di deposizione dovrebbero essere ruotati dello stesso angolo di incidenza $\nu$ del raggio primario; tuttavia per ridurre considerevolmente i tempi di calcolo, si applicano kernel con orientazione verticale. Destra: il non ruotare i kernel comporta una deposizione di dose maggiore verso il centro del fascio (linea tratteggiata) confrontata con la dose calcolata senza approssimazione (linea solida); questo può essere corretto secondo \cite{Papanikolaou1993} (vedi testo).} 
+\label{fig:kern_tilt}
+\end{figure}
+Questa operazione implicherebbe molteplici operazioni di rotazione di matrici \cite{Sharpe1997} con il risultato di aumentare considerevolmente il tempo di calcolo della dose. Oltre a questo, un ulteriore grande vantaggio dell'approssimazione \textit{no-kernel-tilting} consiste nel fatto di poter calcolare solo una volta le intersezioni dei raggi uscenti dai kernel con la griglia di dose\footnote{Operazione nota come \textit{raytracing}.} e di riutilizzare i risultati per i voxel successivi. Per questo motivo vari autori hanno sviluppato dei metodi che consentissero di applicare kernel di deposizione non ruotati (\textit{no-kernel-tilting}) \cite{Sharpe1997,Papanikolaou1993}.
+
+In RayStation è implmentato il metodo suggerito da Papanikolaou et al. \cite{Papanikolaou1993}. L'idea di questo metodo sta nel considerare che, non ruotando i kernel, si ha un accumulo di dose maggiore verso il centro del fascio (Fig.\ref{fig:kern_tilt}).\\ 
+Papanikolaou ha dimostrato come questo può essere recuperato con i seguenti passaggi:
+\begin{enumerate}
+\item Si rimuove la divergenza dalla fluenza di energia (termine $|\vec{r_0}|^2/|\vec{r'}|^2$ nell'Eq.\ref{eq:fluence}).
+\item Si applicano i point spread kernel con l'approssimazione di \textit{no-tilting}.
+\item Si riapplica la divergenza riscalando la dose calcolata con il fattore $|\vec{r_0}|^2/|\vec{r}|^2$ dove $\vec{r}$ è la coordinata di calcolo della dose (diversa dalla coordinata di rilascio del TERMA $\vec{r'}$).
+\end{enumerate}
+L'effetto dell'operazione n.1 è quello di aumentare la fluenza di energia lontano dal centro del fascio. Applicando poi i punti 2 e 3 si arriva ad una distribuzione in cui la dose approssima quella calcolata considerando i kernel ruotati.\\
+Sharpe e Papanikolaou \cite{Sharpe1997,Papanikolaou1993} hanno evidenziato come l'approssimazione di \textit{no-tilting} dei kernel presenti i suoi limiti solo in situazioni difficilmente realizzabili clinicamente. In particolare, discrepanze oltre il 3\% si osservano in caso di basse distanze sorgente-superficie del paziente (SSD $< 70$ cm) e campi estesi ($> 20x20$ cm$^2$).
 
 
+
+\subsection{Approssimazioni \textit{full-TERMA-deposition} e \textit{adaptive interpolation}}
+
+
+
+
+
+\section{Dose aggiuntiva da elettroni di contaminazione}
 Poi metti gli elettroni per chiudere
 
 

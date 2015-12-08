@@ -259,8 +259,11 @@
       \field{sortinithash}{990108227b3316c02842d895999a0165}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{{RSL-D-61-218-REF-EN-2.0-2014-07-01 RayStation 4.5 Reference Manual.}}
+      \field{title}{{RSL-D-61-218-REF-EN-2.0-2014-07-01 RayStation 4.7 Reference Manual.}}
       \field{year}{2014}
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/RSL-D-61-243-REF-EN-1.0-2014-12-12 RayStation 4.7 Reference Manual.pdf:pdf
+      \endverb
     \endentry
     \entry{Reckwerdt1992}{article}{}
       \name{author}{2}{}{%
@@ -436,6 +439,48 @@
       \verb :C$\backslash$:/Th/docs/Arts/Arnfield{\_}2000 - The impact of electron transport on the accuracy of computed dose.pdf:pdf
       \endverb
       \keyw{dose calculation,dosimetry,inhomogeneity,monte carlo}
+    \endentry
+    \entry{Khan2010}{book}{}
+      \name{author}{1}{}{%
+        {{hash=2fb1363d47cf82ea232118408d16df52}{Khan}{K\bibinitperiod}{F\bibnamedelima M}{F\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Philadelphia, Pa}%
+      }
+      \list{publisher}{1}{%
+        {Lippincott Williams {\&} Wilkins}%
+      }
+      \strng{namehash}{2fb1363d47cf82ea232118408d16df52}
+      \strng{fullhash}{2fb1363d47cf82ea232118408d16df52}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{4th}
+      \field{title}{{The Physics of Radiation Therapy}}
+      \field{year}{2010}
+    \endentry
+    \entry{Sharpe1997}{article}{}
+      \name{author}{2}{}{%
+        {{hash=6487f9393d47cde5bc006261cc56d3d3}{Sharpe}{S\bibinitperiod}{M\bibnamedelima B}{M\bibinitperiod\bibinitdelim B\bibinitperiod}{}{}{}{}}%
+        {{hash=1b8f9c471e5f3faaf95f1c45f6d8153f}{Battista}{B\bibinitperiod}{J\bibnamedelima J}{J\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{a0782c8a2c3c44c2675ab50def2313c0}
+      \strng{fullhash}{a0782c8a2c3c44c2675ab50def2313c0}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{1993}
+      \field{title}{{Dose calculations using convolution and superposition principles : The orientation of dose spread kernels in divergent xray beams}}
+      \field{volume}{1685}
+      \field{year}{1997}
+      \verb{doi}
+      \verb 10.1118/1.596955
+      \endverb
+      \verb{file}
+      \verb :C$\backslash$:/Th/docs/Arts/Sharpe{\_}1993 - Dose calculations using convolution and superposition principles the orientation of dose spread kernels in divergent x-ray beams.pdf:pdf
+      \endverb
     \endentry
   \endsortlist
 \endrefsection
