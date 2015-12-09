@@ -5,7 +5,7 @@
 %\textsf{In questo capitolo verrà descritto l'algoritmo di calcolo dosimetrico collapsed-cone-convolution e la sua %implementazione all'interno del treatment planning system (TPS) \RS. Ci si soffermerà in particolare sugli aspetti %riguardanti le approssimazioni intrinseche dell'algoritmo assieme alle approssimazioni adottate in fase di %implementazione nel TPS. Ciò è propedeutico alla comprensione dei limiti e delle precisioni raggiungibili durante %la modellizzazione di un fascio clinico per trattamenti radioterapici che verrà discusso nei capitoli successivi.}
 
 \section{Introduzione}
-Sin dagli albori della radioterapia la \textit{dose assorbita} è quella quantità che viene utilizzata al pari della dose farmacologica per ottenere un determinato effetto terapeutico. Più precisamente la definizione formale è fornita nel report ICRU n.85 \cite{ICRU85} come rapporto tra l'energia media $\de \bar{\varepsilon}$ impartita da radiazioni ionizzanti ad una massa $\de m$:
+In radioterapia la \textit{dose assorbita} è quella quantità che viene utilizzata al pari della dose farmacologica per ottenere un determinato effetto terapeutico. Più precisamente la definizione formale è fornita nel report ICRU n.85 \cite{ICRU85} come rapporto tra l'energia media $\de \bar{\varepsilon}$ impartita da radiazioni ionizzanti ad una massa $\de m$:
 \begin{equation}
 D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1} \equiv \text{Gray [Gy]}
 \end{equation} 
@@ -34,7 +34,7 @@ La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni ch
 \item La dose primaria che rappresenta generalmente fino al 70\% della dose totale. Questa dose è generata dalla parte di fascio fotonico che non ha subito trasformazioni nella testata e che mette in moto particelle cariche le quali direttamente rilasciano la loro energia cinetica nella materia.
 \item La dose di scatter dovuta al paziente (\textit{phantom scatter dose}) che può rappresentare fino al 30\% della dose totale. Questa componente è dovuta a tutti i processi di scatter che si innescano nel paziente a partire dal fascio primario come ad esempio fotoni di bremsstrahlung o fotoni scatterati per effetto Compton che portano ad una ionizzazione della materia con lo stesso meccanismo del fascio primario (messa in moto di elettroni).
 \item La dose di scatter dovuta alla testata (\textit{head scatter dose}) che rappresenta generalmente il 5-10\% della dose totale. Questa parte della dose è dovuta alla componente di fascio fotonico incidente sul paziente che ha subito interazioni nella testata (prevalentemente nel \textit{flattening-filter}\footnote{Il \textit{flattening-filter} è un dispositivo di forma piramidale che serve ad attenuare il fascio al centro in modo da realizzare una fluenza di fotoni uniforme lungo la direzione perpendicolare al fascio.}) e che presenta una distribuzione spaziale ed energetica differente dal fascio primario. Il meccanismo di rilascio dell'energia è esattamente analogo a quello del fascio primario.
-\item La dose dovuta alle particelle di contaminazione del fascio fotonico che hanno un effetto rilevante (comparabile con il fascio primario) soltanto nei primi centimetri di tessuto. Questa zona è conosciuta come \textit{regione di build-up} della dose e vedremo in seguito il motivo.
+\item La dose dovuta alle particelle di contaminazione del fascio fotonico che hanno un effetto rilevante (comparabile con il fascio primario) soltanto nei primi centimetri di tessuto. Questa zona è conosciuta come \textit{regione di build-up} della dose e vedremo in seguito il perché.
 \end{enumerate}
 
 
@@ -47,11 +47,11 @@ Esistono due grandi classi di algoritmi dosimetrici:
 \item Algoritmi \textit{model-based}.
 \end{itemize}
 Gli algoritmi correction-based sono algoritmi empirici. Essi sono  basati su un gruppo di dati misurati in condizioni di riferimento (in un fantoccio ad acqua) e fanno uso di fattori o funzioni matematiche di tipo analitico o di tipo look-up-table per predire la distribuzione di dose assorbita in condizioni diverse da quelle di misura. 
-Questi metodi furono i primi ad essere stati implementati in quanto non necessitano di grosse potenze di calcolo ma, d'altro canto, presentano dei limiti di accuratezza intrinseci per situazioni complesse (mezzi non omogenei, interfacce tra tessuti, campi di irradiazione molto irregolari o ad intensità modulata\ldots). Un'estensiva review di questi tipi di algoritmi è stata pubblicata da Fraass \textit{et al.}\cite{Fraass1995}.
+Questi metodi furono i primi ad essere implementati in quanto non necessitano di grosse potenze di calcolo ma, d'altro canto, presentano dei limiti di accuratezza intrinseci per situazioni complesse (mezzi non omogenei, interfacce tra tessuti, campi di irradiazione molto irregolari o ad intensità modulata\ldots). Un'estensiva review di questi tipi di algoritmi è stata pubblicata da Fraass \textit{et al.}\cite{Fraass1995}.
 
 \vspace{.2cm}
 L'avvento della rivoluzione tecnologica e la crescita della potenza di calcolo disponibile tramite computer, ha permesso l'implementazione degli algoritmi model-based i quali simulano i processi di interazione radiazione-materia  a partire da principi primi tramite un modello fisico-matematico.\\
-In questo caso il set di misure iniziali è unicamente utilizzato per ottimizzare i parametri del modello che poi viene applicato per predire la distribuzione di dose assorbita nei vari scenari clinici. Questi algoritmi hanno dimostrato una maggiore accuratezza rispetto ai correction-based ed al giorno d'oggi i più utilizzati sono quelli basati su tecniche di calcolo statistiche (Monte Carlo) o su metodi semi-analitici denominati algoritmi di convolution/superposition.
+In questo caso il set di misure iniziali è unicamente utilizzato per ottimizzare i parametri del modello che poi viene applicato per predire la distribuzione di dose assorbita nei vari scenari clinici. Questi algoritmi hanno dimostrato una maggiore accuratezza rispetto ai correction-based ed al giorno d'oggi i più utilizzati sono quelli basati su metodi semi-analitici e sono denominati algoritmi di convolution/superposition oppure algoritmi statistici basati su tecniche Monte Carlo.
 
 Il TPS RayStation in particolare implementa una tecnica di tipo convolution/superposition conosciuta come \textit{collapsed cone convolution} sviluppata a partire dalla metà dagli anni '80 indipendentemente da Mackie e Ahnesj{\"{o} \cite{Ahnesjo1989, Boyer1998, Mackie1985, Ahnesjo1987}.
 
@@ -149,7 +149,7 @@ L'integrale del coefficiente di assorbimento viene discretizzato nel TPS su una 
 \centering
 \includegraphics[width=.4\textwidth]{./cap1/terma_1.png}
 \includegraphics[width=.5\textwidth]{./cap1/terma_2.png}
-\caption{Sinistra: griglia per il calcolo del TERMA e della dose. Da notare che per motivi di velocità la divergenza del fascio viene approssimata come proveniente unicamente dalla sorgente primaria e non dal flattening filter. Destra: distribuzione del TERMA computato su una CT.}
+\caption{Sinistra: griglia per il calcolo del TERMA e della dose. Da notare che per motivi di velocità la divergenza del fascio viene approssimata come proveniente unicamente dalla sorgente primaria e non dal flattening filter. Destra: distribuzione del TERMA computato su una scansione CT di un paziente.}
 \label{fig:terma}
 \end{figure}
 
@@ -205,17 +205,19 @@ dove $A_\theta,\,a_\theta,\,B_\theta$ e $b_\theta$ sono parametri di fit che dip
 \label{fig:kern_fit}
 \end{figure}
 
-Stabilendo un angolo solido $\Omega_i$, l'operazione di \virg{collapsing} è un'integrazione in coordinate sferiche del kernel \eqref{eq:kern_fit}:
+Stabilendo un angolo solido $\Omega_i$, l'operazione di \virg{collapsing} è un'integrazione in coordinate sferiche del kernel espresso dalla \eqref{eq:kern_fit} (vedi anche Fig.\ref{fig:kern_collaps}):
 \begin{equation}
 \iint_{\Omega_i} s(r,\theta) r^2\de \Omega_i = A_{\Omega_i} e^{-a_{\Omega_i} r} + B_{\Omega_i} e^{-b_{\Omega_i} r} \equiv K(r,\Omega_i)
 \end{equation}
-La funzione $K(r,\Omega_i)$ è quella da convolvere con la mappa del TERMA per arrivare alla mappa di dose assorbita (vedi Fig.\ref{fig:dose_terma_homo}).\\
+La funzione $K(r,\Omega_i)$ è quella da convolvere con la mappa del TERMA per arrivare alla mappa di dose assorbita.
+
 Il metodo collapsed-cone è stato dimostrato \cite{Ahnesjo1999} comportare un numero di operazioni dell'ordine di $MN^3$ dove $M$ è il numero di settori in cui viene diviso l'angolo solido ed $N$ è il numero di voxel della griglia di dose/TERMA. Questo è da confrontare con l'ordine $N^7$ in caso di applicazione triviale del metodo di sovrapposizione.
+
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{./cap1/dose_terma_homo.png}
-\caption{Sinistra: step iniziale del calcolo del TERMA tramite raytracing della fluenza di energia attenuata man mano che attraversa il mezzo. Destra: applicazione dei point spread kernel che simulano il trasporto e la deposizione della dose a partire dai centri di interazione primari; da notare come, a causa di questo trasporto le mappe di dose sono sempre più sfocate rispetto alla mappa di TERMA.}
-\label{fig:dose_terma_homo}
+\includegraphics[width=\textwidth]{./cap1/kern_collaps.png}
+\caption{Operazione di \textit{collapsing} dei kernel all'interno di segmenti conici definiti dall'angolo solido $\Omega_i$.}
+\label{fig:kern_collaps}
 \end{figure}
 
 In RayStation il numero di settori in cui viene discretizzato il kernel è 128 che corrispondono a 8 direzioni lungo l'angolo di scatter $\theta$ e 16 lungo l'angolo di simmetria cilindrica $\phi$. Il campionamento è più fitto nella direzione di propagazione del fascio dove è presente il gradiente più intenso.
@@ -244,6 +246,7 @@ Aggiungendo  la generalizzazione al caso disomogeneo l'equazione di sovrapposizi
 D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E
 \end{equation}
 dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose.
+
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap1/kern_trans.png}
@@ -252,6 +255,16 @@ dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgent
 \end{figure}
 
 In Fig.\ref{fig:kern_trans} sono riportati due diagrammi schematici riguardo le generalizzazioni al caso polienergetico e disomogeneo.
+
+
+In Fig.\ref{fig:terma_dose} è riportato graficamente il processo di passaggio dal TERMA alla dose. Quello che si può notare è che l'applicazione dei kernel di deposizione comporta un \textquotedblleft\textit{blurring}\textquotedblright{} e un prolungamento della distribuzione di TERMA che è dovuto proprio al movimento delle particelle ionizzanti secondarie messe in moto dai fotoni primari e diffusi.
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{./cap1/terma_dose.png}
+\caption{In alto: trasformazione del TERMA in dose in condizioni di omogeneità. In basso: trasformazione del TERMA in dose su una scansione CT di un paziente reale. Da notare è l'effetto di \textquotedblleft\textit{blurring}\textquotedblright{} dovuto all'applicazione dei kernel di deposizione.}
+\label{fig:terma_dose}
+\end{figure}
+
 
 
 \section{Approssimazioni aggiuntive}
@@ -271,7 +284,7 @@ Questa operazione implicherebbe molteplici operazioni di rotazione di matrici \c
 In RayStation è implmentato il metodo suggerito da Papanikolaou et al. \cite{Papanikolaou1993}. L'idea di questo metodo sta nel considerare che, non ruotando i kernel, si ha un accumulo di dose maggiore verso il centro del fascio (Fig.\ref{fig:kern_tilt}).\\ 
 Papanikolaou ha dimostrato come questo può essere recuperato con i seguenti passaggi:
 \begin{enumerate}
-\item Si rimuove la divergenza dalla fluenza di energia (termine $|\vec{r_0}|^2/|\vec{r'}|^2$ nell'Eq.\ref{eq:fluence}).
+\item Si rimuove la divergenza dalla fluenza di energia (termine $|\vec{r_0}|^2/|\vec{r'}|^2$ nell'Eq.\eqref{eq:fluence}).
 \item Si applicano i point spread kernel con l'approssimazione di \textit{no-tilting}.
 \item Si riapplica la divergenza riscalando la dose calcolata con il fattore $|\vec{r_0}|^2/|\vec{r}|^2$ dove $\vec{r}$ è la coordinata di calcolo della dose (diversa dalla coordinata di rilascio del TERMA $\vec{r'}$).
 \end{enumerate}
@@ -293,7 +306,7 @@ Questa approssimazione è stata osservata generare un'errore sul calcolo della d
 
 \begin{figure}
 \centering
-\includegraphics[width=.8\textwidth]{./cap1/dose_interp.png}
+\includegraphics[width=\textwidth]{./cap1/dose_interp.png}
 \caption{L'approssimazione di \textit{adaptive interpolation}. I voxel in blu sono quelli calcolati con l'algoritmo collapsed-cone.}
 \label{fig:dose_interp}
 \end{figure}
@@ -309,8 +322,48 @@ Per un semplice campo $10x10$ cm$^2$ ed energia 6 MV, la distribuzione di dose c
 
 
 \section{Dose aggiuntiva da elettroni di contaminazione}
-Poi metti gli elettroni per chiudere
-PROVA GITHUB PUSH PULL
+Come già accennato nella sezione introduttiva (Fig.\ref{fig:processes}), nei primi centimetri di tessuto una parte rilevante della dose totale è dovuta agli elettroni di contaminazione del fascio fotonico. Questi elettroni si originano prevalentemente da processi di scatter dei fotoni con i collimatori e il flattening-filter all'interno della testata.\\
+Alle energie tipiche della radioterapia, la deposizione della dose di un fascio elettronico avviene repentinamente all'aumentare della profondità con un limitato peso dovuto a fenomeni di ionizzazione secondaria (vedi Fig.\ref{fig:electr_enloss}).
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{./cap1/electr_enloss.png}
+\includegraphics[width=.45\textwidth]{./cap1/electr_doseCT.png}
+\caption{Sinistra: diagrammi della dose rilasciata in funzione della profondità di un fascio di elettroni a varie energie. Destra: distribuzione di dose dovuta ad elettroni di contaminazione del fascio calcolata su una CT. Da notare è che questa dose è importante solo nei primi mm di tessuto attraversato.}
+\label{fig:electr_enloss}
+\end{figure}
+
+L'algoritmo dosimetrico implementato in RayStation per il calcolo della dose da contaminazione elettronica rientra nella classe degli algoritmi \textit{model-based} basati su \textit{convolution/superposition}, con una variante sul kernel di deposizione che non è più puntuale ma esteso di forma cilindrica (vedi Fig.\ref{fig:electr_pencil}). 
+
+\begin{figure}
+\centering
+\includegraphics[width=.35\textwidth]{./cap1/electr_pencil.png}$\qquad$
+\includegraphics[width=.4\textwidth]{./cap1/electr_pencil_b.png}
+\caption{Sinistra: kernel di deposizione di tipo \textit{pencil-beam}. Destra: figura schematica che mostra la simmetria cilindrica nel calcolo della dose quando si utilizza un kernel di tipo \textit{pencil-beam}.}
+\label{fig:electr_pencil}
+\end{figure}
+
+
+Questo tipo di algoritmo è denominato \textit{pencil-beam} e rappresenta una versione semplificata del collapsed-cone.\\
+L'equazione che permette il calcolo della dose è analoga alla \eqref{eq:superp} ed è facilmente calcolabile in coordinate cilindiriche:
+\begin{equation}
+\label{eq:electr_superp}
+D(d) = 2\pi \iint_{E,V} \Psi(r,d,E)\, s(r,d,E)\, r\de r \de E
+\end{equation}
+
+L'Eq.\eqref{eq:electr_superp} è implementata all'interno di RayStation in maniera analoga al caso dei fotoni che riassumiamo in maniera schematica:
+\begin{itemize}
+\item I kernel \textit{pencil-beam} sono pre-calcolati con un modello Monte Carlo (software EGSnrc).
+\item Viene utilizzato un modello a due sorgenti per calcolare la fluenza di energia in assenza del paziente.
+\item Viene calcolata la distribuzione di TERMA utilizzando la formula della perdita di energia per ionizzazione di Bethe-Bloch \cite{RaySearchLaboratories2014}.
+\item Vengono applicati i kernel \textit{pencil-beam} per modellizzare lo scatter laterale degli elettroni.
+\end{itemize}
+
+Nella Fig.\ref{fig:electr_enloss} è mostrata la distribuzione di dose dovuta agli elettroni di contaminazione calcolata su una CT di un paziente. Questa dose viene sommata alla dose dovuta ai fotoni calcolata con l'algoritmo collapsed-cone.
+
+
+
+
+
 
 
 
