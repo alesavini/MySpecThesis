@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [4] Config.pm:327> INFO - This is Biber 2.2
 [5] Config.pm:330> INFO - Logfile is 'tesibackbone.blg'
 [416] biber-MSWIN:283> INFO - === mer dic , 2015, 17:55:05
@@ -17,3 +18,24 @@
 [5378] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
 [5403] bbl.pm:596> INFO - Output to tesibackbone.bbl
 [5405] Biber.pm:107> INFO - WARNINGS: 3
+=======
+[0] Config.pm:327> INFO - This is Biber 2.2
+[0] Config.pm:330> INFO - Logfile is 'tesibackbone.blg'
+[43] biber-MSWIN:283> INFO - === 
+[44] Biber.pm:334> INFO - Reading 'tesibackbone.bcf'
+[163] Biber.pm:677> INFO - Found 19 citekeys in bib section 0
+[209] Biber.pm:3054> INFO - Processing section 0
+[235] Biber.pm:3193> INFO - Looking for bibtex format file './bibliografia/Th.bib' for section 0
+[244] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[251] bibtex.pm:935> INFO - Found BibTeX data source './bibliografia/Th.bib'
+[299] Utils.pm:147> WARN - ISBN 'doi:10.1118/1.595772' in entry 'Boyer1998' is invalid - run biber with '--validate_datamodel' for details.
+[319] Utils.pm:147> WARN - ISBN '0094-2405 (Print)$\backslash$r0094-2405 (Linking)' in entry 'Arnfield2000' is invalid - run biber with '--validate_datamodel' for details.
+[324] Utils.pm:147> WARN - BibTeX subsystem: C:\Users\ALESSA~1\AppData\Local\Temp\btYl_GjpdR\Th.bib_6496.utf8, line 6, warning: 172 characters of junk seen at toplevel
+[585] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[586] UCollate.pm:66> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[586] Biber.pm:2931> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'it-IT'
+[586] Biber.pm:2935> INFO - No sort tailoring available for locale 'it-IT'
+[608] bbl.pm:505> INFO - Writing 'tesibackbone.bbl' with encoding 'UTF-8'
+[612] bbl.pm:596> INFO - Output to tesibackbone.bbl
+[616] Biber.pm:107> INFO - WARNINGS: 3
+>>>>>>> 988bfd3edc0bdeaf2136d0c707cf5e9252cef429
