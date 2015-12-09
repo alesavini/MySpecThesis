@@ -2,7 +2,7 @@
 \setcounter{minitocdepth}{1}
 \minitoc
 \setcounter{minitocdepth}{2}
-%\textsf{In questo capitolo verrà descritto l'algoritmo di calcolo dosimetrico collapsed-cone-convolution e la sua %implementazione all'interno del treatment planning system (TPS) \RS. Ci si soffermerà in particolare sugli aspetti %riguardanti le approssimazioni intrinseche dell'algoritmo assieme alle approssimazioni adottate in fase di %implementazione nel TPS. Ciò è propedeutico alla comprensione dei limiti e delle precisioni raggiungibili durante %la modellizzazione di un fascio clinico per trattamenti radioterapici che verrà discusso nei capitoli successivi.}
+\textsf{In questo capitolo verrà descritto l'algoritmo di calcolo dosimetrico \textit{collapsed-cone-convolution} e la sua implementazione all'interno del treatment planning system (TPS) \RS. Ci si soffermerà in particolare sugli aspetti riguardanti le approssimazioni intrinseche dell'algoritmo assieme alle approssimazioni adottate in fase di implementazione nel TPS. Ciò è propedeutico alla comprensione dei limiti e delle precisioni raggiungibili durante la modellizzazione di un fascio clinico per trattamenti radioterapici che verrà discusso nei capitoli successivi.}
 
 \section{Introduzione}
 In radioterapia la \textit{dose assorbita} è quella quantità che viene utilizzata al pari della dose farmacologica per ottenere un determinato effetto terapeutico. Più precisamente la definizione formale è fornita nel report ICRU n.85 \cite{ICRU85} come rapporto tra l'energia media $\de \bar{\varepsilon}$ impartita da radiazioni ionizzanti ad una massa $\de m$:
@@ -363,7 +363,6 @@ L'Eq.\eqref{eq:electr_superp} è implementata all'interno di RayStation in manie
 
 Nella Fig.\ref{fig:electr_enloss} è mostrata la distribuzione di dose dovuta agli elettroni di contaminazione calcolata su una CT di un paziente. Questa dose viene sommata alla dose dovuta ai fotoni calcolata con l'algoritmo collapsed-cone.
 
-\section{conclusioni capitolo}
 
 
 

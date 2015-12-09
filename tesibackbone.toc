@@ -14,44 +14,44 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.2.1}I principi di \textit {convolution} e \textit {superposition}}{4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.3}Teoria degli algoritmi \textit {convolution}/\textit {superposition}}{4}
+\contentsline {section}{\numberline {1.3}Teoria degli algoritmi \textit {convolution}/\textit {superposition}}{5}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.4}Il calcolo della dose in RayStation}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.1}Il calcolo della fluenza di energia}{6}
+\contentsline {subsection}{\numberline {1.4.1}Il calcolo della fluenza di energia}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.2}Il calcolo del TERMA}{7}
+\contentsline {subsection}{\numberline {1.4.2}Il calcolo del TERMA}{8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.3}Applicazione delle funzioni di scatter}{8}
+\contentsline {subsection}{\numberline {1.4.3}Applicazione delle funzioni di scatter}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.4}L'approssimazione \textit {collapsed-cone}}{9}
+\contentsline {subsection}{\numberline {1.4.4}L'approssimazione \textit {collapsed-cone}}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.5}La generalizzazione al caso polienergetico}{12}
+\contentsline {subsection}{\numberline {1.4.5}La generalizzazione al caso polienergetico}{13}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.6}La generalizzazione al caso disomogeneo}{13}
+\contentsline {subsection}{\numberline {1.4.6}La generalizzazione al caso disomogeneo}{14}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.5}Approssimazioni aggiuntive}{15}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.5.1}L'approssimazione \textit {no-kernel-tilting}}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.5.2}Approssimazioni \textit {full-TERMA-deposition} e \textit {adaptive interpolation}}{17}
+\contentsline {subsection}{\numberline {1.5.2}Approssimazioni \textit {full-TERMA-deposition} e \textit {adaptive interpolation}}{18}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.6}Dose aggiuntiva da elettroni di contaminazione}{19}
+\contentsline {section}{\numberline {1.6}Dose aggiuntiva da elettroni di contaminazione}{20}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Lo Scanner NMR di Superficie}{21}
+\contentsline {chapter}{\numberline {2}Modellizzazione f{}isica di un LINAC nel TPS RayStation}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Conclusioni}{21}
+\contentsline {section}{\numberline {2.1}Introduzione}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Test ed Ottimizzazione dello Scanner NMR}{23}
+\contentsline {chapter}{\numberline {3}Test ed Ottimizzazione dello Scanner NMR}{25}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Conclusioni}{23}
+\contentsline {section}{\numberline {3.1}Conclusioni}{25}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Misure NMR}{25}
+\contentsline {chapter}{\numberline {4}Misure NMR}{27}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Conclusioni}{25}
+\contentsline {section}{\numberline {4.1}Conclusioni}{27}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusioni e Sviluppi Futuri}{27}
+\contentsline {chapter}{\numberline {5}Conclusioni e Sviluppi Futuri}{29}
 \defcounter {refsection}{0}\relax 
-\contentsline {starchapter}{Conclusioni}{29}
+\contentsline {starchapter}{Conclusioni}{31}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliografia}{33}
+\contentsline {chapter}{Bibliografia}{35}
