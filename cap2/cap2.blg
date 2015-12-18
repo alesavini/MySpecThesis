@@ -1,0 +1,5 @@
+[13] Config.pm:327> INFO - This is Biber 2.2
+[14] Config.pm:330> INFO - Logfile is 'cap2.blg'
+[1326] biber-MSWIN:283> INFO - === ven dic , 2015, 14:00:41
+[2341] Utils.pm:163> ERROR - Cannot find control file 'cap2.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
+[2342] Biber.pm:111> INFO - ERRORS: 1
