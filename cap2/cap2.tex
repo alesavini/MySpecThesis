@@ -65,12 +65,13 @@ dove:
 \begin{description}
 \item[$M:$] lettura della ionizzazione in Coulomb (effettuata con la camera a ionizzazione).
 \item[$N_{d,w}:$] coefficiente di taratura della camera a ionizzazione che converte il valore in Coulomb nella dose in Gray in acqua per un fascio di riferimento (solitamente generato da una sorgente di Co-60).
-\item[$k_{Q,Q_0}:$] fattore correttivo che tiene conto della diversa distribuzione energetica (qualità) di un fascio clinico generato da un LINAC e che dipende dalla specifica camera a ionizzazione.
+\item[$k_{Q,Q_0}:$] fattore correttivo che tiene conto della diversa distribuzione energetica (qualità) di un fascio clinico generato da un LINAC rispetto al Co-60 e che dipende dalla specifica camera a ionizzazione.
 \item[$k_{TP}:$] fattore correttivo che tiene conto della diversa temperatura e pressione durante la misura rispetto alle condizioni di riferimento.
 \item[$k_{H}:$] fattore correttivo che tiene conto della diversa umidità durante la misura rispetto alle condizioni di riferimento.
 \item[$k_{pol}:$] fattore che tiene conto della diversa lettura di carica che si ottiene con una camera a ionizzazione applicando un voltaggio positivo o negativo tra i due elettrodi.
 \item[$k_{sat}:$] fattore che tiene conto degli effetti di ricombinazione delle cariche all'interno del volume di aria della camera a ionizzazione.
 \end{description}
+I suddetti fattori correttivi sono riportati in forma tabellare oppure si ricavano da misurazioni. Per una discussione approfondita si rimanda al protocollo \cite{Andreo2006}.
 
 \subsection{Misure richieste per la modellizzazione del TPS RayStation}
 Come già citato nelle sezioni precedenti, le misure necessarie a modellizzare un LINAC all'interno del TPS RayStation consistono in curve dose-profondità, profili di dose a varie profondità, output factor e una misura di dose assoluta per ogni qualità del fascio da modellizzare.\\
@@ -98,7 +99,7 @@ Queste misure costituiscono solo un'indicazione e possono essere estese o ridott
 \section{Accuratezza richiesta per la 3D-CRT}
 L'accuratezza richiesta per il calcolo della dose in radioterapia conformazionale si basa su criteri stabiliti agli inizi degli anni duemila da Van Dyk et al. e Venselaar et al. \cite{Dyk1993,Venselaar2001}. Da questi due lavori pioneristici sono scaturite un certo numero di raccomandazioni da parte di organi internazionali (AAPM, ESTRO, IAEA) che hanno stabilito i limiti di accettabilità per la precisione di un calcolo di dose tramite TPS \cite{Fraass1998,Mijnheer2004,IAEA430}.\\
 Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} della \textit{European SocieTy for Radiotherapy \& Oncology} (ESTRO). 
-\begin{figure}
+\begin{figure}[!t]
 \centering
 \includegraphics[width=.65\textwidth]{./cap2/Accuracy_zones.png}\\\vspace{.3cm}
 \includegraphics[width=\textwidth]{./cap2/Accuracy_pdd_prof.png}
@@ -112,11 +113,52 @@ Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} 
 \caption{Livelli di tolleranza per le varie zone indicate nella Fig.\ref{fig:accuracy_zones} e per vari livelli di complessità del calcolo. Riprodotta da \cite{Mijnheer2004}.}
 \label{tab:tol}
 \end{table}
+Nella radioterapia tradizionale 3D-CRT è sufficiente effettuare misure di PDD, profili e output factor per dimensioni di campo che vanno da 5$x$5 cm$^2$ a 40$x$40 cm$^2$. Per tali dimensioni di campo è possibile utilizzare detector a camera a ionizzazione senza incorrere nelle problematiche che riguardano i piccoli campi di irradiazione (< 4$x$4 cm$^2$) \cite{Das2008}. Un TPS per 3D-CRT deve riprodurre le misure effettuate con delle accuratezze variabili a seconda della regione di valutazione. Nella Fig.\ref{fig:accuracy_zones} è riportata la distinzione  nelle varie zone di interesse di un fascio di irradiazione assieme alle tolleranze applicabili ad ognuna di esse. I valori numerici sono indicati nel booklet ESTRO no.7 e sono riportati nella Tab.\ref{tab:tol}.\\
+I criteri di accettabilità del calcolo vengono applicati valutando due principali quantità:
 
-Nello specifico, nella radioterapia tradizionale 3D-CRT è sufficiente effettuare misure fino al campo di dimensioni 5$x$5 cm$^2$. Nelle tecniche di irradiazione speciali (es. intensità modulata) è necessario includere le misure dei campi \textquotedblleft piccoli\textquotedblright{} (i.e. $<4x4$ cm$^2$ \cite{Das2008}) con delle problematiche di misurazione che discuteremo in seguito.
+\begin{description}
 
-Una estensiva review dei detector e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}.
+\item[Differenza di dose misurata-calcolata:] questa quantità è calcolata con la formula:
+\begin{equation}
+\delta = 100\% \times \frac{D_{calc} - D_{meas}}{D_{N}}
+\end{equation}
+dove $D_{calc}$ e $D_{meas}$ rappresentano le dosi misurate e calcolate in un punto e $D_N$ rappresenta la dose di normalizzazione della differenza. Secondo le indicazioni ESTRO, $D_N$ è data dalla \textit{dose misurata locale} al punto di valutazione $D_{meas}$ nelle zone ad alta dose mentre è data dalla \textit{dose misurata a centro asse}  $D_{CAX,meas}$ nelle zone a bassa dose (es. code dei profili).\\
+La valutazione in differenza di dose è adatta per le zone in cui si ha un basso gradiente di dose ($\delta D < 3\%\,$mm$^{-1}$) (es. parte discendente della PDD e parte in-field e out-field dei profili).
+
+\item[Distanza di accordo:] questa quantità rappresenta la minima distanza tra un punto individuato dal vettore $\vec{r}_{meas}$ dove è stata misurata una certa dose e tutti i punti $\vec{r}_{calc}$ per cui la dose calcolata è  uguale a quella misurata.
+\begin{equation}
+DTA = \min_{\vec{r}_{calc}} \left|\vec{r}_{meas} - \vec{r}_{calc}\right|
+\end{equation}
+La distanza di accordo è consigliata dal protocollo ESTRO per le valutazioni di accettabilità delle zone ad alto gradiente ($\delta D > 3\%\,$mm$^{-1}$) (es. build-up delle PDD e penombre dei profili).
+\end{description}
+
+I valori di tolleranza in differenza di dose e DTA (Tab.\ref{tab:tol}) oscillano tra il 2\% - 2 mm per geometrie semplici (es. campo quadrato, fantoccio omogeneo) e il 5\% - 3 mm per i calcoli più complessi (es. dose fuori campo in condizioni di disomogeneità e asimmetria).\\
+Una metodologia conveniente per eseguire una valutazione combinata dei criteri di differenza di dose e distanza di accordo è stata sviluppata da Low et al. \cite{Low1998}. Essa si basa sul dividere queste due quantità con le rispettive tolleranze e sommarle per costruire un indice adimensionale denominato \textit{$gamma$-index} (lettera greca per `c' che sta per `combined-index'):
+\begin{equation}
+\gamma = \min_{\vec{r}_{c}} \sqrt{\frac{|\vec{r}_{m}-\vec{r}_{c}|^2}{\Delta r}   + \frac{\left[D_{m}(\vec{r}_{m})-D_{c}(\vec{r}_{c})\right]^2}{\Delta D} }
+\end{equation}
+dove i pedici `$m$' e `$c$' indicano `misurato' e `calcolato' e $\Delta r$ e $\Delta D$ costituiscono le tolleranze rispettivamente per la distanza di accordo e la differenza di dose. Il criterio di accettabilità viene soddisfatto nel punto di interesse se risulta $\gamma < 1$.
+
+\section{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT)}
+Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modulata (IMRT). A differenza della 3D-CRT, queste tecniche realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap2/3D_IMRT.png}
+\caption{Differenza tra fasci di irradiazione conformati (3D-CRT) e fasci erogati in tecnica ad intensità modulata (IMRT).}
+\label{fig:3D_IMRT}
+\end{figure}
+La modulazione della dose può essere realizzata in modalità \textit{step-and-shoot} (SMLC) ossia sommando una serie di fasci caratterizzati da diverse collimazioni (segmenti) \cite{Bortfeld1994} oppure in modalità \textit{dinamica}  (DMLC) che realizza la modulazione muovendo dinamicamente il multi-leaf-collimator \cite{LING1996}. Più recentemente è stata introdotta un'ulteriore modalità detta \textit{arcoterapia volumetrica} (VMAT) che realizza una distribuzione di dose modulata collimando il fascio durante la rotazione del gantry e modificando contemporaneamente il rateo di dose \cite{Otto2008}.\\
+La caratteristica che accomuna tutte queste tecniche è il largo uso di campi di piccole dimensioni (i.e. $<4x4$ cm$^2$ \cite{Das2008}). Per questo motivo, per il commissioning di un TPS dedicato alla pianificazione di trattamenti IMRT o VMAT è necessario estendere le misure di PDD, profili e output factor ai campi piccoli ed anche rivalutare l'accuratezza tollerabile per un calcolo dosimetrico.
+
+La misura dei piccoli campi di irradiazione presenta varie criticità \cite{Das2008} tra cui:
+\begin{itemize}
+\item Mancanza di equilibrio di particelle cariche.
+\item Apertura dei collimatori comparabili con la dimensioni proiettate della sorgente.
+\item Dimensioni dei detector comuni comparabili con le dimensioni del campo.
+\end{itemize}
+Queste rappresentano delle condizioni lontane dalle condizioni di riferimento dettate dai classici protocolli di dosimetria \cite{Almond1999,Andreo2006}. Per minimizzare le incertezze sulla dosimetria dei piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
+Una estensiva review dei detector, delle loro criticità e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group (TG) 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}. Sulla base dei risultati passati in rassegna dal TG-120, la comunità scientifica dell'AAPM e della IAEA è al lavoro congiuntamente per aggiornare i classici protocolli di dosimetria ed emettere delle nuove raccomandazioni che permettano una misura accurata della dose anche in presenza delle succitate criticità.
 
 
-
+Contiuna parlando dell'accuratezza del calcolo richiesta in IMRT (PALTA)
 
