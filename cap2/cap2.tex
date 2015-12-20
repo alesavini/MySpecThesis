@@ -95,8 +95,8 @@ Campi consigliati (cm$^2$) & Campi opzionali (cm$^2$) & Profondità profili (cm)
 \end{table}
 Queste misure costituiscono solo un'indicazione e possono essere estese o ridotte a seconda della tecnica di irradiazione e dell'accuratezza che si vuole raggiungere nel calcolo della dose.
 
-
-\section{Accuratezza richiesta per la 3D-CRT}
+\section{Accuratezza nel calcolo della dose con TPS}
+\subsection{Accuratezza richiesta per la 3D-CRT}
 L'accuratezza richiesta per il calcolo della dose in radioterapia conformazionale si basa su criteri stabiliti agli inizi degli anni duemila da Van Dyk et al. e Venselaar et al. \cite{Dyk1993,Venselaar2001}. Da questi due lavori pioneristici sono scaturite un certo numero di raccomandazioni da parte di organi internazionali (AAPM, ESTRO, IAEA) che hanno stabilito i limiti di accettabilità per la precisione di un calcolo di dose tramite TPS \cite{Fraass1998,Mijnheer2004,IAEA430}.\\
 Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} della \textit{European SocieTy for Radiotherapy \& Oncology} (ESTRO). 
 \begin{figure}[!t]
@@ -139,7 +139,21 @@ Una metodologia conveniente per eseguire una valutazione combinata dei criteri d
 \end{equation}
 dove i pedici `$m$' e `$c$' indicano `misurato' e `calcolato' e $\Delta r$ e $\Delta D$ costituiscono le tolleranze rispettivamente per la distanza di accordo e la differenza di dose. Il criterio di accettabilità viene soddisfatto nel punto di interesse se risulta $\gamma < 1$.
 
-\section{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT)}
+Tuttavia, le raccomandazioni ESTRO sconsigliano di valutare l'accettabilità del calcolo di un profilo o PDD con un criterio puntuale bensì di utilizzare un criterio globale basato sul livello di confidenza dell'indice $\gamma$ introdotto da Venselaar et al.\cite{Venselaar2001}:
+\begin{equation}
+CL(\gamma) = \bar{\gamma} + 1.5\,\sigma(\gamma)
+\label{eq:clgamma}
+\end{equation}
+dove $\bar{\gamma}$ è la media di tutti i valori dell'indice $\gamma$ calcolati sulla curva di dose e $\sigma(\gamma)$ è la loro deviazione standard (vedi Fig.\ref{fig:gamma10x10}).
+Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta in tolleranza se il livello di confidenza dell'indice $\gamma$ risulta minore di 1 ($CL(\gamma) < 1$).
+\begin{figure}
+\centering
+\includegraphics[width=.9\textwidth]{./cap2/pdd10x10.png}
+\caption{Confronto tra una PDD misurata e calcolata con il criterio del livello di confidenza dell'indice $\gamma$. Dalla distribuzione dei valori dell'indice $\gamma$ vengono calcolate la media e la deviazione standard e applicata la formula di Venselaar \eqref{eq:clgamma} per il calcolo del livello di confidenza dell'indice $\gamma$.}
+\label{fig:gamma10x10}
+\end{figure}
+
+\subsection{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT)}
 Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modulata (IMRT). A differenza della 3D-CRT, queste tecniche realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
 \begin{figure}
 \centering
@@ -159,6 +173,55 @@ La misura dei piccoli campi di irradiazione presenta varie criticità \cite{Das2
 Queste rappresentano delle condizioni lontane dalle condizioni di riferimento dettate dai classici protocolli di dosimetria \cite{Almond1999,Andreo2006}. Per minimizzare le incertezze sulla dosimetria dei piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
 Una estensiva review dei detector, delle loro criticità e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group (TG) 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}. Sulla base dei risultati passati in rassegna dal TG-120, la comunità scientifica dell'AAPM e della IAEA è al lavoro congiuntamente per aggiornare i classici protocolli di dosimetria ed emettere delle nuove raccomandazioni che permettano una misura accurata della dose anche in presenza delle succitate criticità.
 
+Accanto all'accuratezza richiesta nell'acquisizione delle misure, vi è l'accuratezza del calcolo del dose da considerare. Le indicazioni relative all'accuratezza di un TPS per IMRT sono state studiate dal task group 119 della AAPM \cite{Ezzell2009}. Il report suggerisce di estendere le medesime tolleranze per 3D-CRT riportate in Tab.\ref{tab:tol} ai campi piccoli e di revisionare la formula di Venselaar \eqref{eq:clgamma}:
+\begin{equation}
+CL(\gamma)_{\text{IMRT}} = \bar{\gamma} + 1.96\,\sigma(\gamma)
+\end{equation}
+Oltre ad indicare i criteri di accettazione per le curve di dose, il TG-119 riporta anche delle tolleranze di accettabilità per una serie di test che simulano delle comuni situazioni cliniche e che sono stati presi in considerazione nelle fasi finali del commissioning del TPS. 
 
-Contiuna parlando dell'accuratezza del calcolo richiesta in IMRT (PALTA)
+\section{Scelte adottate per le misure}
+\subsection{PDD Profili etc}
+Qui parla delle misure effettuate, con quali detector, perché, riporta la problematica degli OF e della risoluzione dei profili (mitigata dall'algoritmo di convoluzione). Mentre per gli OF parla del fatto che abbiamo richiesto l'utilizzo di altri detector, grafico, confronto con letteratura (Das) e scelta di non correggere il PFD (protocollo ancora non ufficiale) tuttavia segnala vagamente gli studi che ne parlano...
+
+\subsection{MLC}
+Poi misure per modellare l'MLC, introduzione alla leaf-tip e tongue and groove problem...non c'è nessuna raccomandazione, scelte che abbiamo adottato noi...campi dell'NCS modificati, etc etc.
+
+
+
+\section{Scelte adottate per la modellizzazione}
+Qui parla del modello come è fatta RayPhysics etc,
+\subsection{energy spctrum phot e electr}
+inizia con lo spettro dei compromessi adottati, delle teniche r
+\subsection{off axis soft, beam profile}
+\subsection{source sizes etc. etc.}
+(Mzenda in pratica da citare e seguire).
+
+
+\section{Test finali e risultati}
+\subsection{validazione delle curve}
+parla di raynalyzer e del criterio di VensPalta applicato, fai una tabella con tutti i CL...
+\subsection{Gaf validation dell'MLC}
+a
+\subsection{TG-119 validation con MatriXX DMLC}
+a
+\subsection{TG-119 validation con MatriXX VMAT + Pazienti}
+qui fai un cenno alla verifica pre-trattamento perché si fa e il booklet estro.
+
+concludi poi che tutto è stato raccolto nell'abstract estro.
+
+così finisce il capitolo, poi si parla di adaptive.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
