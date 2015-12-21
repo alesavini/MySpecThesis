@@ -16,7 +16,7 @@ Per dosimetria relativa si intende tutta una serie di misure della dose non in t
 \item Output factor.
 \end{itemize}
 Queste misure vengono effettuate in un fantoccio cubico riempito di acqua (materiale più simile ai tessuti umani) dotato di un carrello motorizzato su cui viene montata la camera a ionizzazione che effettua le misure di dose (vedi Fig.\ref{fig:wphant}).
-\begin{figure}
+\begin{figure}[!t]
 \centering
 \includegraphics[width=.47\textwidth]{./cap2/wphant.jpg}
 \includegraphics[width=.47\textwidth]{./cap2/wphant_pos.jpg}
@@ -28,7 +28,7 @@ Le curve di dose-profondità si ottengono muovendo il detector lungo l'asse cent
 Per ogni punto, la camera a ionizzazione registra una certa dose che viene normalizzata rispetto ad una lettura di riferimento (tipicamente la lettura corrispondente alla massima dose lungo la verticale).
 
 I profili di dose si ottengono in maniera analoga muovendo il detector in piani perpendicolari all'asse del fascio. Tipicamente vengono acquisiti profili di dose lungo due assi perpendicolari denominati \textit{inline} e \textit{crossline}\footnote{Considerando un paziente supino con la testa verso il gantry del LINAC, l'asse \textit{inline} corrisponde alla direzione testa-piedi e l'asse \textit{cross-line} alla direzione sinistra-destra.} a varie profondità.\\
-\begin{figure}
+\begin{figure}[!t]
 \centering
 \includegraphics[width=.67\textwidth]{./cap2/pdd_prof.png}
 \includegraphics[width=.3\textwidth]{./cap2/of.png}
@@ -139,30 +139,30 @@ Una metodologia conveniente per eseguire una valutazione combinata dei criteri d
 \end{equation}
 dove i pedici `$m$' e `$c$' indicano `misurato' e `calcolato' e $\Delta r$ e $\Delta D$ costituiscono le tolleranze rispettivamente per la distanza di accordo e la differenza di dose. Il criterio di accettabilità viene soddisfatto nel punto di interesse se risulta $\gamma < 1$.
 
-Tuttavia, le raccomandazioni ESTRO sconsigliano di valutare l'accettabilità del calcolo di un profilo o PDD con un criterio puntuale bensì di utilizzare un criterio globale basato sul livello di confidenza dell'indice $\gamma$ introdotto da Venselaar et al.\cite{Venselaar2001}:
+Tuttavia, le raccomandazioni ESTRO sconsigliano di valutare l'accettabilità del calcolo di un profilo o PDD con un criterio puntuale bensì di utilizzare un criterio che consideri tutti i punti della curva di dose. Questo criterio è detto livello di confidenza dell'indice $\gamma$ ed è stato introdotto da Venselaar et al.\cite{Venselaar2001}:
 \begin{equation}
 CL(\gamma) = \bar{\gamma} + 1.5\,\sigma(\gamma)
 \label{eq:clgamma}
 \end{equation}
 dove $\bar{\gamma}$ è la media di tutti i valori dell'indice $\gamma$ calcolati sulla curva di dose e $\sigma(\gamma)$ è la loro deviazione standard (vedi Fig.\ref{fig:gamma10x10}).
 Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta in tolleranza se il livello di confidenza dell'indice $\gamma$ risulta minore di 1 ($CL(\gamma) < 1$).
-\begin{figure}
+\begin{figure}[!t]
 \centering
 \includegraphics[width=.9\textwidth]{./cap2/pdd10x10.png}
-\caption{Confronto tra una PDD misurata e calcolata con il criterio del livello di confidenza dell'indice $\gamma$. Dalla distribuzione dei valori dell'indice $\gamma$ vengono calcolate la media e la deviazione standard e applicata la formula di Venselaar \eqref{eq:clgamma} per il calcolo del livello di confidenza dell'indice $\gamma$.}
+\caption{Confronto tra una PDD misurata e calcolata con il criterio del livello di confidenza dell'indice $\gamma$. Dalla distribuzione dei valori dell'indice $\gamma$ vengono calcolate la media e la deviazione standard e applicata la formula di Venselaar \eqref{eq:clgamma} per il calcolo del livello di confidenza dell'indice $\gamma$. Nel caso indicato in figura $CL(\gamma)=0.33$}
 \label{fig:gamma10x10}
 \end{figure}
 
 \subsection{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT)}
 Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modulata (IMRT). A differenza della 3D-CRT, queste tecniche realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
-\begin{figure}
+\begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{./cap2/3D_IMRT.png}
 \caption{Differenza tra fasci di irradiazione conformati (3D-CRT) e fasci erogati in tecnica ad intensità modulata (IMRT).}
 \label{fig:3D_IMRT}
 \end{figure}
 La modulazione della dose può essere realizzata in modalità \textit{step-and-shoot} (SMLC) ossia sommando una serie di fasci caratterizzati da diverse collimazioni (segmenti) \cite{Bortfeld1994} oppure in modalità \textit{dinamica}  (DMLC) che realizza la modulazione muovendo dinamicamente il multi-leaf-collimator \cite{LING1996}. Più recentemente è stata introdotta un'ulteriore modalità detta \textit{arcoterapia volumetrica} (VMAT) che realizza una distribuzione di dose modulata collimando il fascio durante la rotazione del gantry e modificando contemporaneamente il rateo di dose \cite{Otto2008}.\\
-La caratteristica che accomuna tutte queste tecniche è il largo uso di campi di piccole dimensioni (i.e. $<4x4$ cm$^2$ \cite{Das2008}). Per questo motivo, per il commissioning di un TPS dedicato alla pianificazione di trattamenti IMRT o VMAT è necessario estendere le misure di PDD, profili e output factor ai campi piccoli ed anche rivalutare l'accuratezza tollerabile per un calcolo dosimetrico.
+La caratteristica che accomuna tutte queste tecniche è il largo uso di campi di piccole dimensioni (i.e. $<4x4$ cm$^2$ \cite{Das2008}). Per questo motivo, per il commissioning di un TPS dedicato alla pianificazione di trattamenti IMRT o VMAT, è necessario estendere le misure di PDD, profili e output factor ai campi piccoli ed anche rivalutare l'accuratezza tollerabile per un calcolo dosimetrico.
 
 La misura dei piccoli campi di irradiazione presenta varie criticità \cite{Das2008} tra cui:
 \begin{itemize}
@@ -170,7 +170,7 @@ La misura dei piccoli campi di irradiazione presenta varie criticità \cite{Das2
 \item Apertura dei collimatori comparabili con la dimensioni proiettate della sorgente.
 \item Dimensioni dei detector comuni comparabili con le dimensioni del campo.
 \end{itemize}
-Queste rappresentano delle condizioni lontane dalle condizioni di riferimento dettate dai classici protocolli di dosimetria \cite{Almond1999,Andreo2006}. Per minimizzare le incertezze sulla dosimetria dei piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
+Queste condizioni sono lontane dalle condizioni di riferimento dettate dai classici protocolli di dosimetria \cite{Almond1999,Andreo2006}. Per minimizzare le incertezze sulla dosimetria dei piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
 Una estensiva review dei detector, delle loro criticità e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group (TG) 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}. Sulla base dei risultati passati in rassegna dal TG-120, la comunità scientifica dell'AAPM e della IAEA è al lavoro congiuntamente per aggiornare i classici protocolli di dosimetria ed emettere delle nuove raccomandazioni che permettano una misura accurata della dose anche in presenza delle succitate criticità.
 
 Accanto all'accuratezza richiesta nell'acquisizione delle misure, vi è l'accuratezza del calcolo del dose da considerare. Le indicazioni relative all'accuratezza di un TPS per IMRT sono state studiate dal task group 119 della AAPM \cite{Ezzell2009}. Il report suggerisce di estendere le medesime tolleranze per 3D-CRT riportate in Tab.\ref{tab:tol} ai campi piccoli e di revisionare la formula di Venselaar \eqref{eq:clgamma}:
@@ -180,7 +180,26 @@ CL(\gamma)_{\text{IMRT}} = \bar{\gamma} + 1.96\,\sigma(\gamma)
 Oltre ad indicare i criteri di accettazione per le curve di dose, il TG-119 riporta anche delle tolleranze di accettabilità per una serie di test che simulano delle comuni situazioni cliniche e che sono stati presi in considerazione nelle fasi finali del commissioning del TPS. 
 
 \section{Scelte adottate per le misure}
-\subsection{PDD Profili etc}
+\subsection{PDD e Profili di dose}
+Il LINAC oggetto di questa tesi è un modello Trilogy\textsuperscript{\textcopyright} prodotto dalla Varian Medical Systems. Esso è progettato per poter erogare trattamenti radioterapici in tecnica conformazionalee e ad intensità modulata (IMRT) step-and-shoot e dinamica fino ad una dimensione di campo massima $40x40\,$cm$^2$. \`E inoltre in grado di erogare trattamenti volumetrici ad arco con intensità e rateo di dose modulati (VMAT) fino ad una dimensione di campo massima $30x30\,$cm$^2$. Oltre a queste caratteristiche legate all'erogazione è inoltre capace di effettuare uno studio di tomografia computerizzata del paziente prima del trattamento in modo da verificare in tre dimensioni l'accurata collocazione sia del paziente in sé sia dei suoi organi interni, rispetto alle posizioni pianificate.
+
+Seguendo le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low2011} e tenendo conto delle raccomandazioni della ditta produttrice del TPS (Tab.\ref{tab:meas}), le scelte effettuate per le misure di PDD e profili di dose sono le seguenti:
+\begin{itemize}
+\item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo $0.13\,$cm$^3$).
+\item Dimensioni di campo (in cm$^2$) $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo $0.09\,$mm$^3$).
+\end{itemize}
+Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo la necessità di utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$.
+
+Utilizzare un detector di piccole dimensioni nei profili evita l'effetto di smussamento delle penombre che si evidenzia impiegando le camere a ionizzazione (Fig.\ref{fig:pen_smear}).
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.6\textwidth]{./cap2/pen_smear.png}
+\caption{Effetto di smussamento della penombra dei profili dovuto al volume esteso delle camere a ionizzazione confrontato con scansioni effettuate con detector di dimensioni ridotte.}
+\label{fig:pen_smear}
+\end{figure}
+Questo è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
+
+
 Qui parla delle misure effettuate, con quali detector, perché, riporta la problematica degli OF e della risoluzione dei profili (mitigata dall'algoritmo di convoluzione). Mentre per gli OF parla del fatto che abbiamo richiesto l'utilizzo di altri detector, grafico, confronto con letteratura (Das) e scelta di non correggere il PFD (protocollo ancora non ufficiale) tuttavia segnala vagamente gli studi che ne parlano...
 
 \subsection{MLC}
