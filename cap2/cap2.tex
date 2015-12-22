@@ -205,9 +205,7 @@ Seguendo le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low201
 \item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo: $0.13\,$cm$^3$).
 \item Dimensioni di campo (in cm$^2$) $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo: $0.09\,$mm$^3$).
 \end{itemize}
-Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$.
-
-Utilizzare un detector di piccole dimensioni nei profili evita l'effetto di smussamento delle penombre che si evidenzia impiegando le camere a ionizzazione (Fig.\ref{fig:pen_of}).
+Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, in Fig.\ref{fig:pen_of}) vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.7\textwidth]{./cap2/pen_smear.png}\\
@@ -215,12 +213,11 @@ Utilizzare un detector di piccole dimensioni nei profili evita l'effetto di smus
 \caption{In alto: Effetto di smussamento della penombra dei profili dovuto al volume esteso delle camere a ionizzazione confrontato con scansioni effettuate con detector di dimensioni ridotte\cite{Das2008a}. In basso: misura degli output factor a piccoli campi a seconda del detector impiegato\cite{Das2008}.}
 \label{fig:pen_of}
 \end{figure}
-Questo è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
-
-
- Mentre per gli OF parla del fatto che abbiamo richiesto l'utilizzo di altri detector, grafico, confronto con letteratura (Das) e scelta di non correggere il PFD (protocollo ancora non ufficiale) tuttavia segnala vagamente gli studi che ne parlano...
+Si può notare come le camere a ionizzazione con estesi volumi sensibili ($0.6\,$cc e $0.3\,$cc) portino ad una sovrastima della penombra del profilo a causa dell'effetto di volume-averaging. L'effetto è tanto più trascurabile quanto più viene diminuita la dimensione del detector (es. micro-camera a ionizzazione con volume sensibile di $0.125\,$cc oppure detector a semiconduttore come PFD e SFD). L'accurata misura delle penombre, è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
 
 \subsection{Output factor}
+
+
 Una delle determinazioni...continua con gli OF mettendo prima il fatto che vengono diversi e sono detector dipendenti...poi il formalismo di andreo e le correzioni MC necessarie perché nessun detector è realmente acqua equiv avvicinandosi ai campi piccoli o grandi (es. diamante overrisponde per campi molto piccoli, il diodo SFD per campi grandi) ad esempio di benkamalefaou e poi accenno al TG-155 che uscirà.
 
 Quindi le scelte da noi adottate consistono nell'effettuare misura multiple con vari detector per confermare la bontà del PFD...inoltre pronuncia la scelta di fermarsi al 2x2 e di non andare sotto perché questo avrebbe comportato l'applicazione di una correzione MC pesante non ancora ufficiale. e questo si è tradotto nel limitare il campo minimo di irradiazione a quella dimensione lì...Mostra tutti i nostri risultati
