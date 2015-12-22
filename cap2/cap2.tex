@@ -9,6 +9,7 @@ Le misure necessarie a costruire un modello dosimetrico di un LINAC consistono i
 Storicamente queste misurazioni vengono effettuate con detector a camera a ionizzazione\footnote{La camera a ionizzazione è un rivelatore di radiazione ionizzante a gas. \`E costituita da due elettrodi che racchiudono un certo volume di aria. Al passaggio della radiazione, l'aria viene ionizzata e libera coppie di ioni. Grazie ad un campo elettrico applicato tra i due elettrodi gli ioni migrano fino a giungere sugli elettrodi provocando un segnalo in corrente rivelabile}. Tuttavia, con l'avvento delle tecniche di radioterapia avanzata (es. intensità modulata o stereotassi) sono stati introdotti una molteplicità di detector di nuova generazione per soddisfare le esigenze di accuratezza di misura per piccoli campi di irradiazione\footnote{Un campo quadrato è ritenuto \textit{piccolo} se inferiore a $4$x$4$ cm$^2$ \cite{Das2008}.}. Nella sezione seguente verranno presentati i concetti classici di dosimetria di un LINAC propedeutici alla modellizzazione di un TPS. Ci si soffermerà dapprima alla tecnica di irradiazione denominata \textit{radioterapia conformazionale}\footnote{La radioterapia conformazionale o 3D-CRT è una tecnica di irradiazione che  fa impiego di fasci di irradiazione collimati sul target per i quali la pianificazione ed il calcolo della dose vengono effettuati su uno studio di tomografia computerizzata del paziente.}. Le problematiche relative alla dosimetria a piccoli campi e alle tecniche di irradiazione avanzata verranno discusse a seguire. 
 
 \subsection{Dosimetria relativa}
+\label{sec:dos_rel}
 Per dosimetria relativa si intende tutta una serie di misure della dose non in termini assoluti (in Gray) ma in percentuale rispetto a uno o più riferimenti. In particolare le misure di dosimetria relativa necessarie alla modellizzazione di un TPS generico possono essere suddivise in tre catagorie:
 \begin{itemize}
 \item Curve di dose-profondità (PDD).
@@ -30,9 +31,9 @@ Per ogni punto, la camera a ionizzazione registra una certa dose che viene norma
 I profili di dose si ottengono in maniera analoga muovendo il detector in piani perpendicolari all'asse del fascio. Tipicamente vengono acquisiti profili di dose lungo due assi perpendicolari denominati \textit{inline} e \textit{crossline}\footnote{Considerando un paziente supino con la testa verso il gantry del LINAC, l'asse \textit{inline} corrisponde alla direzione testa-piedi e l'asse \textit{cross-line} alla direzione sinistra-destra.} a varie profondità.\\
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.67\textwidth]{./cap2/pdd_prof.png}
-\includegraphics[width=.3\textwidth]{./cap2/of.png}
-\caption{Tipici andamenti delle misure di dosimetria relativa: curva dose-profondità (PDD) (sinistra); profilo di dose (centro); output factor (destra).}
+\includegraphics[width=\textwidth]{./cap2/pdd_prof.png}\\
+\includegraphics[width=.5\textwidth]{./cap2/of.png}
+\caption{Tipici andamenti delle misure di dosimetria relativa: curva dose-profondità (PDD) (sinistra-alto); profilo di dose (destra-alto); output factor (centro).}
 \label{fig:pdd_prof}
 \end{figure}
 Nella Fig.\ref{fig:pdd_prof} è possibile visualizzare gli andamenti tipici di una curva dose-profondità e di un profilo di dose.
@@ -190,7 +191,7 @@ La dosimetria dei piccoli campi di irradiazione presenta varie criticità \cite{
 Queste condizioni sono lontane dalle tipiche condizioni di riferimento dettate dai consolidati protocolli di dosimetria \cite{Almond1999,Andreo2006} pensati per la 3D-CRT in cui non vengono impiegati campi di piccole dimensioni (i.e. $<4x4\,$cm$^2$ \cite{Das2008}). Per minimizzare le incertezze che derivano da queste criticità sui piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
 Una estensiva review dei detector, delle loro problematiche e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group (TG) 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}. Sulla base dei risultati passati in rassegna dal TG-120, la comunità scientifica dell'AAPM e della IAEA è al lavoro congiuntamente per aggiornare i classici protocolli di dosimetria ed emettere delle nuove raccomandazioni che permettano una misura accurata della dose anche in presenza delle succitate criticità. In conclusione, una parte rilevante dell'accuratezza richiesta nel calcolo della dose in IMRT e VMAT è legata all'accuratezza con cui viene effettuata la dosimetria dei piccoli campi in quanto parti rilevanti della modellizzazione del TPS si basano su queste misurazioni.
 
-Accanto all'accuratezza richiesta nell'acquisizione delle misure, vi è l'accuratezza del calcolo del dose da considerare. Le indicazioni relative all'accuratezza di un TPS per IMRT sono state studiate dal task group 119 della AAPM \cite{Ezzell2009}. Il report suggerisce di conservare ed estendere le medesime tolleranze per 3D-CRT riportate in Tab.\ref{tab:tol} per i campi piccoli e di revisionare la formula di Venselaar \eqref{eq:clgamma}:
+Accanto all'accuratezza richiesta nell'acquisizione delle misure, vi è l'accuratezza del calcolo del dose da considerare. Le indicazioni relative all'accuratezza di un TPS per IMRT sono state studiate dal task group 119 della AAPM \cite{Ezzell2009}. Il report suggerisce di conservare ed estendere le tolleranze per 3D-CRT riportate in Tab.\ref{tab:tol} per i campi piccoli e di revisionare la formula di Venselaar \eqref{eq:clgamma}:
 \begin{equation}
 CL(\gamma)_{\text{IMRT}} = \bar{\gamma} + 1.96\,\sigma(\gamma)
 \end{equation}
@@ -200,10 +201,12 @@ Oltre ad indicare i criteri di accettazione per le curve di dose, il TG-119 ripo
 \subsection{PDD e Profili di dose}
 Il LINAC oggetto di questa tesi è un modello Trilogy\textsuperscript{\textcopyright} prodotto dalla Varian Medical Systems. Esso è progettato per poter erogare trattamenti radioterapici in tecnica conformazionalee e ad intensità modulata (IMRT) step-and-shoot e dinamica fino ad una dimensione di campo massima $40x40\,$cm$^2$. \`E inoltre in grado di erogare trattamenti volumetrici ad arco con intensità e rateo di dose modulati (VMAT) fino ad una dimensione di campo massima $30x30\,$cm$^2$. Oltre a queste caratteristiche legate all'erogazione è inoltre capace di effettuare uno studio di tomografia computerizzata del paziente prima del trattamento in modo da verificare in tre dimensioni l'accurata collocazione sia del paziente in sé sia dei suoi organi interni, rispetto alle posizioni pianificate.
 
-Seguendo le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low2011} e tenendo conto delle raccomandazioni della ditta produttrice del TPS (Tab.\ref{tab:meas}), le scelte effettuate per le misure di PDD e profili di dose sono le seguenti:
+La distanza sorgente-superficie dell'acqua (SSD) è stata posta a $90\,$cm sulle basi delle raccomandazioni della ditta ed anche del report 106 dell'AAPM \cite{Das2008a} che indica $90\,$cm come la SSD più vicina alle condizioni dei trattamenti più comuni.
+
+Seguendo poi le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low2011} e tenendo conto delle raccomandazioni della ditta produttrice del TPS (Tab.\ref{tab:meas}), le scelte effettuate per le misure di PDD e profili di dose sono le seguenti:
 \begin{itemize}
 \item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo: $0.13\,$cm$^3$).
-\item Dimensioni di campo (in cm$^2$) $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo: $0.09\,$mm$^3$).
+\item Dimensioni di campo (in cm$^2$) $1x1$, $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo: $0.09\,$mm$^3$).
 \end{itemize}
 Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, in Fig.\ref{fig:pen_of}) vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
 \begin{figure}[!t]
@@ -216,6 +219,25 @@ Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimet
 Si può notare come le camere a ionizzazione con estesi volumi sensibili ($0.6\,$cc e $0.3\,$cc) portino ad una sovrastima della penombra del profilo a causa dell'effetto di volume-averaging. L'effetto è tanto più trascurabile quanto più viene diminuita la dimensione del detector (es. micro-camera a ionizzazione con volume sensibile di $0.125\,$cc oppure detector a semiconduttore come PFD e SFD). L'accurata misura delle penombre, è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
 
 \subsection{Output factor}
+Come già introdotto nella Sez.\ref{sec:dos_rel}, gli output factor costituiscono misure di punto relative e si determinano per ogni dimensione campo di cui sono state acquisite le PDD e i profili con la formula:
+\begin{equation}
+OF(XxY)=\frac{D(XxY)}{D(10x10)}
+\end{equation}
+dove $D(XxY)$ è la lettura di dose per un campo di dimensioni $XxY\,$cm$^2$ e $D(10x10)$ è la lettura di dose per il campo di riferimento ($10x10\,$cm$^2$). Tutte le letture di dose sono effettuate a centro asse e a $10\,$cm di profondità.
+
+Seguendo le indicazioni delle ditta produttrice del TPS \cite{RaySearchLaboratories2014}, tutti gli output factor sono stati misurati con il medesimo detector con cui sono state effettuate le misure di PDD e profili di dose. Il rivelatore a semiconduttore PFD possiede come elemento attivo un volume di silicio. Varie evidenze scientifiche riassunte dall'AAPM TG-120 \cite{Low2011} hanno dimostrato che questa classe di dosimetri tende a sovrastimare la lettura di dose per dimensioni di campo inferiori al $3x3\,$cm$^2$. Ciò è dovuto al più alto numero atomico del silicio rispetto al numero atomico medio dell'acqua che comporta un aumento dell'efficienza di rivelazione dei fotoni a bassa energia\footnote{Fotoni di bassa energia interagiscono principalmente per effetto fotoelettrico la cui probabilità di accadimento è proporzionale a $Z^3$.}.
+
+Per poter effettuare una valutazione dell'incertezza degli output factor misurati con il rivelatore a semiconduttore PFD, è stato condotto uno studio che ha implicato l'utilizzo di una serie di detector di differente natura. In particolare è stato effettuato un interconfronto dei seguenti rivelatori:
+\begin{itemize}
+\item Camera a ionizzazione CC13 (IBA Dosimetry), volume attivo: $0.13\,$cm$^3$
+\item Camera a ionizzazione CC01 (IBA Dosimetry), volume attivo: $0.01\,$cm$^3$
+\item Camera a ionizzazione Exradin A26 (Standard Imaging), volume attivo: $0.015\,$cm$^3$
+\item Scintillatore Exradin W1 (Standard Imaging), volume attivo: $0.0024\,$cm$^3$
+\item Diodo SFD (IBA Dosimetry) , volume attivo: volume attivo: $0.00001\,$cm$^3$
+\item Diodo Razor (IBA Dosimetry) , volume attivo: volume attivo: $0.000006\,$cm$^3$
+\end{itemize}
+FAI UNA TABELLA DELLA ROBA SOPRA!
+Continua facendo un grafico semicarino e poi l'esigenza di correggere etc e la nostra scelta...2x2!!
 
 
 Una delle determinazioni...continua con gli OF mettendo prima il fatto che vengono diversi e sono detector dipendenti...poi il formalismo di andreo e le correzioni MC necessarie perché nessun detector è realmente acqua equiv avvicinandosi ai campi piccoli o grandi (es. diamante overrisponde per campi molto piccoli, il diodo SFD per campi grandi) ad esempio di benkamalefaou e poi accenno al TG-155 che uscirà.
