@@ -18,8 +18,8 @@ Per dosimetria relativa si intende tutta una serie di misure della dose non in t
 Queste misure vengono effettuate in un fantoccio cubico riempito di acqua (materiale più simile ai tessuti umani) dotato di un carrello motorizzato su cui viene montata la camera a ionizzazione che effettua le misure di dose (vedi Fig.\ref{fig:wphant}).
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.47\textwidth]{./cap2/wphant.jpg}
-\includegraphics[width=.47\textwidth]{./cap2/wphant_pos.jpg}
+\includegraphics[width=.45\textwidth]{./cap2/wphant.jpg}
+\includegraphics[width=.45\textwidth]{./cap2/wphant_pos.jpg}
 \caption{Fantoccio per le misure di dosimetria assoluta e relativa (foto e suo posizionamento rispetto al LINAC).}
 \label{fig:wphant}
 \end{figure}
@@ -153,7 +153,7 @@ Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta
 \label{fig:gamma10x10}
 \end{figure}
 
-\subsection{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT)}
+\subsection{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT). La problematica dei piccoli campi di irradiazione}
 Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modulata (IMRT). A differenza della 3D-CRT, queste tecniche realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
 \begin{figure}[!t]
 \centering
@@ -164,16 +164,33 @@ Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modu
 La modulazione della dose può essere realizzata in modalità \textit{step-and-shoot} (SMLC) ossia sommando una serie di fasci caratterizzati da diverse collimazioni (segmenti) \cite{Bortfeld1994} oppure in modalità \textit{dinamica}  (DMLC) che realizza la modulazione muovendo dinamicamente il multi-leaf-collimator \cite{LING1996}. Più recentemente è stata introdotta un'ulteriore modalità detta \textit{arcoterapia volumetrica} (VMAT) che realizza una distribuzione di dose modulata collimando il fascio durante la rotazione del gantry e modificando contemporaneamente il rateo di dose \cite{Otto2008}.\\
 La caratteristica che accomuna tutte queste tecniche è il largo uso di campi di piccole dimensioni (i.e. $<4x4$ cm$^2$ \cite{Das2008}). Per questo motivo, per il commissioning di un TPS dedicato alla pianificazione di trattamenti IMRT o VMAT, è necessario estendere le misure di PDD, profili e output factor ai campi piccoli ed anche rivalutare l'accuratezza tollerabile per un calcolo dosimetrico.
 
-La misura dei piccoli campi di irradiazione presenta varie criticità \cite{Das2008} tra cui:
+La dosimetria dei piccoli campi di irradiazione presenta varie criticità \cite{Das2008} tra cui:
 \begin{itemize}
-\item Mancanza di equilibrio di particelle cariche.
-\item Apertura dei collimatori comparabili con la dimensioni proiettate della sorgente.
-\item Dimensioni dei detector comuni comparabili con le dimensioni del campo.
+\item Mancanza di equilibrio di particelle cariche (CPE) laterale.
+\begin{itemize}
+\item[-] Questo effetto si realizza quando le dimensioni del campo sono comparabili con il range medio degli elettroni secondari. Per energie del fascio primario minori di $10\,$MV il CPE non è soddisfatto per dimensioni di campo al di sotto di $3x3\,$cm$^2$.
 \end{itemize}
-Queste condizioni sono lontane dalle condizioni di riferimento dettate dai classici protocolli di dosimetria \cite{Almond1999,Andreo2006}. Per minimizzare le incertezze sulla dosimetria dei piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
-Una estensiva review dei detector, delle loro criticità e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group (TG) 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}. Sulla base dei risultati passati in rassegna dal TG-120, la comunità scientifica dell'AAPM e della IAEA è al lavoro congiuntamente per aggiornare i classici protocolli di dosimetria ed emettere delle nuove raccomandazioni che permettano una misura accurata della dose anche in presenza delle succitate criticità.
+\item Apertura dei collimatori comparabili con la dimensioni proiettate della sorgente.
+\begin{itemize}
+\item[-] Questo crea un doppio effetto che consiste in una forte riduzione della dose sull'asse centrale del fascio e assieme ad una modificazione della forma del profilo (forma ogivale e allargamento della penombra) (vedi Fig.\ref{fig:small_eff})
+\end{itemize}
+\item Dimensioni dei detector comuni comparabili con le dimensioni del campo.
+\begin{itemize}
+\item[-] Ciò può portare ad un effetto di \textit{volume averaging} indicato nella Fig.\ref{fig:small_eff} che si traduce in una sottostima del massimo della dose al centro e ad una modificazione delle penombre.
+\end{itemize}
+\end{itemize}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.7\textwidth]{./cap2/small_eff1.png}
+\includegraphics[width=.7\textwidth]{./cap2/small_eff2.png}
+\caption{In alto: la sovrapposizione delle penombre dei collimatori (legate alle dimensioni della sorgente primaria) porta ad una modificazione della forma del profilo di dose (forma ogivale e penombre allargate) assieme ad una forte riduzione della dose al centro. In basso: criticità nell'utilizzo di detector di dimensioni comparabili con la dimensione del campo.}
+\label{fig:small_eff}
+\end{figure}
 
-Accanto all'accuratezza richiesta nell'acquisizione delle misure, vi è l'accuratezza del calcolo del dose da considerare. Le indicazioni relative all'accuratezza di un TPS per IMRT sono state studiate dal task group 119 della AAPM \cite{Ezzell2009}. Il report suggerisce di estendere le medesime tolleranze per 3D-CRT riportate in Tab.\ref{tab:tol} ai campi piccoli e di revisionare la formula di Venselaar \eqref{eq:clgamma}:
+Queste condizioni sono lontane dalle tipiche condizioni di riferimento dettate dai consolidati protocolli di dosimetria \cite{Almond1999,Andreo2006} pensati per la 3D-CRT in cui non vengono impiegati campi di piccole dimensioni (i.e. $<4x4\,$cm$^2$ \cite{Das2008}). Per minimizzare le incertezze che derivano da queste criticità sui piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
+Una estensiva review dei detector, delle loro problematiche e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group (TG) 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}. Sulla base dei risultati passati in rassegna dal TG-120, la comunità scientifica dell'AAPM e della IAEA è al lavoro congiuntamente per aggiornare i classici protocolli di dosimetria ed emettere delle nuove raccomandazioni che permettano una misura accurata della dose anche in presenza delle succitate criticità. In conclusione, una parte rilevante dell'accuratezza richiesta nel calcolo della dose in IMRT e VMAT è legata all'accuratezza con cui viene effettuata la dosimetria dei piccoli campi in quanto parti rilevanti della modellizzazione del TPS si basano su queste misurazioni.
+
+Accanto all'accuratezza richiesta nell'acquisizione delle misure, vi è l'accuratezza del calcolo del dose da considerare. Le indicazioni relative all'accuratezza di un TPS per IMRT sono state studiate dal task group 119 della AAPM \cite{Ezzell2009}. Il report suggerisce di conservare ed estendere le medesime tolleranze per 3D-CRT riportate in Tab.\ref{tab:tol} per i campi piccoli e di revisionare la formula di Venselaar \eqref{eq:clgamma}:
 \begin{equation}
 CL(\gamma)_{\text{IMRT}} = \bar{\gamma} + 1.96\,\sigma(\gamma)
 \end{equation}
@@ -185,22 +202,29 @@ Il LINAC oggetto di questa tesi è un modello Trilogy\textsuperscript{\textcopyr
 
 Seguendo le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low2011} e tenendo conto delle raccomandazioni della ditta produttrice del TPS (Tab.\ref{tab:meas}), le scelte effettuate per le misure di PDD e profili di dose sono le seguenti:
 \begin{itemize}
-\item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo $0.13\,$cm$^3$).
-\item Dimensioni di campo (in cm$^2$) $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo $0.09\,$mm$^3$).
+\item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo: $0.13\,$cm$^3$).
+\item Dimensioni di campo (in cm$^2$) $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo: $0.09\,$mm$^3$).
 \end{itemize}
-Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo la necessità di utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$.
+Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$.
 
-Utilizzare un detector di piccole dimensioni nei profili evita l'effetto di smussamento delle penombre che si evidenzia impiegando le camere a ionizzazione (Fig.\ref{fig:pen_smear}).
+Utilizzare un detector di piccole dimensioni nei profili evita l'effetto di smussamento delle penombre che si evidenzia impiegando le camere a ionizzazione (Fig.\ref{fig:pen_of}).
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.6\textwidth]{./cap2/pen_smear.png}
-\caption{Effetto di smussamento della penombra dei profili dovuto al volume esteso delle camere a ionizzazione confrontato con scansioni effettuate con detector di dimensioni ridotte.}
-\label{fig:pen_smear}
+\includegraphics[width=.7\textwidth]{./cap2/pen_smear.png}\\
+\includegraphics[width=.7\textwidth]{./cap2/OF_uncert.png}
+\caption{In alto: Effetto di smussamento della penombra dei profili dovuto al volume esteso delle camere a ionizzazione confrontato con scansioni effettuate con detector di dimensioni ridotte\cite{Das2008a}. In basso: misura degli output factor a piccoli campi a seconda del detector impiegato\cite{Das2008}.}
+\label{fig:pen_of}
 \end{figure}
 Questo è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
 
 
-Qui parla delle misure effettuate, con quali detector, perché, riporta la problematica degli OF e della risoluzione dei profili (mitigata dall'algoritmo di convoluzione). Mentre per gli OF parla del fatto che abbiamo richiesto l'utilizzo di altri detector, grafico, confronto con letteratura (Das) e scelta di non correggere il PFD (protocollo ancora non ufficiale) tuttavia segnala vagamente gli studi che ne parlano...
+ Mentre per gli OF parla del fatto che abbiamo richiesto l'utilizzo di altri detector, grafico, confronto con letteratura (Das) e scelta di non correggere il PFD (protocollo ancora non ufficiale) tuttavia segnala vagamente gli studi che ne parlano...
+
+\subsection{Output factor}
+Una delle determinazioni...continua con gli OF mettendo prima il fatto che vengono diversi e sono detector dipendenti...poi il formalismo di andreo e le correzioni MC necessarie perché nessun detector è realmente acqua equiv avvicinandosi ai campi piccoli o grandi (es. diamante overrisponde per campi molto piccoli, il diodo SFD per campi grandi) ad esempio di benkamalefaou e poi accenno al TG-155 che uscirà.
+
+Quindi le scelte da noi adottate consistono nell'effettuare misura multiple con vari detector per confermare la bontà del PFD...inoltre pronuncia la scelta di fermarsi al 2x2 e di non andare sotto perché questo avrebbe comportato l'applicazione di una correzione MC pesante non ancora ufficiale. e questo si è tradotto nel limitare il campo minimo di irradiazione a quella dimensione lì...Mostra tutti i nostri risultati
+
 
 \subsection{MLC}
 Poi misure per modellare l'MLC, introduzione alla leaf-tip e tongue and groove problem...non c'è nessuna raccomandazione, scelte che abbiamo adottato noi...campi dell'NCS modificati, etc etc.
