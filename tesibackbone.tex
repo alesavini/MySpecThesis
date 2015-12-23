@@ -11,6 +11,7 @@
 \usepackage{minitoc}
 \usepackage[binding=1.5cm]{layaureo}
 \usepackage{threeparttable}
+\usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{multirow}
 \usepackage{array}
@@ -70,6 +71,7 @@
 \fancypagestyle{plain}{%
 \fancyhead{} % get rid of headers on plain pages
 \renewcommand{\headrulewidth}{0pt} }
+\newcommand{\arrstr}[1]{\renewcommand{\arraystretch}{#1}}
 %%%%%%INTESTAZIONE ELEGANTE%%%%%%
 
 %%%%%%INIZIO DOCUMENTO%%%%%%
@@ -94,7 +96,7 @@
 
 %%%%%%CORPO DOCUMENTO%%%%%%
 \mainmatter
-\input{./cap1/cap1.tex}
+%\input{./cap1/cap1.tex}
 \input{./cap2/cap2.tex}
 \input{./cap3/cap3.tex}
 \input{./cap4/cap4.tex}
