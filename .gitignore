@@ -18,6 +18,8 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+*.pdf
+*.eps
 [Bb]in
 [Dd]ebug*/
 *.lib
