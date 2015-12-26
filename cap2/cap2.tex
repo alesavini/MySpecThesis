@@ -57,6 +57,7 @@ Come vedremo in seguito, l'accuratezza di un calcolo dosimetrico tramite TPS vie
 Assieme alle PDD e ai profili viene anche effettuata una misura di dose puntuale al variare delle dimensioni del campo di irradiazione (\textit{output factor}). In particolare viene registrata la lettura di dose al centro del fascio ad una certa profondità (tipicamente 10 cm) e per una dimensione di campo di riferimento (10$x$10 cm$^2$). Viene quindi ripetuta la lettura al variare delle dimensioni del campo di irradiazione normalizzando il tutto alla lettura di riferimento. L'andamento che si ottiene tipicamente per un fascio di fotoni è riportato nella Fig.\ref{fig:pdd_prof}. L'output factor incrementa all'aumentare delle dimensioni del campo e ciò è dovuto principalmente ai processi di scatter che assumono più rilevanza e contribuiscono a maggiorare la lettura di dose al centro.
 
 \subsection{Dosimetria assoluta}
+\label{sec:dose_ass}
 Una volta concluse le misure di dosimetria relativa, è necessario effettuare una misura di dose assoluta che permette di trasformare tutte le curve percentuali in curve di dose reale (in unità di Gray). La misurazione della dose assoluta è regolata da specifici protocolli redatti da organizzazioni internazionali come l'AAPM (America) \cite{Almond1999} e la International Atomic Energy Agency (IAEA) (Europa) \cite{Andreo2006}.\\
 Per il commissioning dell'acceleratore oggetto di questa tesi è stato seguito il protocollo IAEA TRS-398 secondo cui la dose assoluta può essere ottenuta con la seguente formula:
 \begin{equation}
@@ -221,20 +222,21 @@ Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimet
 Si può notare come le camere a ionizzazione con estesi volumi sensibili ($0.6\,$cc e $0.3\,$cc) portino ad una sovrastima della penombra del profilo a causa dell'effetto di volume-averaging. L'effetto è tanto più trascurabile quanto più viene diminuita la dimensione del detector (es. micro-camera a ionizzazione con volume sensibile di $0.125\,$cc oppure detector a semiconduttore come PFD e SFD). L'accurata misura delle penombre, è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
 
 \subsection{Output factor}
-Come già introdotto nella Sez.\ref{sec:dos_rel}, gli output factor costituiscono misure di punto relative e si determinano per ogni dimensione campo di cui sono state acquisite le PDD e i profili con la formula:
+Come già introdotto nella Sez.\ref{sec:dos_rel}, gli output factor (OF) costituiscono misure di punto relative e si determinano per ogni dimensione campo di cui sono state acquisite le PDD e i profili con la formula:
 \begin{equation}
+\label{eq:OF}
 OF(XxY)=\frac{D(XxY)}{D(10x10)}
 \end{equation}
-dove $D(XxY)$ è la lettura di dose per un campo di dimensioni $XxY\,$cm$^2$ e $D(10x10)$ è la lettura di dose per il campo di riferimento ($10x10\,$cm$^2$). Tutte le letture di dose sono effettuate a centro asse e a $10\,$cm di profondità.
+dove $D(XxY)$ è la lettura di dose per un campo di dimensioni $XxY\,$cm$^2$ e $D(10x10)$ è la lettura di dose per il campo di riferimento ($10x10\,$cm$^2$). Tutte le letture di dose sono effettuate a centro asse e a $10\,$cm di profondità\footnote{In dosimetria relativa il termine `dose' è utilizzato come sinonimo di carica integrata raccolta dal rivelatore per un fissato intervallo di tempo.  Ciò non è da confondere con la `dose' in dosimetria assoluta che comporta un processo di misura più complesso (Sez.\ref{sec:dose_ass}).}.
 
-Seguendo le indicazioni delle ditta produttrice del TPS \cite{RaySearchLaboratories2014}, gli output factor sono stati misurati per ogni dimensione di campo con il medesimo detector utilizzato per le misure di PDD e profili di dose. Mentre per i campi al di sopra del $4x4\,$cm$^2$ è stata impiegata una camera a ionizzazione secondo una procedura consolidata per la 3D-CRT \cite{Andreo2006}, il rivelatore a semiconduttore PFD utilizzato per i campi piccoli può presentare delle criticità. Varie evidenze scientifiche riassunte dall'AAPM TG-120 \cite{Low2011} hanno dimostrato che la classe di dosimetri basata su semiconduttore al silicio tende a sovrastimare la lettura di dose \cite{Low2011}. Ciò è dovuto al più alto numero atomico del silicio rispetto al numero atomico medio dell'acqua che comporta un aumento dell'efficienza di rivelazione dei fotoni a bassa energia\footnote{Fotoni di bassa energia interagiscono principalmente per effetto fotoelettrico la cui probabilità di accadimento è proporzionale a $Z^3$.}.
+Seguendo le indicazioni delle ditta produttrice del TPS \cite{RaySearchLaboratories2014}, gli OF sono stati misurati per ogni dimensione di campo con il medesimo detector utilizzato per le misure di PDD e profili di dose. Mentre per i campi al di sopra del $4x4\,$cm$^2$ è stata impiegata una camera a ionizzazione secondo una procedura consolidata per la 3D-CRT \cite{Andreo2006}, il rivelatore a semiconduttore PFD utilizzato per i campi piccoli può presentare delle criticità. Varie evidenze scientifiche riassunte dall'AAPM TG-120 \cite{Low2011} hanno dimostrato che la classe di dosimetri basata su semiconduttore al silicio tende a sovrastimare la lettura di dose \cite{Low2011}. Ciò è dovuto al più alto numero atomico del silicio rispetto al numero atomico medio dell'acqua che comporta un aumento dell'efficienza di rivelazione dei fotoni a bassa energia\footnote{Fotoni di bassa energia interagiscono principalmente per effetto fotoelettrico la cui probabilità di accadimento è proporzionale a $Z^3$.}. L'effetto è marcato per campi grandi (i.e. $> 4x4\,$cm$^2$) in cui i fotoni a bassa energia aumentano in percentuale. Un tipico rimedio a ciò consiste nello schermare il volume di silicio con un materiale ad alta densità (tungsteno nel caso del PFD) che assorbe i fotoni a bassa energia per compensare l'effetto di sovra-risposta. Tuttavia, sebbene si recuperi la sovra-risposta per campi grandi, il materiale ad alta densità nel detector comporta degli effetti di scatter che perturbano la lettura di dose causando una sovra-risposta per i campi piccoli \cite{Griessbach2005}.
 
-Per poter effettuare una valutazione dell'incertezza degli output factor misurati con il rivelatore a semiconduttore PFD, è stato condotto uno studio che ha implicato l'utilizzo di una serie di detector di differente natura. In particolare è stato effettuato un interconfronto dei rivelatori indicati nella Tab.\ref{tab:OF_inter}.\\ I risultati di questo interconfronto sono riportati in Fig.\ref{fig:OF_res}.
+Per poter effettuare una valutazione dell'incertezza degli OF misurati con il rivelatore a semiconduttore PFD, è stato quindi condotto uno studio che ha implicato l'utilizzo di una serie di detector di differente natura. In particolare è stato effettuato un interconfronto dei rivelatori indicati nella Tab.\ref{tab:OF_inter}.\\ I risultati di questo interconfronto sono riportati in Fig.\ref{fig:OF_res} che possono essere comparati qualitativamente con la Fig.\ref{fig:pen_of}.
 \begin{table}[!t]
 \centering
 \arrstr{1.3}
 \begin{threeparttable}
-\begin{tabular}{@{}llll@{}}
+\begin{tabular}{llll}
 \toprule
 Nome modello & Tipo & Produttore & Volume attivo (cm$^3$)\\
 \midrule
@@ -247,7 +249,7 @@ SFD & Diodo SI & IBA Dosimetry & $0.00001$ \\
 Razor & Diodo SI & IBA Dosimetry & $0.000006$ \\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}
+\begin{tablenotes}[para]
 \item[1] CI: Camera a ionizzazione
 \item[2] SC: Scintillatore
 \item[3] SI: Semiconduttore (Silicio)
@@ -256,15 +258,54 @@ Razor & Diodo SI & IBA Dosimetry & $0.000006$ \\
 \caption{Detector utilizzati per lo studio degli output factor a piccoli campi.}
 \label{tab:OF_inter}
 \end{table}
-
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.9\textwidth]{./cap2/OF_plots/OFCC13.eps}\\
-\includegraphics[width=.9\textwidth]{./cap2/OF_plots/OFSmall.eps}
+\includegraphics[width=.8\textwidth]{./cap2/OF_plots/OFCC13.eps}\\
+\includegraphics[width=.8\textwidth]{./cap2/OF_plots/OFSmall.eps}
 \caption{Sopra: output factor misurati con la camera a ionizzazione; da notare è la normalizzazione ($OF=1$) per il campo $10x10\,$cm$^2$. Sotto: interconfronto tra vari detector nella stima degli output factor dei piccoli campi.}
 \label{fig:OF_res}
 \end{figure}
-Si può notare che la misura degli output factor per piccoli campi presenta un certo grado di variabilità a seconda del detector utilizzato. Le variabilità più ampie si riscontrano per i campi di dimensione minore $\leq 1x1\,$cm$^c$.
+In esse si può notare come la misura degli OF per piccoli campi presenti un certo grado di variabilità a seconda del detector utilizzato. Le variabilità più ampie si riscontrano per i campi di dimensione $\leq 1x1\,$cm$^2$ (superiori al $5\%$, vedi Tab.\ref{tab:delta_OF}). 
+
+\begin{table}
+\centering
+\arrstr{1.3}
+\begin{tabular}{cllllll}
+\toprule
+  & \multicolumn{6}{c}{$\Delta$ PFD vs.}\\
+  \cmidrule{2-7}
+ 
+Field Size (cm$\,x\,$cm$^2$) & CC13 & CC01 & A26 & W1 & SFD & Razor\\
+\midrule
+$1x1$ &        & $8.6\%$ & $9.6\%$ & $5.7\%$ & $8.3\%$ & $9.1\%$\\
+$2x2$ & $3.2\%$ & $3.5\%$ & $2.1\%$ & $3.1\%$ & $5.4\%$ & $6.1\%$\\
+$3x3$ & $1.4\%$ & $2.5\%$ & $1.2\%$ &  & $4.5\%$ & $5.1\%$ \\
+$4x4$ & $1.1\%$ & $1.9\%$ & $1.0\%$ & $3.0\%$ & $3.8\%$ & $4.4\%$ \\
+$5x5$ & $0.8\%$ & $1.2\%$ & $0.8\%$	&         & $3.1\%$ & $3.7\%$ \\
+$7x7$ & $0.4\%$ & $0.8\%$ & $0.2\%$	&         &         &         \\
+\bottomrule
+\end{tabular}
+\caption{Variabilità degli output factor misurati con i diversi detector espressi come differenza percentuale rispetto al detector scelto per le misure di commissioning (PFD della IBA Dosimetry).}
+\label{tab:delta_OF}
+\end{table}
+
+Il diodo PFD, in accordo con il comportamento atteso per campi grandi \cite{Griessbach2005}, misura degli OF simili a quelli misurati con la camera a ionizzazione CC13. In particolare, per campi $\geq 5x5\,$cm$^2$ la deviazione tra il PFD e la camera CC13 risulta inferiore all'$1\%$ (Tab.\ref{tab:delta_OF}). Per campi piccoli ($\leq 4x4$cm$^2$) si nota invece una sovrastima dell'ouput factor che diventa rilevante per il campo $1x1\,$cm$^2$ ($\Delta > 5\div9\%$ ).
+
+Parallelamente ai diodi schermati, esistono in commercio anche detector basati su silicio non schermato (i.e. SFD e Razor della IBA Dosimetry). Per questi detector l'effetto di sovrastima dell'OF a piccoli campi è ridotto, tuttavia viene amplificato quello a campi grandi. Le correnti raccomandazioni di misura degli OF \cite{Andreo2006,RaySearchLaboratories2014} stabiliscono come campo di riferimento quello di dimensioni $10x10\,$cm$^2$. La lettura di dose per questo campo, effettuata con un diodo non schermato, risulta sovrastimata per l'abbondanza dei fotoni a bassa energia \cite{Griessbach2005}. Sovrastimando la lettura di riferimento, gli OF per campi più piccoli risulteranno sottostimati. Questo effetto è visibile nella Fig.\ref{fig:OF_res} in cui risulta chiara la sistematicità della sottostima degli OF misurati con i diodi non schermati (SFD e Razor), rispetto a tutti gli altri detector.
+
+A causa delle dimostrate criticità nella misura degli OF a piccoli campi, è stato proposto di revisionare i protocolli correnti introducendo, tra le altre cose, una correzione alla misura degli output factor che tiene conto della geometria di misura e della natura del detector utilizzato \cite{Alfonso2008}. In particolare l'eq.\eqref{eq:OF} si aggiunge di un fattore:
+\begin{equation}
+OF(XxY)=\frac{D(XxY)}{D(10x10)}\times k
+\end{equation}
+dove il fattore $k$ dipende dalle dimensioni del campo, dalla qualità del fascio, dalla profondità di misura dell'OF etc. e serve a compensare le criticità legate alla natura del detector.\\
+I fattori $k$ si calcolano con metodo Monte Carlo simulando tutto il processo di irradiazione e raccolta della ionizzazione da parte del particolare detector. Questi simulazioni sono condotte da vari gruppi di ricerca affiliati al task group n. 155 della AAPM e i risultati verranno inclusi nel report contenente le raccomandazioni per la dosimetria a piccoli campi \cite{AAPMTG155}.
+
+
+
+Continua introducendo la pubblicazione di andreo benklmasdeffii e i due grafici matlab che ne valutano gli effetti...poi anche introduci la pub di francescon sul W1 che dice che è un detector in cui la correzioneè poca e quindi far vedere che la correzione MC va bene sia in grafici che in forma tabellare fai vedere (colonne esempio CC01 CC01_corrected)!.
+Tuttavia dici anche che c'è una certa indeterminazione sui fattori, (magari vedi su andreo benkolovusen) e in realtà la scelta nostra è stata conservativa visto che nulla è ancora ufficiale. si limita il tutto al 2x2 e addio.
+
+
 
 Si può notare che CONTINUA QUI DOPO AVER FATTO LA FIGURA A DIRE CHE SERVE MC etcd
 

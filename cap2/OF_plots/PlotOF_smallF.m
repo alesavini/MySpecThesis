@@ -18,10 +18,10 @@ fig = figure('Units','centimeters','OuterPosition',[3 3 11.25 9]);
     
     plot(CC13(:,1),CC13(:,2),'-+b');
     hold on
-    plot(CC01(:,1),CC01(:,2),'*:b');
+    plot(CC01(:,1),CC01(:,2),'*:k');
     plot(A26(:,1),A26(:,2),'x-.g');
     plot(W1(:,1),W1(:,2),'+:c');
-    plot(PFD(:,1),PFD(:,2),'p-r');
+    plot(PFD(:,1),PFD(:,2),'p-m');
     plot(SFD(:,1),SFD(:,2),'s--b');
     plot(razor(:,1),razor(:,2),'x-.r');
     

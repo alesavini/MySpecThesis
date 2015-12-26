@@ -20,6 +20,7 @@ fig = figure('Units','centimeters','OuterPosition',[3 3 11.25 9]);
     plot(CC01_corr(:,1),CC01_corr(:,2),'*:b');
     plot(PFD_corr(:,1),PFD_corr(:,2),'p-r');
     plot(SFD_corr(:,1),SFD_corr(:,2),'s--b');
+    plot(W1(:,1),W1(:,2),'+:c');
     
     x = 10;
     y = 1;
@@ -28,12 +29,12 @@ fig = figure('Units','centimeters','OuterPosition',[3 3 11.25 9]);
     
     xlabel('Field Size (cm)','FontSize',10)
     ylabel('Output factor','FontSize',10)
-    title('Monte Carlo applied','FontSize',10)
+    title('Monte Carlo correction factors applied','FontSize',10)
 %     hlC = line(CC13(:,1),CC13(:,2),'LineWidth',1.5,'Color','b');
 %     hlCoarse = line(AnglesAbscissa,calculated,'LineWidth',1.5,'Color','g');    
 %     hlCoarse = line(AnglesAbscissa,coarse,'LineWidth',1.5,'Color','g');    
 
-    lh1 = legend('CC01','PFD','SFD', 'Location','SouthEast');
+    lh1 = legend('CC01','PFD','SFD','W1', 'Location','SouthEast');
     legend('boxoff')
     
     
