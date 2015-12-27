@@ -300,45 +300,74 @@ OF(XxY)=\frac{D(XxY)}{D(10x10)}\times k
 dove il fattore $k$ dipende dalle dimensioni del campo, dalla qualità del fascio, dalla profondità di misura dell'OF etc. e serve a compensare le criticità legate alla natura del detector.\\
 I fattori $k$ si calcolano con metodo Monte Carlo simulando tutto il processo di irradiazione e raccolta della ionizzazione da parte del particolare detector. Queste simulazioni sono condotte da vari gruppi di ricerca affiliati al task group n. 155 della AAPM e i risultati verranno inclusi nel report contenente le raccomandazioni per la dosimetria a piccoli campi \cite{AAPMTG155}. 
 
-Tuttavia, al tempo di esecuzione delle misure (Marzo 2014) e della redazione di questo lavoro (Gennaio 2016), il report risulta ancora in sviluppo per cui un'eventuale correzione degli OF misurati con un certo detector va valutata con cautela. Considerando che un campo `piccolo' può rientrare nella classe delle ``complex geometries'' (Tab.\ref{tab:tol}), si può adottare una tolleranza del $3\%$ sulla valutazione degli OF. Osservando nella Tab.\ref{tab:delta_OF} che per un campo di dimensioni $2x2\,$cm$^2$ le deviazioni sono attorno al $3\%$,\footnote{A parte i detector a semiconduttore non schermati SFD e Razor per cui si è già evidenziata la sistematica sottostima degli OF a piccoli campi dovuta alla sovrastima della lettura per il campo di riferimento $10x10\,$cm$^2$ \cite{Griessbach2005}.} la scelta adottata nelle misure degli OF è stata quella di ritenere accettabili le misure effettuate con il rivelatore PFD fino ad un campo di dimensioni $2x2\,$cm$^2$. Ciò appare essere un buon compromesso per bilanciare la necessità di utilizzo di piccoli campi con l'affidabilità della misura. Questa scelta è stata tradotta successivamente in una limitazione della dimensione di campo minima impiegabile nella pianificazione del trattamento pari a $2x2\,$cm$^2$.
+Tuttavia, al tempo di redazione di questo lavoro (Gennaio 2016), il report risulta ancora in sviluppo per cui una correzione degli OF misurati con un certo detector va valutata con cautela. Considerando le tolleranze nella Tab.\ref{tab:tol} estese anche ai campi piccoli \cite{Low2011}, si può adottare una soglia del $2\%$ sulla valutazione degli OF. Osservando la Tab.\ref{tab:delta_OF} si nota che il detector PFD fornisce valori in accordo con il detector Exradin W1 fino ad un campo di dimensioni $2x2\,$cm$^2$. Questo detector è stato dimostrato non avere fattori di correzione Monte Carlo rilevanti fino a campi di dimensione $0.5x0.5\,$cm$^2$ \cite{Francescon2014} per cui è assunto come benchmark. Alla luce di ciò, la scelta adottata nelle misure degli OF è stata quella di ritenere accettabili le misure effettuate con il rivelatore PFD fino ad un campo di dimensioni $2x2\,$cm$^2$ e di limitare il commissioning del TPS a questa dimensione di campo minima. Ciò appare essere un buon compromesso per bilanciare la necessità di utilizzo di piccoli campi con l'affidabilità della misura. Questa scelta è stata tradotta successivamente in una limitazione della dimensione di campo minima impiegabile nella pianificazione del trattamento pari a $2x2\,$cm$^2$.
 
-A titolo esplorativo e per gli scopi di questo lavoro, è stata tuttavia indagata la possibilità di utilizzare delle correzioni per le misure di OF con i rivelatori PFD e CC01 recentemente pubblicate da uno dei gruppi affiliati al TG-155 \cite{Benmakhlouf2014}.\\
-I risultati di questa speculazione sono riportati in Fig.\ref{fig:OFMC} e in Tab.\ref{tab:OFMC}. 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=.65\textwidth]{./cap2/OF_plots/OFSmallpreMC.eps}\\
-\includegraphics[width=.65\textwidth]{./cap2/OF_plots/OFSmallpostMC.eps}
-\caption{Confronto degli OF misurati con e senza correzione Monte Carlo secondo la pubblicazione \cite{Benmakhlouf2014}. Le misure effettuate con lo scintillatore Exradin W1 sono riportate e fungono da benchmark in quanto è stato dimostrato che le correzioni per questo detector sono trascurabili \cite{Francescon2014}.}
-\label{fig:OFMC}
-\end{figure}
-\begin{table}[!t]
-\centering
-\arrstr{1.3}
-\begin{threeparttable}
-\begin{tabular}{clcl}
-\toprule
-  & \multicolumn{3}{c}{$\Delta$PFD\tnote{1} vs.}\\
-  \cmidrule{2-4}
-Field Size (cm$\,x\,$cm$^2$) & CC01\tnote{1} & W1 & SFD\tnote{1} \\
-\midrule
-$1x1$ &  $4.2\%$ & $3.3\%$  & $2.0\%$ \\
-$2x2$ &  $1.8\%$ & $-1.1\%$ & $1.5\%$ \\
-$3x3$ &  $1.4\%$ &          & $1.2\%$ \\
-$4x4$ &  $1.0\%$ & $-0.3\%$ & $0.9\%$  \\
-\bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item[1] Misure corrette con i fattori Monte Carlo \cite{Benmakhlouf2014}.
-\end{tablenotes}
-\end{threeparttable}
-\caption{Deviazioni tra gli OF misurati con il PFD e gli altri detector considerando i fattori di correzione Monte Carlo.}
-\label{tab:OFMC}
-\end{table}
-Da notare è che la correzione Monte Carlo contribuisce a ridurre l'incertezza nella stima degli OF di tutti i detector, avvicinandosi alla misura effettuata con il detector a scintillazione Exradin W1 specie per il campo minimo $1x1\,$cm$^2$. Questo detector è stato dimostrato non avere fattori di correzione Monte Carlo rilevanti fino a campi di dimensione $0.5x0.5\,$cm$^2$ \cite{Francescon2014} per cui è assunto come benchmark.\\
-Dal confronto del diodo PFD con il detector di riferimento Exradin W1 (Tab.\ref{tab:OFMC}), si nota che la scelta di troncare la misura degli OF al campo $2x2\,$cm$^2$ garantisce una precisione della misura dell'OF entro il $2\%$ applicando o meno la correzione Monte Carlo.
+%INDAGINE SOTTO INTERESSANTE MA RIMOSSA PER BRIVTIà
+%A titolo esplorativo e per gli scopi di questo lavoro, è stata tuttavia indagata la possibilità di utilizzare delle correzioni per le misure di OF con i rivelatori PFD e CC01 recentemente pubblicate da uno dei gruppi affiliati al TG-155 \cite{Benmakhlouf2014}.\\
+%I risultati di questa speculazione sono riportati in Fig.\ref{fig:OFMC} e in Tab.\ref{tab:OFMC}. 
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=.65\textwidth]{./cap2/OF_plots/OFSmallpreMC.eps}\\
+%\includegraphics[width=.65\textwidth]{./cap2/OF_plots/OFSmallpostMC.eps}
+%\caption{Confronto degli OF misurati con e senza correzione Monte Carlo secondo la pubblicazione \cite{Benmakhlouf2014}. Le misure effettuate con lo scintillatore Exradin W1 sono riportate e fungono da benchmark in quanto è stato dimostrato che le correzioni per questo detector sono trascurabili \cite{Francescon2014}.}
+%\label{fig:OFMC}
+%\end{figure}
+%\begin{table}[!t]
+%\centering
+%\arrstr{1.3}
+%\begin{threeparttable}
+%\begin{tabular}{clcl}
+%\toprule
+%  & \multicolumn{3}{c}{$\Delta$PFD\tnote{1} vs.}\\
+%  \cmidrule{2-4}
+%Field Size (cm$\,x\,$cm$^2$) & CC01\tnote{1} & W1 & SFD\tnote{1} \\
+%\midrule
+%$1x1$ &  $4.2\%$ & $3.3\%$  & $2.0\%$ \\
+%$2x2$ &  $1.8\%$ & $-1.1\%$ & $1.5\%$ \\
+%$3x3$ &  $1.4\%$ &          & $1.2\%$ \\
+%$4x4$ &  $1.0\%$ & $-0.3\%$ & $0.9\%$  \\
+%\bottomrule
+%\end{tabular}
+%\begin{tablenotes}
+%\item[1] Misure corrette con i fattori Monte Carlo \cite{Benmakhlouf2014}.
+%\end{tablenotes}
+%\end{threeparttable}
+%\caption{Deviazioni tra gli OF misurati con il PFD e gli altri detector considerando i fattori di correzione Monte Carlo.}
+%\label{tab:OFMC}
+%\end{table}
+%Da notare è che la correzione Monte Carlo contribuisce a ridurre l'incertezza nella stima degli OF di tutti i detector, avvicinandosi alla misura effettuata con il detector a scintillazione Exradin W1 specie per il campo minimo $1x1\,$cm$^2$.\\
+%Dal confronto del diodo PFD con il detector di riferimento Exradin W1 (Tab.\ref{tab:OFMC}), si nota che la scelta di troncare la misura degli OF al campo $2x2\,$cm$^2$ garantisce una precisione della misura dell'OF entro il $2\%$ applicando o meno la correzione Monte Carlo.
 
 
 \subsection{MLC}
+In radioterapia conformazionale l'MLC ha unicamente la funzione di sagomare il campo ai bordi del target. D'altra parte, nelle tecniche avanzate IMRT e VMAT, la modulazione di intensità si effettua combinando tra loro diverse collimazioni (segmenti, Fig.\ref{fig:IMRT_Segments}). Per questo motivo è necessario tenere in conto maggiormente i dettagli costruttivi dell'MLC nella modellizzazione del TPS.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.7\textwidth]{./cap2/IMRT_Segments.jpg}
+\caption{Segmenti sagomati con l'MLC per realizzare la modulazione di intensità.}
+\label{fig:IMRT_Segments}
+\end{figure}
+Il MLC oggetto di questa tesi è il modello Millenium 120 ed è prodotto dalla Varian Medical Systems. Esso è dotato di due banchi di 60 lamelle che proiettano una dimensione nel piano dell'isocentro di $0.5\,$cm (prime 30 lamelle a partire dal centro) e di $1\,$cm per le rimanenti. In Fig.\ref{fig:MLC_details} sono riportati alcuni dettagli costruttivi. 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.5\textwidth]{./cap2/MLC_leaf_varian.png}\\
+\includegraphics[width=.35\textwidth]{./cap2/MLC_side.png}
+\includegraphics[width=.35\textwidth]{./cap2/MLC_front.png}
+\caption{Foto e schemi costruttivi dell'MLC Millenium 120.}
+\label{fig:MLC_details}
+\end{figure}
+In particolare i più importanti consistono in \cite{Galvin1993a}:
+\begin{description}
+\item[\textit{Rounded leaf end:}] la parte finale del leaf è arrotondata. Questo espediente è adottato per assicurare che i profili di dose collimati dal solo MLC abbiano la stessa penombra per ogni dimensione di campo.
+\item[\textit{Tongue and groove:}] il bordo laterale del leaf presenta alternativamente delle sporgenze e rientranze in modo da minimizzare la trasmissione inter-leaf.
+\end{description}
+
+
+PRIMA EVIDENZIARE QUALCHE STUDIO RIGUARDO LA TG E LEAS TIP E DIRE QUANTO PUò INCIDERE facendo vedere che è rilevante....POI METTERE COME RAYSTATION TIENE CONTO DI QUESTI DETTAGLI con le foto del reference manual
+
+
+
+
 Poi misure per modellare l'MLC, introduzione alla leaf-tip e tongue and groove problem...non c'è nessuna raccomandazione, scelte che abbiamo adottato noi...campi dell'NCS modificati, etc etc.
 
 
