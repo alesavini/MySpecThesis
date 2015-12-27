@@ -17,7 +17,7 @@ fig = figure('Units','centimeters','OuterPosition',[3 3 11.25 9]);
     set(ax1,'TickDir','out','LineWidth',0.75);
     
     hold on
-    plot(CC01_corr(:,1),CC01_corr(:,2),'*:b');
+    plot(CC01_corr(:,1),CC01_corr(:,2),'*:m');
     plot(PFD_corr(:,1),PFD_corr(:,2),'p-r');
     plot(SFD_corr(:,1),SFD_corr(:,2),'s--b');
     plot(W1(:,1),W1(:,2),'+:c');

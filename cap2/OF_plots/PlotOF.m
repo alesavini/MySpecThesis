@@ -15,7 +15,7 @@ fig = figure('Units','centimeters','OuterPosition',[3 3 11.25 9]);
 
     ax1 = gca;
     set(ax1,'TickDir','out','LineWidth',0.75);
-    
+    hold on
     hlC = plot(CC13(:,1),CC13(:,2),'.-','LineWidth',1.5,'MarkerSize',20);
     x = 10;
     y = 1;

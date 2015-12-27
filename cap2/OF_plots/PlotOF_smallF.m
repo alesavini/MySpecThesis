@@ -16,8 +16,8 @@ fig = figure('Units','centimeters','OuterPosition',[3 3 11.25 9]);
     ax1 = gca;
     set(ax1,'TickDir','out','LineWidth',0.75);
     
-    plot(CC13(:,1),CC13(:,2),'-+b');
     hold on
+    plot(CC13(:,1),CC13(:,2),'-+b');
     plot(CC01(:,1),CC01(:,2),'*:k');
     plot(A26(:,1),A26(:,2),'x-.g');
     plot(W1(:,1),W1(:,2),'+:c');
