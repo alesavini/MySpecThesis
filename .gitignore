@@ -19,7 +19,7 @@ Thumbs.db
 *.ilk
 *.log
 *.pdf
-*.eps
+*.asv
 [Bb]in
 [Dd]ebug*/
 *.lib
