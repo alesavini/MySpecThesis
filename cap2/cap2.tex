@@ -341,14 +341,15 @@ Tuttavia, al tempo di redazione di questo lavoro (Gennaio 2016), il report risul
 
 \subsection{MLC}
 In radioterapia conformazionale l'MLC ha unicamente la funzione di sagomare il campo ai bordi del target. D'altra parte, nelle tecniche avanzate IMRT e VMAT, la modulazione di intensità si effettua combinando tra loro diverse collimazioni (segmenti, Fig.\ref{fig:IMRT_Segments}). Per questo motivo è necessario tenere in conto maggiormente i dettagli costruttivi dell'MLC nella modellizzazione del TPS.
-\begin{figure}[!t]
+\begin{figure}
 \centering
 \includegraphics[width=.7\textwidth]{./cap2/IMRT_Segments.jpg}
 \caption{Segmenti sagomati con l'MLC per realizzare la modulazione di intensità.}
 \label{fig:IMRT_Segments}
 \end{figure}
-Il MLC oggetto di questa tesi è il modello Millenium 120 ed è prodotto dalla Varian Medical Systems. Esso è dotato di due banchi di 60 lamelle che proiettano una dimensione nel piano dell'isocentro di $0.5\,$cm (prime 30 lamelle a partire dal centro) e di $1\,$cm per le rimanenti. In Fig.\ref{fig:MLC_details} sono riportati alcuni dettagli costruttivi. 
-\begin{figure}[!t]
+
+L'MLC oggetto di questa tesi è prodotto dalla Varian Medical Systems (modello Millenium 120). Esso è dotato di due banchi di 60 lamelle che proiettano una dimensione nel piano dell'isocentro di $0.5\,$cm (prime 30 lamelle a partire dal centro) e di $1\,$cm per le rimanenti. In Fig.\ref{fig:MLC_details} sono riportati alcuni dettagli costruttivi. 
+\begin{figure}
 \centering
 \includegraphics[width=.5\textwidth]{./cap2/MLC_leaf_varian.png}\\
 \includegraphics[width=.35\textwidth]{./cap2/MLC_side.png}
@@ -356,13 +357,47 @@ Il MLC oggetto di questa tesi è il modello Millenium 120 ed è prodotto dalla V
 \caption{Foto e schemi costruttivi dell'MLC Millenium 120.}
 \label{fig:MLC_details}
 \end{figure}
-In particolare i più importanti consistono in \cite{Galvin1993a}:
+
+In particolare i più importanti consistono in:
 \begin{description}
-\item[\textit{Rounded leaf end:}] la parte finale del leaf è arrotondata. Questo espediente è adottato per assicurare che i profili di dose collimati dal solo MLC abbiano la stessa penombra per ogni dimensione di campo.
-\item[\textit{Tongue and groove:}] il bordo laterale del leaf presenta alternativamente delle sporgenze e rientranze in modo da minimizzare la trasmissione inter-leaf.
+\item[\textit{Rounded leaf tip:}] la parte finale del leaf è arrotondata. Questo espediente è adottato per assicurare che i profili di dose collimati dal solo MLC abbiano la stessa penombra per ogni dimensione di campo \cite{Galvin1993a}.
+\item[\textit{Tongue and groove:}] il bordo laterale del leaf presenta alternativamente delle sporgenze e rientranze in modo da minimizzare la trasmissione tra un leaf e l'altro (inter-leaf).
 \end{description}
 
 Questi dettagli costruttivi comportano degli effetti dosimetrici normalmente trascurabili in 3D-CRT ma che possono diventare rilevanti nelle tecniche ad intensità modulata a causa della sovrapposizione dei vari segmenti.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.4\textwidth]{./cap2/MLC_tip-tg.png}
+\includegraphics[width=.55\textwidth]{./cap2/MLC_tip-tg_3D.png}
+\caption{Sinistra: MLC visto a partire dalla sorgente (\textit{beam's eye view}) con indicate le zone per cui la dose è influenzata dai dettagli costruttivi. Destra: visione 3D dell'MLC con fascio proveniente da destra.}
+\label{fig:MLC_Regions}
+\end{figure}
+In Fig.\ref{fig:MLC_Regions} sono indicate le zone critiche in cui la particolare struttura del leaf (tip e tongue\&{}groove) influenza la distribuzione di dose specie in caso di sovrapposizione di diversi campi. 
+
+I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla struttura tongue\&{}groove consistono in sovra o sottodosaggi nelle zone di giunzione di campi adiacenti così come mostrato nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.35\textwidth]{./cap2/tip5.png}
+\includegraphics[width=.35\textwidth]{./cap2/tip6.png}\\\vspace{.3cm}
+\includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/Abutted/abutted_m.eps}
+\caption{La punta arrotondata del leaf comporta un effetto dosimetrico evidente in caso di campi adiacenti. Nel nostro caso le penombre dei due campi si sommano dando luogo ad un incremento della dose (a \textit{spike}) nella zona di giunzione. I profili di dose sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector Razor (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
+\label{fig:MLC_tip_effect}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=.35\textwidth]{./cap2/TG1.png}
+\includegraphics[width=.35\textwidth]{./cap2/TG2.png}\\\vspace{.3cm}
+\includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/TG/TG_Field1-2.eps} \\
+\includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/TG/TG_FieldTotm.eps} 
+\caption{La somma di campi adiacenti sul bordo laterale del leaf evidenzia dei sottodaggi nelle zone di giunzione dovuti alla struttura tongue\&{}groove. I profili di dose sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector PFD (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
+\label{fig:MLC_TG_effect}
+\end{figure}
+
+CONTINUARE QUI DICENDO CHE QUESTI EFFETTI VANNO CONSIDERATI INIMRT (HUQ) e quindi dire che ci siamo inventati questi campi per poi modellizzarci sopra...vedi se prima introdurre come fa il TPS a modellarli e poi dire come abbiamo fatto noi.....forse è meglio. Magari dici che serve tenerne conto (HUQ) poi dici come Ray ne tiene conto e poi COME NOI abbiamo ottimizzato quei parametri.
+
+
+
+
 
 PRIMA EVIDENZIARE QUALCHE STUDIO RIGUARDO LA TG E LEAS TIP E DIRE QUANTO PUò INCIDERE facendo vedere che è rilevante..HUQ è perfetto in questo senso..POI METTERE COME RAYSTATION TIENE CONTO DI QUESTI DETTAGLI con le foto del reference manual
 
