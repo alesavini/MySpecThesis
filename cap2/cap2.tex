@@ -372,15 +372,14 @@ Questi dettagli costruttivi comportano degli effetti dosimetrici normalmente tra
 \caption{Sinistra: MLC visto a partire dalla sorgente (\textit{beam's eye view}) con indicate le zone per cui la dose è influenzata dai dettagli costruttivi. Destra: visione 3D dell'MLC con fascio proveniente da destra.}
 \label{fig:MLC_Regions}
 \end{figure}
-In Fig.\ref{fig:MLC_Regions} sono indicate le zone critiche in cui la particolare struttura del leaf (tip e tongue\&{}groove) influenza la distribuzione di dose specie in caso di sovrapposizione di diversi campi. 
-
+In Fig.\ref{fig:MLC_Regions} sono indicate le zone critiche in cui la particolare struttura del leaf (tip e tongue\&{}groove) influenza la distribuzione di dose specie in caso di sovrapposizione di diversi campi. \\
 I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla struttura tongue\&{}groove consistono in sovra o sottodosaggi nelle zone di giunzione di campi adiacenti così come mostrato nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.35\textwidth]{./cap2/tip5.png}
 \includegraphics[width=.35\textwidth]{./cap2/tip6.png}\\\vspace{.3cm}
 \includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/Abutted/abutted_m.eps}
-\caption{La punta arrotondata del leaf comporta un effetto dosimetrico evidente in caso di campi adiacenti. Nel nostro caso le penombre dei due campi si sommano dando luogo ad un incremento della dose (a \textit{spike}) nella zona di giunzione. I profili di dose sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector Razor (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
+\caption{La punta arrotondata del leaf comporta un effetto dosimetrico evidente in caso di campi adiacenti come in figura. Nel nostro caso le penombre dei due campi si sommano dando luogo ad un incremento della dose (a \textit{spike}) nella zona di giunzione. I profili di dose sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector Razor (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
 \label{fig:MLC_tip_effect}
 \end{figure}
 \begin{figure}
@@ -393,18 +392,24 @@ I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla strut
 \label{fig:MLC_TG_effect}
 \end{figure}
 
-CONTINUARE QUI DICENDO CHE QUESTI EFFETTI VANNO CONSIDERATI INIMRT (HUQ) e quindi dire che ci siamo inventati questi campi per poi modellizzarci sopra...vedi se prima introdurre come fa il TPS a modellarli e poi dire come abbiamo fatto noi.....forse è meglio. Magari dici che serve tenerne conto (HUQ) poi dici come Ray ne tiene conto e poi COME NOI abbiamo ottimizzato quei parametri.
+La scelta per quanto riguarda le misure effettuate per modellizzare l'MLC è dunque quella di utilizzare delle scansioni che esaltino l'effetto di leaf tip e di tongue\&{}groove come quelle mostrate nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}. Per poter evidenziare in maniera affidabile questi effetti di composizione dei campi è necessario utilizzare dei detector che modifichino il meno possibile le penombre dei profili (i.e. con un volume sensibile minimo). In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le seguenti scansioni:
 
+\begin{description}
+\item[Effetto di \textit{leaf-tip}:]
+\begin{itemize}
+\phantom{item[-]}
+\item[-] Profili lungo la direzione di movimento dei leaf (crossline) di campi quadrati collimati dai soli leaf con diodo PFD (IBA Dosimetry) in fantoccio ad acqua a profondità $10\,$cm. Queste misure permettono di calibrare finemente la posizione dei leaf all'interno del TPS.\footnote{Questa operazione è necessaria perché solitamente la posizione nominale dei leaf viene leggermente alterata sulla base di una calibrazione effettuata dalla ditta produttrice per far corrispondere il campo luce con il campo definito dai raggi.}.
+\item[-] Profili crossline di campi complementari adiacenti sul lato della punte dei leaf (Fig.\ref{fig:MLC_tip_effect}) con diodo Razor (IBA Dosimetry) in fantoccio ad acqua a profondità $10\,$cm. Queste misure sono state utilizzate per modellizzare l'effetto da punta arrotondata.
+\item[-] Profili di campi complementari come i precedenti a profondità $1.5\,$cm e $20\,$cm e traslati lateralmente lungo la direzione di movimento dei leaf in entrambe le direzioni per verificare la bontà della modellizzazione anche lontano dalle condizioni iniziali.
+\end{itemize}
 
-
-
-
-PRIMA EVIDENZIARE QUALCHE STUDIO RIGUARDO LA TG E LEAS TIP E DIRE QUANTO PUò INCIDERE facendo vedere che è rilevante..HUQ è perfetto in questo senso..POI METTERE COME RAYSTATION TIENE CONTO DI QUESTI DETTAGLI con le foto del reference manual
-
-
-
-
-Poi misure per modellare l'MLC, introduzione alla leaf-tip e tongue and groove problem...non c'è nessuna raccomandazione, scelte che abbiamo adottato noi...campi dell'NCS modificati, etc etc.
+\item[Effetto di \textit{tongue\&{}groove:}]
+\begin{itemize}
+\phantom{item[-]}
+\item[-] Profili di campi complementari adiacenti sul lato del bordo del leaf (Fig.\ref{fig:MLC_tip_effect}) con diodo PFD (IBA Dosimetry) lungo la direzione di perpendicolare rispetto al movimento dei leaf (inline) in fantoccio ad acqua a profondità $10\,$cm.
+\item[-] Profili come i precedenti a profondità di $5\,$cm utilizzando entrambi i banchi di leaf.
+\end{itemize}
+\end{description}
 
 
 
