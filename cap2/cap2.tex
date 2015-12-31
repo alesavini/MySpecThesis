@@ -6,7 +6,7 @@
 
 \section{Dosimetria di base di un LINAC}
 Le misure necessarie a costruire un modello dosimetrico di un LINAC consistono in curve di dosimetria relativa e misure puntuali di dose (assoluta e relativa).\\
-Storicamente queste misurazioni vengono effettuate con detector a camera a ionizzazione\footnote{La camera a ionizzazione è un rivelatore di radiazione ionizzante a gas. \`E costituita da due elettrodi che racchiudono un certo volume di aria. Al passaggio della radiazione, l'aria viene ionizzata e libera coppie di ioni. Grazie ad un campo elettrico applicato tra i due elettrodi gli ioni migrano fino a giungere sugli elettrodi provocando un segnalo in corrente rivelabile}. Tuttavia, con l'avvento delle tecniche di radioterapia avanzata (es. intensità modulata o stereotassi) sono stati introdotti una molteplicità di detector di nuova generazione per soddisfare le esigenze di accuratezza di misura per piccoli campi di irradiazione\footnote{Un campo quadrato è ritenuto \textit{piccolo} se inferiore a $4$x$4$ cm$^2$ \cite{Das2008}.}. Nella sezione seguente verranno presentati i concetti classici di dosimetria di un LINAC propedeutici alla modellizzazione di un TPS. Ci si soffermerà dapprima alla tecnica di irradiazione denominata \textit{radioterapia conformazionale}\footnote{La radioterapia conformazionale o 3D-CRT è una tecnica di irradiazione che  fa impiego di fasci di irradiazione collimati sul target per i quali la pianificazione ed il calcolo della dose vengono effettuati su uno studio di tomografia computerizzata del paziente.}. Le problematiche relative alla dosimetria a piccoli campi e alle tecniche di irradiazione avanzata verranno discusse a seguire. 
+Storicamente queste misurazioni vengono effettuate con detector a camera a ionizzazione\footnote{La camera a ionizzazione è un rivelatore di radiazione ionizzante a gas. \`E costituita da due elettrodi che racchiudono un certo volume di aria. Al passaggio della radiazione, l'aria viene ionizzata e libera coppie di ioni. Grazie ad un campo elettrico applicato tra i due elettrodi gli ioni migrano fino a giungere sugli elettrodi provocando un segnale in corrente rivelabile.}. Tuttavia, con l'avvento delle tecniche di radioterapia avanzata (es. intensità modulata o stereotassi), sono stati introdotti una molteplicità di detector di nuova generazione specie per soddisfare le esigenze di accuratezza di misura per piccoli campi di irradiazione\footnote{Un campo quadrato è ritenuto \textit{piccolo} se inferiore a $4$x$4$ cm$^2$ \cite{Das2008}.}. Nella sezione seguente verranno presentati i concetti classici di dosimetria di un LINAC propedeutici alla modellizzazione di un TPS. Ci si soffermerà dapprima alla tecnica di irradiazione denominata \textit{radioterapia conformazionale}\footnote{La radioterapia conformazionale o 3D-CRT è una tecnica di irradiazione che  fa impiego di fasci di irradiazione collimati sul target per i quali la pianificazione ed il calcolo della dose vengono effettuati su uno studio di tomografia computerizzata del paziente.}. Le problematiche relative alla dosimetria a piccoli campi e alle tecniche di irradiazione avanzata verranno discusse a seguire. 
 
 \subsection{Dosimetria relativa}
 \label{sec:dos_rel}
@@ -41,15 +41,15 @@ Nella Fig.\ref{fig:pdd_prof} è possibile visualizzare gli andamenti tipici di u
 Nelle curve di dose-profondità è possibile distinguere tre zone:
 \begin{itemize}
 \item \textit{Zona di build-up:} la prima parte ascendente della PDD in cui avvengono le prime interazioni dei fotoni nel mezzo. Gli elettroni vengono messi in moto da queste interazioni primarie e depositano energia più avanti con i processi descritti nel capitolo 1. Se non vi fossero gli elettroni di contaminazione del fascio, la dose nei primi millimetri di materiale sarebbe quasi nulla\footnote{Questo effetto è considerato un beneficio in radioterapia ed è noto anche come \textit{skin-sparing-effect.}}.
-\item \textit{Massimo della PDD:} all'aumentare della profondità aumenta la produzione di particelle secondarie fino ad arrivare ad un equilibrio noto come equilibrio di particelle cariche (CPE). In queste condizioni il numero di particelle cariche uscenti da un volume è uguale al numero di particelle entranti.
-\item \textit{Parte discendente della PDD:} aumentando ulteriormente la profondità di tessuto attraversato, il fascio primario decresce esponenzialmente e conseguentemente anche la dose segue questo andamento
+\item \textit{Massimo della PDD:} all'aumentare della profondità, aumenta la produzione di particelle secondarie fino ad arrivare ad un equilibrio noto come equilibrio di particelle cariche (CPE). In queste condizioni il numero di particelle cariche uscenti da un volume è uguale al numero di particelle entranti in esso.
+\item \textit{Parte discendente della PDD:} aumentando ulteriormente la profondità di tessuto attraversato, il fascio primario decresce esponenzialmente e conseguentemente anche la dose segue questo andamento.
 \end{itemize}
 
 Una distinzione simile può essere fatta per i profili di dose:
 \begin{itemize}
 \item \textit{Zona in-field:} la parte centrale del profilo compresa in un range di dose che va dal 100\% all'80\% rispetto alla massima dose registrata.
-\item \textit{Penombra:} ai bordi del campo la dose scende rapidamente a causa della schermatura dei collimatori ed è definita come quella zona compresa tra l'80\% e il 20\% della dose massima
-\item \textit{Zona out-of-field:} al di fuori delle dimensioni geometriche del campo sono presenti delle code a bassa dose che si estendono lateralmente anche al di sotto della zona schermata dai collimatori. Questa dose residua è dovuta ai processi di scatter della radiazione primaria e dei secondari. Corrisponde alla zona al di sotto del 20\% della dose massima del profilo.
+\item \textit{Penombra:} ai bordi del campo la dose scende rapidamente a causa della schermatura dei collimatori ed è definita come la porzione di spazio compresa tra l'80\% e il 20\% della dose massima.
+\item \textit{Zona out-of-field:} al di fuori delle dimensioni geometriche del campo sono presenti delle code a bassa dose che si estendono lateralmente anche al di sotto della zona schermata dai collimatori. Questa dose residua è dovuta ai processi di scatter della radiazione primaria e di quella secondaria. Corrisponde alla zona al di sotto del 20\% della dose massima del profilo.
 \end{itemize}
 
 Come vedremo in seguito, l'accuratezza di un calcolo dosimetrico tramite TPS viene valutata per ognuna delle zone sopra citate, con diversi livelli di tolleranza. 
@@ -77,7 +77,7 @@ I suddetti fattori correttivi sono riportati in forma tabellare oppure si ricava
 
 \subsection{Misure richieste per la modellizzazione del TPS RayStation}
 Come già citato nelle sezioni precedenti, le misure necessarie a modellizzare un LINAC all'interno del TPS RayStation consistono in curve dose-profondità, profili di dose a varie profondità, output factor e una misura di dose assoluta per ogni qualità del fascio da modellizzare.\\
-Nella Tab.\ref{tab:meas} sono indicate le dimensioni di campo per le quali è consigliato acquisire PDD, profili e gli output factor.
+Nella Tab.\ref{tab:meas} sono indicate le dimensioni di campo per le quali è consigliato acquisire PDD, profili e  output factor.
 \begin{table}
 \arrstr{1.2}
 \begin{tabular}{@{}ccc@{}}
@@ -117,7 +117,7 @@ Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} 
 \caption{Livelli di tolleranza per le varie zone indicate nella Fig.\ref{fig:accuracy_zones} e per vari livelli di complessità del calcolo. Riprodotta da \cite{Mijnheer2004}.}
 \label{tab:tol}
 \end{table}
-Nella radioterapia tradizionale 3D-CRT è sufficiente effettuare misure di PDD, profili e output factor per dimensioni di campo che vanno da 5$x$5 cm$^2$ a 40$x$40 cm$^2$. Per tali dimensioni di campo è possibile utilizzare detector a camera a ionizzazione senza incorrere nelle problematiche che riguardano i piccoli campi di irradiazione (< 4$x$4 cm$^2$) \cite{Das2008}. Un TPS per 3D-CRT deve riprodurre le misure effettuate con delle accuratezze variabili a seconda della regione di valutazione. Nella Fig.\ref{fig:accuracy_zones} è riportata la distinzione  nelle varie zone di interesse di un fascio di irradiazione assieme alle tolleranze applicabili ad ognuna di esse. I valori numerici sono indicati nel booklet ESTRO no.7 e sono riportati nella Tab.\ref{tab:tol}.\\
+Nella radioterapia tradizionale 3D-CRT è sufficiente effettuare misure di PDD, profili e output factor per dimensioni di campo che vanno da 5$x$5 cm$^2$ a 40$x$40 cm$^2$. Per tali dimensioni di campo è possibile utilizzare detector a camera a ionizzazione senza incorrere nelle problematiche che riguardano i piccoli campi di irradiazione ($< 4x4\,$cm$^2$) \cite{Das2008}. Un TPS per 3D-CRT deve riprodurre le misure effettuate con delle accuratezze variabili a seconda della regione di valutazione. Nella Fig.\ref{fig:accuracy_zones} è riportata la distinzione  nelle varie zone di interesse di un fascio di irradiazione assieme alle tolleranze applicabili ad ognuna di esse. I valori numerici sono indicati nel booklet ESTRO no.7 e sono riportati nella Tab.\ref{tab:tol}.\\
 I criteri di accettabilità del calcolo vengono applicati valutando due principali quantità:
 
 \begin{description}
@@ -127,7 +127,7 @@ I criteri di accettabilità del calcolo vengono applicati valutando due principa
 \delta = 100\% \times \frac{D_{calc} - D_{meas}}{D_{N}}
 \end{equation}
 dove $D_{calc}$ e $D_{meas}$ rappresentano le dosi misurate e calcolate in un punto e $D_N$ rappresenta la dose di normalizzazione della differenza. Secondo le indicazioni ESTRO, $D_N$ è data dalla \textit{dose misurata locale} al punto di valutazione $D_{meas}$ nelle zone ad alta dose mentre è data dalla \textit{dose misurata a centro asse}  $D_{CAX,meas}$ nelle zone a bassa dose (es. code dei profili).\\
-La valutazione in differenza di dose è adatta per le zone in cui si ha un basso gradiente di dose ($\delta D < 3\%\,$mm$^{-1}$) (es. parte discendente della PDD e parte in-field e out-field dei profili).
+La valutazione in differenza di dose è adatta per le zone in cui si ha un basso gradiente ($\delta D < 3\%\,$mm$^{-1}$) (es. parte discendente della PDD e parte in-field e out-field dei profili).
 
 \item[Distanza di accordo:] questa quantità rappresenta la minima distanza tra un punto individuato dal vettore $\vec{r}_{meas}$ dove è stata misurata una certa dose e tutti i punti $\vec{r}_{calc}$ per cui la dose calcolata è  uguale a quella misurata.
 \begin{equation}
@@ -172,11 +172,11 @@ La dosimetria dei piccoli campi di irradiazione presenta varie criticità \cite{
 \begin{itemize}
 \item Mancanza di equilibrio di particelle cariche (CPE) laterale.
 \begin{itemize}
-\item[-] Questo effetto si realizza quando le dimensioni del campo sono comparabili con il range medio degli elettroni secondari. Per energie del fascio primario minori di $10\,$MV il CPE non è soddisfatto per dimensioni di campo al di sotto di $3x3\,$cm$^2$.
+\item[-] Questo effetto si realizza quando le dimensioni del campo sono comparabili con il range medio degli elettroni secondari. Per energie del fascio primario minori di $10\,$MV, la condizione CPE non è soddisfatta per dimensioni di campo al di sotto di $3x3\,$cm$^2$.
 \end{itemize}
 \item Apertura dei collimatori comparabili con la dimensioni proiettate della sorgente.
 \begin{itemize}
-\item[-] Questo crea un doppio effetto che consiste in una forte riduzione della dose sull'asse centrale del fascio e assieme ad una modificazione della forma del profilo (forma ogivale e allargamento della penombra) (vedi Fig.\ref{fig:small_eff})
+\item[-] Questo crea un doppio effetto che consiste in una forte riduzione della dose sull'asse centrale del fascio assieme ad una modificazione della forma del profilo (forma ogivale e allargamento della penombra) (vedi Fig.\ref{fig:small_eff}).
 \end{itemize}
 \item Dimensioni dei detector comuni comparabili con le dimensioni del campo.
 \begin{itemize}
@@ -187,11 +187,11 @@ La dosimetria dei piccoli campi di irradiazione presenta varie criticità \cite{
 \centering
 \includegraphics[width=.7\textwidth]{./cap2/small_eff1.png}
 \includegraphics[width=.7\textwidth]{./cap2/small_eff2.png}
-\caption{In alto: la sovrapposizione delle penombre dei collimatori (legate alle dimensioni della sorgente primaria) porta ad una modificazione della forma del profilo di dose (forma ogivale e penombre allargate) assieme ad una forte riduzione della dose al centro. In basso: criticità nell'utilizzo di detector di dimensioni comparabili con la dimensione del campo.}
+\caption{In alto: la sovrapposizione delle penombre dei collimatori (legate alle dimensioni della sorgente primaria) porta ad una modificazione della forma del profilo di dose (forma ogivale e penombre allargate) assieme ad una forte riduzione della dose al centro. In basso: un detector di dimensioni comparabili con le dimensioni del profilo può portare ad una sottostima della dose a causa dell'effetto di \textit{volume averaging}.}
 \label{fig:small_eff}
 \end{figure}
 
-Queste condizioni sono lontane dalle tipiche condizioni di riferimento dettate dai consolidati protocolli di dosimetria \cite{Almond1999,Andreo2006} pensati per la 3D-CRT in cui non vengono impiegati campi di piccole dimensioni (i.e. $<4x4\,$cm$^2$ \cite{Das2008}). Per minimizzare le incertezze che derivano da queste criticità sui piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
+Queste condizioni sono lontane dalle tipiche condizioni di riferimento dettate dai consolidati protocolli di dosimetria \cite{Almond1999,Andreo2006} pensati per la 3D-CRT. Per minimizzare le incertezze che derivano da queste criticità sui piccoli campi, negli anni sono stati sviluppati una serie di detector di nuova generazione quali micro-camere a ionizzazione, rivelatori a semiconduttore, rivelatori a scintillazione etc., con l'intento comune di ridurre le dimensioni del volume sensibile, preservando le caratteristiche di affidabilità di un detector comunemente impiegato per 3D-CRT (linearità, indipendenza dall'energia, indipendenza dal rateo di dose\ldots).\\
 Una estensiva review dei detector, delle loro problematiche e delle tecniche di misura consigliate per piccoli campi è stata recentemente pubblicata dal task group (TG) 120 dell'associazione americana dei fisici medici (AAPM) \cite{Low2011}. Sulla base dei risultati passati in rassegna dal TG-120, la comunità scientifica dell'AAPM e della IAEA è al lavoro congiuntamente per aggiornare i classici protocolli di dosimetria ed emettere delle nuove raccomandazioni che permettano una misura accurata della dose anche in presenza delle succitate criticità. In conclusione, una parte rilevante dell'accuratezza richiesta nel calcolo della dose in IMRT e VMAT è legata all'accuratezza con cui viene effettuata la dosimetria dei piccoli campi in quanto parti rilevanti della modellizzazione del TPS si basano su queste misurazioni.
 
 Accanto all'accuratezza richiesta nell'acquisizione delle misure, vi è l'accuratezza del calcolo del dose da considerare. Le indicazioni relative all'accuratezza di un TPS per IMRT sono state studiate dal task group 119 della AAPM \cite{Ezzell2009}. Il report suggerisce di conservare ed estendere le tolleranze per 3D-CRT riportate in Tab.\ref{tab:tol} per i campi piccoli e di revisionare la formula di Venselaar \eqref{eq:clgamma}:
@@ -204,14 +204,14 @@ Oltre ad indicare i criteri di accettazione per le curve di dose, il TG-119 ripo
 \subsection{PDD e Profili di dose}
 Il LINAC oggetto di questa tesi è un modello Trilogy\textsuperscript{\textcopyright} prodotto dalla Varian Medical Systems. Esso è progettato per poter erogare trattamenti radioterapici in tecnica conformazionalee e ad intensità modulata (IMRT) step-and-shoot e dinamica fino ad una dimensione di campo massima $40x40\,$cm$^2$. \`E inoltre in grado di erogare trattamenti volumetrici ad arco con intensità e rateo di dose modulati (VMAT) fino ad una dimensione di campo massima $30x30\,$cm$^2$. Oltre a queste caratteristiche legate all'erogazione è inoltre capace di effettuare uno studio di tomografia computerizzata del paziente prima del trattamento in modo da verificare in tre dimensioni l'accurata collocazione sia del paziente in sé sia dei suoi organi interni, rispetto alle posizioni pianificate.
 
-La distanza sorgente-superficie dell'acqua (SSD) è stata posta a $90\,$cm sulle basi delle raccomandazioni della ditta ed anche del report 106 dell'AAPM \cite{Das2008a} che indica $90\,$cm come la SSD più vicina alle condizioni dei trattamenti più comuni.
+La distanza tra la sorgente di radiazioni e l'acqua contenuta del fantoccio di misura (SSD) è stata posta a $90\,$cm sulle basi delle raccomandazioni della ditta ed anche del report 106 dell'AAPM \cite{Das2008a} che indica $90\,$cm come la SSD più vicina alle condizioni dei trattamenti più comuni.
 
-Seguendo poi le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low2011} e tenendo conto delle raccomandazioni della ditta produttrice del TPS (Tab.\ref{tab:meas}), le scelte effettuate per le misure di PDD e profili di dose sono le seguenti:
+Seguendo poi le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low2011} e tenendo conto delle raccomandazioni della ditta produttrice del TPS (Tab.\ref{tab:meas}), le scelte effettuate per le misure di PDD e profili di dose sono state le seguenti:
 \begin{itemize}
 \item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo: $0.13\,$cm$^3$).
 \item Dimensioni di campo (in cm$^2$) $1x1$, $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo: $0.09\,$mm$^3$).
 \end{itemize}
-Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, in Fig.\ref{fig:pen_of}) vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
+Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, in Fig.\ref{fig:pen_of} vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.75\textwidth]{./cap2/pen_smear.png}\\
@@ -219,7 +219,7 @@ Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimet
 \caption{In alto: Effetto di smussamento della penombra dei profili dovuto al volume esteso delle camere a ionizzazione confrontato con scansioni effettuate con detector di dimensioni ridotte\cite{Das2008a}. In basso: misura degli output factor a piccoli campi a seconda del detector impiegato\cite{Das2008}.}
 \label{fig:pen_of}
 \end{figure}
-Si può notare come le camere a ionizzazione con estesi volumi sensibili ($0.6\,$cc e $0.3\,$cc) portino ad una sovrastima della penombra del profilo a causa dell'effetto di volume-averaging. L'effetto è tanto più trascurabile quanto più viene diminuita la dimensione del detector (es. micro-camera a ionizzazione con volume sensibile di $0.125\,$cc oppure detector a semiconduttore come PFD e SFD). L'accurata misura delle penombre, è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
+Si può notare come le camere a ionizzazione con estesi volumi sensibili ($0.6\,$cc e $0.3\,$cc) portino ad una sovrastima della penombra a causa dell'effetto di volume-averaging. L'effetto è tanto più trascurabile quanto più viene diminuita la dimensione del detector (es. micro-camera a ionizzazione con volume sensibile di $0.125\,$cc oppure detector a semiconduttore come PFD e SFD). L'accurata misura delle penombre, è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più accurata quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
 
 \subsection{Output factor}
 Come già introdotto nella Sez.\ref{sec:dos_rel}, gli output factor (OF) costituiscono misure di punto relative e si determinano per ogni dimensione campo di cui sono state acquisite le PDD e i profili con la formula:
@@ -227,11 +227,11 @@ Come già introdotto nella Sez.\ref{sec:dos_rel}, gli output factor (OF) costitu
 \label{eq:OF}
 OF(XxY)=\frac{D(XxY)}{D(10x10)}
 \end{equation}
-dove $D(XxY)$ è la lettura di dose per un campo di dimensioni $XxY\,$cm$^2$ e $D(10x10)$ è la lettura di dose per il campo di riferimento ($10x10\,$cm$^2$). Tutte le letture di dose sono effettuate a centro asse e a $10\,$cm di profondità\footnote{In dosimetria relativa il termine `dose' è utilizzato come sinonimo di carica integrata raccolta dal rivelatore per un fissato intervallo di tempo.  Ciò non è da confondere con la `dose' in dosimetria assoluta che comporta un processo di misura più complesso (Sez.\ref{sec:dose_ass}).}.
+dove $D(XxY)$ è la lettura di dose per un campo di dimensioni $XxY\,$cm$^2$ e $D(10x10)$ è la lettura di dose per il campo di riferimento ($10x10\,$cm$^2$). Tutte le letture di dose sono state effettuate a centro asse e a $10\,$cm di profondità\footnote{In dosimetria relativa il termine `dose' è utilizzato come sinonimo di carica integrata raccolta dal rivelatore per un fissato intervallo di tempo.  Ciò non è da confondere con la `dose' in dosimetria assoluta che comporta un processo di misura più complesso (Sez.\ref{sec:dose_ass}).}.
 
-Seguendo le indicazioni delle ditta produttrice del TPS \cite{RaySearchLaboratories2014}, gli OF sono stati misurati per ogni dimensione di campo con il medesimo detector utilizzato per le misure di PDD e profili di dose. Mentre per i campi al di sopra del $4x4\,$cm$^2$ è stata impiegata una camera a ionizzazione secondo una procedura consolidata per la 3D-CRT \cite{Andreo2006}, il rivelatore a semiconduttore PFD utilizzato per i campi piccoli può presentare delle criticità. Varie evidenze scientifiche riassunte dall'AAPM TG-120 \cite{Low2011} hanno dimostrato che la classe di dosimetri basata su semiconduttore al silicio tende a sovrastimare la lettura di dose \cite{Low2011}. Ciò è dovuto al più alto numero atomico del silicio rispetto al numero atomico medio dell'acqua che comporta un aumento dell'efficienza di rivelazione dei fotoni a bassa energia\footnote{Fotoni di bassa energia interagiscono principalmente per effetto fotoelettrico la cui probabilità di accadimento è proporzionale a $Z^3$.}. L'effetto è marcato per campi grandi (i.e. $> 4x4\,$cm$^2$) in cui i fotoni a bassa energia aumentano in percentuale. Un tipico rimedio a ciò consiste nello schermare il volume di silicio con un materiale ad alta densità (tungsteno nel caso del PFD) che assorbe i fotoni a bassa energia per compensare l'effetto di sovra-risposta. Tuttavia, sebbene si recuperi la sovra-risposta per campi grandi, il materiale ad alta densità nel detector comporta degli effetti di scatter che perturbano la lettura di dose causando una sovra-risposta per i campi piccoli \cite{Griessbach2005}.
+Seguendo le indicazioni delle ditta produttrice del TPS \cite{RaySearchLaboratories2014}, gli OF sono stati misurati per ogni dimensione di campo con il medesimo detector utilizzato per le misure di PDD e profili di dose. Mentre per i campi al di sopra di $4x4\,$cm$^2$ è stata impiegata una camera a ionizzazione secondo una procedura consolidata per la 3D-CRT \cite{Andreo2006}, il rivelatore a semiconduttore PFD utilizzato per i campi piccoli può presentare delle criticità. Varie evidenze scientifiche riassunte dall'AAPM TG-120 \cite{Low2011} hanno dimostrato che la classe di dosimetri basata su semiconduttore al silicio tende a sovrastimare la lettura di dose \cite{Low2011}. Ciò è dovuto al più alto numero atomico del silicio rispetto al numero atomico medio dell'acqua che comporta un aumento dell'efficienza di rivelazione dei fotoni a bassa energia\footnote{Fotoni di bassa energia interagiscono principalmente per effetto fotoelettrico la cui probabilità di accadimento è proporzionale a $Z^3$.}. L'effetto è marcato per campi grandi (i.e. $> 4x4\,$cm$^2$) in cui i fotoni a bassa energia aumentano in percentuale. Un tipico rimedio a ciò consiste nello schermare il volume di silicio con un materiale ad alta densità (tungsteno nel caso del PFD) che assorbe i fotoni a bassa energia per compensare l'effetto di sovra-risposta. Tuttavia, sebbene si recuperi la sovra-risposta per campi grandi, il materiale ad alta densità nel detector comporta degli effetti di scatter che perturbano la lettura di dose causando una sovra-risposta per i campi piccoli \cite{Griessbach2005}.
 
-Per poter effettuare una valutazione dell'incertezza degli OF misurati con il rivelatore a semiconduttore PFD, è stato quindi condotto uno studio che ha implicato l'utilizzo di una serie di detector di differente natura. In particolare è stato effettuato un interconfronto dei rivelatori indicati nella Tab.\ref{tab:OF_inter}.\\ I risultati di questo interconfronto sono riportati in Fig.\ref{fig:OF_res} che possono essere comparati qualitativamente con la Fig.\ref{fig:pen_of}.
+Per poter effettuare una valutazione dell'incertezza degli OF misurati con il rivelatore a semiconduttore PFD, è stato quindi condotto uno studio che ha implicato l'utilizzo di una serie di detector di differente natura. In particolare è stato effettuato un interconfronto dei rivelatori indicati nella Tab.\ref{tab:OF_inter}.\\ I risultati di questo interconfronto sono riportati in Fig.\ref{fig:OF_res} e possono essere comparati qualitativamente con la Fig.\ref{fig:pen_of} pubblicata in letteratura \cite{Das2008}.
 \begin{table}[!t]
 \centering
 \arrstr{1.3}
@@ -265,7 +265,7 @@ Razor & Diodo SI & IBA Dosimetry & $0.000006$ \\
 \caption{Sopra: output factor misurati con la camera a ionizzazione; da notare è la normalizzazione ($OF=1$) per il campo $10x10\,$cm$^2$. Sotto: interconfronto tra vari detector nella stima degli output factor dei piccoli campi.}
 \label{fig:OF_res}
 \end{figure}
-In esse si può notare come la misura degli OF per piccoli campi presenti un certo grado di variabilità a seconda del detector utilizzato. Le variabilità più ampie si riscontrano per i campi di dimensione $\leq 1x1\,$cm$^2$ (superiori al $5\%$, vedi Tab.\ref{tab:delta_OF}). 
+In esse si può notare come la misura degli OF per piccoli campi presenti un certo grado di variabilità a seconda del detector utilizzato. Le variabilità più ampie si riscontrano per i campi di dimensione $\leq 2x2\,$cm$^2$ (superiori al $5\%$, vedi Tab.\ref{tab:delta_OF}). 
 
 \begin{table}
 \centering
@@ -293,7 +293,7 @@ Il diodo PFD, in accordo con il comportamento atteso per campi grandi \cite{Grie
 
 Parallelamente ai diodi schermati, esistono in commercio anche detector basati su silicio non schermato (i.e. SFD e Razor della IBA Dosimetry). Per questi detector l'effetto di sovrastima dell'OF a piccoli campi è ridotto, tuttavia viene amplificato quello a campi grandi. Le correnti raccomandazioni di misura degli OF \cite{Andreo2006,RaySearchLaboratories2014} stabiliscono come campo di riferimento quello di dimensioni $10x10\,$cm$^2$. La lettura di dose per questo campo, effettuata con un diodo non schermato, risulta sovrastimata per l'abbondanza dei fotoni a bassa energia \cite{Griessbach2005}. Sovrastimando la lettura di riferimento, gli OF per campi più piccoli risulteranno sottostimati. Questo effetto è visibile nella Fig.\ref{fig:OF_res} in cui risulta chiara la sistematicità della sottostima degli OF misurati con i diodi non schermati (SFD e Razor), rispetto a tutti gli altri detector.
 
-A causa delle dimostrate criticità nella misura degli OF a piccoli campi, è stato proposto di revisionare i protocolli correnti introducendo, tra le altre cose, una correzione alla misura degli output factor che tiene conto della geometria di misura e della natura del detector utilizzato \cite{Alfonso2008}. In particolare l'Eq.\eqref{eq:OF} si aggiunge di un fattore:
+A causa delle dimostrate criticità nella misura degli OF a piccoli campi, è stato proposto di revisionare i protocolli correnti introducendo, tra le altre cose, una correzione alla misura degli OF che tiene conto della geometria di misura e della natura del detector utilizzato \cite{Alfonso2008}. In particolare l'Eq.\eqref{eq:OF} si aggiunge di un fattore:
 \begin{equation}
 OF(XxY)=\frac{D(XxY)}{D(10x10)}\times k
 \end{equation}
@@ -372,7 +372,7 @@ Questi dettagli costruttivi comportano degli effetti dosimetrici normalmente tra
 \caption{Sinistra: MLC visto a partire dalla sorgente (\textit{beam's eye view}) con indicate le zone per cui la dose è influenzata dai dettagli costruttivi. Destra: visione 3D dell'MLC con fascio proveniente da destra.}
 \label{fig:MLC_Regions}
 \end{figure}
-In Fig.\ref{fig:MLC_Regions} sono indicate le zone critiche in cui la particolare struttura del leaf (tip e tongue\&{}groove) influenza la distribuzione di dose specie in caso di sovrapposizione di diversi campi. \\
+In Fig.\ref{fig:MLC_Regions} sono indicate le zone critiche in cui la particolare struttura del leaf (tip e tongue\&{}groove) influenza la distribuzione di dose.\\
 I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla struttura tongue\&{}groove consistono in sovra o sottodosaggi nelle zone di giunzione di campi adiacenti così come mostrato nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}.
 \begin{figure}[!t]
 \centering
@@ -392,25 +392,24 @@ I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla strut
 \label{fig:MLC_TG_effect}
 \end{figure}
 
-La scelta per quanto riguarda le misure effettuate per modellizzare l'MLC è dunque quella di utilizzare delle scansioni che esaltino l'effetto di leaf tip e di tongue\&{}groove come quelle mostrate nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}. Per poter evidenziare in maniera affidabile questi effetti di composizione dei campi è necessario utilizzare dei detector che modifichino il meno possibile le penombre dei profili (i.e. con un volume sensibile minimo). In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le seguenti scansioni:
+La scelta per quanto riguarda le misure effettuate per modellizzare l'MLC è dunque quella di utilizzare delle scansioni che esaltino l'effetto di leaf tip e di tongue\&{}groove come quelle mostrate nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}. Per poter evidenziare in maniera accurata questi effetti di composizione dei campi è necessario utilizzare dei detector che modifichino il meno possibile le penombre dei profili (i.e. con un volume sensibile minimo).\newpage
 
-\begin{description}
-\item[Effetto di \textit{leaf-tip}:]
+In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le seguenti scansioni:
+
+\textbf{Effetto di \textit{leaf-tip}:}
 \begin{itemize}
-\phantom{item[-]}
-\item[-] Profili lungo la direzione di movimento dei leaf (crossline) di campi quadrati collimati dai soli leaf con diodo PFD (IBA Dosimetry) in fantoccio ad acqua a profondità $10\,$cm. Queste misure permettono di calibrare finemente la posizione dei leaf all'interno del TPS.\footnote{Questa operazione è necessaria perché solitamente la posizione nominale dei leaf viene leggermente alterata sulla base di una calibrazione effettuata dalla ditta produttrice per far corrispondere il campo luce con il campo definito dai raggi.}.
+\item[-] Profili lungo la direzione di movimento dei leaf (crossline) di campi quadrati collimati dai soli leaf con diodo PFD (IBA Dosimetry), in fantoccio ad acqua e a profondità $10\,$cm. Queste misure permettono di calibrare finemente la posizione dei leaf all'interno del TPS\footnote{Questa operazione è necessaria perché solitamente la posizione nominale dei leaf viene leggermente alterata sulla base di una calibrazione effettuata dalla ditta produttrice per far corrispondere il campo luce con il campo definito dai raggi.}.
 \item[-] Profili crossline di campi complementari adiacenti sul lato della punte dei leaf (Fig.\ref{fig:MLC_tip_effect}) con diodo Razor (IBA Dosimetry) in fantoccio ad acqua a profondità $10\,$cm. Queste misure sono state utilizzate per modellizzare l'effetto da punta arrotondata.
-\item[-] Profili di campi complementari come i precedenti a profondità $1.5\,$cm e $20\,$cm e traslati lateralmente lungo la direzione di movimento dei leaf in entrambe le direzioni per verificare la bontà della modellizzazione anche lontano dalle condizioni iniziali.
+\item[-] Profili di campi complementari come i precedenti, a profondità $1.5\,$cm e $20\,$cm e traslati lateralmente lungo la direzione di movimento dei leaf per verificare la bontà della modellizzazione anche lontano dalle condizioni iniziali.
 \end{itemize}
 
-\item[Effetto di \textit{tongue\&{}groove:}]
+\textbf{Effetto di \textit{tongue\&{}groove:}}
 \begin{itemize}
-\phantom{item[-]}
-\item[-] Profili di campi complementari adiacenti sul lato del bordo del leaf (Fig.\ref{fig:MLC_tip_effect}) con diodo PFD (IBA Dosimetry) lungo la direzione di perpendicolare rispetto al movimento dei leaf (inline) in fantoccio ad acqua a profondità $10\,$cm.
-\item[-] Profili come i precedenti a profondità di $5\,$cm utilizzando entrambi i banchi di leaf.
+\item[-] Profili di campi complementari adiacenti sul lato del bordo del leaf (Fig.\ref{fig:MLC_tip_effect}), con diodo PFD (IBA Dosimetry), lungo la direzione perpendicolare rispetto al movimento dei leaf (inline), in fantoccio ad acqua e a profondità $10\,$cm. Queste misure sono utilizzate per la modellizzazione dell'effetto di tongue\&{}groove.
+\item[-] Profili come i precedenti a profondità $5\,$cm per poter verificare la modellizzazione in condizioni diverse dalla profondità di riferimento.
 \end{itemize}
-\end{description}
 
+Tutte le misure elencate, assieme alle misure di dose assoluta (Sez.\ref{sec:dose_ass}), sono state inserite nel modulo del TPS denominato RayPhysics ed utilizzate per sviluppare un modello dosimetrico del LINAC come presentato nella sezione successiva.
 
 
 \section{Scelte adottate per la modellizzazione}
