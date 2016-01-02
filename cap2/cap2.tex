@@ -101,6 +101,7 @@ Queste misure costituiscono solo un'indicazione e possono essere estese o ridott
 
 \section{Accuratezza nel calcolo della dose con TPS}
 \subsection{Accuratezza richiesta per la 3D-CRT}
+\label{sec:accu_3D}
 L'accuratezza richiesta per il calcolo della dose in radioterapia conformazionale si basa su criteri stabiliti agli inizi degli anni duemila da Van Dyk et al. e Venselaar et al. \cite{Dyk1993,Venselaar2001}. Da questi due lavori pioneristici sono scaturite un certo numero di raccomandazioni da parte di organi internazionali (AAPM, ESTRO, IAEA) che hanno stabilito i limiti di accettabilità per la precisione di un calcolo di dose tramite TPS \cite{Fraass1998,Mijnheer2004,IAEA430}.\\
 Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} della \textit{European SocieTy for Radiotherapy \& Oncology} (ESTRO). 
 \begin{figure}[!t]
@@ -158,6 +159,7 @@ Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta
 \end{figure}
 
 \subsection{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT). La problematica dei piccoli campi di irradiazione}
+\label{sec:accu_spec}
 Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modulata (IMRT). A differenza della 3D-CRT, queste tecniche realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
 \begin{figure}[!t]
 \centering
@@ -200,7 +202,9 @@ CL(\gamma)_{\text{IMRT}} = \bar{\gamma} + 1.96\,\sigma(\gamma)
 \end{equation}
 Oltre ad indicare i criteri di accettazione per le curve di dose, il TG-119 riporta anche delle tolleranze di accettabilità per una serie di test che simulano delle comuni situazioni cliniche e che sono stati presi in considerazione nelle fasi finali del commissioning del TPS. 
 
-\section{Scelte adottate per le misure}
+\section[Scelte adottate per le misure]{Scelte adottate per le misure\protect\footnote{Le misure e la conseguente modellizzazione del LINAC sono presentate in questo lavoro per un fascio di energia nominale pari a $6\,$MV. Il processo è stato ripetuto per un'altra energia pari a $15\,$MV ma non verrà discusso in quanto analogo.}}
+
+
 \subsection{PDD e Profili di dose}
 Il LINAC oggetto di questa tesi è un modello Trilogy\textsuperscript{\textcopyright} prodotto dalla Varian Medical Systems. Esso è progettato per poter erogare trattamenti radioterapici in tecnica conformazionalee e ad intensità modulata (IMRT) step-and-shoot e dinamica fino ad una dimensione di campo massima $40x40\,$cm$^2$. \`E inoltre in grado di erogare trattamenti volumetrici ad arco con intensità e rateo di dose modulati (VMAT) fino ad una dimensione di campo massima $30x30\,$cm$^2$. Oltre a queste caratteristiche legate all'erogazione è inoltre capace di effettuare uno studio di tomografia computerizzata del paziente prima del trattamento in modo da verificare in tre dimensioni l'accurata collocazione sia del paziente in sé sia dei suoi organi interni, rispetto alle posizioni pianificate.
 
@@ -379,7 +383,7 @@ I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla strut
 \includegraphics[width=.35\textwidth]{./cap2/tip5.png}
 \includegraphics[width=.35\textwidth]{./cap2/tip6.png}\\\vspace{.3cm}
 \includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/Abutted/abutted_m.eps}
-\caption{La punta arrotondata del leaf comporta un effetto dosimetrico evidente in caso di campi adiacenti come in figura. Nel nostro caso le penombre dei due campi si sommano dando luogo ad un incremento della dose (a \textit{spike}) nella zona di giunzione. I profili di dose sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector Razor (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
+\caption{La punta arrotondata del leaf comporta un effetto dosimetrico evidente in caso di campi adiacenti come in figura. Nel nostro caso le penombre dei due campi si sommano dando luogo ad un incremento della dose (a \textit{spike}) nella zona di giunzione. I profili di dose mostrati sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector Razor (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
 \label{fig:MLC_tip_effect}
 \end{figure}
 \begin{figure}
@@ -388,7 +392,7 @@ I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla strut
 \includegraphics[width=.35\textwidth]{./cap2/TG2.png}\\\vspace{.3cm}
 \includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/TG/TG_Field1-2.eps} \\
 \includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/TG/TG_FieldTotm.eps} 
-\caption{La somma di campi adiacenti sul bordo laterale del leaf evidenzia dei sottodaggi nelle zone di giunzione dovuti alla struttura tongue\&{}groove. I profili di dose sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector PFD (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
+\caption{La somma di campi adiacenti sul bordo laterale del leaf evidenzia dei sottodaggi nelle zone di giunzione dovuti alla struttura tongue\&{}groove. I profili di dose mostrati sono acquisiti ad una profondità di $10\,$cm in fantoccio ad acqua con il detector PFD (IBA Dosimetry, vedi Tab.\ref{tab:OF_inter}).}
 \label{fig:MLC_TG_effect}
 \end{figure}
 
@@ -409,13 +413,33 @@ In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le 
 \item[-] Profili come i precedenti a profondità $5\,$cm per poter verificare la modellizzazione in condizioni diverse dalla profondità di riferimento.
 \end{itemize}
 
-Tutte le misure elencate, assieme alle misure di dose assoluta (Sez.\ref{sec:dose_ass}), sono state inserite nel modulo del TPS denominato RayPhysics ed utilizzate per sviluppare un modello dosimetrico del LINAC come presentato nella sezione successiva.
+
 
 
 \section{Scelte adottate per la modellizzazione}
-Qui parla del modello come è fatta RayPhysics etc,
-\subsection{energy spctrum phot e electr}
-inizia con lo spettro dei compromessi adottati, delle teniche r
+Tutte le misure elencate nella sezione precedente, assieme alle misure di dose assoluta (Sez.\ref{sec:dose_ass}), sono state inserite nel modulo del TPS denominato RayPhysics ed utilizzate per sviluppare un modello dosimetrico del LINAC. Il processo di modellizzazione consiste nell'ottimizzare una serie di parametri del motore dosimetrico implementato in RayStation (Sez.\ref{sec:algo_Ray}) i quali sono collegati a quantità o fenomeni fisici. Il fine è di riprodurre le misure sperimentali con il grado di accuratezza richiesto per un TPS volto alla pianificazione di trattamenti in tecnica 3D-CRT e in tecniche avanzate (IMRT e VMAT) come discusso nelle Sez.\ref{sec:accu_3D} e \ref{sec:accu_spec}.
+
+I parametri di modello sono dipendenti l'uno dall'altro in ordine gerarchico per cui è necessario seguire un ben determinato schema per evitare di giungere a soluzioni che, pur riproducendo bene i risultati sperimentali, non trovano riscontro con la fisica di base. Gli step da seguire per una accurata modellizzazione sono indicati dalla ditta \cite{RaySearchLaboratories2014} e sono stati recentemente discussi anche da Mzenda et al.\cite{Mzenda2014} (vedi Fig.\ref{fig:modeling_steps}).
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{./cap2/ModelingSteps/ModelingSteps.pdf}
+\caption{Step da seguire per una accurata modellizzazione \cite{Mzenda2014}.}
+\label{fig:modeling_steps}
+\end{figure}
+
+\subsection{Spettro di energia dei fotoni primari}
+Il primo step della modellizzazione di un LINAC consiste nell'ottimizzazione dello spettro di energia dei fotoni primari. Questa quantità fisica è una quantità continua e rappresenta la fluenza di fotoni corrispondenti ad una determinata energia in funzione dell'energia stessa. La misura diretta dello spettro di energia in uscita da un LINAC è complessa e richiede strumentazioni normalmente non disponibili nelle aziende ospedaliere. D'altra parte, l'andamento della parte discendente della PDD risulta fortemente legato allo spettro \cite{Khan2010} e questa caratteristica viene impiegata per determinarlo indirettamente.
+
+Il TPS RayStation discretizza uno spettro fotonico di energia $6\,$MV con 10 bin di energia 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5 e 6 MeV. In RayPhysics sono implementati due tool di ottimizzazione dello spettro fotonico, l'uno detto \textit{parametrico} e l'altro \textit{non-parametrico}. Entrambi questi tool hanno come target massimizzare l'accordo delle PDD calcolate con le PDD misurate nella zona discendente. Il tool parametrico ottimizza delle costanti di fit di una forma funzionale che è implementata in RayPhysics e riproduce analiticamente una serie di spettri clinici \cite{RaySearchLaboratories2014}. Lo spettro continuo ottenuto dalla forma funzionale viene poi integrato e discretizzato nei bin citati precedentemente. Il tool non parametrico d'altra parte, ottimizza direttamente le fluenze con un metodo iterativo.
+
+Il metodo adottato per modellizzare lo spettro fotonico consiste in due step:
+\begin{enumerate}
+\item Una prima ottimizzazione viene effettuata utilizzando il tool parametrico. Questa scelta permette di partire da uno spettro che riproduce quanto più possibile le PDD (parte discendente) mantenendo però una distribuzione basata su principi fisici.
+\item Una volta raggiunto l'accordo migliore ottenibile con il tool parametrico si è scelto di utilizzare il tool non parametrico effettuando tuttavia poche iterazioni (da tre ad un massimo di dieci). La ragione di questa scelta sta nel riconoscere che lo spettro analitico, a sua volta discretizzato, può non riprodurre completamente la fenomenologia che da luogo alle curve PDD. Per questo motivo è necessario apportare delle correzioni non-analitiche a patto che non venga perturbata eccessivamente la distribuzione iniziale. Come regola di massima, si è cercato di mantenere i valori dei singoli bin entro il $20-30\%$ del loro valore iniziale.
+\end{enumerate}
+
+I risultati di questi
+
 \subsection{off axis soft, beam profile}
 \subsection{source sizes etc. etc.}
 (Mzenda in pratica da citare e seguire).
