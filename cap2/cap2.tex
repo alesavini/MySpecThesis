@@ -345,19 +345,21 @@ Tuttavia, al tempo di redazione di questo lavoro (Gennaio 2016), il report risul
 
 \subsection{MLC}
 In radioterapia conformazionale l'MLC ha unicamente la funzione di sagomare il campo ai bordi del target. D'altra parte, nelle tecniche avanzate IMRT e VMAT, la modulazione di intensità si effettua combinando tra loro diverse collimazioni (segmenti, Fig.\ref{fig:IMRT_Segments}). Per questo motivo è necessario tenere in conto maggiormente i dettagli costruttivi dell'MLC nella modellizzazione del TPS.
+
 \begin{figure}
 \centering
-\includegraphics[width=.7\textwidth]{./cap2/IMRT_Segments.jpg}
+\includegraphics[width=\textwidth]{./cap2/IMRT_Segments_2.jpg}
 \caption{Segmenti sagomati con l'MLC per realizzare la modulazione di intensità.}
 \label{fig:IMRT_Segments}
 \end{figure}
 
-L'MLC oggetto di questa tesi è prodotto dalla Varian Medical Systems (modello Millenium 120). Esso è dotato di due banchi di 60 lamelle che proiettano una dimensione nel piano dell'isocentro di $0.5\,$cm (prime 30 lamelle a partire dal centro) e di $1\,$cm per le rimanenti. In Fig.\ref{fig:MLC_details} sono riportati alcuni dettagli costruttivi. 
+L'MLC oggetto di questa tesi è prodotto dalla Varian Medical Systems (modello Millenium 120). Esso è dotato di due banchi di 60 lamelle che proiettano una dimensione nel piano dell'isocentro di $0.5\,$cm (prime 30 lamelle a partire dal centro) e di $1\,$cm per le rimanenti. In Fig.\ref{fig:MLC_details} sono riportati alcuni dettagli costruttivi.
+
 \begin{figure}
 \centering
-\includegraphics[width=.5\textwidth]{./cap2/MLC_leaf_varian.png}\\
-\includegraphics[width=.35\textwidth]{./cap2/MLC_side.png}
-\includegraphics[width=.35\textwidth]{./cap2/MLC_front.png}
+\includegraphics[width=.4\textwidth]{./cap2/MLC_leaf_varian.png}
+\includegraphics[width=.28\textwidth]{./cap2/MLC_side.png}
+\includegraphics[width=.28\textwidth]{./cap2/MLC_front_2.png}
 \caption{Foto e schemi costruttivi dell'MLC Millenium 120.}
 \label{fig:MLC_details}
 \end{figure}
@@ -396,7 +398,7 @@ I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla strut
 \label{fig:MLC_TG_effect}
 \end{figure}
 
-La scelta per quanto riguarda le misure effettuate per modellizzare l'MLC è dunque quella di utilizzare delle scansioni che esaltino l'effetto di leaf tip e di tongue\&{}groove come quelle mostrate nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}. Per poter evidenziare in maniera accurata questi effetti di composizione dei campi è necessario utilizzare dei detector che modifichino il meno possibile le penombre dei profili (i.e. con un volume sensibile minimo).\newpage
+La scelta per quanto riguarda le misure effettuate per modellizzare l'MLC è dunque quella di utilizzare delle scansioni che esaltino l'effetto di leaf tip e di tongue\&{}groove come quelle mostrate nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}. Per poter evidenziare in maniera accurata questi effetti di composizione dei campi è necessario utilizzare dei detector che modifichino il meno possibile le penombre dei profili (i.e. con un volume sensibile minimo).
 
 In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le seguenti scansioni:
 
@@ -427,7 +429,7 @@ I parametri di modello sono dipendenti l'uno dall'altro in ordine gerarchico per
 \label{fig:modeling_steps}
 \end{figure}
 
-\subsection{Spettro di energia dei fotoni primari}
+\subsection{PDD - Spettro di energia dei fotoni primari}
 Il primo step della modellizzazione di un LINAC consiste nell'ottimizzazione dello spettro di energia dei fotoni primari. Questa quantità fisica è una quantità continua e rappresenta la fluenza di fotoni corrispondenti ad una determinata energia in funzione dell'energia stessa. La misura diretta dello spettro di energia in uscita da un LINAC è complessa e richiede strumentazioni normalmente non disponibili nelle aziende ospedaliere. D'altra parte, l'andamento della parte discendente della PDD risulta fortemente legato allo spettro \cite{Khan2010} e questa caratteristica viene impiegata per determinarlo indirettamente.
 
 Il TPS RayStation discretizza uno spettro fotonico di energia $6\,$MV con 10 bin di energia 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5 e 6 MeV. In RayPhysics sono implementati due tool di ottimizzazione dello spettro fotonico, l'uno detto \textit{parametrico} e l'altro \textit{non-parametrico}. Entrambi questi tool hanno come target massimizzare l'accordo delle PDD calcolate con le PDD misurate nella zona discendente. Il tool parametrico ottimizza delle costanti di fit di una forma funzionale che è implementata in RayPhysics e riproduce analiticamente una serie di spettri clinici \cite{RaySearchLaboratories2014}. Lo spettro continuo ottenuto dalla forma funzionale viene poi integrato e discretizzato nei bin citati precedentemente. Il tool non parametrico d'altra parte, ottimizza direttamente le fluenze con un metodo iterativo.
@@ -438,10 +440,85 @@ Il metodo adottato per modellizzare lo spettro fotonico consiste in due step:
 \item Una volta raggiunto l'accordo migliore ottenibile con il tool parametrico si è scelto di utilizzare il tool non parametrico effettuando tuttavia poche iterazioni (da tre ad un massimo di dieci). La ragione di questa scelta sta nel riconoscere che lo spettro analitico, a sua volta discretizzato, può non riprodurre completamente la fenomenologia che da luogo alle curve PDD. Per questo motivo è necessario apportare delle correzioni non-analitiche a patto che non venga perturbata eccessivamente la distribuzione iniziale. Come regola di massima, si è cercato di mantenere i valori dei singoli bin entro il $20-30\%$ del loro valore iniziale.
 \end{enumerate}
 
-I risultati di questi
+Lo spettro fotonico ottimizzato secondo la tecnica descritta è riportato in Fig.\ref{fig:Ray_spectr_fot}.
+\begin{figure}
+\centering
+\begin{tabular}{m{.32\textwidth}m{.65\textwidth}}
+\vspace*{-0.5cm}\includegraphics[width=.32\textwidth]{./cap2/Ray_spectrum_fot_tab.png} &
+\includegraphics[width=.65\textwidth]{./cap2/Ray_spectrum_fot.png}
+\end{tabular}
+\caption{Spettro fotonico ottimizzato per la modellizzazione della parte discendente delle PDD.}
+\label{fig:Ray_spectr_fot}
+\end{figure}
 
-\subsection{off axis soft, beam profile}
-\subsection{source sizes etc. etc.}
+\subsection{PDD - Spettro di energia degli elettroni di contaminazione}
+La parte ascendente della PDD fino al suo massimo (regione di build-up) dipende dai fotoni primari a bassa energia, assieme agli elettroni di contaminazione del fascio (vedi Sez.\ref{sec:dose_electr}). La forma della regione di build-up può essere modulata modificando lo spettro degli elettroni di contaminazione. In RayPhysics lo spettro di elettroni è dato da una forma funzionale:
+\begin{equation}
+\psi_{e^-} (E) = A\,E^c\, e^{-E/E_0}
+\end{equation}
+dove $A$ è un parametro di normalizzazione e $c$ ed $E_0$ sono due parametri di fit compresi nell'intervallo $[0,1]$ da ottimizzare in base alla forma della regione di build-up delle PDD.
+
+Seguendo le indicazioni della ditta, l'ottimizzazione di questi parametri è stata effettuata con un tool di fit che ottimizza la regione di build-up delle PDD relative al campo più piccolo ($2x2\,$cm$^2$), al campo di riferimento ($10x10\,$cm$^2$) e al campo più grande ($40x40\,$cm$^2$). A seguire, sono stati effettuati degli aggiustamenti manuali in modo da migliorare ulteriormente l'accordo specie per i campi grandi ove la contaminazione elettronica ha un effetto più rilevante. Oltre a ciò è stato necessario procedere in maniera iterativa modificando manualmente i primi bin dello spettro fotonico e poi ritornando ad ottimizzare lo spettro elettronico fino a raggiungere un accordo accettabile per tutte le dimensioni di campo. Lo spettro elettronico ottimizzato con questa procedura è mostrato in Fig.\ref{fig:Ray_spectrum_ele}.
+
+In Fig.\ref{fig:Ray_PDD_meas_calc} è mostrato qualitativamente l'accordo raggiunto per il calcolo delle PDD a seguito delle ottimizzazioni dello spettro fotonico ed elettronico. La valutazione quantitativa dell'accordo tramite i criteri discussi nella Sez.\ref{sec:accu_spec} sarà discussa in seguito.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap2/Ray_spectrum_ele.pdf}
+\caption{Spettro elettronico ottimizzato per la modellizzazione della regione di build-up delle PDD.}
+\label{fig:Ray_spectrum_ele}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap2/Ray_PDD_meas_calc.png}
+\caption{Accordo tra PDD misurate e calcolate a seguito delle ottimizzazioni dello spettro fotonico ed elettronico.}
+\label{fig:Ray_PDD_meas_calc}
+\end{figure}
+
+
+\subsection{Profili - Off-axis softening, beam profile correction e sorgenti di scatter}
+Una volta ottimizzato il modello per il calcolo della dose in profondità a centro asse (PDD), si può passare all'ottimizzazione del modello fuori asse (profili). La distribuzione di dose fuori asse è influenzata dalla presenza del flattening-filter (vedi nota a Pag.\pageref{foot:flatt}). Questo dispositivo di forma piramidale attenua la fluenza di fotoni a centro asse e conseguentemente provoca un aumento dell'energia media del fascio centrale rispetto al fascio fuori asse. Questo processo è noto con il nome di \textit{`off-axis softening'}. RayPhysics modellizza l'off-axis softening introducendo una funzione radiale definita per punti che rappresenta il flattening-filter come un oggetto di acqua equivalente. Lo spessore di acqua equivalente è riscalato in modo che il fascio al centro risulti non attenuato (spessore pari a zero) ed il fascio fuori asse risulti `attenuato' da uno spessore di acqua negativo (vedi Fig.\ref{fig:Ray_flatt}).
+\begin{figure}[!t]
+\centering
+\begin{tabular}{m{.3\textwidth}m{.6\textwidth}}
+\vspace*{-0.5cm}\includegraphics[width=.3\textwidth]{./cap2/Ray_flatt1.png} &
+\includegraphics[width=.6\textwidth]{./cap2/Ray_flatt2.png}
+\end{tabular}
+\includegraphics[width=.9\textwidth]{./cap2/Ray_flatt3.png}
+\caption{Flattening filter: foto e schema costruttivo (in alto). Modellizzazione del flattening filter con la funzione di off-axis softening (in basso)}
+\label{fig:Ray_flatt}
+\end{figure}
+
+Accanto alla funzione di off-axis softening, RayPhysics offre un'altra funzione definita per punti con dipendenza radiale detta \textit{beam profile correction}. Questa funzione semplicemente riscala la fluenza primaria con un fattore numerico che dipende dalla distanza radiale dal centro asse. Con la beam profile correction è possibile raffinare la forma del profilo ottimizzando in particolare la zona centrale che usualmente presenta un caratteristico avvallamento dovuto all'attenuazione del flattening filter. \`E inoltre utilizzabile per modellizzare la presenza del collimatore primario il cui effetto si nota agli estremi dei profili diagonali per il campo $40x40\,$cm$^2$\footnote{Il collimatore primario è un materiale ad alta densità che alloggia il target e possiede un'apertura conica in modo da schermare il fascio in tutte le direzioni tranne quella utile clinicamente}.
+
+Si è già parlato nella Sez.\ref{sec:intro} di come la dose fuori asse sia dipendente in parte anche dai processi di scatter che avvengono all'interno del materiale (\textit{phantom scatter dose}) e dai processi di scatter che avvengono nella testata del LINAC (\textit{head scatter dose}). Mentre i primi sono tenuti in considerazione direttamente dall'algoritmo collapsed-cone-convolution, i secondi vengono tenuti in considerazione in RayPhysics introducendo una sorgente secondaria di fotoni di scatter provenienti dalla base del flattening filter. I parametri per modellizzare la sorgente di scatter consistono in:
+\begin{itemize}
+\item Dimensione della sorgente di scatter
+\item Peso della sorgente di scatter rispetto alla sorgente primaria
+\end{itemize}
+Modificando questi parametri si riesce a modulare la parte distale ad alta dose del profilo (spalla) assieme alla parte fuori campo (code).
+
+Per modellizzare accuratamente i profili di dose è necessario ottimizzare simultaneamente le funzioni di off-axis softening e beam profile correction assieme alla sorgente di scatter. L'effetto della sorgente di scatter è dipendente dalla dimensione di campo assumendo più importanza per i campi di dimensioni $> 10x10\,$cm$^2$.\\
+Per questo motivo si è scelto di partire con l'ottimizzazione dei profili per il campo di riferimento $10x10\,$cm$^2$ e a seguire dei campi di dimensione superiore con un metodo di iterativo di \textit{trial-and-error}. Durante il processo i parametri sono stati variati entro i range consigliati dalla ditta:
+\begin{itemize}
+\item Off-axis softening $\in[0,-30]$; risultato: vedi Fig.\ref{fig:Ray_flatt}
+\item Beam-profile correction $\in[0.95,1.05]$; risultato: vedi Fig.\ref{fig:Ray_beamprof}
+\item Dimensione della sorgente di scatter $\in[1.0,3.5]\,$cm; risultato$\,=2.065\,$cm
+\item Peso della sorgente di scatter $\in[0.05,0.1]$; risultato$\,=0.09048$
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=.9\textwidth]{./cap2/Ray_beamprof.png}
+\caption{Funzione di beam profile correction ottimizzata per modellizzare la forma dei profili dall'asse centrale fino alla parte più periferica schermata dal collimatore primario (modellizzata come un brusco calo della fluenza).}
+\label{fig:Ray_beamprof}
+\end{figure}
+
+I profili dei campi di dimensione $\leq 4x4\,$cm$^2$ sono stati tenuti in relativa considerazione in questa fase in quanto gli effetti sopra descritti costituiscono un fenomeni del secondo ordine rispetto agli effetti collegati alla dimensione della sorgente primaria.
+
+\subsection{Dimensione della sorgente primaria}
+
 (Mzenda in pratica da citare e seguire).
 
 
