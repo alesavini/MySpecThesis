@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.2.1">
-<info created="D:20160102121514" modified="D:20160102132456"/>
+<info created="D:20160102121514" modified="D:20160104222142"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -262,7 +262,7 @@ h
 <text matrix="1 0 0 1 96 -176" transformations="translations" pos="160 768" stroke="black" type="label" width="375.207" height="8.307" depth="2.32" halign="center" valign="top" size="large">Profili - penombra campi grandi - sorgente secondaria del flattening filter</text>
 <text matrix="1 0 0 1 96 -208" transformations="translations" pos="160 768" stroke="black" type="label" width="349.619" height="8.307" depth="2.32" halign="center" valign="top" size="large">Output al variare della dimensione campo - output factor correction</text>
 <text matrix="1 0 0 1 96 -240" transformations="translations" pos="160 768" stroke="black" type="label" width="269.953" height="8.307" depth="2.32" halign="center" valign="top" size="large">Calibrazione dei collimatori - offset, gain e curvature</text>
-<text matrix="1 0 0 1 96 -272" transformations="translations" pos="160 768" stroke="black" type="label" width="200.199" height="8.307" depth="2.32" halign="center" valign="top" size="large">MLC - offset, leaf tip, tongue \&amp; groove</text>
+<text matrix="1 0 0 1 96 -272" transformations="translations" pos="160 768" stroke="black" type="label" width="271.28" height="8.307" depth="2.32" halign="center" valign="top" size="large">MLC - transmission, offset, leaf tip, tongue \&amp; groove</text>
 <path stroke="black" arrow="normal/normal">
 256 740 m
 256 720 l

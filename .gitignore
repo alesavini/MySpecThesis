@@ -18,7 +18,7 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
-*.pdf
+*-converted-to.pdf
 *.asv
 [Bb]in
 [Dd]ebug*/

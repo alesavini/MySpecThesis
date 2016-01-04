@@ -400,7 +400,7 @@ I tipici effetti dosimetrici dovuti alla punta arrotondata dei leaf e alla strut
 
 La scelta per quanto riguarda le misure effettuate per modellizzare l'MLC è dunque quella di utilizzare delle scansioni che esaltino l'effetto di leaf tip e di tongue\&{}groove come quelle mostrate nelle Fig.\ref{fig:MLC_tip_effect} e \ref{fig:MLC_TG_effect}. Per poter evidenziare in maniera accurata questi effetti di composizione dei campi è necessario utilizzare dei detector che modifichino il meno possibile le penombre dei profili (i.e. con un volume sensibile minimo).
 
-In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le seguenti scansioni:
+In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le seguenti scansioni:\vspace*{.2cm}
 
 \textbf{Effetto di \textit{leaf-tip}:}
 \begin{itemize}
@@ -464,7 +464,7 @@ In Fig.\ref{fig:Ray_PDD_meas_calc} è mostrato qualitativamente l'accordo raggiu
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{./cap2/Ray_spectrum_ele.eps}
+\includegraphics[width=\textwidth]{./cap2/Ray_spectrum_ele.pdf}
 \caption{Spettro elettronico ottimizzato per la modellizzazione della regione di build-up delle PDD.}
 \label{fig:Ray_spectrum_ele}
 \end{figure}
@@ -477,7 +477,7 @@ In Fig.\ref{fig:Ray_PDD_meas_calc} è mostrato qualitativamente l'accordo raggiu
 \end{figure}
 
 
-\subsection{Profili - Off-axis softening, beam profile correction e sorgenti di scatter}
+\subsection{Profili - Off-axis softening, beam profile correction e sorgente di scatter}
 Una volta ottimizzato il modello per il calcolo della dose in profondità a centro asse (PDD), si può passare all'ottimizzazione del modello fuori asse (profili). La distribuzione di dose fuori asse è influenzata dalla presenza del flattening-filter (vedi nota a Pag.\pageref{foot:flatt}). Questo dispositivo di forma piramidale attenua la fluenza di fotoni a centro asse e conseguentemente provoca un aumento dell'energia media del fascio centrale rispetto al fascio fuori asse. Questo processo è noto con il nome di \textit{`off-axis softening'}. RayPhysics modellizza l'off-axis softening introducendo una funzione radiale definita per punti che rappresenta il flattening-filter come un oggetto di acqua equivalente. Lo spessore di acqua equivalente è riscalato in modo che il fascio al centro risulti non attenuato (spessore pari a zero) ed il fascio fuori asse risulti `attenuato' da uno spessore di acqua negativo (vedi Fig.\ref{fig:Ray_flatt}).
 \begin{figure}[!t]
 \centering
@@ -517,14 +517,14 @@ Per questo motivo si è scelto di partire con l'ottimizzazione dei profili per i
 
 I profili dei campi di dimensione $\leq 4x4\,$cm$^2$ sono stati tenuti in relativa considerazione in questa fase in quanto gli effetti sopra descritti costituiscono fenomeni del secondo ordine rispetto agli effetti collegati alla dimensione della sorgente primaria.
 
-\subsection{Dimensione della sorgente primaria}
+\subsection{Profili - Dimensione della sorgente primaria}
 La sorgente primaria di irradiazione è modellizzata in RayStation con un profilo gaussiano ellittico \cite{Chaney1994}. Nel processo di retroproiezione mostrato in Fig.\ref{fig:twosources} si può notare che l'estensione della sorgente riveste grande importanza per i campi piccoli in cui i collimatori parzialmente ne oscurano una porzione. Questo effetto si riflette su una forte influenza delle dimemensioni della sorgente sulle penombre dei campi piccoli.\\
 Per questo motivo, la modellizzazione delle dimensioni della sorgente è stata effettuata utilizzando il campo di dimensioni minime ($2x2\,$cm$^2$, vedi Fig.\ref{fig:source_2x2}). In seguito la valutazione è stata estesa anche agli altri campi per aggiustamenti fini del modello.
 \begin{figure}
 \centering
-\includegraphics[width=.48\textwidth]{./cap2/Ray_wrong_penumbra.PNG}
-\includegraphics[width=.48\textwidth]{./cap2/Ray_right_penumbra.PNG}
-\caption{Sinistra: una sorgente troppo estesa ($0.1\,$cm) porta ad una sovrastima delle penombre del profilo di dose di dimensioni $2x2$. Destra: dimensioni della sorgente ottimizzate ($0.042\,$cm).}
+\includegraphics[width=.48\textwidth]{./cap2/Ray_penumbra_wrong.PNG}
+\includegraphics[width=.48\textwidth]{./cap2/Ray_penumbra_right.PNG}
+\caption{Sinistra: una sorgente troppo estesa ($0.1\,$cm) porta ad una sovrastima delle penombre del profilo di dose di dimensioni $2x2\,$cm$^2$ (qui mostrato il profilo \textit{inline} a $10\,$cm di profondità). Destra: dimensioni della sorgente ottimizzate ($0.042\,$cm).}
 \label{fig:source_2x2}
 \end{figure}
 
@@ -534,16 +534,68 @@ I parametri da ottimizzare in questo caso sono le larghezze a mezza altezza del 
 \item $x$ width $\in [0.05,0.3]$; risultato: $0.035\,$cm
 \item $y$ width $\in [0.05,0.3]$; risultato: $0.042\,$cm
 \end{itemize}
-In questo caso è stato necessario violare leggermente i limiti suggeriti della ditta per ottimizzare al meglio l'accordo delle penombre.
+In questo caso è stato necessario violare leggermente i limiti suggeriti della ditta (mostrati tra parentesi quadre) per ottimizzare al meglio l'accordo delle penombre.
 Coerentemente con le aspettative fisiche, il profilo gaussiano ottimizzato risulta più esteso in direzione $y$ che corrisponde alla direzione di incidenza del fascio elettronico primario.
 
+\subsection{Profili - Calibrazione dei collimatori}
+Nelle fasi finali di modellizzazione dei profili è possibile ottimizzare le penombre dei profili, specie a campi grandi, utilizzando una funzione di RayPhysics che modifica virtualmente la posizione dei collimatori secondo un'equazione quadratica:
+\begin{equation}
+pos_{real} = pos_{nominal} - Offset - Gain\cdot pos_{nominal} - Curvature \cdot pos_{nominal}
+\end{equation}
+I parametri di \textit{Offset}, \textit{Gain} e \textit{Curvature} sono stati ottimizzati con un tool di fit automatico tenendo in considerazione tutti i profili di dose. I risultati, assieme ai limiti consigliati dalla ditta sono:
+\begin{itemize}
+\item Collimatori \textit{Y - inline}:
+\begin{itemize}
+\item \textit{Offset} $\in [0,0.1]$; risultato: $-0.078\,$cm
+\item \textit{Gain} $\in [0,0.01]$; risultato: $-0.0008\,$
+\item \textit{Curvature} $\in [0,0.001]$; risultato: $0\,$cm$^{-1}$
+\end{itemize}
+\item Collimatori \textit{X - crossline}:
+\begin{itemize}
+\item \textit{Offset} $\in [0,0.1]$; risultato: $-0.004\,$cm
+\item \textit{Gain} $\in [0,0.01]$; risultato: $-0.0024\,$
+\item \textit{Curvature} $\in [0,0.001]$; risultato: $0\,$cm$^{-1}$
+\end{itemize}
+\end{itemize}
+
+\subsection{MLC - Trasmissione}}
+La trasmissione del MLC è modellizzata all'interno di RayPhysics con un unico parametro che tiene conto in media sia della trasmissione interleaf che intraleaf. Questa misura è stata effettuata ponendo una camera a ionizzazione di volume esteso ($0.65\,$cm$^3$) con l'asse perpendicolare alla direzione di movimento dei leaf a $1.5\,$cm di profondità in acqua. I campi utilizzati per questa misura sono riportati nella Fig.\ref{fig:MLC_Trans}. 
+\begin{figure}
+\centering
+\includegraphics[width=.48\textwidth]{./cap2/MLC_TransX1.png}
+\includegraphics[width=.48\textwidth]{./cap2/MLC_TransX2.png}
+\caption{Campi utilizzati per la misura di trasmissione del MLC per il banco X1 (sinistra) e il banco X2 (destra).}
+\label{fig:MLC_Trans}
+\end{figure}
+
+La trasmissione è stata calcolata per entrambi i banchi di leaf rispetto alla lettura di dose a campo aperto per un determinato numero di unità monitor. La media delle misure per entrambi i banchi è stata inserita come parametro di modello in RayPhysics:
+
+\begin{itemize}
+\item Trasmissione $\in [0.01,0.03]$; risultato: $0.01813$.
+\end{itemize}
+
+dove nelle parentesi quadre sono indicati i limiti consigliati dalla ditta.
 
 
-\section{Test finali e risultati}
+\subsection{MLC - \textit{leaf tip}}
+Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state impiegate per modellizzare l'effetto dovuto alla punta arrotondata dei leaf. In RayPhysics il parametro da ottimizzare è la \textit{leaf tip width} espressa in centimetri. Questa quantità rappresenta la parte di leaf, a partire dalla punta, proiettata al piano dell'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_tip_model}).
+\begin{figure}
+\centering
+\includegraphics[width=.6\textwidth]{./cap2/MLC_tip_model.png}
+\caption{Modello della punta dei leaf implementato in RayStation. La punta arrotondata viene schematizzata come una regione rettangolare con trasmissione pari alla radice quadrata della trasmissione del leaf. La largezza di questa regione è il parametro da ottimizzare in fase di modellizzazione del MLC.}
+\label{fig:MLC_tip_model}
+\end{figure}
+
+
+\section{Analisi quantitativa dell'accordo calcolato/misurato}
+
+
 \subsection{validazione delle curve}
 parla di raynalyzer e del criterio di VensPalta applicato, fai una tabella con tutti i CL...
 \subsection{Gaf validation dell'MLC}
-a
+
+
+\section{Test finali clinici e risultati}
 \subsection{TG-119 validation con MatriXX DMLC}
 a
 \subsection{TG-119 validation con MatriXX VMAT + Pazienti}
