@@ -424,7 +424,7 @@ Tutte le misure elencate nella sezione precedente, assieme alle misure di dose a
 I parametri di modello sono dipendenti l'uno dall'altro in ordine gerarchico per cui è necessario seguire un ben determinato schema per evitare di giungere a soluzioni che, pur riproducendo bene i risultati sperimentali, non trovano riscontro con la fisica di base. Gli step da seguire per una accurata modellizzazione sono indicati dalla ditta \cite{RaySearchLaboratories2014} e sono stati recentemente discussi anche da Mzenda et al.\cite{Mzenda2014} (vedi Fig.\ref{fig:modeling_steps}).
 \begin{figure}
 \centering
-\includegraphics[width=.8\textwidth]{./cap2/ModelingSteps/ModelingSteps.pdf}
+\includegraphics[width=.8\textwidth]{./cap2/ModelingSteps/ModelingSteps.eps}
 \caption{Step da seguire per una accurata modellizzazione \cite{Mzenda2014}.}
 \label{fig:modeling_steps}
 \end{figure}
@@ -464,7 +464,7 @@ In Fig.\ref{fig:Ray_PDD_meas_calc} è mostrato qualitativamente l'accordo raggiu
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{./cap2/Ray_spectrum_ele.pdf}
+\includegraphics[width=\textwidth]{./cap2/Ray_spectrum_ele.eps}
 \caption{Spettro elettronico ottimizzato per la modellizzazione della regione di build-up delle PDD.}
 \label{fig:Ray_spectrum_ele}
 \end{figure}
@@ -502,10 +502,10 @@ Modificando questi parametri si riesce a modulare la parte distale ad alta dose 
 Per modellizzare accuratamente i profili di dose è necessario ottimizzare simultaneamente le funzioni di off-axis softening e beam profile correction assieme alla sorgente di scatter. L'effetto della sorgente di scatter è dipendente dalla dimensione di campo assumendo più importanza per i campi di dimensioni $> 10x10\,$cm$^2$.\\
 Per questo motivo si è scelto di partire con l'ottimizzazione dei profili per il campo di riferimento $10x10\,$cm$^2$ e a seguire dei campi di dimensione superiore con un metodo di iterativo di \textit{trial-and-error}. Durante il processo i parametri sono stati variati entro i range consigliati dalla ditta:
 \begin{itemize}
-\item Off-axis softening $\in[0,-30]$; risultato: vedi Fig.\ref{fig:Ray_flatt}
-\item Beam-profile correction $\in[0.95,1.05]$; risultato: vedi Fig.\ref{fig:Ray_beamprof}
-\item Dimensione della sorgente di scatter $\in[1.0,3.5]\,$cm; risultato$\,=2.065\,$cm
-\item Peso della sorgente di scatter $\in[0.05,0.1]$; risultato$\,=0.09048$
+\item Off-axis softening $\in[0,-30]$; risultato: vedi Fig.\ref{fig:Ray_flatt}.
+\item Beam-profile correction $\in[0.95,1.05]$; risultato: vedi Fig.\ref{fig:Ray_beamprof}.
+\item Dimensione della sorgente di scatter $\in[1.0,3.5]\,$cm; risultato$\,=2.065\,$cm.
+\item Peso della sorgente di scatter $\in[0.05,0.1]$; risultato$\,=0.09048$.
 \end{itemize}
 
 \begin{figure}
@@ -515,11 +515,28 @@ Per questo motivo si è scelto di partire con l'ottimizzazione dei profili per i
 \label{fig:Ray_beamprof}
 \end{figure}
 
-I profili dei campi di dimensione $\leq 4x4\,$cm$^2$ sono stati tenuti in relativa considerazione in questa fase in quanto gli effetti sopra descritti costituiscono un fenomeni del secondo ordine rispetto agli effetti collegati alla dimensione della sorgente primaria.
+I profili dei campi di dimensione $\leq 4x4\,$cm$^2$ sono stati tenuti in relativa considerazione in questa fase in quanto gli effetti sopra descritti costituiscono fenomeni del secondo ordine rispetto agli effetti collegati alla dimensione della sorgente primaria.
 
 \subsection{Dimensione della sorgente primaria}
+La sorgente primaria di irradiazione è modellizzata in RayStation con un profilo gaussiano ellittico \cite{Chaney1994}. Nel processo di retroproiezione mostrato in Fig.\ref{fig:twosources} si può notare che l'estensione della sorgente riveste grande importanza per i campi piccoli in cui i collimatori parzialmente ne oscurano una porzione. Questo effetto si riflette su una forte influenza delle dimemensioni della sorgente sulle penombre dei campi piccoli.\\
+Per questo motivo, la modellizzazione delle dimensioni della sorgente è stata effettuata utilizzando il campo di dimensioni minime ($2x2\,$cm$^2$, vedi Fig.\ref{fig:source_2x2}). In seguito la valutazione è stata estesa anche agli altri campi per aggiustamenti fini del modello.
+\begin{figure}
+\centering
+\includegraphics[width=.48\textwidth]{./cap2/Ray_wrong_penumbra.PNG}
+\includegraphics[width=.48\textwidth]{./cap2/Ray_right_penumbra.PNG}
+\caption{Sinistra: una sorgente troppo estesa ($0.1\,$cm) porta ad una sovrastima delle penombre del profilo di dose di dimensioni $2x2$. Destra: dimensioni della sorgente ottimizzate ($0.042\,$cm).}
+\label{fig:source_2x2}
+\end{figure}
 
-(Mzenda in pratica da citare e seguire).
+
+I parametri da ottimizzare in questo caso sono le larghezze a mezza altezza del profilo gaussiano ellittico:
+\begin{itemize}
+\item $x$ width $\in [0.05,0.3]$; risultato: $0.035\,$cm
+\item $y$ width $\in [0.05,0.3]$; risultato: $0.042\,$cm
+\end{itemize}
+In questo caso è stato necessario violare leggermente i limiti suggeriti della ditta per ottimizzare al meglio l'accordo delle penombre.
+Coerentemente con le aspettative fisiche, il profilo gaussiano ottimizzato risulta più esteso in direzione $y$ che corrisponde alla direzione di incidenza del fascio elettronico primario.
+
 
 
 \section{Test finali e risultati}
