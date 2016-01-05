@@ -279,7 +279,7 @@ In esse si può notare come la misura degli OF per piccoli campi presenti un cer
   & \multicolumn{6}{c}{$\Delta$PFD vs.}\\
   \cmidrule{2-7}
  
-Field Size (cm$\,x\,$cm$^2$) & CC13 & CC01 & A26 & W1 & SFD & Razor\\
+Field Size (cm$\,x\,$cm) & CC13 & CC01 & A26 & W1 & SFD & Razor\\
 \midrule
 $1x1$ &        & $8.6\%$ & $9.6\%$ & $5.7\%$ & $8.3\%$ & $9.1\%$\\
 $2x2$ & $3.2\%$ & $3.5\%$ & $2.1\%$ & $0.6\%$ & $5.4\%$ & $6.1\%$\\
@@ -541,6 +541,7 @@ Coerentemente con le aspettative fisiche, il profilo gaussiano ottimizzato risul
 Nelle fasi finali di modellizzazione dei profili è possibile ottimizzare le penombre dei profili, specie a campi grandi, utilizzando una funzione di RayPhysics che modifica virtualmente la posizione dei collimatori secondo un'equazione quadratica:
 \begin{equation}
 pos_{real} = pos_{nominal} - Offset - Gain\cdot pos_{nominal} - Curvature \cdot pos_{nominal}
+\label{eq:offset}
 \end{equation}
 I parametri di \textit{Offset}, \textit{Gain} e \textit{Curvature} sono stati ottimizzati con un tool di fit automatico tenendo in considerazione tutti i profili di dose. I risultati, assieme ai limiti consigliati dalla ditta sono:
 \begin{itemize}
@@ -558,7 +559,7 @@ I parametri di \textit{Offset}, \textit{Gain} e \textit{Curvature} sono stati ot
 \end{itemize}
 \end{itemize}
 
-\subsection{MLC - Trasmissione}}
+\subsection{MLC - Trasmissione}
 La trasmissione del MLC è modellizzata all'interno di RayPhysics con un unico parametro che tiene conto in media sia della trasmissione interleaf che intraleaf. Questa misura è stata effettuata ponendo una camera a ionizzazione di volume esteso ($0.65\,$cm$^3$) con l'asse perpendicolare alla direzione di movimento dei leaf a $1.5\,$cm di profondità in acqua. I campi utilizzati per questa misura sono riportati nella Fig.\ref{fig:MLC_Trans}. 
 \begin{figure}
 \centering
@@ -569,22 +570,44 @@ La trasmissione del MLC è modellizzata all'interno di RayPhysics con un unico p
 \end{figure}
 
 La trasmissione è stata calcolata per entrambi i banchi di leaf rispetto alla lettura di dose a campo aperto per un determinato numero di unità monitor. La media delle misure per entrambi i banchi è stata inserita come parametro di modello in RayPhysics:
-
 \begin{itemize}
 \item Trasmissione $\in [0.01,0.03]$; risultato: $0.01813$.
 \end{itemize}
-
 dove nelle parentesi quadre sono indicati i limiti consigliati dalla ditta.
 
-
-\subsection{MLC - \textit{leaf tip}}
-Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state impiegate per modellizzare l'effetto dovuto alla punta arrotondata dei leaf. In RayPhysics il parametro da ottimizzare è la \textit{leaf tip width} espressa in centimetri. Questa quantità rappresenta la parte di leaf, a partire dalla punta, proiettata al piano dell'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_tip_model}).
+\subsection{MLC - \textit{Offset}}
+Per calibrare finemente la posizione dei leaf, RayPhysics implementa la stessa funzione utilizzata per i collimatori (Eq.\ref{eq:offset}). A questo proposito sono state utilizzate scansioni di campi quadrati $2x2$, $3x3$, $4x4$, $5x5$, $10x10$, $15x15$, $20x20$, $30x30\,$cm$^2$ effettuate con il diodo PFD lungo la direzione di movimento dei leaf, a profondità $10\,$cm. Sulla base delle penombre di questi profili si è scelto di ottimizzare il parametro di offset, avendo particolare riguardo per le penombre dei piccoli campi:
+\begin{itemize}
+\item \textit{Offset} $\in [0,0.1]$; risultato: $0.04\,$cm
+\end{itemize}
+In Fig.\ref{fig:MLC_Offset} è riportato il confronto tra profili calcolati e misurati collimati con il solo MLC alla profondità di riferimento $10\,$cm.
 \begin{figure}
 \centering
-\includegraphics[width=.6\textwidth]{./cap2/MLC_tip_model.png}
-\caption{Modello della punta dei leaf implementato in RayStation. La punta arrotondata viene schematizzata come una regione rettangolare con trasmissione pari alla radice quadrata della trasmissione del leaf. La largezza di questa regione è il parametro da ottimizzare in fase di modellizzazione del MLC.}
+\includegraphics[width=\textwidth]{./cap2/MLC_Offset.png}
+\caption{Confronto tra profili calcolati e misurati collimati con il solo MLC per l'ottimizzazione del parametro di offset.}
+\label{fig:MLC_Offset}
+\end{figure}
+
+\subsection{MLC - \textit{leaf tip width}}
+Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state poi impiegate per modellizzare l'effetto dovuto alla punta arrotondata dei leaf. In RayPhysics il parametro da ottimizzare è la \textit{leaf tip width} espressa in centimetri. Questa quantità rappresenta la parte di leaf, a partire dalla punta, proiettata al piano dell'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_tip_model}).
+
+Nella medesima Fig.\ref{fig:MLC_tip_model}, è riportato il confronto dei profili calcolati e misurati per evidenziare l'effetto della punta arrotondata dei leaf. Il parametro di modello è stato variato nel range $[0.1, 0.5]\,$cm con step di $0.1\,$cm. Per il parametro di \textit{leaf tip width} la ditta non raccomanda nessun range. Osservando la Fig.\ref{fig:MLC_tip_model} si è scelto come valore di best fit delle misure:
+\begin{itemize}
+\item \textit{Leaf tip width}: $0.3\,$cm
+\end{itemize}
+La modellizzazione dell'effetto di leaf tip è stata in seguito verificata utilizzando campi adiacenti lontano dall'asse centrale.
+\begin{figure}
+\centering
+\begin{tabular}{m{.38\textwidth}m{.6\textwidth}}
+\vspace*{-.3cm}\includegraphics[width=.38\textwidth]{./cap2/MLC_tip_model.png} &
+\includegraphics[width=.6\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling.eps}
+\end{tabular}
+\caption{Sinistra: Modello della punta dei leaf implementato in RayStation. Destra: Modellizzazione dell'effetto di leaf tip.}
 \label{fig:MLC_tip_model}
 \end{figure}
+
+
+
 
 
 \section{Analisi quantitativa dell'accordo calcolato/misurato}
