@@ -584,31 +584,40 @@ In Fig.\ref{fig:MLC_Offset} è riportato il confronto tra profili calcolati e mi
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap2/MLC_Offset.png}
-\caption{Confronto tra profili calcolati e misurati collimati con il solo MLC per l'ottimizzazione del parametro di offset.}
+\caption{Confronto tra profili calcolati e misurati a profondità $10\,$cm collimati con il solo MLC per l'ottimizzazione del parametro di offset.}
 \label{fig:MLC_Offset}
 \end{figure}
 
 \subsection{MLC - \textit{leaf tip width}}
-Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state poi impiegate per modellizzare l'effetto dovuto alla punta arrotondata dei leaf. In RayPhysics il parametro da ottimizzare è la \textit{leaf tip width} espressa in centimetri. Questa quantità rappresenta la parte di leaf, a partire dalla punta, proiettata al piano dell'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_tip_model}).
+Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state poi impiegate per modellizzare l'effetto dovuto alla punta arrotondata dei leaf. In RayPhysics il parametro da ottimizzare è la \textit{leaf tip width} espressa in centimetri. Questa quantità rappresenta la parte di leaf, a partire dalla punta, proiettata al piano dell'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_Regions}).
 
 Nella medesima Fig.\ref{fig:MLC_tip_model}, è riportato il confronto dei profili calcolati e misurati per evidenziare l'effetto della punta arrotondata dei leaf. Il parametro di modello è stato variato nel range $[0.1, 0.5]\,$cm con step di $0.1\,$cm. Per il parametro di \textit{leaf tip width} la ditta non raccomanda nessun range. Osservando la Fig.\ref{fig:MLC_tip_model} si è scelto come valore di best fit delle misure:
 \begin{itemize}
 \item \textit{Leaf tip width}: $0.3\,$cm
 \end{itemize}
-La modellizzazione dell'effetto di leaf tip è stata in seguito verificata utilizzando campi adiacenti lontano dall'asse centrale.
+
 \begin{figure}
 \centering
 \begin{tabular}{m{.38\textwidth}m{.6\textwidth}}
 \vspace*{-.3cm}\includegraphics[width=.38\textwidth]{./cap2/MLC_tip_model.png} &
 \includegraphics[width=.6\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling.eps}
 \end{tabular}
-\caption{Sinistra: Modello della punta dei leaf implementato in RayStation. Destra: Modellizzazione dell'effetto di leaf tip.}
+\caption{Sinistra: Modello della punta dei leaf implementato in RayStation. Destra: Modellizzazione dell'effetto di leaf tip utilizzando i campi descritti nella Fig.\ref{fig:MLC_tip_effect}.}
 \label{fig:MLC_tip_model}
 \end{figure}
 
+La modellizzazione dell'effetto di leaf tip è stata in seguito verificata misurando profili di campi adiacenti fuori dall'asse centrale con la stessa tecnica indicata in Fig.\ref{fig:MLC_tip_effect}. I medesimi campi sono stati riprodotti nel TPS utilizzando il parametro di leaf tip width ottimizzato pari a $0.3\,$cm. Il confronto misurato calcolato è mostrato in Fig.\ref{fig:MLC_tip_model_offaxis} e dimostra come il modello della punta del leaf sia accurato anche in situazioni diverse da quelle di riferimento.
+\begin{figure}
+\centering
+\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxis.eps}
+\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxisSUM.eps}
+\caption{Sinistra: profili crossline di campi adiacenti fuori asse centrale misurati con il diodo Razor (IBA Dosimetry) a $10\,$cm di profondità. Destra: somma dei campi adiacenti e confronto con il calcolo.}
+\label{fig:MLC_tip_model_offaxis}
+\end{figure}
 
 
-
+\subsection{MLC - \textit{tongue\& groove}}
+L'effetto di tongue\&{}groove è stato modellizzato utilizzando le misure indicate in Fig.\ref{fig:MLC_TG_effect}. Il parametro che descrive questo effetto in RayPhysics è la \textit{tongue\&{}groove region} espressa in centimetri e, al pari della leaf tip width, rappresenta la porzione del bordo del leaf proiettata all'isocentro per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_Regions}).
 
 \section{Analisi quantitativa dell'accordo calcolato/misurato}
 
