@@ -21,7 +21,7 @@ fig = figure('Units','centimeters','OuterPosition',[3 3 11.25 9]);
     plot(ProfTotm(:,1)./10,ProfTotm(:,2),'-','LineWidth',1,'MarkerSize',20);
     plot(ProfTotc01(:,1)./10,ProfTotc01(:,2),'m:','LineWidth',0.3,'MarkerSize',20);
     plot(ProfTotc02(:,1)./10,ProfTotc02(:,2),'g-.','LineWidth',0.3,'MarkerSize',20);
-    plot(ProfTotc03(:,1)./10,ProfTotc03(:,2),'r--','LineWidth',0.3,'MarkerSize',20);
+    plot(ProfTotc03(:,1)./10,ProfTotc03(:,2),'r-','LineWidth',0.3,'MarkerSize',20);
     plot(ProfTotc04(:,1)./10,ProfTotc04(:,2),'c:','LineWidth',0.3,'MarkerSize',20);
     plot(ProfTotc05(:,1)./10,ProfTotc05(:,2),'m-.','LineWidth',0.3,'MarkerSize',20);
 

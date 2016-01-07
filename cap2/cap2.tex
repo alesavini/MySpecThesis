@@ -144,13 +144,6 @@ Una metodologia conveniente per eseguire una valutazione combinata dei criteri d
 \end{equation}
 dove i pedici `$m$' e `$c$' indicano `misurato' e `calcolato' e $\Delta r$ e $\Delta D$ costituiscono le tolleranze rispettivamente per la distanza di accordo e la differenza di dose. Il criterio di accettabilità viene soddisfatto nel punto di interesse se risulta $\gamma < 1$.
 
-Tuttavia, le raccomandazioni ESTRO sconsigliano di valutare l'accettabilità del calcolo di un profilo o PDD con un criterio puntuale bensì di utilizzare un criterio che consideri tutti i punti della curva di dose. Questo criterio è detto livello di confidenza dell'indice $\gamma$ ed è stato introdotto da Venselaar et al.\cite{Venselaar2001}:
-\begin{equation}
-CL(\gamma) = \bar{\gamma} + 1.5\,\sigma(\gamma)
-\label{eq:clgamma}
-\end{equation}
-dove $\bar{\gamma}$ è la media di tutti i valori dell'indice $\gamma$ calcolati sulla curva di dose e $\sigma(\gamma)$ è la loro deviazione standard (vedi Fig.\ref{fig:gamma10x10}).
-Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta in tolleranza se il livello di confidenza dell'indice $\gamma$ risulta minore di 1 ($CL(\gamma) < 1$).
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.9\textwidth]{./cap2/pdd10x10.png}
@@ -158,10 +151,19 @@ Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta
 \label{fig:gamma10x10}
 \end{figure}
 
+Tuttavia, le raccomandazioni ESTRO sconsigliano di valutare l'accettabilità del calcolo di un profilo o PDD con un criterio puntuale bensì di utilizzare un criterio che consideri tutti i punti della curva di dose. Questo criterio è detto livello di confidenza dell'indice $\gamma$ ed è stato introdotto da Venselaar et al.\cite{Venselaar2001}:
+\begin{equation}
+CL(\gamma) = \bar{\gamma} + 1.5\,\sigma(\gamma)
+\label{eq:clgamma}
+\end{equation}
+dove $\bar{\gamma}$ è la media di tutti i valori dell'indice $\gamma$ calcolati sulla curva di dose e $\sigma(\gamma)$ è la loro deviazione standard (vedi Fig.\ref{fig:gamma10x10}).
+Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta in tolleranza se il livello di confidenza dell'indice $\gamma$ risulta minore di 1 ($CL(\gamma) < 1$).
+
+
 \subsection{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT). La problematica dei piccoli campi di irradiazione}
 \label{sec:accu_spec}
 Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modulata (IMRT). A differenza della 3D-CRT, queste tecniche realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
-\begin{figure}[!t]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap2/3D_IMRT.png}
 \caption{Differenza tra fasci di irradiazione conformati (3D-CRT) e fasci erogati in tecnica ad intensità modulata (IMRT).}
@@ -636,8 +638,73 @@ Questa modellizzazione è stata poi testata ripetendo la stessa procedura ad una
 \section{Analisi quantitativa dell'accordo calcolato/misurato}
 I confronti calcolato/misurato sono presentati nelle sezioni precedenti unicamente a livello qualitativo. Per la validazione rigorosa del calcolo di un TPS c'è bisogno di un criterio quantitativo come discusso nella Sez.\ref{sec:accu_spec}. 
 
-Allo stato attuale di sviluppo, RayPhysics permette di esportare in formato ASCII le curve calcolate. Tuttavia non offre un tool di valutazione quantitativo dell'accordo tra il misurato ed il calcolato. Per questo motivo è stato sviluppato \textit{in-house} un programma in linguaggio MATLAB capace di analizzare le curve secondo i criteri suggeriti dal protocollo ESTRO per la validazione di un TPS \cite{Mijnheer2004} (Tab.\ref{tab:tol}) aggiornato per le tecniche speciali secondo le indicazioni AAPM \cite{Ezzell2009}.
+Allo stato attuale di sviluppo (versione 4.7), RayPhysics permette di esportare in formato ASCII le curve calcolate. Tuttavia non offre un tool di valutazione quantitativo dell'accordo tra il misurato ed il calcolato. Per questo motivo è stato sviluppato \textit{in-house} un programma in linguaggio MATLAB capace di analizzare le curve secondo i criteri suggeriti dal protocollo ESTRO per la validazione di un TPS \cite{Mijnheer2004} (Tab.\ref{tab:tol}) aggiornato per le tecniche speciali secondo le indicazioni AAPM \cite{Ezzell2009}. Un esempio di confronto quantitativo di una PDD calcolata e misurata è stato già riportato in Fig.\ref{fig:Ray_PDD_meas_calc}.
 
+In Tab.\ref{tab:Ray_ALL_meas_calc} sono riportati i valori del livello di confidenza dell'indice $\gamma$ per varie dimensioni di campo. Il calcolo è stato effettuato scegliendo le seguenti tolleranze (sulla base delle indicazioni riportate in Tab.\ref{tab:tol}):
+\begin{itemize}
+\item PDD: differenza di dose $< 2\%$; distanza di accordo $<2\,$mm
+\item Profili: differenza di dose $< 3\%$; distanza di accordo $<2\,$mm
+\end{itemize}
+
+\begin{table}
+\centering
+\arrstr{1.2}
+
+\begin{tabular}{lcc}
+\toprule
+Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+\midrule
+PDD & $2x2$ & 0.53\\
+PDD & $3x3$ & 0.39\\
+PDD & $4x4$ & 0.48\\
+PDD & $5x5$ & 0.51\\
+PDD & $7x7$ & 0.53\\
+PDD & $10x10$ & 0.38\\
+PDD & $15x15$ & 0.45\\
+PDD & $20x20$ & 0.67\\
+PDD & $30x30$ & 0.69\\
+PDD & $40x40$ & 0.82\\
+\bottomrule
+\end{tabular}
+\vspace*{.2cm}
+\begin{tabular}{lcc}
+\toprule
+Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+\midrule
+Prof. Inline & $2x2$ & 0.23\\
+Prof. Inline & $3x3$ & 0.31\\
+Prof. Inline & $4x4$ & 0.32\\
+Prof. Inline & $5x5$ & 0.43\\
+Prof. Inline & $7x7$ & 0.43\\
+Prof. Inline & $10x10$ & 0.49\\
+Prof. Inline & $15x15$ & 0.53\\
+Prof. Inline & $20x20$ & 0.58\\
+Prof. Inline & $30x30$ & 0.76\\
+Prof. Inline & $40x40$ & 0.97\\
+\bottomrule
+\end{tabular}
+\vspace*{.2cm}
+\begin{tabular}{lcc}
+\toprule
+Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+\midrule
+Prof. Crossline & $2x2$ & 0.30\\
+Prof. Crossline & $3x3$ & 0.30\\
+Prof. Crossline & $4x4$ & 0.34\\
+Prof. Crossline & $5x5$ & 0.37\\
+Prof. Crossline & $7x7$ & 0.36\\
+Prof. Crossline & $10x10$ & 0.37\\
+Prof. Crossline & $15x15$ & 0.44\\
+Prof. Crossline & $20x20$ & 0.53\\
+Prof. Crossline & $30x30$ & 0.68\\
+Prof. Crossline & $40x40$ & 0.68\\
+\bottomrule
+\end{tabular}
+\caption{Analisi quantitativa dell'accordo tra PDD e profili calcolati e misurati utilizzando il criterio del livello di confidenza dell'indice $\gamma$ \cite{Mijnheer2004,Ezzell2009}.}
+\label{tab:Ray_ALL_meas_calc}
+\end{table}
+
+I livelli di confidenza (CL) risultano tutti inferiori a 1 che rappresenta il criterio di accettazione. Si può inoltre notare un trend di peggioramento dei valori di CL all'aumentare delle dimensioni del campo di irradiazione. Ciò è dovuto principalmente alle scelte effettuate durante la modellizzazione di privilegiare i campi di piccole dimensioni in quanto più rilevanti per le tecniche di irradiazione speciali IMRT e VMAT.
 
 
 
