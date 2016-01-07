@@ -596,7 +596,7 @@ Nella medesima Fig.\ref{fig:MLC_tip_model}, è riportato il confronto dei profil
 \item \textit{Leaf tip width}: $0.3\,$cm
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[!t]
 \centering
 \begin{tabular}{m{.38\textwidth}m{.6\textwidth}}
 \vspace*{-.3cm}\includegraphics[width=.38\textwidth]{./cap2/MLC_tip_model.png} &
@@ -607,7 +607,7 @@ Nella medesima Fig.\ref{fig:MLC_tip_model}, è riportato il confronto dei profil
 \end{figure}
 
 La modellizzazione dell'effetto di leaf tip è stata in seguito verificata misurando profili di campi adiacenti fuori dall'asse centrale con la stessa tecnica indicata in Fig.\ref{fig:MLC_tip_effect}. I medesimi campi sono stati riprodotti nel TPS utilizzando il parametro di leaf tip width ottimizzato pari a $0.3\,$cm. Il confronto misurato calcolato è mostrato in Fig.\ref{fig:MLC_tip_model_offaxis} e dimostra come il modello della punta del leaf sia accurato anche in situazioni diverse da quelle di riferimento.
-\begin{figure}
+\begin{figure}[!t]
 \centering
 \includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxis.eps}
 \includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxisSUM.eps}
@@ -616,22 +616,39 @@ La modellizzazione dell'effetto di leaf tip è stata in seguito verificata misur
 \end{figure}
 
 
-\subsection{MLC - \textit{tongue\& groove}}
-L'effetto di tongue\&{}groove è stato modellizzato utilizzando le misure indicate in Fig.\ref{fig:MLC_TG_effect}. Il parametro che descrive questo effetto in RayPhysics è la \textit{tongue\&{}groove region} espressa in centimetri e, al pari della leaf tip width, rappresenta la porzione del bordo del leaf proiettata all'isocentro per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_Regions}).
+\subsection{MLC - \textit{tongue\&{}groove}}
+L'effetto di tongue\&{}groove è stato modellizzato utilizzando le misure indicate in Fig.\ref{fig:MLC_TG_effect}. Il parametro che descrive questo effetto in RayPhysics è la \textit{tongue\&{}groove region} espressa in centimetri. Al pari della leaf tip width, la \textit{tongue\&{}groove region} rappresenta la porzione del bordo del leaf, proiettata all'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_Regions}). 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/TG/TG_modeling.eps}
+\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/TG/TG_modelingZOOM.eps}
+\caption{Modellizzazione dell'effetto di tongue\&{}groove utilizzando i campi descritti nella Fig.\ref{fig:MLC_TG_effect}.}
+\label{fig:MLC_TG_modeling}
+\end{figure}
+
+Il parametro di \textit{tongue\&{}groove region} è stato variato all'interno dell'intervallo suggerito dalla ditta ed i risultati sono presentati nella Fig.\ref{fig:MLC_TG_modeling}. Sulla base di questi risultati, il parametro di best fit scelto è:
+\begin{itemize}
+\item \textit{Tongue\&{}groove region}: $0.05\,$cm
+\end{itemize}
+Questa modellizzazione è stata poi testata ripetendo la stessa procedura ad una diversa profondità ($5\,$cm) ottenendo i medesimi risultati.\\
+
 
 \section{Analisi quantitativa dell'accordo calcolato/misurato}
+I confronti calcolato/misurato sono presentati nelle sezioni precedenti unicamente a livello qualitativo. Per la validazione rigorosa del calcolo di un TPS c'è bisogno di un criterio quantitativo come discusso nella Sez.\ref{sec:accu_spec}. 
+
+Allo stato attuale di sviluppo, RayPhysics permette di esportare in formato ASCII le curve calcolate. Tuttavia non offre un tool di valutazione quantitativo dell'accordo tra il misurato ed il calcolato. Per questo motivo è stato sviluppato \textit{in-house} un programma in linguaggio MATLAB capace di analizzare le curve secondo i criteri suggeriti dal protocollo ESTRO per la validazione di un TPS \cite{Mijnheer2004} (Tab.\ref{tab:tol}) aggiornato per le tecniche speciali secondo le indicazioni AAPM \cite{Ezzell2009}.
 
 
-\subsection{validazione delle curve}
-parla di raynalyzer e del criterio di VensPalta applicato, fai una tabella con tutti i CL...
-\subsection{Gaf validation dell'MLC}
+
+
 
 
 \section{Test finali clinici e risultati}
 \subsection{TG-119 validation con MatriXX DMLC}
 a
 \subsection{TG-119 validation con MatriXX VMAT + Pazienti}
-qui fai un cenno alla verifica pre-trattamento perché si fa e il booklet estro.
+qui fai un cenno alla verifica pre-trattamento perché si fa e il 
+ estro.
 
 concludi poi che tutto è stato raccolto nell'abstract estro.
 
