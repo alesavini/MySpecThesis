@@ -421,9 +421,9 @@ In particolare sono stati utilizzati i diodi PFD e Razor (IBA Dosimetry) per le 
 
 
 \section{Scelte adottate per la modellizzazione}
-Tutte le misure elencate nella sezione precedente, assieme alle misure di dose assoluta (Sez.\ref{sec:dose_ass}), sono state inserite nel modulo del TPS denominato RayPhysics ed utilizzate per sviluppare un modello dosimetrico del LINAC. Il processo di modellizzazione consiste nell'ottimizzare una serie di parametri del motore dosimetrico implementato in RayStation (Sez.\ref{sec:algo_Ray}) i quali sono collegati a quantità o fenomeni fisici. Il fine è di riprodurre le misure sperimentali con il grado di accuratezza richiesto per un TPS volto alla pianificazione di trattamenti in tecnica 3D-CRT e in tecniche avanzate (IMRT e VMAT) come discusso nelle Sez.\ref{sec:accu_3D} e \ref{sec:accu_spec}.
+Tutte le misure elencate nella sezione precedente, assieme alle misure di dose assoluta (Sez.\ref{sec:dose_ass}), sono state inserite nel modulo del TPS denominato RayPhysics ed utilizzate per sviluppare un modello dosimetrico del LINAC. Il processo di modellizzazione consiste nell'ottimizzare una serie di parametri del motore dosimetrico implementato in RayStation (Sez.\ref{sec:algo_Ray}) i quali sono collegati a quantità o fenomeni fisici. Il fine di una modellizzazione è quello di riprodurre le misure sperimentali con un certo grado di accuratezza dipendente dalla tecnica di irradiazione. Nell'ambito di questo lavoro il grado di accuratezza desiderato è quello che viene richiesto per un TPS dedicato alla pianificazione di trattamenti sia in tecnica 3D-CRT (Sez.\ref{sec:accu_3D}) che in tecniche speciali IMRT/VMAT (Sez.\ref{sec:accu_spec}).
 
-I parametri di modello sono dipendenti l'uno dall'altro in ordine gerarchico per cui è necessario seguire un ben determinato schema per evitare di giungere a soluzioni che, pur riproducendo bene i risultati sperimentali, non trovano riscontro con la fisica di base. Gli step da seguire per una accurata modellizzazione sono indicati dalla ditta \cite{RaySearchLaboratories2014} e sono stati recentemente discussi anche da Mzenda et al.\cite{Mzenda2014} (vedi Fig.\ref{fig:modeling_steps}).
+I parametri da ottimizzare durante la modellizzazione sono dipendenti l'uno dall'altro in ordine gerarchico. Per questo motivo è necessario seguire un ben determinato schema per evitare di giungere a soluzioni che, pur riproducendo i risultati sperimentali, trovano poco riscontro con la fisica di base. Gli step da seguire per una accurata modellizzazione sono indicati dalla ditta \cite{RaySearchLaboratories2014} e sono stati recentemente discussi anche da Mzenda et al.\cite{Mzenda2014} (vedi Fig.\ref{fig:modeling_steps}).
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap2/ModelingSteps/ModelingSteps.eps}
@@ -439,7 +439,7 @@ Il TPS RayStation discretizza uno spettro fotonico di energia $6\,$MV con 10 bin
 Il metodo adottato per modellizzare lo spettro fotonico consiste in due step:
 \begin{enumerate}
 \item Una prima ottimizzazione viene effettuata utilizzando il tool parametrico. Questa scelta permette di partire da uno spettro che riproduce quanto più possibile le PDD (parte discendente) mantenendo però una distribuzione basata su principi fisici.
-\item Una volta raggiunto l'accordo migliore ottenibile con il tool parametrico si è scelto di utilizzare il tool non parametrico effettuando tuttavia poche iterazioni (da tre ad un massimo di dieci). La ragione di questa scelta sta nel riconoscere che lo spettro analitico, a sua volta discretizzato, può non riprodurre completamente la fenomenologia che da luogo alle curve PDD. Per questo motivo è necessario apportare delle correzioni non-analitiche a patto che non venga perturbata eccessivamente la distribuzione iniziale. Come regola di massima, si è cercato di mantenere i valori dei singoli bin entro il $20-30\%$ del loro valore iniziale.
+\item Una volta raggiunto l'accordo migliore ottenibile con il tool parametrico si è scelto di utilizzare il tool non parametrico effettuando poche iterazioni (da tre ad un massimo di dieci). La ragione di questa scelta sta nel riconoscere che lo spettro analitico, a sua volta discretizzato, può non riprodurre completamente la fenomenologia che da luogo alle curve PDD. Per questo motivo è necessario apportare delle correzioni non-analitiche a patto che non venga perturbata eccessivamente la distribuzione iniziale. Come regola di massima, si è cercato di mantenere i valori dei singoli bin entro il $20-30\%$ del loro valore iniziale.
 \end{enumerate}
 
 Lo spettro fotonico ottimizzato secondo la tecnica descritta è riportato in Fig.\ref{fig:Ray_spectr_fot}.
@@ -454,11 +454,11 @@ Lo spettro fotonico ottimizzato secondo la tecnica descritta è riportato in Fig
 \end{figure}
 
 \subsection{PDD - Spettro di energia degli elettroni di contaminazione}
-La parte ascendente della PDD fino al suo massimo (regione di build-up) dipende dai fotoni primari a bassa energia, assieme agli elettroni di contaminazione del fascio (vedi Sez.\ref{sec:dose_electr}). La forma della regione di build-up può essere modulata modificando lo spettro degli elettroni di contaminazione. In RayPhysics lo spettro di elettroni è dato da una forma funzionale:
+La parte ascendente della PDD fino al suo massimo (regione di build-up) dipende dai fotoni primari a bassa energia, assieme agli elettroni di contaminazione del fascio (vedi Sez.\ref{sec:dose_electr}). La forma della regione di build-up può essere modulata modificando lo spettro degli elettroni di contaminazione ed i primi bin dello spettro fotonico. In RayPhysics lo spettro di elettroni è dato da una forma funzionale:
 \begin{equation}
 \psi_{e^-} (E) = A\,E^c\, e^{-E/E_0}
 \end{equation}
-dove $A$ è un parametro di normalizzazione e $c$ ed $E_0$ sono due parametri di fit compresi nell'intervallo $[0,1]$ da ottimizzare in base alla forma della regione di build-up delle PDD.
+dove $A$ è un parametro di normalizzazione e $c$ ed $E_0$ sono due parametri di fit compresi nell'intervallo $[0,1]$ da ottimizzare.
 
 Seguendo le indicazioni della ditta, l'ottimizzazione di questi parametri è stata effettuata con un tool di fit che ottimizza la regione di build-up delle PDD relative al campo più piccolo ($2x2\,$cm$^2$), al campo di riferimento ($10x10\,$cm$^2$) e al campo più grande ($40x40\,$cm$^2$). A seguire, sono stati effettuati degli aggiustamenti manuali in modo da migliorare ulteriormente l'accordo specie per i campi grandi ove la contaminazione elettronica ha un effetto più rilevante. Oltre a ciò è stato necessario procedere in maniera iterativa modificando manualmente i primi bin dello spettro fotonico e poi ritornando ad ottimizzare lo spettro elettronico fino a raggiungere un accordo accettabile per tutte le dimensioni di campo. Lo spettro elettronico ottimizzato con questa procedura è mostrato in Fig.\ref{fig:Ray_spectrum_ele}.
 
@@ -480,7 +480,7 @@ In Fig.\ref{fig:Ray_PDD_meas_calc} è mostrato qualitativamente l'accordo raggiu
 
 
 \subsection{Profili - Off-axis softening, beam profile correction e sorgente di scatter}
-Una volta ottimizzato il modello per il calcolo della dose in profondità a centro asse (PDD), si può passare all'ottimizzazione del modello fuori asse (profili). La distribuzione di dose fuori asse è influenzata dalla presenza del flattening-filter (vedi nota a Pag.\pageref{foot:flatt}). Questo dispositivo di forma piramidale attenua la fluenza di fotoni a centro asse e conseguentemente provoca un aumento dell'energia media del fascio centrale rispetto al fascio fuori asse. Questo processo è noto con il nome di \textit{`off-axis softening'}. RayPhysics modellizza l'off-axis softening introducendo una funzione radiale definita per punti che rappresenta il flattening-filter come un oggetto di acqua equivalente. Lo spessore di acqua equivalente è riscalato in modo che il fascio al centro risulti non attenuato (spessore pari a zero) ed il fascio fuori asse risulti `attenuato' da uno spessore di acqua negativo (vedi Fig.\ref{fig:Ray_flatt}).
+Una volta ottimizzato il modello per il calcolo della dose in profondità a centro asse (PDD), si può passare all'ottimizzazione del modello fuori asse (profili). La distribuzione di dose fuori asse è influenzata dalla presenza del flattening-filter (vedi nota a Pag.\pageref{foot:flatt}). Questo dispositivo di forma piramidale attenua la fluenza di fotoni al centro. Ciò provoca un aumento dell'energia media del fascio centrale rispetto al fascio fuori asse. Questo processo è noto con il nome di \textit{`off-axis softening'}. RayPhysics modellizza l'off-axis softening introducendo una funzione radiale definita per punti che rappresenta il flattening-filter come un oggetto di acqua equivalente. Lo spessore di acqua equivalente è riscalato in modo che il fascio al centro risulti non attenuato (spessore pari a zero) ed il fascio fuori asse risulti `attenuato' da uno spessore di acqua negativo (vedi Fig.\ref{fig:Ray_flatt}).
 \begin{figure}[!t]
 \centering
 \begin{tabular}{m{.3\textwidth}m{.6\textwidth}}
@@ -494,7 +494,7 @@ Una volta ottimizzato il modello per il calcolo della dose in profondità a cent
 
 Accanto alla funzione di off-axis softening, RayPhysics offre un'altra funzione definita per punti con dipendenza radiale detta \textit{beam profile correction}. Questa funzione semplicemente riscala la fluenza primaria con un fattore numerico che dipende dalla distanza radiale dal centro asse. Con la beam profile correction è possibile raffinare la forma del profilo ottimizzando in particolare la zona centrale che usualmente presenta un caratteristico avvallamento dovuto all'attenuazione del flattening filter. \`E inoltre utilizzabile per modellizzare la presenza del collimatore primario il cui effetto si nota agli estremi dei profili diagonali per il campo $40x40\,$cm$^2$\footnote{Il collimatore primario è un materiale ad alta densità che alloggia il target e possiede un'apertura conica in modo da schermare il fascio in tutte le direzioni tranne quella utile clinicamente}.
 
-Si è già parlato nella Sez.\ref{sec:intro} di come la dose fuori asse sia dipendente in parte anche dai processi di scatter che avvengono all'interno del materiale (\textit{phantom scatter dose}) e dai processi di scatter che avvengono nella testata del LINAC (\textit{head scatter dose}). Mentre i primi sono tenuti in considerazione direttamente dall'algoritmo collapsed-cone-convolution, i secondi vengono tenuti in considerazione in RayPhysics introducendo una sorgente secondaria di fotoni di scatter provenienti dalla base del flattening filter. I parametri per modellizzare la sorgente di scatter consistono in:
+Si è già parlato nella Sez.\ref{sec:intro} di come la dose fuori asse sia dipendente dai processi di scatter che avvengono all'interno del materiale (\textit{phantom scatter dose}) e dai processi di scatter che avvengono nella testata del LINAC (\textit{head scatter dose}). Mentre i primi sono tenuti in considerazione direttamente dall'algoritmo collapsed-cone-convolution, i secondi vengono tenuti in considerazione in RayPhysics introducendo una sorgente secondaria di fotoni di scatter provenienti dalla base del flattening filter. I parametri per modellizzare la sorgente di scatter consistono in:
 \begin{itemize}
 \item Dimensione della sorgente di scatter
 \item Peso della sorgente di scatter rispetto alla sorgente primaria
@@ -502,7 +502,7 @@ Si è già parlato nella Sez.\ref{sec:intro} di come la dose fuori asse sia dipe
 Modificando questi parametri si riesce a modulare la parte distale ad alta dose del profilo (spalla) assieme alla parte fuori campo (code).
 
 Per modellizzare accuratamente i profili di dose è necessario ottimizzare simultaneamente le funzioni di off-axis softening e beam profile correction assieme alla sorgente di scatter. L'effetto della sorgente di scatter è dipendente dalla dimensione di campo assumendo più importanza per i campi di dimensioni $> 10x10\,$cm$^2$.\\
-Per questo motivo si è scelto di partire con l'ottimizzazione dei profili per il campo di riferimento $10x10\,$cm$^2$ e a seguire dei campi di dimensione superiore con un metodo di iterativo di \textit{trial-and-error}. Durante il processo i parametri sono stati variati entro i range consigliati dalla ditta:
+Per questo motivo si è scelto di partire con l'ottimizzazione dei profili per il campo di riferimento $10x10\,$cm$^2$ e a seguire dei campi di dimensione superiore con un metodo di iterativo di \textit{trial-and-error}. Durante il processo i parametri sono stati variati entro i range consigliati dalla ditta (mostrati nelle parentesi quadre):
 \begin{itemize}
 \item Off-axis softening $\in[0,-30]$; risultato: vedi Fig.\ref{fig:Ray_flatt}.
 \item Beam-profile correction $\in[0.95,1.05]$; risultato: vedi Fig.\ref{fig:Ray_beamprof}.
@@ -521,7 +521,7 @@ I profili dei campi di dimensione $\leq 4x4\,$cm$^2$ sono stati tenuti in relati
 
 \subsection{Profili - Dimensione della sorgente primaria}
 La sorgente primaria di irradiazione è modellizzata in RayStation con un profilo gaussiano ellittico \cite{Chaney1994}. Nel processo di retroproiezione mostrato in Fig.\ref{fig:twosources} si può notare che l'estensione della sorgente riveste grande importanza per i campi piccoli in cui i collimatori parzialmente ne oscurano una porzione. Questo effetto si riflette su una forte influenza delle dimemensioni della sorgente sulle penombre dei campi piccoli.\\
-Per questo motivo, la modellizzazione delle dimensioni della sorgente è stata effettuata utilizzando il campo di dimensioni minime ($2x2\,$cm$^2$, vedi Fig.\ref{fig:source_2x2}). In seguito la valutazione è stata estesa anche agli altri campi per aggiustamenti fini del modello.
+Per questo motivo, la modellizzazione delle dimensioni della sorgente è stata effettuata utilizzando il campo di dimensioni minime ($2x2\,$cm$^2$). In seguito la valutazione è stata estesa anche agli altri campi per aggiustamenti fini del modello.
 \begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{./cap2/Ray_penumbra_wrong.PNG}
@@ -536,11 +536,11 @@ I parametri da ottimizzare in questo caso sono le larghezze a mezza altezza del 
 \item $x$ width $\in [0.05,0.3]$; risultato: $0.035\,$cm
 \item $y$ width $\in [0.05,0.3]$; risultato: $0.042\,$cm
 \end{itemize}
-In questo caso è stato necessario violare leggermente i limiti suggeriti della ditta (mostrati tra parentesi quadre) per ottimizzare al meglio l'accordo delle penombre.
+In questo caso è stato necessario violare leggermente i limiti suggeriti della ditta (mostrati tra parentesi quadre) per ottimizzare al meglio l'accordo delle penombre (vedi Fig.\ref{fig:source_2x2}).
 Coerentemente con le aspettative fisiche, il profilo gaussiano ottimizzato risulta più esteso in direzione $y$ che corrisponde alla direzione di incidenza del fascio elettronico primario.
 
 \subsection{Profili - Calibrazione dei collimatori}
-Nelle fasi finali di modellizzazione dei profili è possibile ottimizzare le penombre dei profili, specie a campi grandi, utilizzando una funzione di RayPhysics che modifica virtualmente la posizione dei collimatori secondo un'equazione quadratica:
+Nelle fasi finali di modellizzazione dei profili è possibile ottimizzare le penombre, specie a campi grandi, utilizzando una funzione di RayPhysics che modifica virtualmente la posizione dei collimatori secondo un'equazione quadratica:
 \begin{equation}
 pos_{real} = pos_{nominal} - Offset - Gain\cdot pos_{nominal} - Curvature \cdot pos_{nominal}
 \label{eq:offset}
@@ -561,8 +561,11 @@ I parametri di \textit{Offset}, \textit{Gain} e \textit{Curvature} sono stati ot
 \end{itemize}
 \end{itemize}
 
+Tutti i parametri sopra citati sono stati ottimizzati utilizzando le curve di dose ottenute per campi collimati con le sole \textit{jaws} (campi \textit{open}). Una volta raggiunto un accordo accettabile per i campi open, è possibile passare alla modellizzazione del MLC utilizzando campi collimati unicamente con quest'ultimo. Questa procedura è utile in quanto permette di ottimizzare i parametri del MLC tenendo fissati gli altri parametri di modello legati unicamente alla sorgente di fotoni.
+
 \subsection{MLC - Trasmissione}
-La trasmissione del MLC è modellizzata all'interno di RayPhysics con un unico parametro che tiene conto in media sia della trasmissione interleaf che intraleaf. Questa misura è stata effettuata ponendo una camera a ionizzazione di volume esteso ($0.65\,$cm$^3$) con l'asse perpendicolare alla direzione di movimento dei leaf a $1.5\,$cm di profondità in acqua. I campi utilizzati per questa misura sono riportati nella Fig.\ref{fig:MLC_Trans}. 
+\label{sec:MLC-trans}
+La trasmissione del MLC è modellizzata all'interno di RayPhysics con un unico parametro che tiene conto in media sia della trasmissione interleaf che intraleaf. Si è scelto di misurare questa quantità ponendo una camera a ionizzazione di volume esteso ($0.65\,$cm$^3$) con l'asse perpendicolare alla direzione di movimento dei leaf a $1.5\,$cm di profondità in acqua. I campi utilizzati per questa misura sono riportati nella Fig.\ref{fig:MLC_Trans}. 
 \begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{./cap2/MLC_TransX1.png}
@@ -571,11 +574,12 @@ La trasmissione del MLC è modellizzata all'interno di RayPhysics con un unico p
 \label{fig:MLC_Trans}
 \end{figure}
 
-La trasmissione è stata calcolata per entrambi i banchi di leaf rispetto alla lettura di dose a campo aperto per un determinato numero di unità monitor. La media delle misure per entrambi i banchi è stata inserita come parametro di modello in RayPhysics:
+La trasmissione è stata calcolata per entrambi i banchi di leaf rispetto alla lettura di dose a campo aperto. La media delle misure per entrambi i banchi è stata inserita come parametro di modello in RayPhysics:
 \begin{itemize}
 \item Trasmissione $\in [0.01,0.03]$; risultato: $0.01813$.
 \end{itemize}
 dove nelle parentesi quadre sono indicati i limiti consigliati dalla ditta.
+
 
 \subsection{MLC - \textit{Offset}}
 Per calibrare finemente la posizione dei leaf, RayPhysics implementa la stessa funzione utilizzata per i collimatori (Eq.\ref{eq:offset}). A questo proposito sono state utilizzate scansioni di campi quadrati $2x2$, $3x3$, $4x4$, $5x5$, $10x10$, $15x15$, $20x20$, $30x30\,$cm$^2$ effettuate con il diodo PFD lungo la direzione di movimento dei leaf, a profondità $10\,$cm. Sulla base delle penombre di questi profili si è scelto di ottimizzare il parametro di offset, avendo particolare riguardo per le penombre dei piccoli campi:
@@ -591,11 +595,11 @@ In Fig.\ref{fig:MLC_Offset} è riportato il confronto tra profili calcolati e mi
 \end{figure}
 
 \subsection{MLC - \textit{leaf tip width}}
-Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state poi impiegate per modellizzare l'effetto dovuto alla punta arrotondata dei leaf. In RayPhysics il parametro da ottimizzare è la \textit{leaf tip width} espressa in centimetri. Questa quantità rappresenta la parte di leaf, a partire dalla punta, proiettata al piano dell'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_Regions}).
+Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state impiegate per modellizzare l'effetto dovuto alla punta arrotondata dei leaf. In RayPhysics il parametro da ottimizzare è la \textit{leaf tip width} espressa in centimetri. Questa quantità rappresenta la parte di leaf, a partire dalla punta, proiettata al piano dell'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione media del MLC (vedi Fig.\ref{fig:MLC_Regions}).
 
-Nella medesima Fig.\ref{fig:MLC_tip_model}, è riportato il confronto dei profili calcolati e misurati per evidenziare l'effetto della punta arrotondata dei leaf. Il parametro di modello è stato variato nel range $[0.1, 0.5]\,$cm con step di $0.1\,$cm. Per il parametro di \textit{leaf tip width} la ditta non raccomanda nessun range. Osservando la Fig.\ref{fig:MLC_tip_model} si è scelto come valore di best fit delle misure:
+In Fig.\ref{fig:MLC_tip_model}, è riportato il particolare del confronto dei profili calcolati e misurati per evidenziare l'effetto della punta arrotondata dei leaf. Il parametro di modello è stato variato nel range raccomandato dalla ditta $[0.1, 0.5]\,$cm con step di $0.1\,$cm. Osservando la Fig.\ref{fig:MLC_tip_model} si è scelto come valore di best fit delle misure:
 \begin{itemize}
-\item \textit{Leaf tip width}: $0.3\,$cm
+\item \textit{Leaf tip width} $\in [0,0.5]$; risultato: $0.3\,$cm
 \end{itemize}
 
 \begin{figure}[!t]
@@ -608,7 +612,7 @@ Nella medesima Fig.\ref{fig:MLC_tip_model}, è riportato il confronto dei profil
 \label{fig:MLC_tip_model}
 \end{figure}
 
-La modellizzazione dell'effetto di leaf tip è stata in seguito verificata misurando profili di campi adiacenti fuori dall'asse centrale con la stessa tecnica indicata in Fig.\ref{fig:MLC_tip_effect}. I medesimi campi sono stati riprodotti nel TPS utilizzando il parametro di leaf tip width ottimizzato pari a $0.3\,$cm. Il confronto misurato calcolato è mostrato in Fig.\ref{fig:MLC_tip_model_offaxis} e dimostra come il modello della punta del leaf sia accurato anche in situazioni diverse da quelle di riferimento.
+La modellizzazione dell'effetto di leaf tip è stata in seguito verificata misurando profili di campi adiacenti fuori dall'asse centrale con la stessa tecnica indicata in Fig.\ref{fig:MLC_tip_effect}. I medesimi campi sono stati riprodotti nel TPS utilizzando il parametro di leaf tip width ottimizzato pari a $0.3\,$cm. Il confronto misurato/calcolato è riportato in Fig.\ref{fig:MLC_tip_model_offaxis} e dimostra come il modello della punta del leaf sia accurato anche in situazioni diverse da quelle di riferimento.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxis.eps}
@@ -630,20 +634,20 @@ L'effetto di tongue\&{}groove è stato modellizzato utilizzando le misure indica
 
 Il parametro di \textit{tongue\&{}groove region} è stato variato all'interno dell'intervallo suggerito dalla ditta ed i risultati sono presentati nella Fig.\ref{fig:MLC_TG_modeling}. Sulla base di questi risultati, il parametro di best fit scelto è:
 \begin{itemize}
-\item \textit{Tongue\&{}groove region}: $0.05\,$cm
+\item \textit{Tongue\&{}groove region} $\in [0, 0.1]$; risultato: $0.05\,$cm
 \end{itemize}
-Questa modellizzazione è stata poi testata ripetendo la stessa procedura ad una diversa profondità ($5\,$cm) ottenendo i medesimi risultati.\\
+Questo risultato è stato poi testato ripetendo la stessa procedura ad una diversa profondità ($5\,$cm) ottenendo i medesimi risultati.\\
 
 
 \section{Analisi quantitativa dell'accordo calcolato/misurato}
 I confronti calcolato/misurato sono presentati nelle sezioni precedenti unicamente a livello qualitativo. Per la validazione rigorosa del calcolo di un TPS c'è bisogno di un criterio quantitativo come discusso nella Sez.\ref{sec:accu_spec}. 
 
-Allo stato attuale di sviluppo (versione 4.7), RayPhysics permette di esportare in formato ASCII le curve calcolate. Tuttavia non offre un tool di valutazione quantitativo dell'accordo tra il misurato ed il calcolato. Per questo motivo è stato sviluppato \textit{in-house} un programma in linguaggio MATLAB capace di analizzare le curve secondo i criteri suggeriti dal protocollo ESTRO per la validazione di un TPS \cite{Mijnheer2004} (Tab.\ref{tab:tol}) aggiornato per le tecniche speciali secondo le indicazioni AAPM \cite{Ezzell2009}. Un esempio di confronto quantitativo di una PDD calcolata e misurata è stato già riportato in Fig.\ref{fig:Ray_PDD_meas_calc}.
+Allo stato attuale di sviluppo (versione 4.7), RayPhysics permette di esportare in formato ASCII le curve calcolate. Tuttavia non offre un tool di valutazione quantitativo dell'accordo tra il misurato ed il calcolato. Per questo motivo è stato sviluppato \textit{in-house} un programma in linguaggio MATLAB capace di analizzare le curve secondo i criteri suggeriti dal protocollo ESTRO \cite{Mijnheer2004} (Tab.\ref{tab:tol}) aggiornato per le tecniche speciali secondo le indicazioni AAPM \cite{Ezzell2009}. Un esempio di confronto quantitativo di una PDD calcolata e misurata è stato già riportato in Fig.\ref{fig:Ray_PDD_meas_calc}.
 
-In Tab.\ref{tab:Ray_ALL_meas_calc} sono riportati i valori del livello di confidenza dell'indice $\gamma$ per varie dimensioni di campo. Il calcolo è stato effettuato scegliendo le seguenti tolleranze (sulla base delle indicazioni riportate in Tab.\ref{tab:tol}):
+L'analisi è stata ripetuta per tutte le PDD e i profili utilizzati per la modellizzazione. In Tab.\ref{tab:Ray_ALL_meas_calc} sono riportati i valori del livello di confidenza dell'indice $\gamma$ per PDD e profili corrispondenti alle varie dimensioni di campo. Il calcolo è stato effettuato adottando le seguenti tolleranze (sulla base delle indicazioni riportate in Tab.\ref{tab:tol}):
 \begin{itemize}
-\item PDD: differenza di dose $< 2\%$; distanza di accordo $<2\,$mm
-\item Profili: differenza di dose $< 3\%$; distanza di accordo $<2\,$mm
+\item PDD: differenza di dose $\leq 2\%$; distanza di accordo $\leq 2\,$mm
+\item Profili: differenza di dose $\leq 3\%$; distanza di accordo $\leq 2\,$mm
 \end{itemize}
 
 \begin{table}
@@ -700,17 +704,35 @@ Prof. Crossline & $30x30$ & 0.68\\
 Prof. Crossline & $40x40$ & 0.68\\
 \bottomrule
 \end{tabular}
-\caption{Analisi quantitativa dell'accordo tra PDD e profili calcolati e misurati utilizzando il criterio del livello di confidenza dell'indice $\gamma$ \cite{Mijnheer2004,Ezzell2009}.}
+\begin{tabular}{lcc}
+\toprule
+Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+\midrule
+Prof. Crossline MLC & $2x2$ & 0.46\\
+Prof. Crossline MLC & $3x3$ & 0.46\\
+Prof. Crossline MLC & $4x4$ & 0.34\\
+Prof. Crossline MLC & $5x5$ & 0.50\\
+Prof. Crossline MLC & $10x10$ & 0.44\\
+Prof. Crossline MLC & $15x15$ & 0.58\\
+Prof. Crossline MLC & $20x20$ & 0.68\\
+Prof. Crossline MLC & $30x30$ & 0.90\\
+\bottomrule
+\end{tabular}
+\caption{Analisi quantitativa dell'accordo tra PDD e profili calcolati/misurati utilizzando il criterio del livello di confidenza dell'indice $\gamma$ \cite{Mijnheer2004,Ezzell2009}. L'analisi è applicata alle curve di dose ottenute definendo il campo unicamente con i collimatori \textit{jaws} (PDD, Prof.Inline, Prof.Crossline) oppure con il solo MLC (Prof.Crossline MLC).}
 \label{tab:Ray_ALL_meas_calc}
 \end{table}
 
-I livelli di confidenza (CL) risultano tutti inferiori a 1 che rappresenta il criterio di accettazione. Si può inoltre notare un trend di peggioramento dei valori di CL all'aumentare delle dimensioni del campo di irradiazione. Ciò è dovuto principalmente alle scelte effettuate durante la modellizzazione di privilegiare i campi di piccole dimensioni in quanto più rilevanti per le tecniche di irradiazione speciali IMRT e VMAT.
+I livelli di confidenza (CL) calcolati risultano tutti inferiori a 1 che rappresenta il criterio di accettazione. Si può notare un trend di peggioramento dei valori di CL all'aumentare delle dimensioni del campo di irradiazione. Ciò è dovuto principalmente alle scelte effettuate durante la modellizzazione di privilegiare i campi di piccole dimensioni in quanto più rilevanti per le tecniche di irradiazione speciali IMRT e VMAT.
 
 
 
 
 
 \section{Test finali clinici e risultati}
+Contiuna qui dicendo che ora tutto deve diventare clinico....e che si deve fare delle prove cliniche....allora TG-119 per cominciare, ossia fantocci virtuali di benchmark....
+
+Poi introduci il concetto di verifica pre-treatment (estro booklet con frase emblematica sul Patient QA) ed il fatto di voler arrivare finalmente alla clinica
+
 \subsection{TG-119 validation con MatriXX DMLC}
 a
 \subsection{TG-119 validation con MatriXX VMAT + Pazienti}
