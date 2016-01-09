@@ -141,6 +141,7 @@ I valori di tolleranza in differenza di dose e DTA (Tab.\ref{tab:tol}) oscillano
 Una metodologia conveniente per eseguire una valutazione combinata dei criteri di differenza di dose e distanza di accordo è stata sviluppata da Low et al. \cite{Low1998}. Essa si basa sul dividere queste due quantità con le rispettive tolleranze e sommarle per costruire un indice adimensionale denominato \textit{$gamma$-index} (lettera greca per `c' che sta per `combined-index'):
 \begin{equation}
 \gamma = \min_{\vec{r}_{c}} \sqrt{\frac{|\vec{r}_{m}-\vec{r}_{c}|^2}{\Delta r}   + \frac{\left[D_{m}(\vec{r}_{m})-D_{c}(\vec{r}_{c})\right]^2}{\Delta D} }
+\label{eq:gamma}
 \end{equation}
 dove i pedici `$m$' e `$c$' indicano `misurato' e `calcolato' e $\Delta r$ e $\Delta D$ costituiscono le tolleranze rispettivamente per la distanza di accordo e la differenza di dose. Il criterio di accettabilità viene soddisfatto nel punto di interesse se risulta $\gamma < 1$.
 
@@ -584,7 +585,7 @@ dove nelle parentesi quadre sono indicati i limiti consigliati dalla ditta.
 \subsection{MLC - \textit{Offset}}
 Per calibrare finemente la posizione dei leaf, RayPhysics implementa la stessa funzione utilizzata per i collimatori (Eq.\ref{eq:offset}). A questo proposito sono state utilizzate scansioni di campi quadrati $2x2$, $3x3$, $4x4$, $5x5$, $10x10$, $15x15$, $20x20$, $30x30\,$cm$^2$ effettuate con il diodo PFD lungo la direzione di movimento dei leaf, a profondità $10\,$cm. Sulla base delle penombre di questi profili si è scelto di ottimizzare il parametro di offset, avendo particolare riguardo per le penombre dei piccoli campi:
 \begin{itemize}
-\item \textit{Offset} $\in [0,0.1]$; risultato: $0.04\,$cm
+\item \textit{Offset} $\in [0,0.1]$; risultato: $0.04\,$cm.
 \end{itemize}
 In Fig.\ref{fig:MLC_Offset} è riportato il confronto tra profili calcolati e misurati collimati con il solo MLC alla profondità di riferimento $10\,$cm.
 \begin{figure}
@@ -599,7 +600,7 @@ Le misure descritte nelle Fig.\ref{fig:MLC_tip_effect} sono state impiegate per 
 
 In Fig.\ref{fig:MLC_tip_model}, è riportato il particolare del confronto dei profili calcolati e misurati per evidenziare l'effetto della punta arrotondata dei leaf. Il parametro di modello è stato variato nel range raccomandato dalla ditta $[0.1, 0.5]\,$cm con step di $0.1\,$cm. Osservando la Fig.\ref{fig:MLC_tip_model} si è scelto come valore di best fit delle misure:
 \begin{itemize}
-\item \textit{Leaf tip width} $\in [0,0.5]$; risultato: $0.3\,$cm
+\item \textit{Leaf tip width} $\in [0,0.5]$; risultato: $0.3\,$cm.
 \end{itemize}
 
 \begin{figure}[!t]
@@ -656,7 +657,7 @@ L'analisi è stata ripetuta per tutte le PDD e i profili utilizzati per la model
 
 \begin{tabular}{lcc}
 \toprule
-Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+Tipo & Campo (cm$^2$) & $CL(\gamma)$\\
 \midrule
 PDD & $2x2$ & 0.53\\
 PDD & $3x3$ & 0.39\\
@@ -673,7 +674,7 @@ PDD & $40x40$ & 0.82\\
 \vspace*{.2cm}
 \begin{tabular}{lcc}
 \toprule
-Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+Tipo & Campo (cm$^2$) & $CL(\gamma)$\\
 \midrule
 Prof. Inline & $2x2$ & 0.23\\
 Prof. Inline & $3x3$ & 0.31\\
@@ -690,7 +691,7 @@ Prof. Inline & $40x40$ & 0.97\\
 \vspace*{.2cm}
 \begin{tabular}{lcc}
 \toprule
-Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+Tipo & Campo (cm$^2$) & $CL(\gamma)$\\
 \midrule
 Prof. Crossline & $2x2$ & 0.30\\
 Prof. Crossline & $3x3$ & 0.30\\
@@ -706,19 +707,19 @@ Prof. Crossline & $40x40$ & 0.68\\
 \end{tabular}
 \begin{tabular}{lcc}
 \toprule
-Tipo & Field Size (cm$^2$) & $CL(\gamma)$\\
+Tipo & Campo (cm$^2$) & $CL(\gamma)$\\
 \midrule
-Prof. Crossline MLC & $2x2$ & 0.46\\
-Prof. Crossline MLC & $3x3$ & 0.46\\
-Prof. Crossline MLC & $4x4$ & 0.34\\
-Prof. Crossline MLC & $5x5$ & 0.50\\
-Prof. Crossline MLC & $10x10$ & 0.44\\
-Prof. Crossline MLC & $15x15$ & 0.58\\
-Prof. Crossline MLC & $20x20$ & 0.68\\
-Prof. Crossline MLC & $30x30$ & 0.90\\
+Prof. MLC & $2x2$ & 0.46\\
+Prof. MLC & $3x3$ & 0.46\\
+Prof. MLC & $4x4$ & 0.34\\
+Prof. MLC & $5x5$ & 0.50\\
+Prof. MLC & $10x10$ & 0.44\\
+Prof. MLC & $15x15$ & 0.58\\
+Prof. MLC & $20x20$ & 0.68\\
+Prof. MLC & $30x30$ & 0.90\\
 \bottomrule
 \end{tabular}
-\caption{Analisi quantitativa dell'accordo tra PDD e profili calcolati/misurati utilizzando il criterio del livello di confidenza dell'indice $\gamma$ \cite{Mijnheer2004,Ezzell2009}. L'analisi è applicata alle curve di dose ottenute definendo il campo unicamente con i collimatori \textit{jaws} (PDD, Prof.Inline, Prof.Crossline) oppure con il solo MLC (Prof.Crossline MLC).}
+\caption{Analisi quantitativa dell'accordo tra PDD e profili calcolati/misurati utilizzando il criterio del livello di confidenza dell'indice $\gamma$ \cite{Mijnheer2004,Ezzell2009}. L'analisi è applicata alle curve di dose ottenute definendo il campo unicamente con i collimatori \textit{jaws} (PDD, Prof.Inline, Prof.Crossline) oppure con il solo MLC (Prof. MLC).}
 \label{tab:Ray_ALL_meas_calc}
 \end{table}
 
@@ -728,13 +729,57 @@ I livelli di confidenza (CL) calcolati risultano tutti inferiori a 1 che rappres
 
 
 
-\section{Test finali clinici e risultati}
-Contiuna qui dicendo che ora tutto deve diventare clinico....e che si deve fare delle prove cliniche....allora TG-119 per cominciare, ossia fantocci virtuali di benchmark....
+\section{Test clinici e risultati}
+Osservando le Tab.\ref{tab:Ray_ALL_meas_calc}, è possibile affermare che il TPS riesce a riprodurre le misure effettuate per il suo commissioning con il grado di accuratezza necessario alla pianificazione di trattamenti in tecniche 3D-CRT e speciali IMRT/VMAT. Tuttavia,  sia i documenti AAPM \cite{Ezzell2009} che ESTRO \cite{Mijnheer2005} raccomandano un'ulteriore step di validazione, in particolar modo per le tecniche speciali.\\
+A questo proposito si è scelto di effettuare una prima validazione del modello utilizzando i fantocci virtuali messi a disposizione dall'AAPM TG119 \cite{Ezzell2009} (vedi Fig.\ref{fig:TG119_phantoms}). A seguire è stata effettuata la validazione per casi clinici reali, pianificati in tecnica volumetrica ad intensità modulatata (VMAT).
+
+La tecnica utilizzata per la validazione dei casi del TG119 e di quelli clinici prende il nome di \textit{verifica pre-trattamento} che verrà presentata nella sezione successiva.
+
+\subsection{La verifica pre-trattamento}
+La verifica pre-trattamento è stata introdotta con l'avvento delle tecniche speciali come parte del processo di assicurazione di qualità del trattamento radioterapico. In particolare, le correnti guide ESTRO \cite{Mijnheer2005} raccomandano di effettuare una verifica \textit{patient-oriented} per ogni trattamento speciale che si vuole mettere in atto sul paziente. Viene inoltre affermato che la verifica pre-trattamento costituisce uno strumento efficace per la validazione della modellizzazione di un TPS dedicato alla pianificazione di tecniche ad intensità modulata.
+
+In breve, la verifica pre-trattamento consiste nell'erogare il piano di trattamento radioterapico su un sistema in grado di effettuare una misurazione della distribuzione di dose\footnote{Solitamente viene misurato un sottoinsieme dell'intera distribuzione (es. punti, piani singoli, piani multipli, spirali\ldots)}. Questa misura viene poi confrontata con la distribuzione di dose predetta dal TPS.
+
+Il confronto delle due distribuzioni di dose si effettua con il medesimo criterio del $\gamma$\textit{-index} presentato nell'Eq.\ref{eq:gamma} a pag.\pageref{eq:gamma}. Questo criterio può essere esteso al caso bidimensionale o volumetrico e applicato a seconda della distribuzione di dose che il sistema di verifica è in grado di misurare (planare, multi-planare o volumetrica) \cite{Low2011}. I valori del $\gamma$\textit{-index} per ogni punto di misura costituiscono una distribuzione statistica che può essere presentata in forma di istogramma (Fig.\ref{gamma_histo}).
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap2/gamma_histo.png}
+\caption{Esempio di distribuzione del $\gamma$\textit{-index} per un confronto tra una distribuzione di dose misurata e una calcolata.}
+\label{fig:gamma_histo}
+\end{figure}
+
+Un piano clinico può essere accettato se la percentuale di punti dell'istogramma per cui $\gamma-index > 1$ è minore del 10\%. In altre parole si accetta un piano di trattamento se il \textit{passing-rate} del $\gamma$\textit{-index} risulta maggiore del 90\%. Le tolleranze consigliate per la valutazione del $\gamma$\textit{-index} nel caso di piani IMRT/VMAT sono rispettivamente $3\%$ della dose massima e $3\,$mm di distanza di accordo \cite{Ezzell2009}.
+
+Il sistema di verifica pre-trattamento disponibile presso l'azienda ospedaliera di Teramo è denominato MatriXX ed è commercializzato dalla IBA Dosimetry (Schwarzenbruck, Germany). Questo sistema è costituito da una matrice di 1024 rivelatori a camera a ionizzazione disposti su un piano e permette quindi una misurazione planare della dose. Per simulare le condizioni di irraggiamento del paziente, il MatriXX viene posto all'interno di un fantoccio cubico denominato MultiCube (vedi Fig.\ref{fig:MatriXX}). 
+\begin{figure}
+\centering
+\includegraphics[width=.49\textwidth]{./cap2/MatriXX_Alone.png}
+\includegraphics[width=.49\textwidth]{./cap2/MatriXX_Cube.png}
+\caption{Rivelatore MatriXX (sinistra) e suo posizionamento all'interno del MultiCube (destra) sul lettino del LINAC per effettuare la verifica pre-trattamento}
+\label{fig:MatriXX}
+\end{figure}
+Questo fantoccio è costituito da un materiale che per densità e purezza si comporta similmente all'acqua quando irraggiato da un fascio clinico\footnote{Materiale comunemente noto in gergo come \textit{acqua-equivalente}}. 
+
+Il processo di verifica pre-trattamento si realizza con questa strumentazione effettuando uno studio di tomografia computerizzata (CT) del complesso MatriXX più MultiCube. Su questa CT viene ricalcolato il piano di trattamento da verificare da cui viene estratto il piano di dose predetto a livello dei detector (vedi Fig.\ref{fig:MatriXX}).
+\begin{figure}
+\centering
+\includegraphics[width=.49\textwidth]{./cap2/MatriXX_CT.png}
+\includegraphics[width=.49\textwidth]{./cap2/MatriXX_CT_Plan.png}
+\caption{Sinistra: studio CT del complesso MatriXX più MultiCube. Destra: erogazione di un piano di trattamento volumetrico ad arco sul complesso MatriXX più MultiCube per la verifica pre-trattamento.}
+\label{fig:MatriXX}
+\end{figure}
+
+Continua qui dicendo che ora tutto deve diventare clinico....e che si deve fare delle prove cliniche....allora TG-119 per cominciare, ossia fantocci virtuali di benchmark....
 
 Poi introduci il concetto di verifica pre-treatment (estro booklet con frase emblematica sul Patient QA) ed il fatto di voler arrivare finalmente alla clinica
 
 \subsection{TG-119 validation con MatriXX DMLC}
-a
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{./cap2/TG119_phantoms}
+\caption{Fantocci virtuali proposti dall'AAPM TG119 \cite{Ezzell2009} per la validazione del calcolo da TPS per tecniche speciali IMRT/VMAT.}
+\label{fig:TG119_phantoms}
+\end{figure}
 \subsection{TG-119 validation con MatriXX VMAT + Pazienti}
 qui fai un cenno alla verifica pre-trattamento perché si fa e il 
  estro.
