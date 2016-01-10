@@ -740,7 +740,7 @@ La verifica pre-trattamento è stata introdotta con l'avvento delle tecniche spe
 
 In breve, la verifica pre-trattamento consiste nell'erogare il piano di trattamento radioterapico su un sistema in grado di effettuare una misurazione della distribuzione di dose\footnote{Solitamente viene misurato un sottoinsieme dell'intera distribuzione (es. punti, piani singoli, piani multipli, spirali\ldots)}. Questa misura viene poi confrontata con la distribuzione di dose predetta dal TPS.
 
-Il confronto delle due distribuzioni di dose si effettua con il medesimo criterio del $\gamma$\textit{-index} presentato nell'Eq.\ref{eq:gamma} a pag.\pageref{eq:gamma}. Questo criterio può essere esteso al caso bidimensionale o volumetrico e applicato a seconda della distribuzione di dose che il sistema di verifica è in grado di misurare (planare, multi-planare o volumetrica) \cite{Low2011}. I valori del $\gamma$\textit{-index} per ogni punto di misura costituiscono una distribuzione statistica che può essere presentata in forma di istogramma (Fig.\ref{gamma_histo}).
+Il confronto delle due distribuzioni di dose si effettua con il medesimo criterio del $\gamma$\textit{-index} presentato nell'Eq.\ref{eq:gamma} a pag.\pageref{eq:gamma}. Questo criterio può essere esteso al caso bidimensionale o volumetrico e applicato a seconda della distribuzione di dose che il sistema di verifica è in grado di misurare (planare, multi-planare o volumetrica) \cite{Low2011}. I valori del $\gamma$\textit{-index} per ogni punto di misura costituiscono una distribuzione statistica che può essere presentata in forma di istogramma (Fig.\ref{fig:gamma_histo}).
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap2/gamma_histo.png}
@@ -758,31 +758,59 @@ Il sistema di verifica pre-trattamento disponibile presso l'azienda ospedaliera 
 \caption{Rivelatore MatriXX (sinistra) e suo posizionamento all'interno del MultiCube (destra) sul lettino del LINAC per effettuare la verifica pre-trattamento}
 \label{fig:MatriXX}
 \end{figure}
-Questo fantoccio è costituito da un materiale che per densità e purezza si comporta similmente all'acqua quando irraggiato da un fascio clinico\footnote{Materiale comunemente noto in gergo come \textit{acqua-equivalente}}. 
+Questo fantoccio è costituito da un materiale che per densità e purezza si comporta similmente all'acqua quando irraggiato da un fascio clinico\footnote{Materiale comunemente noto in gergo come \textit{acqua-equivalente}.}. 
 
-Il processo di verifica pre-trattamento si realizza con questa strumentazione effettuando uno studio di tomografia computerizzata (CT) del complesso MatriXX più MultiCube. Su questa CT viene ricalcolato il piano di trattamento da verificare da cui viene estratto il piano di dose predetto a livello dei detector (vedi Fig.\ref{fig:MatriXX}).
+Il processo di verifica pre-trattamento si realizza con questa strumentazione effettuando uno studio di tomografia computerizzata (CT) del complesso MatriXX più MultiCube. Su questa CT viene ricalcolato il piano di trattamento da verificare da cui viene estratto il piano di dose predetto a livello dei detector (vedi Fig.\ref{fig:MatriXX_CT}).
 \begin{figure}
 \centering
 \includegraphics[width=.49\textwidth]{./cap2/MatriXX_CT.png}
 \includegraphics[width=.49\textwidth]{./cap2/MatriXX_CT_Plan.png}
 \caption{Sinistra: studio CT del complesso MatriXX più MultiCube. Destra: erogazione di un piano di trattamento volumetrico ad arco sul complesso MatriXX più MultiCube per la verifica pre-trattamento.}
-\label{fig:MatriXX}
+\label{fig:MatriXX_CT}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap2/gamma_comparison.png}
+\caption{Confronto tra piano di dose misurato (alto sin.) e calcolato (alto des.) in termini di profili (basso sin.) o di mappa del $\gamma$\textit{-index} (basso des.).}
+\label{fig:gamma_comparison}
 \end{figure}
 
-Continua qui dicendo che ora tutto deve diventare clinico....e che si deve fare delle prove cliniche....allora TG-119 per cominciare, ossia fantocci virtuali di benchmark....
+Avendo a disposizione il piano di dose calcolato e misurato, il software OmniPro ImRT+ v.2.0 (IBA Dosimetry) fornisce i risultati del confronto in termini di $\gamma$\textit{-index} sotto forma di mappa (vedi Fig.\ref{fig:gamma_comparison}) e sotto forma di istogramma (Fig.\ref{fig:gamma_histo}) su cui è possibile applicare i criteri di accettazione.
 
-Poi introduci il concetto di verifica pre-treatment (estro booklet con frase emblematica sul Patient QA) ed il fatto di voler arrivare finalmente alla clinica
-
-\subsection{TG-119 validation con MatriXX DMLC}
+\subsection{Verifica della modellizzazione per tecniche IMRT e VMAT con i test dell'AAPM TG-119 }
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap2/TG119_phantoms}
-\caption{Fantocci virtuali proposti dall'AAPM TG119 \cite{Ezzell2009} per la validazione del calcolo da TPS per tecniche speciali IMRT/VMAT.}
+\caption{Fantocci virtuali proposti dall'AAPM TG-119 \cite{Ezzell2009} per la validazione del calcolo da TPS per tecniche speciali IMRT/VMAT.}
 \label{fig:TG119_phantoms}
 \end{figure}
-\subsection{TG-119 validation con MatriXX VMAT + Pazienti}
-qui fai un cenno alla verifica pre-trattamento perché si fa e il 
- estro.
+
+Il task-group 119 (TG-119) della AAPM \cite{Ezzell2009} propone una serie di test e tolleranze da rispettare per poter procedere all'implementazione clinica della tecnica IMRT \textit{step and shoot} (SMLC) o \textit{dinamica} (DMLC) (Sez.\ref{sec:accu_spec}). Tuttavia è stato dimostrato come questi test possano essere considerati validi anche per l'implementazione della tecnica VMAT \cite{Mynampati2012}.
+
+Il TG-119 richiede di pianificare dei trattamenti su fantocci virtuali rispettando dei determinati vincoli dosimetrici e di procedere poi alla verifica pre-trattamento. Lo strumento di valutazione della verifica è il $\gamma$\textit{-index} con tolleranze pari al 3\% della dose massima e $3\,$mm di distanza di accordo. Il criterio di accettabilità è che il pass-rate del $\gamma$\textit{-index} sia maggiore del 90\%.
+
+Si è scelto di applicare la serie di test del task group a tutte le tecniche ad intensità modulata disponbili (IMRT-SMLC, IMRT-DMLC e VMAT). In Fig.\ref{fig:TG119_stats} sono riportati in forma schematica i vincoli dosimetrici imposti dal task group e il valore raggiunto con il TPS RayStation. In tutti i casi i vincoli dosimetrici sono risultati compatibili o migliori di quelli raggiunti dal TG-119.
+\begin{figure}
+\centering
+\includegraphics[width=.7\textwidth]{./cap2/TG119_Plots/Target_Coverage.eps}\\
+\centerline{
+\includegraphics[width=.55\textwidth]{./cap2/TG119_Plots/Target_Hotspots.eps}
+\includegraphics[width=.7\textwidth]{./cap2/TG119_Plots/OARs.eps}}
+\caption{Vincoli dosimetrici suggeriti (Goal) e raggiunti (TG119) dal task group 119 confrontati con i valori raggiunti con il TPS RayStation per le tecniche SMLC, DMLC e VMAT. In alto: confronto dei vincoli per la copertura dei target (valori al di sopra del Goal sono vantaggiosi). In basso: confronto dei vincoli per gli hotspot nei target e negli organi a rischio (valori al di sotto del Goal sono vantaggiosi). }
+\label{fig:TG119_stats}
+\end{figure}
+
+I risultati della verifica pre-trattamento effettuata applicando le direttive del TG-119 sono riportati nella Fig.\ref{fig:TG_119_gamma}.
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap2/TG119_Plots/TG_119_gamma.eps}
+\caption{Confronto dei pass-rate del $\gamma$\textit{-index} tra il TG-119 ed i piani SMLC, DMLC e VMAT prodotti con il TPS RayStation. I valori del TG-119 sono rappresentati con barre di errore che costituiscono il massimo ed il minimo pass-rate registrato dal task group.}
+\label{fig:TG_119_gamma}
+\end{figure}
+Si può notare che in tutti i casi i pass-rate ottenuti a livello locale risultano superiori o compresi all'interno degli intervalli di variabilità registrati dal TG-119. Questa rappresenta la validazione pre-clinica della modellizzazione del TPS.
+
+\subsection{Verifica della modellizzazione per casi clinici}
+Continua qui parlando delle verifiche VMAT, vedi se mettere anche le DMLC etc etc.
 
 concludi poi che tutto è stato raccolto nell'abstract estro.
 
