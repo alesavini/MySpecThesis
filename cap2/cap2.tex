@@ -777,7 +777,7 @@ Il processo di verifica pre-trattamento si realizza con questa strumentazione ef
 
 Avendo a disposizione il piano di dose calcolato e misurato, il software OmniPro ImRT+ v.2.0 (IBA Dosimetry) fornisce i risultati del confronto in termini di $\gamma$\textit{-index} sotto forma di mappa (vedi Fig.\ref{fig:gamma_comparison}) e sotto forma di istogramma (Fig.\ref{fig:gamma_histo}) su cui è possibile applicare i criteri di accettazione.
 
-\subsection{Verifica della modellizzazione per tecniche IMRT e VMAT con i test dell'AAPM TG-119 }
+\subsection{Verifica della modellizzazione per tecniche IMRT e VMAT con i test dell'AAPM TG-119}
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap2/TG119_phantoms}
@@ -810,17 +810,52 @@ I risultati della verifica pre-trattamento effettuata applicando le direttive de
 Si può notare che in tutti i casi i pass-rate ottenuti a livello locale risultano superiori o compresi all'interno degli intervalli di variabilità registrati dal TG-119. Questa rappresenta la validazione pre-clinica della modellizzazione del TPS.
 
 \subsection{Verifica della modellizzazione per casi clinici}
-Continua qui parlando delle verifiche VMAT, vedi se mettere anche le DMLC etc etc.
+Evidenze scientifiche posteriori all'emissione del report TG-119 hanno dimostrato che, in alcuni casi, le tolleranze proposte dal task group pari al 3\% della dose massima e $3\,$mm in distanza di accordo possano essere poco sensibili ad errori rilevanti dal punto di vista clinico. Ad esempio, nel lavoro del 2013 di Heilemann et al.\cite{Heilemann2013} vengono simulati per la tecnica VMAT alcuni errori di posizionamento del multi-leaf-collimator che determinano un cambiamento significativo della distribuzione di dose al target. Una verifica pre-trattamento di tali piani modificati utilizzando delle tolleranze sul $\gamma$\textit{-index} pari a 3\%,$3,$mm fornisce un valore accettabile (i.e. pass-rate$> 90\%$). A seguito della disamina del problema, gli autori concludono che un criterio di confronto calcolato/misurato più appropriato per garantire la qualità dei trattamenti VMAT è la valutazione del $\gamma$\textit{-index} con tolleranze pari al $2\%$ della dose massima e $2\,$mm di distanza di accordo. Per questo motivo, in fase di immissione nella routine clinica della tecnica di trattamento VMAT, sono state effettuate ulteriori verifiche della modellizzazione su casi di pazienti reali. In particolare sono stati reclutati 5 pazienti con target di tipo prostata e 5 pazienti con target di tipo testa/collo. Su questi pazienti sono stati pianificati dei trattamenti clinici in tecnica VMAT e sottoposti in seguito a verifica pre-trattamento adottando le tolleranze $3\%,3\,mm$ e $2\%,2\,mm$. Con la tolleranza $2\%,2\,mm$ è stato rieffettuato il computo dell'indice $\gamma$ per i piani test proposti del TG-119.
 
-concludi poi che tutto è stato raccolto nell'abstract estro.
+\begin{table}
+\centering
+\arrstr{1.2}
+\centerline{
+\begin{tabular}{lll}
+\toprule
+VMAT clin. & $\gamma(3\%,3\,mm)$ & $\gamma(2\%,2\,mm)$ \\
+\midrule
+Pr1  & 98.1\% & 96.2\% \\
+Pr2  & 98.9\% & 96.9\% \\
+Pr3  & 97.8\% & 94.2\% \\
+Pr4  & 99.7\% & 96.9\% \\
+Pr5  & 100\%  & 100\% \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lll}
+\toprule
+VMAT clin. & $\gamma(3\%,3\,mm)$ & $\gamma(2\%,2\,mm)$ \\
+\midrule
+HN1  & 100\%  & 98.6\% \\
+HN2  & 99.9\% & 96.6\% \\
+HN3  & 100\%  & 98.2\% \\
+HN4  & 98.8\% & 93.6\% \\
+HN5  & 99.6\% & 94.3\%\\
+\bottomrule
+\end{tabular}
+}
+\vspace*{.3cm}
+\begin{tabular}{lll}
+\toprule
+TG119 & $\gamma(3\%,3\,mm)$ & $\gamma(2\%,2\,mm)$ \\
+\midrule
+I1-Multitarget  & 99.6\% & 98.7\% \\
+I2-Prostate     & 100\% & 98.0\% \\
+I3-HN           & 98.9\% & 95.6\% \\
+I4-C-shape Easy & 100\% & 97.0\% \\
+I5-C-shape Hard & 97.2\%  & 94.8\%  \\
+\bottomrule
+\end{tabular}
+\caption{Valori dei pass-rate del $\gamma$\textit{-index} con tolleranze $3\%,3\,mm$ e $2\%,2\,mm$ relativi a verifiche pre-trattamento di piani VMAT su pazienti reali di tipo prostata (Pr.) e testa/collo (HN) assieme ai test del TG-119.}
+\label{tab:TG119_gamma_strict}
+\end{table}
 
-così finisce il capitolo, poi si parla di adaptive.
-
-
-
-
-
-
+Nella Tab.\ref{tab:TG119_gamma_strict} è mostrato il confronto tra i pass-rate ottenuti al variare della tolleranza. Nonostante si noti un abbassamento generale dei valori, il criterio del pass-rate$>90\%$ resta comunque soddisfatto sia per tolleranze pari a $3\%,3\,mm$ che $2\%,2\,mm$. Questi test rappresentano la validazione finale della modellizzazione del TPS RayStation. A seguito di questi risultati, il TPS è stato posto in utilizzo clinico nella pianificazione dei trattamenti radioterapici in tecniche 3D-CRT, IMRT-SMLC, IMRT-DMLC e VMAT presso la U.O.C. di Radioterapia della ASL di Teramo.
 
 
 
