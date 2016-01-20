@@ -59,12 +59,17 @@ In questo caso il set di misure iniziali è unicamente utilizzato per ottimizzar
 Il TPS RayStation in particolare implementa un algoritmo di tipo convolution/superposition conosciuta come \textit{collapsed cone convolution} sviluppato, a partire dalla metà dagli anni '80, indipendentemente da Mackie e Ahnesj{\"{o} \cite{Ahnesjo1989, Boyer1998, Mackie1985, Ahnesjo1987}.
 
 
-\section{Teoria degli algoritmi \textit{convolution}/\textit{superposition}}
-\label{sec:teoria_conv}
 
-\subsection{La sovrapposizione e la convoluzione in termini matematici}
-Le operazioni di sovrapposizione e di convoluzione sono concetti matematici largamente utilizzati in fisica. Ragionando unicamente in termini matematici, l'operazione di sovrapposizione consiste nella somma di una serie di funzioni, ognuna con un proprio peso.\\
-Nel caso continuo, l'operazione di sovrapposizione può essere espressa con un integrale di volume tra una funzione primaria $p$ ed una funzione kernel $s$:
+\section{La sovrapposizione e la convoluzione in termini matematici}
+Le operazioni di sovrapposizione e di convoluzione sono concetti matematici largamente utilizzati in fisica. Ragionando unicamente in termini matematici, l'operazione di sovrapposizione consiste nella combinazione lineare di una serie di funzioni $f_i(x)$, ognuna con un proprio peso $c_i$:
+\begin{equation}
+g(x) = \sum_{i=1}^{N} c_i\cdot f_i(x)
+\end{equation}
+Un tipico esempio fisico dell'operazione di sovrapposizione è il calcolo del campo elettrico in un punto dovuto ad una certa distribuzione di cariche puntiformi:
+\begin{equation}
+\mathbf E_0(\mathbf r) = \sum_{i=1}^N \mathbf E_{0i}(r) = \frac {1}{4 \pi \varepsilon_0} \sum_{i=1}^N q_i \frac {\mathbf r - \mathbf r_i'} {\left \| \mathbf r - \mathbf r_i' \right \|^3}
+\end{equation}
+Nel caso continuo, l'operazione di sovrapposizione può essere espressa con un integrale, esteso a tutto il dominio di definizione del problema, tra una funzione primaria $p$ ed una funzione coefficiente $s$ nota in alcuni ambiti come funzione kernel:
 \begin{equation}
 \label{eq:sovrapp_math}
 D(x,y,z) = \int_V p(x',y',z')\, s(x,x',y,y',z,z')\de x' \de y' \de z'
@@ -74,10 +79,9 @@ Un particolare caso dell'operazione di sovrapposizione è rappresentato dalla co
 D(x,y,z) = \int_V p(x',y',z')\, s(x-x',y-y',z-z')\de x' \de y' \de z'
 \end{equation}
 
-Quest'ultima equazione risulta di più facile trattazione numerica grazie alla teoria degli spazi di Fourier.
-
 
 \section{Il calcolo della dose come sovrapposizione di eventi}
+\label{sec:teoria_conv}
 Il problema del calcolo della dose in un punto all'interno di un volume è in generale un problema di sovrapposizione di eventi che può essere tradotto matematicamente con l'Eq.\eqref{eq:sovrapp_math}.
 \begin{figure}
 \centering
@@ -95,22 +99,22 @@ Introducendo la funzione di scatter\footnote{Funzione conosciuta anche come \tex
 \begin{align}
 D(x,y,z) &=  \int_V \frac{\mu(x',y',z')}{\rho(x',y',z')} \Psi(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
          &= \int_V T(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
-         &= \int_V T(P')\,s(P'\rightarrow P)\, \de V
+         &= \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 \end{align}
 
-Questa equazione è valida nel caso di un fascio di fotoni monoenergetico. La generalizzazione al caso polienergetico è semplice introducendo il TERMA differenziale in energia $T(P',E)$ e la funzione di scatter polienergetica $s(P'\rightarrow P,E)$ ed integrando su tutte le energie coinvolte:
+Questa equazione è valida nel caso di un fascio di fotoni monoenergetico. La generalizzazione al caso polienergetico si effettua introducendo il TERMA differenziale in energia $T(P',E)$ e la funzione di scatter polienergetica $s(P'\rightarrow P,E)$ ed integrando su tutte le energie coinvolte:
 \begin{equation}
-D(P) = \iint_{E,V} T(P',E)\,s(P'\rightarrow P,E)\, \de V \de E
+D(P) = \iint_{E,V} T(P',E)\,s(P'\rightarrow P,E)\, \de V' \de E
 \label{eq:superp}
 \end{equation}
-L'equazione \eqref{eq:superp} matematicamente è della forma di un integrale di sovrapposizione di due funzioni espresso nell'Eq.\eqref{eq:sovrapp_math}.
+L'equazione \eqref{eq:superp} matematicamente è un'operazione di sovrapposizione, così come espresso nell'Eq.\eqref{eq:sovrapp_math} e rispecchia il fatto per cui la dose calcolata in un punto $P$ è la sovrapposizione di tanti fenomeni che avvengono nei punti $P'$.
 
 Verrà dimostrato nelle sezioni successive come l'Eq.\eqref{eq:superp} possa essere scritta nella forma:
 \begin{equation}
 \boxed{D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E}
 \label{eq:superp_true}
 \end{equation}
-che rappresenta il cosiddetto \textit{principio di convolution/superposition} applicato al calcolo della dose in un volume investito da un fascio di fotoni polienergetico.
+che rappresenta la cosiddetta \textit{equazione di convolution/superposition} per il calcolo della dose in un volume disomogeneo investito da un fascio di fotoni polienergetico.
 
 
 
@@ -258,7 +262,7 @@ L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo 
 D(x,y,z) =  \int_V \frac{\mu}{\rho} \Psi(x',y',z')\,s(x'- x, y'- y, z'- z)\, \de x' \de y' \de z'
 \label{eq:superp_homo}
 \end{equation}
-Questa equazione rappresenta il \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante per cui l'integrale è facilmente risolvibile grazie alla teoria degli spazi di Fourier.
+Questa equazione rappresenta \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante per cui l'integrale è facilmente risolvibile grazie alla teoria degli spazi di Fourier.
 
 Aggiungendo la generalizzazione al caso disomogeneo, la \eqref{eq:superp_homo} può assume la forma \cite{Khan2010}:
 \begin{equation}
