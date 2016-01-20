@@ -2,9 +2,9 @@
 \setcounter{minitocdepth}{1}
 \minitoc
 \setcounter{minitocdepth}{2}
-\textsf{In questo capitolo verrà descritto l'algoritmo di calcolo dosimetrico \textit{collapsed-cone-convolution} e la sua implementazione all'interno del treatment planning system (TPS) \RS. Ci si soffermerà in particolare sugli aspetti riguardanti le approssimazioni intrinseche dell'algoritmo assieme alle approssimazioni adottate in fase di implementazione nel TPS. Ciò è propedeutico alla comprensione dei limiti e delle precisioni raggiungibili durante la modellizzazione di un fascio clinico per trattamenti radioterapici che verrà discusso nei capitoli successivi.}
+\textsf{In questo capitolo verrà descritto l'algoritmo di calcolo dosimetrico \textit{collapsed-cone-convolution} e la sua implementazione all'interno del sistema di elaborazione di piani di trattamento o treatment planning system (TPS) \RS. Ci si soffermerà in particolare sugli aspetti riguardanti le approssimazioni intrinseche dell'algoritmo assieme alle approssimazioni adottate in fase di implementazione nel TPS. Ciò è propedeutico alla comprensione dei limiti e delle precisioni raggiungibili durante la modellizzazione di un fascio clinico per trattamenti radioterapici che verrà discusso nei capitoli successivi.}
 
-\section{Introduzione}
+\section{La dose assorbita in radioterapia}
 \label{sec:intro}
 In radioterapia la \textit{dose assorbita} è quella quantità che viene utilizzata al pari della dose farmacologica per ottenere un determinato effetto terapeutico. Più precisamente, la definizione formale è fornita nel report ICRU n.85 \cite{ICRU85} come rapporto tra l'energia media $\de \bar{\varepsilon}$ impartita da radiazioni ionizzanti ad una massa $\de m$:
 \begin{equation}
@@ -21,7 +21,9 @@ Un LINAC è un'apparecchiatura in grado di accelerare elettroni fino ad energie 
 \end{figure}
 Tutto ciò si realizza nella testata del LINAC mediante l'uso di opportuni materiali schermanti che sono indicati nel disegno schematico riportato in Fig.\ref{fig:linac}.
 
-Una volta che il fascio clinico investe il paziente, il meccanismo di deposizione della dose è un processo molto complesso dovuto alla grande quantità di fenomeni che vengono innescati in cascata. \`{E} importante notare che una parte non trascurabile di processi avviene anche a livello della testata e questi vanno ad influenzare il fascio che effettivamente giunge al paziente. Ad esempio uno degli effetti più clinicamente rilevanti è la generazione di elettroni che \textquotedblleft contaminano\textquotedblright{} il fascio fotonico.
+ \`{E} importante notare che una parte non trascurabile di processi che vanno ad influenzare il fascio che effettivamente giunge al paziente avviene a livello della testata. Ad esempio, uno degli effetti più clinicamente rilevanti è la generazione di elettroni che \textquotedblleft contaminano\textquotedblright{} il fascio fotonico.
+
+Una volta che il fascio clinico investe il paziente, il meccanismo di deposizione della dose è un processo molto complesso dovuto alla grande quantità di fenomeni che vengono innescati in cascata.
 
 \begin{figure}
 \centering
@@ -30,17 +32,17 @@ Una volta che il fascio clinico investe il paziente, il meccanismo di deposizion
 \label{fig:processes}
 \end{figure}
 \vspace{.2cm}
-La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni che portano alla deposizione della dose nel paziente. \`{E} possibile identificare quattro principali meccanismi di rilascio della dose (cerchiati nella figura) che elenchiamo in ordine di importanza:
+La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni che portano alla deposizione della dose nel paziente. \`{E} possibile identificare quattro principali meccanismi di rilascio della dose (cerchiati nella figura) che vengono elencati in ordine di importanza:
 \begin{enumerate}
 \item La dose primaria che rappresenta generalmente fino al 70\% della dose totale. Questa dose è generata dalla parte di fascio fotonico che non ha subito trasformazioni nella testata e che mette in moto particelle cariche le quali direttamente rilasciano la loro energia cinetica nella materia.
+\item La dose di scatter dovuta alla testata (\textit{head scatter dose}) che rappresenta generalmente il 5-10\% della dose totale. Questa parte della dose è dovuta alla componente di fascio fotonico che ha subito interazioni nella testata (prevalentemente nel \textit{flattening-filter}\footnote{\label{foot:flatt} Il \textit{flattening-filter} è un dispositivo di forma piramidale che serve ad attenuare il fascio al centro in modo da realizzare una fluenza di fotoni uniforme lungo la direzione perpendicolare alla direzione di propagazione del fascio.}) e presenta una distribuzione spaziale ed energetica differente dal fascio primario. Il meccanismo di rilascio dell'energia è analogo a quello del fascio primario.
 \item La dose di scatter dovuta al paziente (\textit{phantom scatter dose}) che può rappresentare fino al 30\% della dose totale. Questa componente è dovuta a tutti i processi di scatter che si innescano nel paziente a partire dal fascio primario come ad esempio fotoni di bremsstrahlung o fotoni scatterati per effetto Compton che portano ad una ionizzazione della materia con lo stesso meccanismo del fascio primario (messa in moto di elettroni).
-\item La dose di scatter dovuta alla testata (\textit{head scatter dose}) che rappresenta generalmente il 5-10\% della dose totale. Questa parte della dose è dovuta alla componente di fascio fotonico che ha subito interazioni nella testata (prevalentemente nel \textit{flattening-filter}\footnote{\label{foot:flatt} Il \textit{flattening-filter} è un dispositivo di forma piramidale che serve ad attenuare il fascio al centro in modo da realizzare una fluenza di fotoni uniforme lungo la direzione perpendicolare al fascio.}) e presenta una distribuzione spaziale ed energetica differente dal fascio primario. Il meccanismo di rilascio dell'energia è analogo a quello del fascio primario.
-\item La dose dovuta alle particelle di contaminazione del fascio fotonico che hanno un effetto rilevante (comparabile con il fascio primario) soltanto nei primi centimetri di tessuto. Questa zona è conosciuta come \textit{regione di build-up} della dose e vedremo in seguito il perché.
+\item La dose dovuta alle particelle di contaminazione del fascio fotonico che hanno un effetto rilevante (comparabile con il fascio primario) soltanto nei primi centimetri di tessuto. Questa zona è conosciuta come \textit{regione di accrescimento della dose o di build-up} della dose.
 \end{enumerate}
 
 
 \section{Generalità sugli algoritmi di calcolo della dose al paziente per fasci di fotoni}
-Un algoritmo di calcolo dosimetrico ha lo scopo di predire, con un certo livello di accuratezza, gli effetti di interazione radiazione-materia presentati nella sezione precedente. In particolare, il fine ultimo è predire la distribuzione di dose totale assorbita nel paziente che costituisce l'entità correlata all'effetto terapeutico sul tumore o al danno sul tessuto sano. La possibilità di prevedere questa quantità è propedeutica al processo noto come \textit{pianificazione del trattamento} in cui vengono adoperate delle opportune scelte riguardanti la collimazione e l'intensità del fascio volte a minimizzare il rapporto rischio/beneficio della terapia.
+Un algoritmo di calcolo dosimetrico ha lo scopo di predire gli effetti di interazione radiazione-materia con un determinato livello di accuratezza. In particolare, il fine ultimo è predire la distribuzione di dose totale assorbita nel paziente che costituisce l'entità correlata all'effetto terapeutico sul tumore o al danno sul tessuto sano. La possibilità di prevedere questa quantità è propedeutica al processo noto come \textit{pianificazione del trattamento} in cui vengono adoperate delle opportune scelte riguardanti la collimazione e l'intensità del fascio volte a minimizzare il rapporto rischio/beneficio della terapia.
 
 Esistono due grandi classi di algoritmi dosimetrici:
 \begin{itemize}
@@ -51,55 +53,64 @@ Gli algoritmi correction-based sono algoritmi empirici. Essi sono  basati su un 
 Questi metodi furono i primi ad essere implementati in quanto non necessitano di grosse potenze di calcolo ma, d'altro canto, presentano dei limiti di accuratezza intrinseci per situazioni complesse (mezzi non omogenei, interfacce tra tessuti, campi di irradiazione molto irregolari o ad intensità modulata\ldots). Un'estensiva review di questi tipi di algoritmi è stata pubblicata da Fraass \textit{et al.}\cite{Fraass1995}.
 
 \vspace{.2cm}
-L'avvento della rivoluzione tecnologica e la crescita della potenza di calcolo disponibile tramite computer, ha permesso l'implementazione degli algoritmi model-based i quali simulano i processi di interazione radiazione-materia  a partire da principi primi tramite un modello fisico-matematico.\\
-In questo caso il set di misure iniziali è unicamente utilizzato per ottimizzare i parametri del modello che poi viene applicato per predire la distribuzione di dose assorbita nei vari scenari clinici. Questi algoritmi hanno dimostrato una maggiore accuratezza rispetto ai correction-based ed al giorno d'oggi i più utilizzati sono quelli basati su metodi semi-analitici (algoritmi di convolution/superposition) oppure algoritmi statistici basati su tecniche Monte Carlo.
+L'avvento della rivoluzione tecnologica e la crescita della potenza di calcolo disponibile, ha permesso l'implementazione degli algoritmi model-based i quali simulano i processi di interazione radiazione-materia  a partire da principi primi tramite un modello fisico-matematico.\\
+In questo caso il set di misure iniziali è unicamente utilizzato per ottimizzare i parametri del modello che poi viene applicato per predire la distribuzione di dose assorbita nei vari scenari clinici. Questi algoritmi hanno dimostrato una maggiore accuratezza rispetto ai correction-based ed al giorno d'oggi i più utilizzati sono quelli basati su metodi semi-analitici (algoritmi di convolution/superposition) oppure algoritmi statistici basati su metodo Monte Carlo.
 
-Il TPS RayStation in particolare implementa una tecnica di tipo convolution/superposition conosciuta come \textit{collapsed cone convolution} sviluppata a partire dalla metà dagli anni '80 indipendentemente da Mackie e Ahnesj{\"{o} \cite{Ahnesjo1989, Boyer1998, Mackie1985, Ahnesjo1987}.
-
-\subsection{I principi di \textit{convolution} e \textit{superposition}}
-I principi di sovrapposizione e di convoluzione sono concetti matematici largamente utilizzati in fisica. In termini matematici, l'operazione di sovrapposizione consiste nella somma di una serie di funzioni, ognuna con un proprio peso.\\
-Nel caso continuo, il principio di sovrapposizione può essere espresso con un integrale di volume tra una funzione primaria $p$ ed una funzione kernel $s$:
-\begin{equation}
-D(x,y,z) = \int_V p(x',y',z')\, s(x,x',y,y',z,z')\de x' \de y' \de z'
-\end{equation}
-Un particolare caso del principio di sovrapposizione è rappresentato dalla convoluzione che si realizza quando la funzione kernel è spazialmente invariante, ovvero dipende solo dalla differenza tra la coordinata $(x,y,z)$ e la variabile di integrazione $(x',y',z')$:
-\begin{equation}
-D(x,y,z) = \int_V p(x',y',z')\, s(x-x',y-y',z-z')\de x' \de y' \de z'
-\end{equation}
-
+Il TPS RayStation in particolare implementa un algoritmo di tipo convolution/superposition conosciuta come \textit{collapsed cone convolution} sviluppato, a partire dalla metà dagli anni '80, indipendentemente da Mackie e Ahnesj{\"{o} \cite{Ahnesjo1989, Boyer1998, Mackie1985, Ahnesjo1987}.
 
 
 \section{Teoria degli algoritmi \textit{convolution}/\textit{superposition}}
 \label{sec:teoria_conv}
 
-Il problema del calcolo della dose in un punto all'interno di un volume è in generale un problema di sovrapposizione.
+\subsection{La sovrapposizione e la convoluzione in termini matematici}
+Le operazioni di sovrapposizione e di convoluzione sono concetti matematici largamente utilizzati in fisica. Ragionando unicamente in termini matematici, l'operazione di sovrapposizione consiste nella somma di una serie di funzioni, ognuna con un proprio peso.\\
+Nel caso continuo, l'operazione di sovrapposizione può essere espressa con un integrale di volume tra una funzione primaria $p$ ed una funzione kernel $s$:
+\begin{equation}
+\label{eq:sovrapp_math}
+D(x,y,z) = \int_V p(x',y',z')\, s(x,x',y,y',z,z')\de x' \de y' \de z'
+\end{equation}
+Un particolare caso dell'operazione di sovrapposizione è rappresentato dalla convoluzione che si realizza quando la funzione kernel è spazialmente invariante, ovvero dipende solo dalla differenza tra la coordinata $(x,y,z)$ e la variabile di integrazione $(x',y',z')$:
+\begin{equation}
+D(x,y,z) = \int_V p(x',y',z')\, s(x-x',y-y',z-z')\de x' \de y' \de z'
+\end{equation}
+
+Quest'ultima equazione risulta di più facile trattazione numerica grazie alla teoria degli spazi di Fourier.
+
+
+\section{Il calcolo della dose come sovrapposizione di eventi}
+Il problema del calcolo della dose in un punto all'interno di un volume è in generale un problema di sovrapposizione di eventi che può essere tradotto matematicamente con l'Eq.\eqref{eq:sovrapp_math}.
 \begin{figure}
 \centering
 \includegraphics[width=.45\textwidth]{./cap1/superp1.png}
 \includegraphics[width=.45\textwidth]{./cap1/superp2.png}
-\caption{Il calcolo della dose visto come principio di sovrapposizione.}
+\caption{Il calcolo della dose visto come sovrapposizione di eventi.}
 \label{fig:superp}
 \end{figure}
-In particolare, osservando la Fig.\ref{fig:superp}, si nota come la quantità di energia che viene rilasciata in un punto $P$ dipenda da infiniti contributi dovuti alle particelle ionizzanti messe in moto dai fotoni nei loro rispettivi centri di interazione $P'\,(\de V_i)$.\\
-L'insieme di interazioni dei fotoni primari nei punti $P'$ va a formare una quantità denominata TERMA (total-energy-released-in-matter) che rappresenta l'energia totale immagazzinata in un volume. Questa quantità viene trasformata in energia cinetica di particelle cariche (elettroni) e fotoni secondari (detti fotoni di scatter).\\
+
+Nello specifico, osservando la Fig.\ref{fig:superp}, si nota come la quantità di energia che viene rilasciata in un punto $P$ dipenda da infiniti contributi dovuti alle particelle ionizzanti messe in moto dai fotoni nei loro rispettivi centri di interazione $P'$.\\
+La distribuzione dell'energia rilasciata dai fotoni nei centri di interazione primaria $P'$ va a formare una quantità denominata TERMA (total-energy-released-in-matter).  \\
 Il TERMA è esprimibile come il prodotto tra la \textit{fluenza di energia primaria} (quantità di energia radiante incidente per unità di superficie [J m$^{-2}$]) e il coefficiente di assorbimento lineare massico del mezzo $(\mu/\rho)$ \cite{Ahnesjo1987}.
 
-Dalla conoscenza del TERMA ($T(x,y,z)$) e della funzione di scatter $s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)$ che esprime l'ammontare di energia depositata nel punto $P(x,y,z)$ dovuta all'interazione avvenuta nel punto $P'(x',y',z')$, la dose assorbita nel punto $P$ è esprimibile con il principio di sovrapposizione:
+Introducendo la funzione di scatter\footnote{Funzione conosciuta anche come \textit{energy deposition point kernel} o \textit{point spread kernel} o \textit{kernel di deposizione}.} $s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)$ che esprime l'ammontare di energia depositata nel punto $P(x,y,z)$ dovuta all'interazione avvenuta nel punto $P'(x',y',z')$, la dose assorbita nel punto $P$ è esprimibile con un integrale:
 \begin{align}
 D(x,y,z) &=  \int_V \frac{\mu(x',y',z')}{\rho(x',y',z')} \Psi(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
          &= \int_V T(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
          &= \int_V T(P')\,s(P'\rightarrow P)\, \de V
 \end{align}
 
-Questa equazione è valida nel caso di un fascio di fotoni monoenergetico, tuttavia la generalizzazione è semplice introducendo il TERMA differenziale in energia $T(P',E)$ e la funzione di scatter polienergetica $s(P'\rightarrow P,E)$ ed integrando su tutte le energie coinvolte:
+Questa equazione è valida nel caso di un fascio di fotoni monoenergetico. La generalizzazione al caso polienergetico è semplice introducendo il TERMA differenziale in energia $T(P',E)$ e la funzione di scatter polienergetica $s(P'\rightarrow P,E)$ ed integrando su tutte le energie coinvolte:
 \begin{equation}
-\boxed{D(P) = \iint_{E,V} T(P',E)\,s(P'\rightarrow P,E)\, \de V \de E}
+D(P) = \iint_{E,V} T(P',E)\,s(P'\rightarrow P,E)\, \de V \de E
 \label{eq:superp}
 \end{equation}
-L'equazione \eqref{eq:superp} rappresenta il principio di sovrapposizione (\textit{superposition}) applicato al calcolo della dose in un volume investito da un fascio di fotoni polienergetico.
+L'equazione \eqref{eq:superp} matematicamente è della forma di un integrale di sovrapposizione di due funzioni espresso nell'Eq.\eqref{eq:sovrapp_math}.
 
-Un caso di particolare interesse è quello di un fascio di fotoni monoenergetico e parallelo che investe un mezzo omogeneo. In queste condizioni la funzione di scatter (conosciuta anche come \textit{energy deposition point kernel} o \textit{point spread kernel} o \textit{kernel di deposizione}) è spazialmente invariante per cui l'integrale di sovrapposizione diventa a tutti gli effetti un integrale di convoluzione, facilmente risolvibile grazie alla teoria degli spazi di Fourier.\\
-Storicamente il passaggio è stato proprio partire da questo caso più semplice per poi aggiungere variabili come la divergenza del fascio, la caratteristica polienergetica e le disomogeneità del mezzo che ci riportano al problema più complesso (ma più accurato) della sovrapposizione. Per questo motivo gli algoritmi basati su questa teoria sono conosciuti come algoritmi di \textit{convolution/superposition}.
+Verrà dimostrato nelle sezioni successive come l'Eq.\eqref{eq:superp} possa essere scritta nella forma:
+\begin{equation}
+\boxed{D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E}
+\label{eq:superp_true}
+\end{equation}
+che rappresenta il cosiddetto \textit{principio di convolution/superposition} applicato al calcolo della dose in un volume investito da un fascio di fotoni polienergetico.
 
 
 
@@ -168,7 +179,7 @@ Tuttavia alle energie tipiche dei fotoni utilizzati in radioterapia l'effetto pr
 
 Una modellizzazione completa del trasporto del fotone diffuso e dell'elettrone messo in moto richiede un approccio statistico di tipo Monte Carlo, computazionalmente molto dispendioso.\\
 L'approccio convolution/superposition racchiude i processi statistici di deposizione dell'energia nella funzione di scatter introdotta nell'Eq.\eqref{eq:superp} ed agisce in maniera deterministica.\\
-Questa funzione è ottenibile a partire da una simulazione Monte Carlo in cui un unico fotone viene fatto interagire forzatamente all'interno di un volume omogeneo di acqua e si va a registrare la deposizione della dose che ne deriva.\\
+La funzione di scatter è ottenibile a partire da una simulazione Monte Carlo in cui un unico fotone viene fatto interagire forzatamente all'interno di un volume omogeneo di acqua e si va ad osservare la deposizione della dose che ne deriva.\\
 Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il software Monte Carlo EGS sviluppato dallo Stanford Linear Accelerator Center che pubblicò nella metà degli anni '80 delle funzioni di scatter discretizzate in forma tabulare, proponendo un metodo di convoluzione del tipo look-up-table (prontamente implementabile in un computer). Propose anche un metodo per riscalare le funzioni di scatter con la densità per poter calcolare la dose in mezzi diversi dall'acqua senza dover rieffettuare la simulazione Monte Carlo (vedi Fig.\ref{fig:mackie_kernels}).
 \begin{figure}
 \centering
@@ -177,10 +188,10 @@ Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il
 \label{fig:mackie_kernels}
 \end{figure}
 
-Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, è possibile arrivare alla dose assorbita in maniera triviale utilizzando il metodo di sovrapposizione. Tuttavia, questa operazione su una griglia di $N^3$ voxel risulta essere un problema  di ordine $N^6$ \cite{Ahnesjo1999}. Se si aggiunge l'operazione di scaling dei kernel per la densità il problema diventa di ordine $N^7$ difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare con un metodo di sovrapposizione triviale sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9=10^5\,sec\approx 2\, ore!$.}. Per questo motivo, gran parte della ricerca successiva allo sviluppo del metodo di convolution/superposition fu orientata a sviluppare delle approssimazioni che permettessero il calcolo della dose in tempi compatibili con una routine di tipo clinico.
+Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, è possibile arrivare alla dose assorbita in maniera triviale risolvendo per via numerica l'integrale \eqref{eq:superp}. Tuttavia, questa operazione su una griglia di $N^3$ voxel risulta essere un problema  di ordine $N^6$ \cite{Ahnesjo1999}. Se si aggiunge l'operazione di scaling dei kernel per la densità, il problema diventa di ordine $N^7$, difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare risolvendo numericamente l'integrale \eqref{eq:superp} sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9=10^5\,sec\approx 2\, ore!$.}. Per questo motivo, gran parte della ricerca connessa allo sviluppo del metodo di convolution/superposition fu orientata a sviluppare delle approssimazioni che permettessero il calcolo della dose in tempi compatibili con una routine di tipo clinico.
 
 \subsection{L'approssimazione \textit{collapsed-cone}}
-Lo stesso Mackie assieme a Reckwerdt \cite{Reckwerdt1992} propose un'approssimazione che consisteva nel calcolare l'integrale di sovrapposizione solo lungo determinate direzioni. Indipendentemente, Ahnesj\"{o} nel 1989 seguendo lo stesso approccio, pubblicò un articolo \cite{Ahnesjo1989} in cui propose un metodo di soluzione del problema convolution/superposition denominato \textit{collapsed-cone} e lo confrontò con la tecnica Monte Carlo ottenendo risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
+Lo stesso Mackie assieme a Reckwerdt \cite{Reckwerdt1992} propose un'approssimazione che consisteva nel calcolare l'integrale \eqref{eq:superp} solo lungo determinate direzioni. Indipendentemente, Ahnesj\"{o} nel 1989 seguendo lo stesso approccio, pubblicò un articolo \cite{Ahnesjo1989} in cui propose il metodo denominato \textit{collapsed-cone} e lo confrontò con il metodo Monte Carlo ottenendo risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.45\textwidth]{./cap1/kern_ray1.png}$\quad$
@@ -190,7 +201,7 @@ Lo stesso Mackie assieme a Reckwerdt \cite{Reckwerdt1992} propose un'approssimaz
 \end{figure}
 In Fig.\ref{fig:kern_ray} è possibile osservare la distribuzione spaziale tipica di alcuni kernel di deposizione.
 
-L'approssimazione di collapsed cone consiste in una discretizzazione del kernel che è necessaria per poter risolvere l'equazione di sovrapposizione \eqref{eq:superp} per via computazionale. Ahnesj\"{o} notò che un metodo triviale di discretizzazione con dei semplici raggi, può portare ad un errore di sampling ampio a causa della rapidità di rilascio di energia nei primi cm di interazione \cite{Ahnesjo1989} (Fig.\ref{fig:kern_ray}) (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo).\\
+L'approssimazione di collapsed cone consiste in una discretizzazione del kernel che è necessaria per poter risolvere l'integrale \eqref{eq:superp} per via computazionale. Ahnesj\"{o} notò che un metodo triviale di discretizzazione con dei semplici raggi, può portare ad un errore di sampling ampio a causa della rapidità di rilascio di energia nei primi cm di interazione \cite{Ahnesjo1989} (Fig.\ref{fig:kern_ray}) (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo).\\
 Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso. Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
 
 Matematicamente l'approssimazione di collapsed cone proposta da Ahnesj\"{o} consiste dapprima in un fit analitico del kernel di deposizione che in coordinate sferiche ha la seguente forma:
@@ -212,7 +223,7 @@ Stabilendo un angolo solido $\Omega_i$, l'operazione di \virg{collapsing} è un'
 \end{equation}
 La funzione $K(r,\Omega_i)$ è quella da convolvere con la mappa del TERMA per arrivare alla mappa di dose assorbita.
 
-Il metodo collapsed-cone è stato dimostrato \cite{Ahnesjo1999} comportare un numero di operazioni dell'ordine di $MN^3$ dove $M$ è il numero di settori in cui viene diviso l'angolo solido ed $N$ è il numero di voxel della griglia di dose/TERMA. Questo è da confrontare con l'ordine $N^7$ in caso di applicazione triviale del metodo di sovrapposizione.
+Il metodo collapsed-cone è stato dimostrato \cite{Ahnesjo1999} comportare un numero di operazioni dell'ordine di $MN^3$ dove $M$ è il numero di settori in cui viene diviso l'angolo solido ed $N$ è il numero di voxel della griglia di dose/TERMA. Questo è da confrontare con l'ordine $N^7$ in caso di somma triviale di tutti i termini che si ottengono discretizzando l'integrale \eqref{eq:superp}.
 
 \begin{figure}
 \centering
@@ -240,13 +251,21 @@ Woo e Cunningham \cite{Woo1990} assieme a Mackie \cite{Mackie1985} hanno dimostr
 \caption{Sinistra: Contronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). Destra: effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
 \label{fig:kern_dens}
 \end{figure}
-Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone. Nonostante l'accordo non sia perfetto, Woo e Cunnigham \cite{Woo1990} assieme ad Arnfield et al. \cite{Arnfield2000} e lo stesso Ahnesj\"{o} \cite{Ahnesjo1989} hanno dimostrato che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
+Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone. Nonostante l'accordo non sia perfetto, Arnfield et al. \cite{Arnfield2000} e lo stesso Ahnesj\"{o} \cite{Ahnesjo1989} hanno dimostrato che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
 
-Aggiungendo  la generalizzazione al caso disomogeneo l'equazione di sovrapposizione \eqref{eq:superp} per il calcolo della dose può essere riscritta \cite{Khan2010}:
+L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo omogeneo nella forma \cite{Khan2010}:
+\begin{equation}
+D(x,y,z) =  \int_V \frac{\mu}{\rho} \Psi(x',y',z')\,s(x'- x, y'- y, z'- z)\, \de x' \de y' \de z'
+\label{eq:superp_homo}
+\end{equation}
+Questa equazione rappresenta il \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante per cui l'integrale è facilmente risolvibile grazie alla teoria degli spazi di Fourier.
+
+Aggiungendo la generalizzazione al caso disomogeneo, la \eqref{eq:superp_homo} può assume la forma \cite{Khan2010}:
 \begin{equation}
 D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E
+\label{eq:superp_disom}
 \end{equation}
-dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose.
+dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente di fotoni fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose. L'equazione di convolution \eqref{eq:superp_homo} modificata nella forma \eqref{eq:superp_disom} prende il nome di \textit{principio di convolution/superposition} applicato al calcolo della dose in un volume investito da un fascio di fotoni polienergetico.
 
 \begin{figure}
 \centering
