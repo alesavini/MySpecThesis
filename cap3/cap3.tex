@@ -3,9 +3,38 @@
 \textsf{In questo capitolo si passa ....}
 
 \section{Origini e sviluppo della radioterapia adattiva}
+Per radioterapia adattiva o \textit{adaptive radiation therapy} si intende una tecnica di erogazione della dose che di `adatta' ai possibili cambiamenti che si verificano durante il trattamento, rispetto alla situazione iniziale di pianificazione. I cambiamenti che si possono verificare durante un trattamento radiante possono essere di varia natura e riguardare sia l'interno del paziente (progressione/regressione del target, dimagrimento, diverso stato di riempimento degli organi cavi), sia il suo  posizionamento sul lettino di trattamento (incertezza di setup). Il metodo tradizionale di affrontare il problema dei cambiamenti rispetto alla situazione di pianificazione è esposto nei report della \textit{International Commission of Radiological Units} ICRU no.50 e no.62, ripreso anche nel recente report no.83 per le tecniche ad intensità modulata \cite{ICRU2010}. Esso consiste nell'espandere i target di un certo margine di sicurezza in modo da assicurare la loro corretta irradiazione anche in presenza di incertezze dovute al movimento degli organi interni e al posizionamento del paziente.
+\begin{figure}
+\centering
+\includegraphics[width=.3\textwidth]{./cap3/ptv.png}
+\includegraphics[width=.69\textwidth]{./cap3/adapt0.png}
+\caption{Sinistra: definizioni ICRU dei volumi coinvolti nella pianificazione del trattamento radioterapico. Destra: Processo standard di pianificazione ed erogazione del piano del trattamento.}
+\label{fig:adapt0}
+\end{figure}
 
+Nella Fig.\ref{fig:adapt0} sono riportate le definizioni dei volumi coinvolti nella pianificazione del trattamento radioterapico assieme ad uno schema del processo standard di pianificazione ed erogazione del piano del trattamento.\\
+Il meccanismo che ha portato alla definizione dei vari volumi in radioterapia procede in vari step:
+\begin{description}
+\item[Gross Target Volume (GTV):] questo volume identifica il tumore a livello macroscopico (rivelabile attraverso strumenti ottici, imaging radiologico ed evenutale esame obiettivo del medico).
 
+\item[Clinical Target Volume (CTV):] volume che comprende il GTV ed un margine attorno ad esso in cui vi è alta probabilità di presenza di malattia che ancora non si manifesta clinicamente (sub-clinica).
 
+\item[Internal Target Volume (ITV):] volume che aggiunge al CTV un margine (detto \textit{internal margin o IM}) che serve a comprendere il possibile movimento del target per cause interne al paziente (e.g. respiro, stato di riempimento degli organi adiacenti, battito cardiaco\ldots).
+
+\item[Planning Target Volume (PTV):] volume che aggiunge all'ITV un margine per comprendere l'incertezza dovuta al posizionamento del paziente rispetto alla posizione di pianificazione (\textit{setup margin o SM}).
+\end{description}
+
+Il metodo per calcolare i margini necessari alla definizione del PTV si basa su studi di coorte in cui si effettua un analisi dei possibili errori di posizionamento del target rispetto alla posizione pianificata, distinguendoli in errori sistematici ed errori random. Una delle formule più note è dovuta a Marcel Van Herk \cite{ICRU62}:
+\begin{equation}
+PTV_{margin} = 2.5\Sigma + 0.7\sigma
+\end{equation}
+dove $\Sigma$ rappresenta l'errore sistematico ossia quell'errore che si ripete per tutto il ciclo di trattamento (es. paziente dimagrito rispetto alla pianficazione) mentre $\sigma$ è l'errore random (es. movimento d'organo).
+
+In un approccio non adattivo la pianificazione viene effettuata irradiando il planning target volume (PTV) stabilendo delle condizioni di irradiazione iniziali che vengono ripetute per tutto il ciclo di trattamento (Fig.\ref{fig:adapt0}).
+
+Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta  da Yan et al.\cite{Yan1996}. In questo lavoro veniva proposto un approccio di adattamento del piano a seguito di rilevazioni effettuate nelle prime cinque sedute di trattamento con un dispositivo in grado di `fotografare' la posizione del paziente e di confrontarla rispetto alla posizione di pianficazione\footnote{Il dispositivo in oggetto è denominato \textit{portal imager} e consiste in un pannello elettronico montato sul LINAC ed è in grado di generare un'immagine utilizzando raggi di energia dell'ordine dei MeV uscenti dal LINAC stesso allo stesso modo in cui vengono generate le radiografie classiche con i raggi di energia dell'ordine del keV.}.
+
+Continua mettendo il grafico adapt 1 e anche concludendola quiiii
 
 
 
