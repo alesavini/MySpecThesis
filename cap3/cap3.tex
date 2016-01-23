@@ -2,7 +2,7 @@
 \minitoc
 \textsf{In questo capitolo si passa ....}
 
-\section{Origini e sviluppo della radioterapia adattiva}
+\section{Origini e razionale della radioterapia adattiva}
 Per radioterapia adattiva o \textit{adaptive radiation therapy} si intende una tecnica di erogazione della dose che di `adatta' ai possibili cambiamenti che si verificano durante il trattamento, rispetto alla situazione iniziale di pianificazione. I cambiamenti che si possono verificare durante un trattamento radiante possono essere di varia natura e riguardare sia l'interno del paziente (progressione/regressione del target, dimagrimento, diverso stato di riempimento degli organi cavi), sia il suo  posizionamento sul lettino di trattamento (incertezza di setup). Il metodo tradizionale di affrontare il problema dei cambiamenti rispetto alla situazione di pianificazione è esposto nei report della \textit{International Commission of Radiological Units} ICRU no.50 e no.62, ripreso anche nel recente report no.83 per le tecniche ad intensità modulata \cite{ICRU2010}. Esso consiste nell'espandere i target di un certo margine di sicurezza in modo da assicurare la loro corretta irradiazione anche in presenza di incertezze dovute al movimento degli organi interni e al posizionamento del paziente.
 \begin{figure}
 \centering
@@ -22,19 +22,49 @@ Il meccanismo che ha portato alla definizione dei vari volumi in radioterapia pr
 \item[Internal Target Volume (ITV):] volume che aggiunge al CTV un margine (detto \textit{internal margin o IM}) che serve a comprendere il possibile movimento del target per cause interne al paziente (e.g. respiro, stato di riempimento degli organi adiacenti, battito cardiaco\ldots).
 
 \item[Planning Target Volume (PTV):] volume che aggiunge all'ITV un margine per comprendere l'incertezza dovuta al posizionamento del paziente rispetto alla posizione di pianificazione (\textit{setup margin o SM}).
+
+\item[Treated Volume:] volume che riceve una dose maggiore del 98\% della dose di prescrizione.
+
 \end{description}
 
-Il metodo per calcolare i margini necessari alla definizione del PTV si basa su studi di coorte in cui si effettua un analisi dei possibili errori di posizionamento del target rispetto alla posizione pianificata, distinguendoli in errori sistematici ed errori random. Una delle formule più note è dovuta a Marcel Van Herk \cite{ICRU62}:
+Il metodo per calcolare i margini necessari alla definizione del PTV si basa su uno studio statistico in cui si effettua un analisi dei possibili errori di posizionamento del target rispetto alla posizione pianificata, distinguendoli in errori sistematici ed errori random. Una delle formule più note è dovuta a Marcel Van Herk \cite{ICRU62}:
 \begin{equation}
 PTV_{margin} = 2.5\Sigma + 0.7\sigma
 \end{equation}
 dove $\Sigma$ rappresenta l'errore sistematico ossia quell'errore che si ripete per tutto il ciclo di trattamento (es. paziente dimagrito rispetto alla pianficazione) mentre $\sigma$ è l'errore random (es. movimento d'organo).
 
-In un approccio non adattivo la pianificazione viene effettuata irradiando il planning target volume (PTV) stabilendo delle condizioni di irradiazione iniziali che vengono ripetute per tutto il ciclo di trattamento (Fig.\ref{fig:adapt0}).
+In un approccio non adattivo i margini da dare al CTV per arrivare al PTV si trovano effettuando uno studio di coorte per un fissato sito di irradiazione. Nello studio si valutano gli errori sistematici e random su una popolazione di pazienti e si applica la formula di Van Herk secondo le direttive ICRU \cite{ICRU62}. La pianificazione viene quindi effettuata stabilendo delle condizioni di irradiazione del planning target volume (PTV)  che vengono ripetute per tutto il ciclo di trattamento (Fig.\ref{fig:adapt0}).\\
+Questo tipo di approccio può tuttavia essere non è ottimale per lo specifico paziente come indicato schematicamente nella Fig.\ref{fig:margins}. In un approccio di \textit{adaptive radiotherapy} è invece possibile studiare il singolo caso ed adattare il trattamento allo specifico paziente.
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{./cap3/margins.png}
+\caption{La formula di Van Herk per ottenere il PTV utilizzando uno studio di coorte (sinistra) da luogo a margini che possono essere sovrabbondanti per il singolo paziente (destra).}
+\label{fig:margins}
+\end{figure}
 
-Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta  da Yan et al.\cite{Yan1996}. In questo lavoro veniva proposto un approccio di adattamento del piano a seguito di rilevazioni effettuate nelle prime cinque sedute di trattamento con un dispositivo in grado di `fotografare' la posizione del paziente e di confrontarla rispetto alla posizione di pianficazione\footnote{Il dispositivo in oggetto è denominato \textit{portal imager} e consiste in un pannello elettronico montato sul LINAC ed è in grado di generare un'immagine utilizzando raggi di energia dell'ordine dei MeV uscenti dal LINAC stesso allo stesso modo in cui vengono generate le radiografie classiche con i raggi di energia dell'ordine del keV.}.
+Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta  da Yan et al.\cite{Yan1996}. In questo lavoro veniva per la prima volta proposto un adattamento del piano di cura a seguito di rilevazioni effettuate nelle prime cinque sedute di trattamento con un dispositivo in grado di `fotografare' la posizione del paziente e di confrontarla rispetto alla posizione di pianficazione\footnote{Il dispositivo in oggetto è denominato \textit{portal imager} e consiste in un pannello elettronico montato sul LINAC ed è in grado di generare un'immagine utilizzando raggi di energia dell'ordine dei MeV uscenti dal LINAC allo stesso modo in cui vengono generate le radiografie classiche con i raggi di energia dell'ordine del keV.}. A seguito di queste rilevazioni Yan proponeva di stimare l'errore sistematico paziente-specifico calcolando la media delle deviazioni tra posizione pianificata e posizione di trattamento rilevate nelle prime cinque sedute e di adattare il piano spostando il centro di irradiazione di questa quantità.
 
-Continua mettendo il grafico adapt 1 e anche concludendola quiiii
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\textwidth]{./cap3/adapt1.png}
+\includegraphics[width=\textwidth]{./cap3/adapt2.png}
+\caption{Sopra: approccio di adaptive radiotherapy in cui viene unicamente modificato l'isocentro del piano a seguito di rilevazioni dell'errore di posizionamento del paziente tramite portal-imager (PI). Sotto: approccio di adaptive radiotherapy in cui alla modificazione dell'isocentro si aggiunge la modificazione dei margini attorno al CTV in base a rilevazioni di tomografia computerizzata (CT); in questo caso il piano di trattamento si adatta al nuovo PTV stimato dopo le cinque sedute di controllo.}
+\label{fig:adaptYAN}
+\end{figure}
+
+Pochi anni dopo sempre Yan et al.\cite{Yan2000} pubblicano un altro studio in cui aggiungono alla rilevazione tramite portal-imager anche un rilevazione di tomografia computerizzata del paziente per le prime cinque sedute in modo da osservare il problema del movimento d'organo oltre all'errore di setup. Questo permise agli autori di definire un PTV paziente-specifico che veniva calcolato con la procedura seguente:
+\begin{itemize}
+\item Si delineava il CTV sui cinque studi CT acquisite in sede delle prime cinque frazioni di trattamento.
+\item Si uniscono i contorni dei cinque CTV con il CTV di pianficazione a costituire il cosiddetto \textit{CTV-hull}.
+\item Si espande il \textit{CTV-hull} del margine corrispondente all'errore sistematico misurato tramite le cinque rilevazioni tramite portal-imager. 
+\end{itemize}
+Entrambi gli approcci adaptive presentati in questa sezione sono raffigurati schematicamente nella Fig.\ref{fig:adaptYAN}.
+
+Inserisci le referenze tra dei follow-up del Beaumont rispetto ad un approccio non adaptive...
+
+\section{Il concetto attuale di \textit{adaptive-radiotherapy} implementato in RayStation}
+Parla qui seguendo la discussione di Fiorino...con l'avvvento dell'IGRT etc etc caso RTOG testa collo etc etvc
+
 
 
 
