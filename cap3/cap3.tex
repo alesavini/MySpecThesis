@@ -48,7 +48,7 @@ Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta
 \centering
 \includegraphics[width=\textwidth]{./cap3/adapt1.png}
 \includegraphics[width=\textwidth]{./cap3/adapt2.png}
-\caption{Sopra: approccio di adaptive radiotherapy in cui viene unicamente modificato l'isocentro del piano a seguito di rilevazioni dell'errore di posizionamento del paziente tramite portal-imager (PI). Sotto: approccio di adaptive radiotherapy in cui alla modificazione dell'isocentro si aggiunge la modificazione dei margini attorno al CTV in base a rilevazioni di tomografia computerizzata (CT); in questo caso il piano di trattamento si adatta al nuovo PTV stimato dopo le cinque sedute di controllo.}
+\caption{Sopra: approccio di adaptive radiotherapy in cui viene unicamente modificato l'isocentro del piano a seguito di rilevazioni dell'errore di posizionamento del paziente tramite portal-imager (PI). Sotto: approccio di adaptive radiotherapy in cui alla modificazione dell'isocentro si aggiunge la modificazione dei margini attorno al CTV in base a rilevazioni di tomografia computerizzata (CT); in questo caso il piano di trattamento si adatta al nuovo PTV \textit{confidence-limit PTV o cl-PTV} stimato dopo le cinque sedute di controllo.}
 \label{fig:adaptYAN}
 \end{figure}
 
@@ -56,16 +56,48 @@ Pochi anni dopo sempre Yan et al.\cite{Yan2000} pubblicano un altro studio in cu
 \begin{itemize}
 \item Si delineava il CTV sui cinque studi CT acquisite in sede delle prime cinque frazioni di trattamento.
 \item Si uniscono i contorni dei cinque CTV con il CTV di pianficazione a costituire il cosiddetto \textit{CTV-hull}.
-\item Si espande il \textit{CTV-hull} del margine corrispondente all'errore sistematico misurato tramite le cinque rilevazioni tramite portal-imager. 
+\item Si espande il \textit{CTV-hull} del margine corrispondente all'errore sistematico misurato tramite le cinque rilevazioni tramite portal-imager per formare il \textit{confidence-limit PTV o cl-PTV}. 
 \end{itemize}
 Entrambi gli approcci adaptive presentati in questa sezione sono raffigurati schematicamente nella Fig.\ref{fig:adaptYAN}.
 
-Inserisci le referenze tra dei follow-up del Beaumont rispetto ad un approccio non adaptive...
+\`E stato dimostrato che la riduzione del PTV possibile grazie all'applicazione di queste tecniche di adaptive radiotherapy ha portato ad un decremento significativo delle tossicità per gli organi sani, preservando il controllo della malattia \cite{Park2012}. Questo dato è facilmente comprensibile con il paradigma dell'arancia di Verellen \cite{Verellen2007} illustrato in Fig.\ref{fig:verellen}.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=.6\textwidth]{./cap3/Verellen.png}
+\caption{Il paradigma dell'arancia di Verellen \cite{Verellen2007} per illustrare l'importanza della riduzione dei margini in radioterapia. In pratica il volume occupato dalla buccia di un arancia è comparabile con il volume dell'arancia stessa. La riduzione anche di pochi millimetri del PTV può comportare una riduzione del volume da irradiare considerevole.}
+\label{fig:verellen}
+\end{figure}
+
+
 
 \section{Il concetto attuale di \textit{adaptive-radiotherapy} implementato in RayStation}
-Parla qui seguendo la discussione di Fiorino...con l'avvvento dell'IGRT etc etc caso RTOG testa collo etc etvc
+Il concetto pionieristico di radioterapia adattiva illustrato nella sezione precedente ha subito negli anni vari aggiornamenti e revisioni e solo negli ultimi anni è divenuta oggetto di grande interesse. Ciò è dovuto all'avvento  delle tecniche di imaging per il controllo volumetrico del posizionamento del paziente installate sui moderni LINAC\footnote{La tecnica più diffusa implementata nei moderni LINAC è denominata \textit{cone-beam-computed-tomography o CBCT}. Essa consiste in un sistema capace di ricostruire immagini tomografiche del paziente utilizzando un fascio conico di raggi X e di confrontarle con lo studio CT di pianificazione.}.
 
+\begin{figure}[!t]
+\centering
+\centerline{
+\includegraphics[width=1.2\textwidth]{./cap3/HN_DVH.png}}
+\caption{(a) scansione CT del distretto testa-collo di un paziente con delineato in rosso il target e negli altri colori gli organi a rischio. (b) scansione CBCT di controllo a 2.5 settimane con evidente riduzione di volume del target. (c-d) confronto delle distribuzioni di dose di pianificazione (linea continua) e di valutazione (linea tratteggiata). L'istogramma (d) è detto \textit{istogramma dose-volume o DVH} e rappresenta quantitativamente come la distribuzione di dose copre i volumi delineati nello studio CT. \`E da notare come il cambiamento del paziente comporti una variazione della distribuzione di dose agli organi e al target.}
+\label{fig:HN_DVH}
+\end{figure}
 
+ Nella Fig.\ref{fig:HN_DVH} è illustrato un tipico esempio di irradiazione del distretto testa-collo di largo interesse per la radioterapia adattiva per i grossi cambiamenti che avvengono in itinere nell'anatomia del paziente. A causa dei rapidi gradienti di dose realizzati con le tecniche ad intensità modulata, piccoli cambiamenti di anatomia del paziente possono avere un largo impatto sulla distribuzione di dose finale. 
+ 
+Il TPS RayStation offre una soluzione `all-in-one' per radioterapia adattiva che consiste in cinque principali step:
+\begin{description}
+\item[1) Acquisizione degli studi CBCT:] le CBCT acquisite dal sistema di imaging montato sul LINAC vengono spedite al TPS.
+\item[2) Deformazione elastica:] viene effettuata una registrazione elastica tra la CT di pianificazione e le CBCT. Questa operazione consiste nel trovare il campo di deformazione geometrico che, se applicato alla CBCT di controllo,   trasforma quest'ultima nella CT di pianificazione. La trasformazione in oggetto è unicamente geometrica: vengono solo variate le coordinate dei pixel ma non il loro valore in scala di grigi.
+\item[3) Calcolo della dose in CBCT:] il piano di trattamento viene trasferito alle CBCT e ricalcolato in modo da ottenere la distribuzione di dose relativa alle specifiche frazioni. 
+\item[4) Deformazione delle dosi:] sulla base della registrazione deformabile geometrica viene deformata la distribuzione di dose calcolata in CBCT e riportata sulla CT di pianificazione. In questo modo si possono confrontare le distribuzioni di dose pianificata ed effettivamente erogata sulla CT di pianificazione.
+\item[5) Adattamento del piano:] sulla base delle differenze tra le distribuzioni di dose pianificata ed erogata si decide o meno di effettuare una ripianificazione del trattamento.
+\end{description}
+
+Continuare parlando delle criticità di tutti questi passaggi e del fatto che stiamo partecipando a due studi multi-centrici per chiarire le idee...
+
+sottosezione registrazione deformabile
+riportare quindi i risultati del gruppo YES es. della fase 0 e inizio della fase 1 con bozza dei protocolli sito dipendente che abbiamo sviluppato
+
+sottosezione adaptive (GUIDI) con risultati preliminari tipo quella roba delle parotidi etc etc e siamo quasi quasi per finire :OOO
 
 
 
