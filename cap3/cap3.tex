@@ -115,10 +115,10 @@ Tutti questi passaggi (a parte il primo) presentano delle criticità che al gior
 \item Che livello di verifica pre-trattamento è richiesto per il piano adattato?
 \end{itemize}
 
-La comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate per cui il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora (Febbraio 2016) in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
+Come mostrato in un recente point/counterpoint pubblicato su \textit{Medical Physics}, la comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate. Per questo motivo il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora (Febbraio 2016) in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
 
 \subsection{Studio multicentrico per l'ottimizzazione del protocollo di deformazione elastica}
-Il TPS RayStation implementa un algoritmo di deformazione elastica ibrido \cite{RaySearchLaboratories2014}. In un primo step il campo di deformazione viene calcolato considerando unicamente la differenza tra i livelli di grigio dello studio di riferimento e quello da deformare. In seconda battuta è possibile migliorare la deformazione `guindandola' con dei contorni geometrici (ROI di controllo).
+Il TPS RayStation implementa un algoritmo di deformazione elastica ibrido \cite{RaySearchLaboratories2014}. In particolare, il campo di deformazione viene trovato considerando la differenza tra i livelli di grigio tra lo studio di riferimento e lo studio target, assieme alla presenza di eventuali strutture geometriche che fungono da guida (ROI di controllo).
 
 Ciò si realizza matematicamente minimizzando un funzionale cha ha la forma seguente:
 \begin{equation}
@@ -131,9 +131,9 @@ F =& \alpha \cdot (1- Correlation\, Coefficient) + \\
 \end{equation}
 dove il \textit{Correlation coefficient} è un termine del tipo coefficiente di correlazione di Pearson e misura la correlazione tra i livelli di grigio delle due immagini (è uguale a 1 per immagini identiche). Il termine di regolarizzazione (\textit{Regularization Term}) aumenta all'aumentare dell'intensità della deformazione e serve a penalizzare soluzioni improbabili dal punto di vista fisico. Infine il \textit{ROI Penalty Term} è un termine che diminuisce quanto più le ROI di controllo tra le due immagini sono sovrapposte.
 
-Nella corrente implementazione dell'algoritmo di deformazione in RayStation (v.4.7) i termini peso $\alpha$, $\beta$ e $\gamma$, il coefficiente di correlazione ed il termine di regolarizzazione sono tutti fissati dalla ditta. Quello che viene lasciato all'operatore è la scelta delle ROI di controllo ossia la forma dell'ultimo termine della Eq.\eqref{eq:def}.
+Nella corrente implementazione dell'algoritmo di deformazione in RayStation (v.4.7) i termini peso $\alpha$, $\beta$ e $\gamma$, il coefficiente di correlazione ed il termine di regolarizzazione sono tutti fissati dalla ditta. Quello che viene lasciato all'operatore è la scelta delle ROI di controllo controllato dall'ultimo termine della Eq.\eqref{eq:def}.
 
-Il razionale dello studio multicentrico cui si è presi parte consiste nell'investigare l'accuratezza di vari algoritmi di registrazione deformabile e di sviluppare le metodologie che portano alla migliore deformazione possibile. A questo proposito è stato riunito un gruppo di 13 istituzioni italiane (Gruppo YES) per un totale di 5 diverse soluzioni commerciali per la registrazione elastica, tra cui il TPS RayStation. Lo studio si articola in più fasi ed è tutt'ora (Febbraio 2016) in corso di svolgimento. Nell'ambito di questo lavoro di tesi discuteremo i risultati raggiunti nella fase riguardante i casi clinici.
+Il razionale dello studio multicentrico cui si è presi parte consiste nell'investigare l'accuratezza di vari algoritmi di registrazione deformabile disponibili commercialmente e di sviluppare le metodologie che portano alla migliore deformazione possibile. A questo proposito è stato riunito un gruppo di 13 istituzioni italiane (Gruppo YES) per un totale di 5 diverse soluzioni commerciali per la registrazione elastica, tra cui il TPS RayStation. Lo studio si articola in più fasi ed è tutt'ora (Febbraio 2016) in corso di svolgimento. Nell'ambito di questo lavoro di tesi discuteremo i risultati raggiunti nella fase riguardante i casi clinici.
 
 Per la fase clinica dello studio YES sono stati reclutati 3 studi CT per i distretti pelvico, testa-collo e polmonare (Fig.\ref{fig:YES_sites}).
 \begin{figure}
@@ -142,18 +142,18 @@ Per la fase clinica dello studio YES sono stati reclutati 3 studi CT per i distr
 \caption{Siti anatomici studiati nell'ambito del gruppo YES}
 \label{fig:YES_sites}
 \end{figure}
-Per ogni distretto è stato creato un altro studio CT in cui è stata simulate tramite software (ImSimQA) una deformazione che tipicamente si realizza nella routine clinica:
+Per ogni distretto è stato creato un altro studio CT in cui è stata simulata tramite software (ImSimQA) una deformazione che tipicamente si realizza nella routine clinica:
 \begin{description}
-\item[Distretto pelvico:] riempimento vescicale minore rispetto alla CT di pianificazione.
+\item[Distretto pelvico:] riempimento vescicale minore rispetto alla CT di pianificazione ed aumento del volume rettale.
 \item[Distretto testa-collo:] riduzione di volume delle parotidi.
 \item[Distretto polmonare:] riduzione di volume del tumore.
 \end{description}
-Ogni istituzione aveva il compito di ricavare in maniera inversa la deformazione simulata utilizzando gli strumenti in proprio possesso. Sulla base della deformazione ottenuta veniva richiesto di mappare delle regioni di interesse (ROI) dalla CT iniziale alla CT deformata. Le ROI mappate da ogni centro sono state poi confrontate con le ROI `gold' deformate secondo la deformazione simulata, nota solo al centro coordinatore.\\
+Ogni istituzione aveva il compito di ricavare in maniera inversa la deformazione simulata utilizzando gli strumenti in proprio possesso. Sulla base della deformazione ottenuta veniva richiesto di mappare delle regioni di interesse (ROI) dalla CT iniziale alla CT deformata. Le ROI mappate da ogni centro sono state poi confrontate con le ROI `gold' deformate secondo la deformazione introdotta via software, nota solo al centro coordinatore.\\
 L'indicatore utilizzato per confrontare le ROI mappate dai centri con le ROI `gold' è l'indice di conformità di Jaccard:
-%\begin{equation}
-%J(ROI_{A},ROI_{B{) = \frac{|ROI_{A} \cap ROI_{B}|}{|ROI_{A} \cup ROI_{B}|}
-%\end{equation}
-Questo indice è uguale a zero per ROI disgiunte mentre è uguale a uno per ROI esattamente sovrapposte.
+\begin{equation}
+J(ROI_{A},ROI_{B}) = \frac{|ROI_{A} \cap ROI_{B}|}{|ROI_{A} \cup ROI_{B}|}
+\end{equation}
+Questo indice è uguale a 0 per ROI disgiunte mentre è uguale a 1 per ROI esattamente sovrapposte.
 I risultati raggiunti a livello multicentrico sono riassunti nella Fig.\ref{fig:YES_results} e possono essere riassunti principalmente nei seguenti punti:
 \begin{itemize}
 \item La differenza tra le performance globali dei vari centri non è risultata statisticamente significativa tranne che per un centro (Fig.\ref{fig:YES_results}a). 
@@ -166,14 +166,22 @@ I risultati raggiunti a livello multicentrico sono riassunti nella Fig.\ref{fig:
 \caption{(a) risultati del confronto per quanto riguarda l'accuratezza globale delle deformazioni effettuate dai singoli centri. (b) risultati dell'accuratezza raggiunta considerando tutti i centri a seconda del sito di interesse. I valori statisticamente differenti dal campione sono cerchiati in rosso. Il test statistico utilizzato è del tipo ANOVA (\textit{ANalysis Of VAriances}).}
 \label{fig:YES_results}
 \end{figure}
-Dal primo risultato si può evincere che le soluzioni commerciali esistenti portano a soluzioni di precisione comparabile pur implementando algoritmi differenti tra loro. Le performance centro statisticamente differente sono imputabili ad differente livello di training degli operatori coinvolti.
+Dal primo risultato si può evincere che i software commerciali esistenti portano a soluzioni di precisione comparabile pur implementando algoritmi differenti tra loro. Le performance relative al centro fuori fluttuazione statistica sono imputabili ad un differente livello di training degli operatori coinvolti piuttosto che ad un inferiorità dell'algoritmo utilizzato.
 
-Il secondo risultato è spiegabile con la peculiarità del sito toracico (tumore polmonare) rispetto ai siti testa-collo e pelvico. In questi ultimi, molti dei tessuti coinvolti risultano essere differenti di pochi livelli nella scala di grigi (basso contrasto) per cui è necessario guidare la deformazione con varie ROI di controllo (il coefficiente di correlazione dei grigi non è sufficiente ad ottenere una deformazione accurata). Diversa è la situazione per il caso toracico in cui il tessuto tumorale all'interno del polmone risulta essere ad alto contrasto con il tessuto circostante per cui la deformazione risulta semplice da trovare da parte dell'algoritmo, senza l'ausilio di particolari `aiuti'.
+Il secondo risultato è spiegabile con la peculiarità del sito toracico (tumore polmonare) rispetto ai siti testa-collo e pelvico. In questi ultimi, molti dei tessuti coinvolti risultano essere differenti di pochi livelli nella scala di grigi (basso contrasto) per cui è necessario guidare la deformazione con varie ROI di controllo (il coefficiente di correlazione dei grigi non è sufficiente ad ottenere una deformazione accurata). Diversa è la situazione per il caso toracico in cui il tessuto tumorale all'interno del polmone risulta essere ad alto contrasto con il materiale circostante (aria) per cui la deformazione risulta semplice da trovare da parte dell'algoritmo, senza bisogno di particolari `aiuti'.\\
 
-Continuare qui parlando dei risultati ottenuti a livello locale e della bozza dei protocolli di deformazione
+Oltre ai risultati ottenuti a livello multicentrico, il lavoro è stato approfondito nell'ambito di questa tesi con l'intento di sviluppare dei protocolli di registrazione deformabile sito-specifici propedeutici al commissioning del TPS RayStation per l'adaptive radiotherapy. 
+%Alla data di redazione di questa tesi (Febbraio 2016) l'ottimizzazione dei protocolli è ancora in via di sviluppo, presenteremo qui di seguito i risultati preliminari.
+
+A questo proposito, durante la creazione delle deformazioni per lo studio multicentrico si è distinto l'approccio finalizzato a stressare l'algoritmo (orientato ad ottenere il miglior risultato possibile) da quello che può essere un approccio più orientato alla routine clinica. Più precisamente, dati uno studio CT di riferimento ed uno deformato, il metodo più preciso di effettuare una registrazione deformabile consiste nell'utilizzare una risoluzione di griglia molto fitta assieme all'impiego di numerose ROI di controllo che guidano l'algoritmo. Usualmente le ROI di controllo rappresentano degli organi a basso contrasto rispetto ai tessuti circostanti che l'algoritmo non riesce ad individuare con il solo termine di correlazione della Eq.\eqref{eq:def}. Volendo ad es. utilizzare la vescica come ROI di controllo in una deformazione del distretto pelvico, è necessario che questa sia delineata nello studio di riferimento e nello studio deformato. In un'implementazione di adaptive radiotherapy clinica con valutazione dosimetrica di ogni seduta di trattamento (approccio più preciso ed affidabile), l'utilizzo di una ROI di controllo per la registrazione deformabile presuppone la sua delineazione su ogni studio, operazione che può risultare estremamente time-consuming in un'ottica di routine clinica\footnote{Tipicamente il numero di sedute di trattamento di un paziente standard si aggira tra 20 e 30. Senza nessun ausilio le ROI di controllo andrebbero contornate su ognuno di questi studi.}.
+
+Per i motivi sopra citati, il principio fondante lo sviluppo dei protocolli di registrazione deformabile è quello quello di trovare il miglior compromesso tra precisione della deformazione ed impiego di ROI di controllo. Accanto a ciò sono in corso di studio anche i vari strumenti di contornazione semi-automatica offerti dal TPS RayStation per velocizzare la delineazione di ROI di controllo.
+
+I risultati preliminari dello studio in oggetto sono.....continua qui elencando i protocollini sviluppati dicendo che sono ancora in fase di ottimizzazione ancora e in attesa del confronto multicentrico
 
 
 \subsection{Studio multicentrico per predire la necessità di adattare il piano}
+Esordisci dicendo che pur velocizzando all'estremo la procedura etc etc, il processo di adaptive così come esistente è cumbersome!...non è applicabbile a tutti i pzti...inoltre è stato dimostrato che non tutti ne beneficia allo stesso modo (ritrova la referenza)....per questo motivo lo sviluppo ulteriore riguarda tutto il project di guidi di predire, di selezionare, di trovare il miglior tempo per l'adattamento ettc etc.
 Continua qui prendi i risultati dell'AIFM etc etc
 sottosezione adaptive (GUIDI) con risultati preliminari tipo quella roba delle parotidi etc etc e siamo quasi quasi per finire :OOO
 
