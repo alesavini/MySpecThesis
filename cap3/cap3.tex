@@ -145,7 +145,7 @@ Per la fase clinica dello studio YES sono stati reclutati 3 studi CT per i distr
 Per ogni distretto è stato creato un altro studio CT in cui è stata simulata tramite software (ImSimQA) una deformazione che tipicamente si realizza nella routine clinica:
 \begin{description}
 \item[Distretto pelvico:] riempimento vescicale minore rispetto alla CT di pianificazione ed aumento del volume rettale.
-\item[Distretto testa-collo:] riduzione di volume delle parotidi.
+\item[Distretto testa-collo:] riduzione del volume linfonodale.
 \item[Distretto polmonare:] riduzione di volume del tumore.
 \end{description}
 Ogni istituzione aveva il compito di ricavare in maniera inversa la deformazione simulata utilizzando gli strumenti in proprio possesso. Sulla base della deformazione ottenuta veniva richiesto di mappare delle regioni di interesse (ROI) dalla CT iniziale alla CT deformata. Le ROI mappate da ogni centro sono state poi confrontate con le ROI `gold' deformate secondo la deformazione introdotta via software, nota solo al centro coordinatore.\\
@@ -173,11 +173,55 @@ Il secondo risultato è spiegabile con la peculiarità del sito toracico (tumore
 Oltre ai risultati ottenuti a livello multicentrico, il lavoro è stato approfondito nell'ambito di questa tesi con l'intento di sviluppare dei protocolli di registrazione deformabile sito-specifici propedeutici al commissioning del TPS RayStation per l'adaptive radiotherapy. 
 %Alla data di redazione di questa tesi (Febbraio 2016) l'ottimizzazione dei protocolli è ancora in via di sviluppo, presenteremo qui di seguito i risultati preliminari.
 
-A questo proposito, durante la creazione delle deformazioni per lo studio multicentrico si è distinto l'approccio finalizzato a stressare l'algoritmo (orientato ad ottenere il miglior risultato possibile) da quello che può essere un approccio più orientato alla routine clinica. Più precisamente, dati uno studio CT di riferimento ed uno deformato, il metodo più preciso di effettuare una registrazione deformabile consiste nell'utilizzare una risoluzione di griglia molto fitta assieme all'impiego di numerose ROI di controllo che guidano l'algoritmo. Usualmente le ROI di controllo rappresentano degli organi a basso contrasto rispetto ai tessuti circostanti che l'algoritmo non riesce ad individuare con il solo termine di correlazione della Eq.\eqref{eq:def}. Volendo ad es. utilizzare la vescica come ROI di controllo in una deformazione del distretto pelvico, è necessario che questa sia delineata nello studio di riferimento e nello studio deformato. In un'implementazione di adaptive radiotherapy clinica con valutazione dosimetrica di ogni seduta di trattamento (approccio più preciso ed affidabile), l'utilizzo di una ROI di controllo per la registrazione deformabile presuppone la sua delineazione su ogni studio, operazione che può risultare estremamente time-consuming in un'ottica di routine clinica\footnote{Tipicamente il numero di sedute di trattamento di un paziente standard si aggira tra 20 e 30. Senza nessun ausilio le ROI di controllo andrebbero contornate su ognuno di questi studi.}.
+A questo proposito, durante la creazione delle deformazioni per lo studio multicentrico si è distinto l'approccio finalizzato a stressare l'algoritmo (orientato ad ottenere il miglior risultato possibile) da quello che può essere un approccio più orientato alla routine clinica. Più precisamente, dati uno studio CT di riferimento ed uno deformato, il metodo più preciso di effettuare una registrazione deformabile consiste nell'utilizzare una risoluzione di griglia molto fitta assieme all'impiego di numerose ROI di controllo che guidano l'algoritmo. Usualmente le ROI di controllo rappresentano degli organi a basso contrasto rispetto ai tessuti circostanti che l'algoritmo non riesce ad individuare con il solo termine di correlazione della Eq.\eqref{eq:def}. Volendo ad es. utilizzare la vescica come ROI di controllo in una deformazione del distretto pelvico, è necessario che questa sia delineata nello studio di riferimento e nello studio deformato. In un'implementazione di adaptive radiotherapy clinica con valutazione dosimetrica di ogni seduta di trattamento (approccio più preciso ed affidabile), l'utilizzo di una ROI di controllo per la registrazione deformabile presuppone la sua delineazione su ogni studio, operazione che può risultare estremamente time-consuming in un'ottica di routine clinica\footnote{Tipicamente il numero di sedute di trattamento di un paziente standard si aggira tra 20 e 30. Senza nessun ausilio le ROI di controllo andrebbero contornate su tutti gli studi CBCT acquisiti prima di ogni seduta di trattamento.}.
 
 Per i motivi sopra citati, il principio fondante lo sviluppo dei protocolli di registrazione deformabile è quello quello di trovare il miglior compromesso tra precisione della deformazione ed impiego di ROI di controllo. Accanto a ciò sono in corso di studio anche i vari strumenti di contornazione semi-automatica offerti dal TPS RayStation per velocizzare la delineazione di ROI di controllo.
 
-I risultati preliminari dello studio in oggetto sono.....continua qui elencando i protocollini sviluppati dicendo che sono ancora in fase di ottimizzazione ancora e in attesa del confronto multicentrico
+I protocolli risultano essere in via di perfezionamento in accordo con i risultati che emergeranno nelle successive fasi dello studio multicentrico. Verranno presentati nelle sezioni seguenti i risultati preliminari a cui si è giunti nelle fasi finali di questo lavoro di tesi. 
+
+\subsection{Protocollo di registrazione deformabile - Torace}
+Il cambiamento anatomico proposto dal gruppo multicentrico per il sito toracico consiste in una riduzione di volume di un tumore polmonare (vedi Fig.\ref{fig:YES_thorax}). 
+\begin{figure}
+\centering
+\includegraphics[width=.48\textwidth]{./cap3/YES_Thorax.png}
+\includegraphics[width=.48\textwidth]{./cap3/YES_Thorax_shrink.png}
+\caption{Studio multicentrico - sito toracico: riduzione di volume del tumore polmonare.}
+\label{fig:YES_thorax}
+\end{figure}
+Il razionale dello sviluppo del protocollo di deformazione per questo sito si articola nei seguenti punti:
+\begin{itemize}
+\item La massa oggetto del cambiamento ha un alto contrasto con il tessuto circostante. Per questo motivo la deformazione da effettuare è semplice da trovare con l'algoritmo utilizzando in gran parte il termine di correlazione dei grigi dell'Eq.\eqref{eq:def}.
+\item La zona di interesse da deformare riguarda una piccola porzione dell'intero studio CT. Per questo motivo ha senso ridurre la zona di analisi dell'algoritmo unicamente alla parte di interesse. \`E stato osservato che questa operazione aumenta sia la velocità di esecuzione che la precisione della deformazione finale. Lo strumento che RayStation offre in questo caso è detto \textit{Focus ROI}. Definita una \textit{Focus ROI}, il sistema applica l'algoritmo di deformazione unicamente all'interno di essa. 
+\end{itemize}
+Sulla base di queste considerazioni la proposta di protocollo per il sito toracico è la seguente:
+\begin{enumerate}
+\item Si effettua una registrazione rigida tra i due studi, privilegiando le strutture ossee.
+\item Si effettua una registrazione deformabile senza ROI di controllo ma utilizzando come ROI di Focus il PTV espanso di 1 centimetro.
+\end{enumerate}
+
+
+\subsection{Protocollo di registrazione deformabile - Testa-Collo}
+
+\begin{figure}
+\centering
+\includegraphics[width=.48\textwidth]{./cap3/YES_HN.png}
+\includegraphics[width=.48\textwidth]{./cap3/YES_HN_shrink.png}
+\caption{Studio multicentrico - caso testa-collo: riduzione del volume linfonodale.}
+\label{fig:YES_HN}
+\end{figure}
+
+\subsection{Protocollo di registrazione deformabile - Prostata}
+asd
+\begin{figure}
+\centering
+\includegraphics[width=.48\textwidth]{./cap3/YES_PR.png}
+\includegraphics[width=.48\textwidth]{./cap3/YES_PR_shrink.png}
+\caption{Studio multicentrico - caso prostata.}
+\label{fig:YES_PR}
+\end{figure}
+
+
+L'applicazione dei protocolli mostrati ha portato a deformazioni di precisione comparabile con gli altri centri. La discussione dei protocolli proposti è programmata a livello multicentrico nelle prossime fasi dello studio.
 
 
 \subsection{Studio multicentrico per predire la necessità di adattare il piano}
