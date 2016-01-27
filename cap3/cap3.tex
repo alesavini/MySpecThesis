@@ -115,7 +115,7 @@ Tutti questi passaggi (a parte il primo) presentano delle criticità che al gior
 \item Che livello di verifica pre-trattamento è richiesto per il piano adattato?
 \end{itemize}
 
-Come mostrato in un recente point/counterpoint pubblicato su \textit{Medical Physics}, la comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate. Per questo motivo il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora (Febbraio 2016) in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
+Come mostrato in un recente point/counterpoint pubblicato su \textit{Medical Physics} \cite{Schultheiss2012}, la comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate. Per questo motivo il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora (Febbraio 2016) in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
 
 \subsection{Studio multicentrico per l'ottimizzazione del protocollo di deformazione elastica}
 Il TPS RayStation implementa un algoritmo di deformazione elastica ibrido \cite{RaySearchLaboratories2014}. In particolare, il campo di deformazione viene trovato considerando la differenza tra i livelli di grigio tra lo studio di riferimento e lo studio target, assieme alla presenza di eventuali strutture geometriche che fungono da guida (ROI di controllo).
@@ -193,7 +193,7 @@ Il razionale dello sviluppo del protocollo di deformazione per questo sito si ar
 \item La massa oggetto del cambiamento ha un alto contrasto con il tessuto circostante. Per questo motivo la deformazione da effettuare è semplice da trovare con l'algoritmo utilizzando in gran parte il termine di correlazione dei grigi dell'Eq.\eqref{eq:def}.
 \item La zona di interesse da deformare riguarda una piccola porzione dell'intero studio CT. Per questo motivo ha senso ridurre la zona di analisi dell'algoritmo unicamente alla parte di interesse. \`E stato osservato che questa operazione aumenta sia la velocità di esecuzione che la precisione della deformazione finale. Lo strumento che RayStation offre in questo caso è detto \textit{Focus ROI}. Definita una \textit{Focus ROI}, il sistema applica l'algoritmo di deformazione unicamente all'interno di essa. 
 \end{itemize}
-Sulla base di queste considerazioni la proposta di protocollo per il sito toracico è la seguente:
+Sulla base di queste considerazioni e dell'esperienza maturata, la proposta di protocollo per il sito toracico è la seguente:
 \begin{enumerate}
 \item Si effettua una registrazione rigida tra i due studi, privilegiando le strutture ossee.
 \item Si effettua una registrazione deformabile senza ROI di controllo ma utilizzando come ROI di Focus il PTV espanso di 1 centimetro.
@@ -201,6 +201,7 @@ Sulla base di queste considerazioni la proposta di protocollo per il sito toraci
 
 
 \subsection{Protocollo di registrazione deformabile - Testa-Collo}
+Nel caso del sito testa-collo la deformazione proposta corrisponde alla tipica riduzione del volume linfodonodale a livello delle parotidi (segno della risposta alla terapia, Fig.\ref{fig:YES_HN}). Questo cambiamento anatomico è di grande interesse per la radioterapia adattiva. Come illustrato nella Fig.\ref{fig:HN_DVH}, la riduzione del volume linfonodale comporta usualmente lo spostamento delle parotidi nella zona ad alta dose. L'ingresso di questi organi a rischio nella zona ad alta dose può portare ad un esito di radiotossicità che non è aspettato se si osserva unicamente il piano di trattamento iniziale.
 
 \begin{figure}
 \centering
@@ -210,8 +211,20 @@ Sulla base di queste considerazioni la proposta di protocollo per il sito toraci
 \label{fig:YES_HN}
 \end{figure}
 
+L'approccio che ha portato alla stesura del protocollo per le deformazioni del sito testa-collo è basato sui seguenti ragionamenti:
+\begin{itemize}
+\item Gli organi coinvolti in questo distretto sono pressoché stabili. Più precismanete, anche in presenza di deformazioni, i rapporti anatomici dei tessuti molli con i segmenti ossei sono usualmente conservati.
+\item Il tipo di deformazione che si osserva è `prevedibile'. Più precismanete, ci si aspetta che nel corso del trattamento si va incontro ad una riduzione del volume linfonodale.
+\end{itemize}
+Sulla base di queste considerazioni la proposta di protocollo per il sito toracico è la seguente:
+\begin{enumerate}
+\item Si effettua una registrazione rigida tra i due studi, privilegiando le strutture ossee.
+\item Si effettua una registrazione deformabile utilizzando come ROI di controllo la ROI che rappresenta il contorno del paziente (denominata \textit{External}). Questo perché il cambiamento anatomico è prevedibile e coinvolge maggiormente il contorno del paziente, lasciando le zone interne invariate. La delineazione di questa ROI di controllo è immediata qualora debba essere fatta su molteplici studi grazie agli strumenti di contornazione automatica messi a disposizione da RayStation. Con queste scelte, il protocollo risulta essere un buon compromesso tra precisione della deformazione (come dimostrato dal confronto con gli altri centri) e fattibilità a livello di routine clinica.
+\end{enumerate}
+
+
 \subsection{Protocollo di registrazione deformabile - Prostata}
-asd
+Il cambiamento del riempimento degli organi interni al distretto pelvico (retto e vescica, Fig.\ref{fig:YES_PR}) rende questo sito uno dei più complessi da trattare con approccio di adaptive radiotherapy. 
 \begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{./cap3/YES_PR.png}
@@ -220,8 +233,21 @@ asd
 \label{fig:YES_PR}
 \end{figure}
 
+Le considerazioni propedeutiche alla stesura del protocollo sono state le seguenti:
+\begin{itemize}
+\item Se nei casi torace e testa-collo i volumi di interesse si deformano con un andamento temporale prevedibile (monotono decrescente in caso di risposta alla terapia o monotono crescente in caso di non-risposta e progressione), i volumi nel distretto pelvico sono soggetti a variazioni casuali legate alla preparazione e alla compliance del paziente.
+\item Come ulteriore difficoltà vi è il basso contrasto tra gli organi coinvolti nella deformazione. Ciò rende necessario l'utilizzo di ROI di controllo per guidare la deformazione.
+\end{itemize}
+ 
+Il protocollo proposto per questo sito consiste nei seguenti passaggi:
+\begin{enumerate}
+\item Si effettua una registrazione rigida tra i due studi, privilegiando le strutture ossee.
+\item Si contornano sugli studi deformati le ROI corrispondenti agli organi vescica, retto e prostata con vescicole seminali. Queste ROI vengono utilizzate come ROI di controllo per guidare la deformazione nella zona a basso contrasto.
+\end{enumerate}
+L'applicazione clinica di questo protocollo può risultare molto time-consuming in quanto richiede un importante intervento dell'operatore nella contornazione delle ROI di controllo. Per ovviare a questo limite sono in studio a livello multicentrico le soluzioni di contornazione automatica offerte dal TPS.
 
-L'applicazione dei protocolli mostrati ha portato a deformazioni di precisione comparabile con gli altri centri. La discussione dei protocolli proposti è programmata a livello multicentrico nelle prossime fasi dello studio.
+
+L'applicazione dei protocolli preliminari mostrati ha portato a deformazioni di precisione comparabile con gli altri centri (Fig.\ref{fig:YES_results}). La discussione approfondita riguardo il confronto e l'eventuale ottimizzazione a livello multicentrico è programmata nelle prossime fasi dello studio.
 
 
 \subsection{Studio multicentrico per predire la necessità di adattare il piano}
