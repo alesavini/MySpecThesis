@@ -97,24 +97,24 @@ Il TERMA è esprimibile come il prodotto tra la \textit{fluenza di energia prima
 
 Introducendo la funzione di scatter\footnote{Funzione conosciuta anche come \textit{energy deposition point kernel} o \textit{point spread kernel} o \textit{kernel di deposizione}.} $s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)$ che esprime l'ammontare di energia assorbita nel punto $P(x,y,z)$ dovuta all'energia rilasciata nell'interazione avvenuta nel punto $P'(x',y',z')$, la dose assorbita nel punto $P$ è esprimibile con un integrale:
 \begin{align}
-D(x,y,z) &=  \int_V \frac{\mu(x',y',z')}{\rho(x',y',z')} \Psi(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
+D(x,y,z) &=  \int_V \frac{\mu}{\rho} \Psi(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
          &= \int_V T(x',y',z')\,s(x'\rightarrow x, y'\rightarrow y, z'\rightarrow z)\, \de x' \de y' \de z'\\
          &= \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 \end{align}
 
-Questa equazione è valida nel caso di un fascio di fotoni monoenergetico. La generalizzazione al caso polienergetico si effettua introducendo il TERMA differenziale in energia $T(P',E)$ e la funzione di scatter polienergetica $s(P'\rightarrow P,E)$ ed integrando su tutte le energie coinvolte:
+Questa equazione è valida nel caso di un fascio di fotoni monoenergetico in un mezzo omogeneo di densità $\rho$. La generalizzazione al caso polienergetico si effettua introducendo il TERMA differenziale in energia $T(P',E)$ e la funzione di scatter polienergetica $s(P'\rightarrow P,E)$ ed integrando su tutte le energie coinvolte:
 \begin{equation}
 D(P) = \iint_{E,V} T(P',E)\,s(P'\rightarrow P,E)\, \de V' \de E
 \label{eq:superp}
 \end{equation}
 L'equazione \eqref{eq:superp} matematicamente è un'operazione di sovrapposizione, così come espresso nell'Eq.\eqref{eq:sovrapp_math} e rispecchia il fatto per cui la dose calcolata in un punto $P$ è la sovrapposizione di tanti fenomeni che avvengono nei punti $P'$.
 
-Verrà dimostrato nelle sezioni successive come l'Eq.\eqref{eq:superp} possa essere scritta nella forma:
-\begin{equation}
-\boxed{D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E}
-\label{eq:superp_true}
-\end{equation}
-che rappresenta la cosiddetta \textit{equazione di convolution/superposition} per il calcolo della dose in un volume disomogeneo investito da un fascio di fotoni polienergetico.
+%Verrà dimostrato nelle sezioni successive come l'Eq.\eqref{eq:superp} possa essere scritta nella forma:
+%\begin{equation}
+%\boxed{D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E}
+%\label{eq:superp_true}
+%\end{equation}
+%che rappresenta la cosiddetta \textit{equazione di convolution/superposition} per il calcolo della dose in un volume disomogeneo investito da un fascio di fotoni polienergetico.
 
 
 
@@ -124,27 +124,27 @@ Il calcolo della dose nel TPS RayStation fa uso del formalismo illustrato nelle 
 \begin{enumerate}
 \item Il calcolo della fluenza di energia.
 \item Il calcolo del TERMA.
-\item L'applicazione delle opportune funzioni di scatter e del principio di sovrapposizione per il calcolo della dose finale.
+\item L'applicazione delle opportune funzioni di scatter e del principio di \textit{convolution-superposition} per il calcolo della dose finale.
 \item La somma del contributo dovuto alle particelle di contaminazione (elettroni).
 \end{enumerate}
 
 \subsection{Il calcolo della fluenza di energia}
 \label{sec:fluence}
-Questo primo step consiste in un calcolo geometrico che non tiene conto della presenza del paziente. Si è già notato nella sezione introduttiva (Fig.\ref{fig:processes}) come il fascio in ingresso in un paziente sia costituito da una parte primaria e da una parte che ha interagito con gli elementi della testata (in particolare con il flattening-filter). RayStation tratta queste due componenti con un modello a due sorgenti poste ad una certa distanza lungo la direzione di propagazione del fascio (Fig.\ref{fig:twosources}a).
+Questo primo step consiste in un calcolo geometrico che non tiene conto della presenza del paziente. Si è già notato nella sezione introduttiva (Fig.\ref{fig:processes}) come il fascio in ingresso in un paziente sia costituito da una parte primaria e da una parte che ha interagito con gli elementi della testata (in particolare con il flattening-filter). RayStation tratta queste due componenti con un modello a due sorgenti poste ad una certa distanza lungo la direzione di propagazione del fascio (Fig.\ref{fig:twosources}).
 \begin{figure}
 \centering
 \includegraphics[width=.55\textwidth]{./cap1/twosources.png}
 \includegraphics[width=.4\textwidth]{./cap1/source_int.png}
-\caption{ (a) Modello a due sorgenti utilizzato per il calcolo della fluenza di energia. (b) Processo di integrazione della parte visibile della sorgente per il calcolo della fluenza.}
+\caption{Sinistra: modello a due sorgenti utilizzato per il calcolo della fluenza di energia. Destra: processo di integrazione della parte visibile della sorgente per il calcolo della fluenza.}
 \label{fig:twosources}
 \end{figure}
 La sorgente primaria è modellizzata con un profilo gaussiano ellittico esteso dell'ordine dei mm mentre la sorgente di scatter del flattening-filter è gaussiana circolare estesa dell'ordine dei cm \cite{Chaney1994}.\\
-Il calcolo della fluenza viene effettuato su un piano passante per il centro di simmetria rotazionale del LINAC denominato \textit{isocentro} e perpendicolare alla direzione del fascio (Fig.\ref{fig:twosources}a).
+Il calcolo della fluenza viene effettuato su un piano passante per il centro di simmetria rotazionale del LINAC denominato \textit{isocentro} e perpendicolare alla direzione del fascio (Fig.\ref{fig:twosources}).
 Le sorgenti vengono geometricamente proiettate attraverso i collimatori indicati in Fig.\ref{fig:linac} costituiti da blocchi di materiale schermante (\textit{jaws}) e da un dispositivo fatto di lamelle retraibili (\textit{multi-leaf-collimator}) che serve a generare conformazioni irregolari del fascio.\\
-Matematicamente, l'operazione di calcolo della fluenza consiste in un'integrazione pixel per pixel della parte di sorgente \textquotedblleft visibile\textquotedblright{} attraverso i collimatori (Fig.\ref{fig:twosources}b) con un metodo di backprojection.\\
+Matematicamente, l'operazione di calcolo della fluenza consiste in un'integrazione pixel per pixel della parte di sorgente \textquotedblleft visibile\textquotedblright{} attraverso i collimatori (Fig.\ref{fig:twosources}) con un metodo di backprojection.\\
 La mappa di fluenza così ottenuta viene corretta per includere alcuni fenomeni come la trasmissione dei collimatori, la trasmissione della punta e del bordo delle lamelle (\textit{leaf tip e tongue}\&\textit{groove}), il peso relativo delle sorgenti ed altri processi che verrano discussi in seguito.
 
-In parallelo viene computata la mappa di fluenza per le sorgenti di elettroni di contaminazione. Queste ultime sono gaussiane circolari e poste alla stessa posizione delle sorgenti di fotoni. Esse sono divise in primaria e di scatter del flattening filter e la loro intensità è espressa in percentuale rispetto alla fluenza dei fotoni primari.
+In parallelo viene computata la mappa di fluenza per le sorgenti di elettroni di contaminazione (generati secondo le modalità descritte nella Sez.\label{sec:intro}). Queste ultime sono gaussiane circolari e poste alla stessa posizione delle sorgenti di fotoni. Esse sono divise in primaria e di scatter del flattening filter e la loro intensità è espressa in percentuale rispetto alla fluenza dei fotoni primari.
 
 \subsection{Il calcolo del TERMA}
 Il TERMA costituisce la prima parte dell'integrale per il calcolo della dose assorbita (Eq.\ref{eq:superp}). Esso quantifica in pratica l'assorbimento della fluenza di energia che attraversa il paziente. A partire da questo assorbimento vengono applicate le funzioni di scatter per generare la distribuzione di dose.\\
@@ -158,7 +158,7 @@ dove $\vec{r'}$ è la coordinata del punto di interazione primaria.
 Il paziente è modellizzato all'interno del TPS tramite uno studio di tomografia computerizzata che contiene una mappa di densità dei tessuti. Questo permette di conoscere il primo termine dell'Eq.\eqref{eq:termaE} \cite{RaySearchLaboratories2014}.\\
 Il calcolo del secondo termine della \eqref{eq:termaE} avviene seguendo questi passaggi:
 \begin{itemize}
-\item Si parte dalla mappa di fluenza calcolata sul piano passante per l'isocentro e perpendicolare alla direzione di propagazione del fascio senza considerare la presenza del paziente (Sez.sec:fluence).
+\item Si parte dalla mappa di fluenza calcolata sul piano passante per l'isocentro e perpendicolare alla direzione di propagazione del fascio senza considerare la presenza del paziente (Sez.\ref{sec:fluence}).
 \item La mappa di fluenza calcolata in assenza del paziente viene proiettata e riscalata verso la sorgente fino ad una distanza da essa pari a $\vec{r_0}$. $\vec{r_0}$ costituisce la distanza dalla sorgente primaria alla superficie del paziente (distanza nota come Source-Surface-Distance o SSD).
 \item La mappa di fluenza calcolata all'ingresso del paziente $\Psi(\vec{r_0},E)$ viene proiettata in basso all'interno dello studio CT tenendo conto di due fenomeni:
 \begin{itemize}
@@ -171,7 +171,7 @@ L'equazione che si ottiene è:
 \label{eq:fluence}
 \Psi(\vec{r'},E) = \frac{|\vec{r_0}|^2}{|\vec{r'}|^2}\Psi(\vec{r_0},E)\,\exp{\left( -\int_{\vec{r_0}}^{\vec{r'}} \mu(\vec{r'},E) \de l \right)}
 \end{equation}
-L'integrale del coefficiente di assorbimento nella precedente equazione viene discretizzato nel TPS su una griglia di voxel cubici detta \textit{dose grid}. Questi voxel campionano le densità fornite dalla CT da cui viene ricavato il coefficiente di assorbimento locale $\mu / \rho(\vec{r'},E)$. Moltiplicando questa quantità con la \eqref{eq:fluence} si ottiene la distribuzione di TERMA (Eq.\eqref{eq:termaE}).
+L'integrale del coefficiente di assorbimento nella precedente equazione viene discretizzato nel TPS su una griglia di voxel cubici detta \textit{dose grid}. Questi voxel campionano le densità fornite dalla CT da cui viene ricavato il coefficiente di assorbimento locale $\mu / \rho(\vec{r'},E)$. Moltiplicando questa quantità con la \eqref{eq:fluence} si ottiene la distribuzione di TERMA (Eq.\eqref{eq:termaE} e Fig.\ref{fig:terma}).
 
 \begin{figure}
 \centering
@@ -182,6 +182,7 @@ L'integrale del coefficiente di assorbimento nella precedente equazione viene di
 \end{figure}
 
 \subsection{Applicazione delle funzioni di scatter}
+\label{sec:scatter_fun}
 Se l'energia totale rilasciata dai fotoni in un voxel fosse interamente assorbita in esso, la distribuzione di TERMA coinciderebbe con la dose assorbita.\\
 \begin{figure}
 \centering
@@ -204,11 +205,11 @@ Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il
 
 Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, in linea di principio è possibile arrivare alla dose assorbita in maniera diretta risolvendo per via numerica l'integrale \eqref{eq:superp}. Tuttavia, questa operazione su una griglia di $N^3$ voxel risulta essere un problema  di ordine $N^7$ \cite{Ahnesjo1999}, difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare risolvendo numericamente l'integrale \eqref{eq:superp} sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9=10^5\,sec\approx 2\, ore!$.}. 
 
-Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante. Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione si trasforma in un semplice prodotto delle trasformate delle funzioni coinvolte. Tutto ciò è valido per uno spazio continuo. L'implementazione su computer di questo metodo (come di un qualsiasi altro) presuppone una discretizzazione dello spazio e delle funzioni. Vedremo nella prossima sezione come questo sia un passaggio delicato da trattare e sul quale viene applicata l'approssimazione fondamentale dell'algoritmo dosimetrico denominato \textit{collapsed-cone}.
+Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante. Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione si trasforma in un semplice prodotto delle trasformate delle funzioni coinvolte. Tutto ciò è valido per uno spazio continuo. L'implementazione su computer di questo metodo (come di un qualsiasi altro) presuppone però una discretizzazione dello spazio di integrazione e delle funzioni da integrare. Vedremo nella prossima sezione come questo sia un passaggio delicato da trattare e sul quale viene applicata l'approssimazione fondamentale dell'algoritmo dosimetrico implementato nel TPS RayStation.
 
 
 \subsection{L'approssimazione \textit{collapsed-cone}}
-Lo stesso Mackie assieme a Reckwerdt \cite{Reckwerdt1992} propose un'approssimazione che consisteva nel calcolare l'integrale \eqref{eq:superp} solo lungo determinate direzioni. Indipendentemente, Ahnesj\"{o} nel 1989 seguendo lo stesso approccio, pubblicò un articolo \cite{Ahnesjo1989} in cui propose il metodo denominato \textit{collapsed-cone} e lo confrontò con il metodo Monte Carlo ottenendo risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
+Lo stesso Mackie assieme a Reckwerdt \cite{Reckwerdt1992} propose una discretizzazione del problema \eqref{eq:superp} che consisteva nel calcolare l'integrale \eqref{eq:superp} solo lungo determinate direzioni. Indipendentemente, Ahnesj\"{o} nel 1989 seguendo lo stesso approccio, pubblicò un articolo \cite{Ahnesjo1989} in cui propose il metodo denominato \textit{collapsed-cone} e lo confrontò con il metodo Monte Carlo ottenendo risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.45\textwidth]{./cap1/kern_ray1.png}$\quad$
@@ -217,24 +218,23 @@ Lo stesso Mackie assieme a Reckwerdt \cite{Reckwerdt1992} propose un'approssimaz
 \label{fig:kern_ray}
 \end{figure}
 
-Per capire il meccanismo alla base di questa approssimazione partiamo con l'osservare in Fig.\ref{fig:kern_ray} la distribuzione spaziale tipica di alcuni kernel di deposizione. La discretizzazione di questi kernel può essere effettuata in maniera diretta lungo delle semplici linee di integrazione seguendo un processo noto come \textit{ray-tracing} (vedi Fig.\ref{fig:raytrace_vs_cc}a).
+Per capire il meccanismo alla base di questa approssimazione partiamo con l'osservare in Fig.\ref{fig:kern_ray} la distribuzione spaziale tipica di alcuni kernel di deposizione. La discretizzazione di questi kernel può essere effettuata in maniera diretta lungo delle semplici linee di integrazione seguendo un processo noto come \textit{ray-tracing}.
 \begin{figure}
 \centering
-INSERISCI QUI LA FIGURA DEL RATRACE VS CCC
-%\includegraphics[width=\textwidth]{}
-\caption{}
+\includegraphics[width=.4\textwidth]{./cap1/Kernel_RayTr.eps}
+\includegraphics[width=.45\textwidth]{./cap1/Kernel_CCC.eps}
+\caption{Sinistra: Errore di sampling che si commette discretizzando il kernel solo lungo dei raggi (Ray-tracing). Destra: Meccanismo di ridistribuzione della dose in un settore conico sul proprio asse (Collapsed-cone).}
 \label{fig:raytrace_vs_cc}
 \end{figure}
-
-Tuttavia Ahnesj\"{o} notò che questo metodo triviale di discretizzazione può portare ad un errore di sampling ampio a causa della rapidità di rilascio di energia nei primi cm di interazione \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo).\\
-Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso (vedi Fig.\ref{fig:raytrace_vs_cc}b). Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
+Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della rapidità di rilascio di energia nei primi cm di interazione \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc})).\\
+Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso (vedi Fig.\ref{fig:raytrace_vs_cc}). Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
 
 L'operazione di \textquotedblleft\textit{collassamento}\textquotedblright{} dei kernel avviene matematicamente come segue. In primo luogo si effettua un fit analitico del kernel di deposizione calcolato tramite metodologie Monte Carlo. La funzione proposta da Ahnesj\"{o} per questo scopo in coordinate sferiche ha la seguente forma:
 \begin{equation}
 \label{eq:kern_fit}
 s(r,\theta) = \frac{A_\theta e^{-a_\theta r} + B_\theta e^{-b_\theta r}}{r^2}
 \end{equation}
-dove $A_\theta,\,a_\theta,\,B_\theta$ e $b_\theta$ sono parametri di fit che dipendono dall'angolo di scatter $\theta$. I due termini esponenziali descrivono l'uno la caduta rapida del kernel dovuto agli elettroni Compton primari e l'altro la coda più lenta dovuta alle interazioni di scatter secondarie (Fig.\ref{fig:kern_ray}). Da notare che il kernel possiede una simmetria cilindrica per cui l'angolo $\phi$ non è esplicitato. La validità di questo fit è mostrata in Fig.\ref{fig:kern_fit}.
+dove $A_\theta,\,a_\theta,\,B_\theta$ e $b_\theta$ sono parametri di fit che dipendono dall'angolo di scatter $\theta$. I due termini esponenziali descrivono l'uno la caduta rapida del kernel dovuto agli elettroni Compton primari e l'altro la coda più lenta dovuta alle interazioni di scatter secondarie (Fig.\ref{fig:kern_ray}). Da notare che il kernel possiede una simmetria cilindrica per cui l'angolo $\phi$ della tripletta di coordinate sferiche ($r,\theta,\phi$) non è esplicitato. La validità di questo fit è mostrata in Fig.\ref{fig:kern_fit}.
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap1/kern_fit.png}
@@ -268,29 +268,31 @@ Il peso di ogni componente spettrale viene stabilito in fase di modellizzazione 
 
 \subsection{La generalizzazione al caso disomogeneo}
 Un ulteriore fenomeno da tenere in conto nell'applicazione dei point spread kernel è la disomogeneità del mezzo. In condizioni standard i kernel sono calcolati in un volume omogeneo di acqua, tuttavia la deposizione di energia cambia se i processi di ionizzazione avvengono in un mezzo differente dall'acqua.\\
-Woo e Cunningham \cite{Woo1990} assieme a Mackie \cite{Mackie1985} hanno dimostrato come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità del mezzo). La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
+Mackie \cite{Mackie1985} dimostrò come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità del mezzo). La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.4\textwidth]{./cap1/kern_dens.png}
 \includegraphics[width=.59\textwidth]{./cap1/kern_dens2.png}
-\caption{Sinistra: Contronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). Destra: effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
+\caption{(a) Confronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). Destra: effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
 \label{fig:kern_dens}
 \end{figure}
-Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone. Nonostante l'accordo non sia perfetto, Arnfield et al. \cite{Arnfield2000} e lo stesso Ahnesj\"{o} \cite{Ahnesjo1989} hanno dimostrato che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
+Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante l'accordo non sia perfetto, vari autori come Arnfield et al. \cite{Arnfield2000} e lo stesso Ahnesj\"{o} \cite{Ahnesjo1989} hanno dimostrato che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
 
-L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo omogeneo nella forma \cite{Khan2010}:
-\begin{equation}
-D(x,y,z) =  \int_V \frac{\mu}{\rho} \Psi(x',y',z')\,s(x'- x, y'- y, z'- z)\, \de x' \de y' \de z'
-\label{eq:superp_homo}
-\end{equation}
-Questa equazione rappresenta \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante per cui l'integrale è facilmente risolvibile grazie alla teoria degli spazi di Fourier.
+%L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo omogeneo nella forma \cite{Khan2010}:
+%\begin{equation}
+%D(x,y,z) =  \int_V \frac{\mu}{\rho} \Psi(x',y',z')\,s(x'- x, y'- y, z'- z)\, \de x' \de y' \de z'
+%\label{eq:superp_homo}
+%\end{equation}
+%Questa equazione rappresenta \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante. Si è già accennato nella Sez.\ref{}
 
-Aggiungendo la generalizzazione al caso disomogeneo, la \eqref{eq:superp_homo} assume la forma \cite{Khan2010}:
+Considerando un mezzo disomogeneo, la funzione di scatter perde la sua invarianza spaziale per cui l'equazione \eqref{eq:superp} cessa di essere un'integrale di convoluzione. Vedremo nel capitolo successivo come questa condizione matematica rispecchi il fenomeno fisico cosiddetto della perdita di equilibrio di particelle cariche\footnote{L'equilibrio di particelle cariche (CPE) è una condizione per cui, considerato una superficie chiusa, il numero di particelle ionizzanti che entrano nella superficie è uguale al numero che ne esce.}.
+
+\`E tuttavia possibile recuperare l'invarianza dei kernel di deposizione grazie all'applicazione del teorema di O'Connor, sostituendo le lunghezze fisiche con le lunghezze radiologiche \cite{Khan2010}. Questa operazione è nota come principio di \textit{superposition} e dà luogo all'equazione:
 \begin{equation}
 D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E
 \label{eq:superp_disom}
 \end{equation}
-dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente di fotoni fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose. L'equazione di convolution \eqref{eq:superp_homo} modificata nella forma \eqref{eq:superp_disom} prende il nome di \textit{principio di convolution/superposition} applicato al calcolo della dose in un volume investito da un fascio di fotoni polienergetico.
+dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente di fotoni fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose.
 
 \begin{figure}
 \centering
