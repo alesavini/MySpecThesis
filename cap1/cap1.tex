@@ -76,6 +76,7 @@ D(x,y,z) = \int_V p(x',y',z')\, s(x,x',y,y',z,z')\de x' \de y' \de z'
 \end{equation}
 Un particolare caso dell'operazione di sovrapposizione è rappresentato dalla convoluzione che si realizza quando la funzione kernel è spazialmente invariante, ovvero dipende solo dalla differenza tra la coordinata $(x,y,z)$ e la variabile di integrazione $(x',y',z')$:
 \begin{equation}
+\label{eq:convol_math}
 D(x,y,z) = \int_V p(x',y',z')\, s(x-x',y-y',z-z')\de x' \de y' \de z'
 \end{equation}
 
@@ -107,7 +108,7 @@ Questa equazione è valida nel caso di un fascio di fotoni monoenergetico in un 
 D(P) = \iint_{E,V} T(P',E)\,s(P'\rightarrow P,E)\, \de V' \de E
 \label{eq:superp}
 \end{equation}
-L'equazione \eqref{eq:superp} matematicamente è un'operazione di sovrapposizione, così come espresso nell'Eq.\eqref{eq:sovrapp_math} e rispecchia il fatto per cui la dose calcolata in un punto $P$ è la sovrapposizione di tanti fenomeni che avvengono nei punti $P'$.
+L'equazione \eqref{eq:superp} matematicamente è un'operazione di sovrapposizione, così come espresso nell'Eq.\eqref{eq:sovrapp_math} e rispecchia il fatto per cui la dose calcolata in un punto $P$ è la sovrapposizione di tanti fenomeni che avvengono nei punti $P'$. In aggiunta, considerando il caso di un mezzo omogeneo ed infinitamente esteso, la funzione di scatter risulta spazialmente invariante per cui l'\eqref{eq:superp} è un'equazione di convoluzione del tipo indicato nella \eqref{eq:convol_math}.
 
 %Verrà dimostrato nelle sezioni successive come l'Eq.\eqref{eq:superp} possa essere scritta nella forma:
 %\begin{equation}
@@ -147,8 +148,8 @@ La mappa di fluenza così ottenuta viene corretta per includere alcuni fenomeni 
 In parallelo viene computata la mappa di fluenza per le sorgenti di elettroni di contaminazione (generati secondo le modalità descritte nella Sez.\label{sec:intro}). Queste ultime sono gaussiane circolari e poste alla stessa posizione delle sorgenti di fotoni. Esse sono divise in primaria e di scatter del flattening filter e la loro intensità è espressa in percentuale rispetto alla fluenza dei fotoni primari.
 
 \subsection{Il calcolo del TERMA}
-Il TERMA costituisce la prima parte dell'integrale per il calcolo della dose assorbita (Eq.\ref{eq:superp}). Esso quantifica in pratica l'assorbimento della fluenza di energia che attraversa il paziente. A partire da questo assorbimento vengono applicate le funzioni di scatter per generare la distribuzione di dose.\\
-Il TERMA differenziale in energia è stato definito nella Sez.\ref{sec:teoria_conv} in accordo con \cite{Ahnesjo1999}:
+Il TERMA costituisce la prima parte dell'integrale per il calcolo della dose assorbita (Eq.\ref{eq:superp}). Esso quantifica l'assorbimento della fluenza di energia che attraversa il paziente. A partire da questo assorbimento vengono applicate le funzioni di scatter per generare la distribuzione di dose.\\
+Il TERMA differenziale in energia può essere scritto nella seguente forma generale:
 \begin{equation}
 \label{eq:termaE}
 T(\vec{r'},E) = \frac{\mu}{\rho}(\vec{r'},E)\,\Psi(\vec{r'},E)
@@ -166,7 +167,7 @@ Il calcolo del secondo termine della \eqref{eq:termaE} avviene seguendo questi p
 \item La divergenza del fascio che da luogo ad una decrescita della fluenza con l'inverso del quadrato della distanza ($|\vec{r_0}|^2 / |\vec{r'}|^2$)
 \end{itemize}
 \end{itemize}
-L'equazione che si ottiene è:
+L'equazione che si ottiene per la fluenza è:
 \begin{equation}
 \label{eq:fluence}
 \Psi(\vec{r'},E) = \frac{|\vec{r_0}|^2}{|\vec{r'}|^2}\Psi(\vec{r_0},E)\,\exp{\left( -\int_{\vec{r_0}}^{\vec{r'}} \mu(\vec{r'},E) \de l \right)}
@@ -203,13 +204,22 @@ Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il
 \label{fig:mackie_kernels}
 \end{figure}
 
-Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, in linea di principio è possibile arrivare alla dose assorbita in maniera diretta risolvendo per via numerica l'integrale \eqref{eq:superp}. Tuttavia, questa operazione su una griglia di $N^3$ voxel risulta essere un problema  di ordine $N^7$ \cite{Ahnesjo1999}, difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare risolvendo numericamente l'integrale \eqref{eq:superp} sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9=10^5\,sec\approx 2\, ore!$.}. 
+Una volta noti tutti i termini dell'equazione \eqref{eq:superp} è necessario procedere alla risoluzione dell'integrale. Questa operazione è effettuata per via numerica (tramite computer) e presuppone una discretizzazione dello spazio di integrazione e delle funzioni integrande. I metodi adottabili sono i seguenti:\\
 
-Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante. Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione si trasforma in un semplice prodotto delle trasformate delle funzioni coinvolte. Tutto ciò è valido per uno spazio continuo. L'implementazione su computer di questo metodo (come di un qualsiasi altro) presuppone però una discretizzazione dello spazio di integrazione e delle funzioni da integrare. Vedremo nella prossima sezione come questo sia un passaggio delicato da trattare e sul quale viene applicata l'approssimazione fondamentale dell'algoritmo dosimetrico implementato nel TPS RayStation.
+\textbf{Somma diretta:\\}
+Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, in linea di principio è possibile arrivare alla dose assorbita in maniera triviale risolvendo per somma diretta l'integrale \eqref{eq:superp}. Tuttavia, questa operazione su una griglia di $N^3$ voxel e generalizzata ad un mezzo disomogeneo, risulta essere un problema  di ordine $N^7$ \cite{Ahnesjo1989}. Un tale numero di operazioni è difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare risolvendo numericamente l'integrale \eqref{eq:superp} sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9=10^5\,sec\approx 2\, ore!$.}. \\
+
+\textbf{Metodo di Fast Fourier Transform (FFT):\\}
+Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante (l'integrale è un prodotto di convoluzione). Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione  diventa un semplice prodotto delle trasformate delle funzioni nello spazio di Fourier. L'operazione di antitrasformata del prodotto delle funzioni trasformate permette di ottenere la distribuzione di dose. Questa operazione è stata dimostrata comportare un numero di operazioni inferiore alla somma diretta pari a $N^3\log_2 N$ \cite{Wong1996}. Il limite di questa metodologia è che risulta esattamente applicabile solo su uno spazio continuo. La discretizzazione che inevitabilmente va effettuata per un calcolo numerico comporta delle approssimazioni. Inoltre questo metodo risulta essere difficilmente estensibile al caso disomogeneo in cui il kernel perde di invarianza spaziale. Sono stati studiati vari approcci basati su correzioni orientate a recuperare l'invarianza spaziale dei kernel anche nel caso disomogeneo. I risultati tuttavia non si sono rivelati soddisfacenti (poca precisione nel calcolo della dose oppure incremento eccessivo del numero di operazioni necessario) \cite{Wong1996}.\\
+
+\textbf{Metodo di \textit{Collapsed-cone-convolution}:\\}
+Questo metodo è quello che si è rivelato il più soddisfacente nella storia degli algoritmi \textit{model-based} in quanto facilmente estensibile al caso disomogeneo e polienergetico. Contiene inoltre come parte fondante una discretizzazione dei kernel di deposizione facilmente adattabile ad un calcolo numerico tramite computer. Il metodo \textit{collapsed-cone} è alla base del motore dosimetrico implementato nel TPS RayStation e verrà presentato nel dettaglio nella sezione successiva.
 
 
 \subsection{L'approssimazione \textit{collapsed-cone}}
-Lo stesso Mackie assieme a Reckwerdt \cite{Reckwerdt1992} propose una discretizzazione del problema \eqref{eq:superp} che consisteva nel calcolare l'integrale \eqref{eq:superp} solo lungo determinate direzioni. Indipendentemente, Ahnesj\"{o} nel 1989 seguendo lo stesso approccio, pubblicò un articolo \cite{Ahnesjo1989} in cui propose il metodo denominato \textit{collapsed-cone} e lo confrontò con il metodo Monte Carlo ottenendo risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
+L'algoritmo collapsed-cone discretizza i kernel di deposizione prima di effettuare la convoluzione in modo da poter effettuare il trasporto della radiazione non in tutte le direzioni ma solo in un loro sottoinsieme (questa operazione avverrebbe in ogni caso impiegando un qualsiasi metodo di risoluzione numerico tramite computer).
+
+Questo approccio è stato presentato indipendemente da Mackie \cite{Reckwerdt1992} e Ahnesj\"{o} \cite{Ahnesjo1989} e fu denominato \textit{collapsed-cone}. Il confronto della dose ottenuta con questo metodo ed il metodo Monte Carlo fornì risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.45\textwidth]{./cap1/kern_ray1.png}$\quad$
@@ -226,7 +236,7 @@ Per capire il meccanismo alla base di questa approssimazione partiamo con l'osse
 \caption{Sinistra: Errore di sampling che si commette discretizzando il kernel solo lungo dei raggi (Ray-tracing). Destra: Meccanismo di ridistribuzione della dose in un settore conico sul proprio asse (Collapsed-cone).}
 \label{fig:raytrace_vs_cc}
 \end{figure}
-Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della rapidità di rilascio di energia nei primi cm di interazione \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc})).\\
+Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della divergenza dei raggi \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc})).\\
 Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso (vedi Fig.\ref{fig:raytrace_vs_cc}). Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
 
 L'operazione di \textquotedblleft\textit{collassamento}\textquotedblright{} dei kernel avviene matematicamente come segue. In primo luogo si effettua un fit analitico del kernel di deposizione calcolato tramite metodologie Monte Carlo. La funzione proposta da Ahnesj\"{o} per questo scopo in coordinate sferiche ha la seguente forma:
@@ -248,7 +258,7 @@ Stabilendo un angolo solido $\Omega_i$, l'operazione di \virg{collassamento} è 
 \end{equation}
 La funzione $K(r,\Omega_i)$ è quella da convolvere con la mappa del TERMA per arrivare alla mappa di dose assorbita.
 
-Il metodo collapsed-cone è stato dimostrato \cite{Ahnesjo1999} comportare un numero di operazioni dell'ordine di $MN^3$ dove $M$ è il numero di settori in cui viene diviso l'angolo solido ed $N$ è il numero di voxel della griglia di dose/TERMA. Questo è da confrontare con l'ordine $N^7$ in caso di somma triviale di tutti i termini che si ottengono discretizzando l'integrale \eqref{eq:superp}.
+Il metodo collapsed-cone esteso al caso più generico (fascio polienergetico e mezzo disomogeneo) è stato dimostrato comportare un numero di operazioni dell'ordine di $MN^3$ dove $M$ è il numero di settori in cui viene diviso l'angolo solido ed $N$ è il numero di voxel della griglia di dose/TERMA \cite{Ahnesjo1989}. Questo risultato è da confrontare con l'ordine $N^7$ in caso di somma diretta di tutti i termini che si ottengono discretizzando l'integrale \eqref{eq:superp} oppure con $N^3\log_2N$ nel caso di applicazione del metodo di trasformata di Fourier.
 
 \begin{figure}
 \centering
@@ -259,6 +269,8 @@ Il metodo collapsed-cone è stato dimostrato \cite{Ahnesjo1999} comportare un nu
 
 In RayStation il numero di settori in cui viene discretizzato il kernel è 128 che corrispondono a 8 direzioni lungo l'angolo di scatter $\theta$ e 16 lungo l'angolo di simmetria cilindrica $\phi$. Il campionamento è più fitto nella direzione di propagazione del fascio dove è presente il gradiente più intenso.
 
+Così come implementato il metodo non richiede nelle ipotesi che il kernel sia un invariante spaziale come nel caso del metodo a trasformata di Fourier. Questo rende semplice la generalizzazione al caso disomogeneo che verrà trattata in seguito alla generalizzazione al caso polienergetico nelle sezioni a seguire.
+
 \subsection{La generalizzazione al caso polienergetico}
 Un tipico fascio di fotoni generato da un LINAC per radioterapia contiene uno spettro polienergetico. Inoltre lo spettro subisce uno spostamento verso energie più alte a causa dell'attraversamento della materia (effetto di \textit{depth-hardening}). Questo suggerisce il fatto che non è possibile considerare un unico kernel di deposizione nel passaggio dal TERMA alla dose. Boyer et al. assieme a Zhu e Van Dyk \cite{Boyer1989,Zhu1995} hanno dimostrato che una discretizzazione in 5 bin sia sufficiente a rappresentare lo spettro di un LINAC da 6MV. Sulla base di ciò, Papanikolaou et al. \cite{Papanikolaou1993} hanno investigato i possibili metodi di estensione del metodo convolution al caso polienergetico dimostrando che è sufficiente combinare kernel monoergetici pesati con le relative componenti spettrali. Nel medesimo lavoro viene dimostrato che il problema del depth-hardening può essere risolto riscalando i kernel con dei fattori che dipendono dalla lunghezza radiologica attraversata.
 
@@ -267,7 +279,11 @@ Il peso di ogni componente spettrale viene stabilito in fase di modellizzazione 
 
 
 \subsection{La generalizzazione al caso disomogeneo}
-Un ulteriore fenomeno da tenere in conto nell'applicazione dei point spread kernel è la disomogeneità del mezzo. In condizioni standard i kernel sono calcolati in un volume omogeneo di acqua, tuttavia la deposizione di energia cambia se i processi di ionizzazione avvengono in un mezzo differente dall'acqua.\\
+Un ulteriore fenomeno da tenere in conto nell'applicazione dei point spread kernel è la disomogeneità del mezzo. 
+
+Considerando un mezzo con varie disomogeneità, la funzione di scatter perde la sua invarianza spaziale per cui l'equazione \eqref{eq:superp} cessa di essere un'integrale di convoluzione. Vedremo nel capitolo successivo come questa condizione matematica rispecchi il fenomeno fisico cosiddetto della \textit{perdita di equilibrio di particelle cariche}\footnote{L'equilibrio di particelle cariche (CPE) è una condizione per cui, considerata una superficie chiusa, il numero di particelle ionizzanti che entrano nella superficie è uguale al numero che ne esce.}.
+
+In condizioni standard i kernel sono calcolati in un volume omogeneo di acqua, tuttavia la deposizione di energia cambia se i processi di ionizzazione avvengono in un mezzo differente dall'acqua. Per questo motivo, in linea di principio, i kernel di deposizione andrebbero di volta in volta ricalcolati a seconda della situazione.\\
 Mackie \cite{Mackie1985} dimostrò come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità del mezzo). La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
 \begin{figure}[!t]
 \centering
@@ -276,7 +292,7 @@ Mackie \cite{Mackie1985} dimostrò come sia possibile evitare di ricalcolare i k
 \caption{(a) Confronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). Destra: effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
 \label{fig:kern_dens}
 \end{figure}
-Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante l'accordo non sia perfetto, vari autori come Arnfield et al. \cite{Arnfield2000} e lo stesso Ahnesj\"{o} \cite{Ahnesjo1989} hanno dimostrato che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
+Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito da Mackie in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante l'accordo non sia perfetto è stato dimostrato \cite{Ahnesjo1989} che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
 
 %L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo omogeneo nella forma \cite{Khan2010}:
 %\begin{equation}
@@ -285,14 +301,14 @@ Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando 
 %\end{equation}
 %Questa equazione rappresenta \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante. Si è già accennato nella Sez.\ref{}
 
-Considerando un mezzo disomogeneo, la funzione di scatter perde la sua invarianza spaziale per cui l'equazione \eqref{eq:superp} cessa di essere un'integrale di convoluzione. Vedremo nel capitolo successivo come questa condizione matematica rispecchi il fenomeno fisico cosiddetto della perdita di equilibrio di particelle cariche\footnote{L'equilibrio di particelle cariche (CPE) è una condizione per cui, considerato una superficie chiusa, il numero di particelle ionizzanti che entrano nella superficie è uguale al numero che ne esce.}.
 
-\`E tuttavia possibile recuperare l'invarianza dei kernel di deposizione grazie all'applicazione del teorema di O'Connor, sostituendo le lunghezze fisiche con le lunghezze radiologiche \cite{Khan2010}. Questa operazione è nota come principio di \textit{superposition} e dà luogo all'equazione:
+Applicando il teorema di O'Connor alla \eqref{eq:superp}, sostituendo le lunghezze fisiche con le lunghezze radiologiche \cite{Khan2010} si ottiene la seguente equazione:
 \begin{equation}
 D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E
 \label{eq:superp_disom}
 \end{equation}
-dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente di fotoni fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose.
+dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente di fotoni fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose.\\
+Questa equazione è nota come equazione di \textit{convolution-superposition} e rappresenta il problema generico del calcolo della dose per un fascio polienergetico e mezzo disomogeneo.
 
 \begin{figure}
 \centering
