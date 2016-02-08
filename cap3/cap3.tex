@@ -6,9 +6,9 @@
 Per radioterapia adattiva o \textit{adaptive radiation therapy} si intende una tecnica di erogazione della dose che di `adatta' ai possibili cambiamenti che si verificano durante il trattamento, rispetto alla situazione iniziale di pianificazione. I cambiamenti che si possono verificare durante un trattamento radiante possono essere di varia natura e riguardare sia l'interno del paziente (progressione/regressione del target, dimagrimento, diverso stato di riempimento degli organi cavi), sia il suo  posizionamento sul lettino di trattamento (incertezza di setup). Il metodo tradizionale di affrontare il problema dei cambiamenti rispetto alla situazione di pianificazione è esposto nei report della \textit{International Commission of Radiological Units} ICRU no.50 e no.62, ripreso anche nel recente report no.83 per le tecniche ad intensità modulata \cite{ICRU2010}. Esso consiste nell'espandere i target di un certo margine di sicurezza in modo da assicurare la loro corretta irradiazione anche in presenza di incertezze dovute al movimento degli organi interni e al posizionamento del paziente.
 \begin{figure}
 \centering
-\includegraphics[width=.3\textwidth]{./cap3/ptv.png}
-\includegraphics[width=.69\textwidth]{./cap3/adapt0.png}
-\caption{Sinistra: definizioni ICRU dei volumi coinvolti nella pianificazione del trattamento radioterapico. Destra: Processo standard di pianificazione ed erogazione del piano del trattamento.}
+a)\includegraphics[width=.25\textwidth]{./cap3/ptv.png}
+b) \includegraphics[width=.64\textwidth]{./cap3/adapt0.png}
+\caption{(a) definizioni ICRU dei volumi coinvolti nella pianificazione del trattamento radioterapico. (b) Processo standard di pianificazione ed erogazione del piano del trattamento.}
 \label{fig:adapt0}
 \end{figure}
 
@@ -38,7 +38,7 @@ Questo tipo di approccio può tuttavia essere non è ottimale per lo specifico p
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap3/margins.png}
-\caption{La formula di Van Herk per ottenere il PTV utilizzando uno studio di coorte (sinistra) da luogo a margini che possono essere sovrabbondanti per il singolo paziente (destra).}
+\caption{La formula di Van Herk per ottenere il PTV utilizzando uno studio di coorte (a) da luogo a margini che possono essere sovrabbondanti per il singolo paziente (b).}
 \label{fig:margins}
 \end{figure}
 
@@ -46,9 +46,9 @@ Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\textwidth]{./cap3/adapt1.png}
-\includegraphics[width=\textwidth]{./cap3/adapt2.png}
-\caption{Sopra: approccio di adaptive radiotherapy in cui viene unicamente modificato l'isocentro del piano a seguito di rilevazioni dell'errore di posizionamento del paziente tramite portal-imager (PI). Sotto: approccio di adaptive radiotherapy in cui alla modificazione dell'isocentro si aggiunge la modificazione dei margini attorno al CTV in base a rilevazioni di tomografia computerizzata (CT); in questo caso il piano di trattamento si adatta al nuovo PTV \textit{confidence-limit PTV o cl-PTV} stimato dopo le cinque sedute di controllo.}
+a)\includegraphics[width=.95\textwidth]{./cap3/adapt1.png}
+b)\includegraphics[width=.95\textwidth]{./cap3/adapt2.png}
+\caption{(a) approccio di adaptive radiotherapy in cui viene unicamente modificato l'isocentro del piano a seguito di rilevazioni dell'errore di posizionamento del paziente tramite portal-imager (PI). (b) approccio di adaptive radiotherapy in cui alla modificazione dell'isocentro si aggiunge la modificazione dei margini attorno al CTV in base a rilevazioni di tomografia computerizzata (CT); in questo caso il piano di trattamento si adatta al nuovo PTV \textit{confidence-limit PTV o cl-PTV} stimato dopo le cinque sedute di controllo.}
 \label{fig:adaptYAN}
 \end{figure}
 
@@ -229,7 +229,7 @@ Il cambiamento del riempimento degli organi interni al distretto pelvico (retto 
 \centering
 \includegraphics[width=.48\textwidth]{./cap3/YES_PR.png}
 \includegraphics[width=.48\textwidth]{./cap3/YES_PR_shrink.png}
-\caption{Studio multicentrico - caso prostata.}
+\caption{Studio multicentrico - caso prostata: riduzione del volume vescicale ed espansione del volume rettale.}
 \label{fig:YES_PR}
 \end{figure}
 

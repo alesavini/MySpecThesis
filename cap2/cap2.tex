@@ -33,7 +33,7 @@ I profili di dose si ottengono in maniera analoga muovendo il detector in piani 
 \centering
 \includegraphics[width=\textwidth]{./cap2/pdd_prof.png}\\
 \includegraphics[width=.5\textwidth]{./cap2/of.png}
-\caption{Tipici andamenti delle misure di dosimetria relativa: curva dose-profondità (PDD) (sinistra-alto); profilo di dose (destra-alto); output factor (centro).}
+\caption{Tipici andamenti delle misure di dosimetria relativa: curva dose-profondità (PDD) (a); profilo di dose (b); output factor (c).}
 \label{fig:pdd_prof}
 \end{figure}
 Nella Fig.\ref{fig:pdd_prof} è possibile visualizzare gli andamenti tipici di una curva di dose-profondità e di un profilo di dose.
@@ -108,7 +108,7 @@ Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} 
 \centering
 \includegraphics[width=.65\textwidth]{./cap2/Accuracy_zones.png}\\\vspace{.3cm}
 \includegraphics[width=\textwidth]{./cap2/Accuracy_pdd_prof.png}
-\caption{In alto: suddivisione delle varie zone di interesse su cui valutare l'accuratezza del calcolo di dose con la tolleranza specifica $\delta_i$, $i\in[1,4]$. In basso: tolleranze visualizzate sulle varie zone in interesse per una PDD e un profilo di dose. I valori numerici delle tolleranze sono indicati nella Tab.\ref{tab:tol}}
+\caption{(a) suddivisione delle varie zone di interesse su cui valutare l'accuratezza del calcolo di dose con la tolleranza specifica $\delta_i$, $i\in[1,4]$. (b) tolleranze visualizzate sulle varie zone in interesse per una PDD e un profilo di dose. I valori numerici delle tolleranze sono indicati nella Tab.\ref{tab:tol}}
 \label{fig:accuracy_zones}
 \end{figure}
 
@@ -181,18 +181,18 @@ La dosimetria dei piccoli campi di irradiazione presenta varie criticità \cite{
 \end{itemize}
 \item Apertura dei collimatori comparabili con la dimensioni proiettate della sorgente.
 \begin{itemize}
-\item[-] Questo crea un doppio effetto che consiste in una forte riduzione della dose sull'asse centrale del fascio assieme ad una modificazione della forma del profilo (forma ogivale e allargamento della penombra) (vedi Fig.\ref{fig:small_eff}).
+\item[-] Questo crea un doppio effetto che consiste in una forte riduzione della dose sull'asse centrale del fascio assieme ad una modificazione della forma del profilo (forma ogivale e allargamento della penombra) (vedi Fig.\ref{fig:small_eff}a).
 \end{itemize}
 \item Dimensioni dei detector comuni comparabili con le dimensioni del campo.
 \begin{itemize}
-\item[-] Ciò può portare ad un effetto di \textit{volume averaging} indicato nella Fig.\ref{fig:small_eff} che si traduce in una sottostima del massimo della dose al centro e ad una modificazione delle penombre.
+\item[-] Ciò può portare ad un effetto di \textit{volume averaging} indicato nella Fig.\ref{fig:small_eff}b che si traduce in una sottostima del massimo della dose al centro e ad una modificazione delle penombre.
 \end{itemize}
 \end{itemize}
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.7\textwidth]{./cap2/small_eff1.png}
-\includegraphics[width=.7\textwidth]{./cap2/small_eff2.png}
-\caption{In alto: la sovrapposizione delle penombre dei collimatori (legate alle dimensioni della sorgente primaria) porta ad una modificazione della forma del profilo di dose (forma ogivale e penombre allargate) assieme ad una forte riduzione della dose al centro. In basso: un detector di dimensioni comparabili con le dimensioni del profilo può portare ad una sottostima della dose a causa dell'effetto di \textit{volume averaging}.}
+a)\includegraphics[width=.7\textwidth]{./cap2/small_eff1.png}
+b)\includegraphics[width=.7\textwidth]{./cap2/small_eff2.png}
+\caption{(a) la sovrapposizione delle penombre dei collimatori (legate alle dimensioni della sorgente primaria) porta ad una modificazione della forma del profilo di dose (forma ogivale e penombre allargate) assieme ad una forte riduzione della dose al centro. (b) un detector di dimensioni comparabili con le dimensioni del profilo può portare ad una sottostima della dose a causa dell'effetto di \textit{volume averaging}.}
 \label{fig:small_eff}
 \end{figure}
 
@@ -218,12 +218,12 @@ Seguendo le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low201
 \item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo: $0.13\,$cm$^3$).
 \item Dimensioni di campo (in cm$^2$) $1x1$, $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo: $0.09\,$mm$^3$).
 \end{itemize}
-Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, in Fig.\ref{fig:pen_of} vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
+Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, in Fig.\ref{fig:pen_of}a vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.75\textwidth]{./cap2/pen_smear.png}\\
-\includegraphics[width=.75\textwidth]{./cap2/OF_uncert.png}
-\caption{In alto: Effetto di smussamento della penombra dei profili dovuto al volume esteso delle camere a ionizzazione confrontato con scansioni effettuate con detector di dimensioni ridotte \cite{Das2008a}. In basso: misura degli output factor a piccoli campi a seconda del detector impiegato\cite{Das2008}.}
+a)\includegraphics[width=.75\textwidth]{./cap2/pen_smear.png}\\
+b)\includegraphics[width=.75\textwidth]{./cap2/OF_uncert.png}
+\caption{(a) Effetto di smussamento della penombra dei profili dovuto al volume esteso delle camere a ionizzazione confrontato con scansioni effettuate con detector di dimensioni ridotte \cite{Das2008a}. (b) misura degli output factor a piccoli campi a seconda del detector impiegato\cite{Das2008}.}
 \label{fig:pen_of}
 \end{figure}
 Si può notare come le camere a ionizzazione con estesi volumi sensibili ($0.6\,$cc e $0.3\,$cc) portino ad una sovrastima della penombra a causa dell'effetto di volume-averaging. L'effetto è tanto più trascurabile quanto più viene diminuita la dimensione del detector (es. micro-camera a ionizzazione con volume sensibile di $0.125\,$cc oppure detector a semiconduttore come PFD e SFD). L'accurata misura delle penombre, è di cruciale importanza in quanto vedremo che la modellizzazione delle dimensioni della sorgente primaria è tanto più precisa quanto più lo sono le misure di penombra dei campi di piccole dimensioni.
@@ -238,7 +238,7 @@ dove $D(XxY)$ è la lettura di dose per un campo di dimensioni $XxY\,$cm$^2$ e $
 
 Seguendo le indicazioni delle ditta produttrice del TPS \cite{RaySearchLaboratories2014}, gli OF sono stati misurati per ogni dimensione di campo con il medesimo detector utilizzato per le misure di PDD e profili di dose. Mentre per i campi al di sopra di $4x4\,$cm$^2$ è stata impiegata una camera a ionizzazione secondo una procedura consolidata per la 3D-CRT \cite{Andreo2006}, il rivelatore a semiconduttore PFD utilizzato per i campi piccoli può presentare delle criticità. Varie evidenze scientifiche riassunte dall'AAPM TG-120 \cite{Low2011} hanno dimostrato che la classe di dosimetri basata su semiconduttore al silicio tende a sovrastimare la lettura di dose \cite{Low2011}. Ciò è dovuto al più alto numero atomico del silicio rispetto al numero atomico medio dell'acqua che comporta un aumento dell'efficienza di rivelazione dei fotoni a bassa energia\footnote{Fotoni di bassa energia interagiscono principalmente per effetto fotoelettrico la cui probabilità di accadimento è proporzionale a $Z^3$.}. L'effetto è marcato per campi grandi (i.e. $> 4x4\,$cm$^2$) in cui i fotoni a bassa energia aumentano in percentuale. Un tipico rimedio a ciò consiste nello schermare il volume di silicio con un materiale ad alta densità (tungsteno nel caso del PFD) che assorbe i fotoni a bassa energia per compensare l'effetto di sovra-risposta. Tuttavia, sebbene si recuperi la sovra-risposta per campi grandi, il materiale ad alta densità nel detector comporta degli effetti di scatter che perturbano la lettura di dose causando una sovra-risposta per i campi piccoli \cite{Griessbach2005}.
 
-Per poter effettuare una valutazione dell'incertezza degli OF misurati con il rivelatore a semiconduttore PFD, è stato quindi condotto uno studio che ha implicato l'utilizzo di una serie di detector di differente natura. In particolare è stato effettuato un interconfronto dei rivelatori indicati nella Tab.\ref{tab:OF_inter}.\\ I risultati di questo interconfronto sono riportati in Fig.\ref{fig:OF_res} e possono essere comparati qualitativamente con la Fig.\ref{fig:pen_of} pubblicata in letteratura \cite{Das2008}.
+Per poter effettuare una valutazione dell'incertezza degli OF misurati con il rivelatore a semiconduttore PFD, è stato quindi condotto uno studio che ha implicato l'utilizzo di una serie di detector di differente natura. In particolare è stato effettuato un interconfronto dei rivelatori indicati nella Tab.\ref{tab:OF_inter}.\\ I risultati di questo interconfronto sono riportati in Fig.\ref{fig:OF_res}b e possono essere comparati qualitativamente con la Fig.\ref{fig:pen_of}b pubblicata in letteratura \cite{Das2008}.
 \begin{table}[!t]
 \centering
 \arrstr{1.3}
@@ -267,9 +267,9 @@ Razor & Diodo SI & IBA Dosimetry & $0.000006$ \\
 \end{table}
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.8\textwidth]{./cap2/OF_plots/OFCC13.eps}\\
-\includegraphics[width=.8\textwidth]{./cap2/OF_plots/OFSmall.eps}
-\caption{Sopra: output factor misurati con la camera a ionizzazione; da notare è la normalizzazione ($OF=1$) per il campo $10x10\,$cm$^2$. Sotto: interconfronto tra vari detector nella stima degli output factor dei piccoli campi.}
+a)\includegraphics[width=.8\textwidth]{./cap2/OF_plots/OFCC13.eps}\\
+b)\includegraphics[width=.8\textwidth]{./cap2/OF_plots/OFSmall.eps}
+\caption{(a) output factor misurati con la camera a ionizzazione; da notare è la normalizzazione ($OF=1$) per il campo $10x10\,$cm$^2$. (b) interconfronto tra vari detector nella stima degli output factor dei piccoli campi.}
 \label{fig:OF_res}
 \end{figure}
 In esse si può notare come la misura degli OF per piccoli campi presenti un certo grado di variabilità a seconda del detector utilizzato. Le variabilità più ampie si riscontrano per i campi di dimensione $\leq 2x2\,$cm$^2$ (superiori al $5\%$, vedi Tab.\ref{tab:delta_OF}). 
@@ -298,7 +298,7 @@ $7x7$ & $0.4\%$ & $0.8\%$ & $0.2\%$	&         &         &         \\
 
 Il diodo PFD, in accordo con il comportamento atteso per campi grandi \cite{Griessbach2005}, misura degli OF simili a quelli misurati con la camera a ionizzazione CC13. In particolare, per campi $\geq 5x5\,$cm$^2$ la deviazione tra il PFD e la camera CC13 risulta inferiore all'$1\%$ (Tab.\ref{tab:delta_OF}). Per campi piccoli ($\leq 4x4$cm$^2$) si nota invece una sovrastima dell'ouput factor che diventa rilevante per il campo $1x1\,$cm$^2$ ($\Delta > 5\div9\%$ ).
 
-Parallelamente ai diodi schermati, esistono in commercio anche detector basati su silicio non schermato (i.e. SFD e Razor della IBA Dosimetry). Per questi detector l'effetto di sovrastima dell'OF a piccoli campi è ridotto, tuttavia viene amplificato quello a campi grandi. Le correnti raccomandazioni di misura degli OF \cite{Andreo2006,RaySearchLaboratories2014} stabiliscono come campo di riferimento quello di dimensioni $10x10\,$cm$^2$. La lettura di dose per questo campo, effettuata con un diodo non schermato, risulta sovrastimata per l'abbondanza dei fotoni a bassa energia \cite{Griessbach2005}. Sovrastimando la lettura di riferimento, gli OF per campi più piccoli risulteranno sottostimati. Questo effetto è visibile nella Fig.\ref{fig:OF_res} in cui risulta chiara la sistematicità della sottostima degli OF misurati con i diodi non schermati (SFD e Razor), rispetto a tutti gli altri detector.
+Parallelamente ai diodi schermati, esistono in commercio anche detector basati su silicio non schermato (i.e. SFD e Razor della IBA Dosimetry). Per questi detector l'effetto di sovrastima dell'OF a piccoli campi è ridotto, tuttavia viene amplificato quello a campi grandi. Le correnti raccomandazioni di misura degli OF \cite{Andreo2006,RaySearchLaboratories2014} stabiliscono come campo di riferimento quello di dimensioni $10x10\,$cm$^2$. La lettura di dose per questo campo, effettuata con un diodo non schermato, risulta sovrastimata per l'abbondanza dei fotoni a bassa energia \cite{Griessbach2005}. Sovrastimando la lettura di riferimento, gli OF per campi più piccoli risulteranno sottostimati. Questo effetto è visibile nella Fig.\ref{fig:OF_res}b in cui risulta chiara la sistematicità della sottostima degli OF misurati con i diodi non schermati (SFD e Razor), rispetto a tutti gli altri detector.
 
 A causa delle dimostrate criticità nella misura degli OF a piccoli campi, è stato proposto di revisionare i protocolli correnti introducendo, tra le altre cose, una correzione alla misura degli OF che tiene conto della geometria di misura e della natura del detector utilizzato \cite{Alfonso2008}. In particolare l'Eq.\eqref{eq:OF} si aggiunge di un fattore:
 \begin{equation}
@@ -376,8 +376,8 @@ In particolare i più importanti consistono in:
 Questi dettagli costruttivi comportano degli effetti dosimetrici normalmente trascurabili in 3D-CRT ma che possono diventare rilevanti nelle tecniche ad intensità modulata a causa della sovrapposizione dei vari segmenti.
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.4\textwidth]{./cap2/MLC_tip-tg.png}
-\includegraphics[width=.55\textwidth]{./cap2/MLC_tip-tg_3D.png}
+a)\includegraphics[width=.35\textwidth]{./cap2/MLC_tip-tg.png}
+b)\includegraphics[width=.5\textwidth]{./cap2/MLC_tip-tg_3D.png}
 \caption{Sinistra: MLC visto a partire dalla sorgente (\textit{beam's eye view}) con indicate le zone per cui la dose è influenzata dai dettagli costruttivi. Destra: visione 3D dell'MLC con fascio proveniente da destra.}
 \label{fig:MLC_Regions}
 \end{figure}
@@ -481,15 +481,15 @@ In Fig.\ref{fig:Ray_PDD_meas_calc} è mostrato qualitativamente l'accordo raggiu
 
 
 \subsection{Profili - Off-axis softening, beam profile correction e sorgente di scatter}
-Una volta ottimizzato il modello per il calcolo della dose in profondità a centro asse (PDD), si può passare all'ottimizzazione del modello fuori asse (profili). La distribuzione di dose fuori asse è influenzata dalla presenza del flattening-filter (vedi nota a Pag.\pageref{foot:flatt}). Questo dispositivo di forma piramidale attenua la fluenza di fotoni al centro. Ciò provoca anche un aumento dell'energia media del fascio centrale rispetto al fascio fuori asse. Questo processo è noto con il nome di \textit{`off-axis softening'}. RayPhysics modellizza l'off-axis softening introducendo una funzione radiale definita per punti che rappresenta il flattening-filter come un oggetto di acqua equivalente. Lo spessore di acqua equivalente è riscalato in modo che il fascio al centro risulti non attenuato (spessore pari a zero) ed il fascio fuori asse risulti `attenuato' da uno spessore di acqua negativo (vedi Fig.\ref{fig:Ray_flatt}).
+Una volta ottimizzato il modello per il calcolo della dose in profondità a centro asse (PDD), si può passare all'ottimizzazione del modello fuori asse (profili). La distribuzione di dose fuori asse è influenzata dalla presenza del flattening-filter (vedi nota a Pag.\pageref{foot:flatt}). Questo dispositivo di forma piramidale attenua la fluenza di fotoni al centro. Ciò provoca anche un aumento dell'energia media del fascio centrale rispetto al fascio fuori asse. Questo processo è noto con il nome di \textit{`off-axis softening'}. RayPhysics modellizza l'off-axis softening introducendo una funzione radiale definita per punti che rappresenta il flattening-filter come un oggetto di acqua equivalente. Lo spessore di acqua equivalente è riscalato in modo che il fascio al centro risulti non attenuato (spessore pari a zero) ed il fascio fuori asse risulti `attenuato' da uno spessore di acqua negativo (vedi Fig.\ref{fig:Ray_flatt}b).
 \begin{figure}[!t]
 \centering
 \begin{tabular}{m{.3\textwidth}m{.6\textwidth}}
-\vspace*{-0.5cm}\includegraphics[width=.3\textwidth]{./cap2/Ray_flatt1.png} &
+\vspace*{-0.5cm}a)\includegraphics[width=.3\textwidth]{./cap2/Ray_flatt1.png} &
 \includegraphics[width=.6\textwidth]{./cap2/Ray_flatt2.png}
 \end{tabular}
-\includegraphics[width=.9\textwidth]{./cap2/Ray_flatt3.png}
-\caption{Flattening filter: foto e schema costruttivo (in alto). Modellizzazione del flattening filter con la funzione di off-axis softening (in basso)}
+c)\includegraphics[width=.9\textwidth]{./cap2/Ray_flatt3.png}
+\caption{Flattening filter: foto e schema costruttivo a). Modellizzazione del flattening filter con la funzione di off-axis softening (b)}
 \label{fig:Ray_flatt}
 \end{figure}
 
@@ -505,7 +505,7 @@ Modificando questi parametri, si riesce a modulare la parte distale ad alta dose
 Per modellizzare accuratamente i profili di dose è necessario ottimizzare simultaneamente le funzioni di off-axis softening e beam profile correction assieme alla sorgente di scatter. L'effetto della sorgente di scatter è dipendente dalla dimensione di campo assumendo più importanza per i campi di dimensioni $> 10x10\,$cm$^2$.\\
 Per questo motivo si è scelto di partire con l'ottimizzazione dei profili per il campo di riferimento $10x10\,$cm$^2$ e a seguire dei campi di dimensione superiore con un metodo di iterativo di \textit{trial-and-error}. Durante il processo i parametri sono stati variati entro i range consigliati dalla ditta (mostrati nelle parentesi quadre):
 \begin{itemize}
-\item Off-axis softening $\in[0,-30]$; risultato: vedi Fig.\ref{fig:Ray_flatt}.
+\item Off-axis softening $\in[0,-30]$; risultato: vedi Fig.\ref{fig:Ray_flatt}b.
 \item Beam-profile correction $\in[0.95,1.05]$; risultato: vedi Fig.\ref{fig:Ray_beamprof}.
 \item Dimensione della sorgente di scatter $\in[1.0,3.5]\,$cm; risultato$\,=2.065\,$cm.
 \item Peso della sorgente di scatter $\in[0.05,0.1]$; risultato$\,=0.09048$.
@@ -525,9 +525,9 @@ La sorgente primaria di irradiazione è modellizzata in RayStation con un profil
 Per questo motivo, la modellizzazione delle dimensioni della sorgente è stata effettuata utilizzando il campo di dimensioni minime ($2x2\,$cm$^2$). In seguito la valutazione è stata estesa anche agli altri campi per aggiustamenti fini del modello.
 \begin{figure}
 \centering
-\includegraphics[width=.48\textwidth]{./cap2/Ray_penumbra_wrong.PNG}
-\includegraphics[width=.48\textwidth]{./cap2/Ray_penumbra_right.PNG}
-\caption{Sinistra: una sorgente troppo estesa ($0.1\,$cm) porta ad una sovrastima delle penombre del profilo di dose di dimensioni $2x2\,$cm$^2$ (qui mostrato il profilo \textit{inline} a $10\,$cm di profondità). Destra: dimensioni della sorgente ottimizzate ($0.042\,$cm).}
+a)\includegraphics[width=.43\textwidth]{./cap2/Ray_penumbra_wrong.PNG}
+b)\includegraphics[width=.43\textwidth]{./cap2/Ray_penumbra_right.PNG}
+\caption{(a) una sorgente troppo estesa ($0.1\,$cm) porta ad una sovrastima delle penombre del profilo di dose di dimensioni $2x2\,$cm$^2$ (qui mostrato il profilo \textit{inline} a $10\,$cm di profondità). (b) dimensioni della sorgente ottimizzate ($0.042\,$cm).}
 \label{fig:source_2x2}
 \end{figure}
 
@@ -569,9 +569,9 @@ Tutti i parametri sopra citati sono stati ottimizzati utilizzando le curve di do
 La trasmissione del MLC è modellizzata all'interno di RayPhysics con un unico parametro che tiene conto in media sia della trasmissione interleaf che intraleaf. Si è scelto di misurare questa quantità ponendo una camera a ionizzazione di volume esteso ($0.65\,$cm$^3$) con l'asse perpendicolare alla direzione di movimento dei leaf a $1.5\,$cm di profondità in acqua. I campi utilizzati per questa misura sono riportati nella Fig.\ref{fig:MLC_Trans}. 
 \begin{figure}
 \centering
-\includegraphics[width=.48\textwidth]{./cap2/MLC_TransX1.png}
-\includegraphics[width=.48\textwidth]{./cap2/MLC_TransX2.png}
-\caption{Campi utilizzati per la misura di trasmissione del MLC per il banco X1 (sinistra) e il banco X2 (destra).}
+a)\includegraphics[width=.43\textwidth]{./cap2/MLC_TransX1.png}
+b)\includegraphics[width=.43\textwidth]{./cap2/MLC_TransX2.png}
+\caption{Campi utilizzati per la misura di trasmissione del MLC per il banco X1 (a) e il banco X2 (b).}
 \label{fig:MLC_Trans}
 \end{figure}
 
@@ -609,16 +609,16 @@ In Fig.\ref{fig:MLC_tip_model}, è riportato il particolare del confronto dei pr
 \vspace*{-.3cm}\includegraphics[width=.38\textwidth]{./cap2/MLC_tip_model.png} &
 \includegraphics[width=.6\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling.eps}
 \end{tabular}
-\caption{Sinistra: Modello della punta dei leaf implementato in RayStation. Destra: Modellizzazione dell'effetto di leaf tip utilizzando i campi descritti nella Fig.\ref{fig:MLC_tip_effect}.}
+\caption{(a) Modello della punta dei leaf implementato in RayStation. (b) Modellizzazione dell'effetto di leaf tip utilizzando i campi descritti nella Fig.\ref{fig:MLC_tip_effect}.}
 \label{fig:MLC_tip_model}
 \end{figure}
 
 La modellizzazione dell'effetto di leaf tip è stata in seguito verificata misurando profili di campi adiacenti fuori dall'asse centrale con la stessa tecnica indicata in Fig.\ref{fig:MLC_tip_effect}. I medesimi campi sono stati riprodotti nel TPS utilizzando il parametro di leaf tip width ottimizzato pari a $0.3\,$cm. Il confronto misurato/calcolato è riportato in Fig.\ref{fig:MLC_tip_model_offaxis} e dimostra come il modello della punta del leaf sia accurato anche in situazioni diverse da quelle di riferimento.
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxis.eps}
-\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxisSUM.eps}
-\caption{Sinistra: profili crossline di campi adiacenti fuori asse centrale misurati con il diodo Razor (IBA Dosimetry) a $10\,$cm di profondità. Destra: somma dei campi adiacenti e confronto con il calcolo.}
+a)\includegraphics[width=.43\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxis.eps}
+b)\includegraphics[width=.43\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxisSUM.eps}
+\caption{(a) profili crossline di campi adiacenti fuori asse centrale misurati con il diodo Razor (IBA Dosimetry) a $10\,$cm di profondità. (b) somma dei campi adiacenti e confronto con il calcolo.}
 \label{fig:MLC_tip_model_offaxis}
 \end{figure}
 
@@ -753,9 +753,9 @@ Un piano clinico può essere accettato se la percentuale di punti dell'istogramm
 Il sistema di verifica pre-trattamento disponibile presso l'azienda ospedaliera di Teramo è denominato MatriXX ed è commercializzato dalla IBA Dosimetry (Schwarzenbruck, Germany). Questo sistema è costituito da una matrice di 1024 rivelatori a camera a ionizzazione disposti su un piano e permette quindi una misurazione planare della dose. Per simulare le condizioni di irraggiamento del paziente, il MatriXX viene posto all'interno di un fantoccio cubico denominato MultiCube (vedi Fig.\ref{fig:MatriXX}). 
 \begin{figure}
 \centering
-\includegraphics[width=.49\textwidth]{./cap2/MatriXX_Alone.png}
-\includegraphics[width=.49\textwidth]{./cap2/MatriXX_Cube.png}
-\caption{Rivelatore MatriXX (sinistra) e suo posizionamento all'interno del MultiCube (destra) sul lettino del LINAC per effettuare la verifica pre-trattamento}
+a)\includegraphics[width=.43\textwidth]{./cap2/MatriXX_Alone.png}
+b)\includegraphics[width=.43\textwidth]{./cap2/MatriXX_Cube.png}
+\caption{Rivelatore MatriXX (a) e suo posizionamento all'interno del MultiCube (b) sul lettino del LINAC per effettuare la verifica pre-trattamento}
 \label{fig:MatriXX}
 \end{figure}
 Questo fantoccio è costituito da un materiale che per densità e purezza si comporta similmente all'acqua quando irraggiato da un fascio clinico\footnote{Materiale comunemente noto in gergo come \textit{acqua-equivalente}.}. 
@@ -763,15 +763,15 @@ Questo fantoccio è costituito da un materiale che per densità e purezza si com
 Il processo di verifica pre-trattamento si realizza con questa strumentazione effettuando uno studio di tomografia computerizzata (CT) del complesso MatriXX più MultiCube. Su questa CT viene ricalcolato il piano di trattamento da verificare da cui viene estratto il piano di dose predetto a livello dei detector (vedi Fig.\ref{fig:MatriXX_CT}).
 \begin{figure}
 \centering
-\includegraphics[width=.49\textwidth]{./cap2/MatriXX_CT.png}
-\includegraphics[width=.49\textwidth]{./cap2/MatriXX_CT_Plan.png}
-\caption{Sinistra: studio CT del complesso MatriXX più MultiCube. Destra: erogazione di un piano di trattamento volumetrico ad arco sul complesso MatriXX più MultiCube per la verifica pre-trattamento.}
+a)\includegraphics[width=.43\textwidth]{./cap2/MatriXX_CT.png}
+b)\includegraphics[width=.43\textwidth]{./cap2/MatriXX_CT_Plan.png}
+\caption{(a) studio CT del complesso MatriXX più MultiCube. (b) erogazione di un piano di trattamento volumetrico ad arco sul complesso MatriXX più MultiCube per la verifica pre-trattamento.}
 \label{fig:MatriXX_CT}
 \end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap2/gamma_comparison.png}
-\caption{Confronto tra piano di dose misurato (alto sin.) e calcolato (alto des.) in termini di profili (basso sin.) o di mappa del $\gamma$\textit{-index} (basso des.).}
+\caption{Confronto tra piano di dose misurato (a) e calcolato (b) in termini di profili (c) o di mappa del $\gamma$\textit{-index} (d).}
 \label{fig:gamma_comparison}
 \end{figure}
 
@@ -792,11 +792,11 @@ Il TG-119 richiede di pianificare dei trattamenti su fantocci virtuali rispettan
 Si è scelto di applicare la serie di test del task group a tutte le tecniche ad intensità modulata disponbili (IMRT-SMLC, IMRT-DMLC e VMAT). In Fig.\ref{fig:TG119_stats} sono riportati in forma schematica i vincoli dosimetrici imposti dal task group e il valore raggiunto con il TPS RayStation. In tutti i casi i vincoli dosimetrici sono risultati compatibili o migliori di quelli raggiunti dal TG-119.
 \begin{figure}
 \centering
-\includegraphics[width=.7\textwidth]{./cap2/TG119_Plots/Target_Coverage.eps}\\
+a)\includegraphics[width=.7\textwidth]{./cap2/TG119_Plots/Target_Coverage.eps}\\
 \centerline{
-\includegraphics[width=.55\textwidth]{./cap2/TG119_Plots/Target_Hotspots.eps}
+b)\includegraphics[width=.55\textwidth]{./cap2/TG119_Plots/Target_Hotspots.eps}
 \includegraphics[width=.7\textwidth]{./cap2/TG119_Plots/OARs.eps}}
-\caption{Vincoli dosimetrici suggeriti (Goal) e raggiunti (TG119) dal task group 119 confrontati con i valori raggiunti con il TPS RayStation per le tecniche SMLC, DMLC e VMAT. In alto: confronto dei vincoli per la copertura dei target (valori al di sopra del Goal sono vantaggiosi). In basso: confronto dei vincoli per gli hotspot nei target e negli organi a rischio (valori al di sotto del Goal sono vantaggiosi). }
+\caption{Vincoli dosimetrici suggeriti (Goal) e raggiunti (TG119) dal task group 119 confrontati con i valori raggiunti con il TPS RayStation per le tecniche SMLC, DMLC e VMAT. (a) confronto dei vincoli per la copertura dei target (valori al di sopra del Goal sono vantaggiosi). (b) confronto dei vincoli per gli hotspot nei target e negli organi a rischio (valori al di sotto del Goal sono vantaggiosi). }
 \label{fig:TG119_stats}
 \end{figure}
 

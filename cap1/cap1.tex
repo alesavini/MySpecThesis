@@ -193,9 +193,9 @@ Moltiplicando il termine $\mu / \rho(\vec{r'},E)$  con la fluenza espressa dalla
 \caption{Prevalenza degli effetti di interazione dei fotoni con la materia in funzione dell'energia del fotone. L'effetto Compton è prevalente per le energie () e i materiali tipici della radioterapia .}
 \label{fig:compt_dom}
 \end{figure}
-Alle energie tipiche dei fotoni utilizzati in radioterapia l'effetto predominante è l'effetto Compton (Fig.\ref{fig:compt_dom}). Una modellizzazione completa del trasporto del fotone diffuso e dell'elettrone messo in moto richiede un approccio statistico di tipo Monte Carlo, computazionalmente molto dispendioso. L'approccio convolution/superposition racchiude i processi statistici di deposizione dell'energia nella funzione di scatter introdotta nell'Eq.\eqref{eq:superp} ed agisce in maniera deterministica.
+Alle energie tipiche dei fotoni utilizzati in radioterapia l'effetto predominante è l'effetto Compton (Fig.\ref{fig:compt_dom}) secondo cui l'interazione del fotone primario genera un fotone diffuso ed un elettrone con una certa energia cinetica. Una modellizzazione completa del trasporto del fotone diffuso e dell'elettrone messo in moto richiede un approccio statistico di tipo Monte Carlo, computazionalmente molto dispendioso. L'approccio convolution/superposition racchiude i processi statistici di deposizione dell'energia nella funzione di scatter introdotta nell'Eq.\eqref{eq:superp} ed agisce in maniera deterministica.
 
-La funzione di scatter è ottenibile a partire da una simulazione Monte Carlo in cui un unico fotone viene fatto interagire forzatamente all'interno di un volume omogeneo di acqua e si va ad osservare la deposizione della dose che ne deriva. Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il software Monte Carlo EGS sviluppato dallo Stanford Linear Accelerator Center che pubblicò nella metà degli anni '80 delle funzioni di scatter discretizzate in forma tabulare, proponendo un metodo di convoluzione del tipo look-up-table (prontamente implementabile in un computer) (vedi Fig.\ref{fig:mackie_kernels}).
+La funzione di scatter è ottenibile a partire da una simulazione Monte Carlo in cui un unico fotone viene fatto interagire forzatamente all'interno di un volume omogeneo di acqua e si va ad osservare la deposizione della dose che ne deriva. Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il software Monte Carlo EGS sviluppato dallo Stanford Linear Accelerator Center che pubblicò nella metà degli anni '80 delle funzioni di scatter discretizzate in forma tabulare (vedi Fig.\ref{fig:mackie_kernels}).
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap1/mackie_kernels.png}
@@ -210,7 +210,7 @@ Questa operazione è effettuata per via numerica (tramite computer) e presuppone
 Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, in linea di principio è possibile arrivare alla dose assorbita in maniera triviale risolvendo per somma diretta l'integrale \eqref{eq:superp}. Tuttavia, questa operazione su una griglia di $N^3$ voxel e generalizzata ad un mezzo disomogeneo, risulta essere un problema  di ordine $N^7$ \cite{Ahnesjo1989}. Un tale numero di operazioni è difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare risolvendo numericamente l'integrale \eqref{eq:superp} sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9=10^5\,sec\approx 2\, ore!$.}. \\
 
 \textbf{Metodo di Fast Fourier Transform (FFT):\\}
-Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante (l'integrale è un prodotto di convoluzione). Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione  diventa un semplice prodotto delle trasformate delle funzioni nello spazio di Fourier. L'operazione di antitrasformata del prodotto delle funzioni trasformate permette di ottenere la distribuzione di dose. Questa operazione è stata dimostrata comportare un numero di operazioni inferiore alla somma diretta pari a $N^3\log_2 N$ \cite{Wong1996}. Il limite di questa metodologia è che risulta esattamente applicabile solo su uno spazio continuo. La discretizzazione che inevitabilmente va effettuata per un calcolo numerico comporta delle approssimazioni. Inoltre questo metodo risulta essere difficilmente estensibile al caso disomogeneo in cui il kernel perde di invarianza spaziale. Sono stati studiati vari approcci basati su correzioni orientate a recuperare l'invarianza spaziale dei kernel anche nel caso disomogeneo. I risultati tuttavia non si sono rivelati soddisfacenti (poca precisione nel calcolo della dose oppure incremento eccessivo del numero di operazioni necessario) \cite{Wong1996}.\\
+Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante (l'integrale è un prodotto di convoluzione). Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione  diventa un semplice prodotto delle trasformate delle funzioni nello spazio di Fourier. L'operazione di antitrasformata del prodotto delle funzioni trasformate permette di ottenere la distribuzione di dose. Questa operazione è stata dimostrata comportare un numero di operazioni inferiore alla somma diretta pari a $N^3\log_2 N$ \cite{Wong1996}. Il limite di questa metodologia è che risulta esattamente applicabile solo su uno spazio continuo. La discretizzazione che inevitabilmente va effettuata per un calcolo numerico comporta delle approssimazioni. Inoltre questo metodo risulta essere difficilmente estensibile al caso disomogeneo in cui il kernel perde di invarianza spaziale. Sono stati studiati vari approcci basati su correzioni orientate a recuperare l'invarianza spaziale dei kernel anche nel caso disomogeneo. I risultati tuttavia non si sono rivelati soddisfacenti se comparati con il metodo presentato nel paragrafo successivo \cite{Wong1996}.\\
 
 \textbf{Metodo di \textit{Collapsed-cone-convolution}:\\}
 Questo metodo è quello che si è rivelato il più soddisfacente nella storia degli algoritmi \textit{model-based} in quanto facilmente estensibile al caso disomogeneo e polienergetico. Contiene inoltre come parte fondante una discretizzazione dei kernel di deposizione facilmente adattabile ad un calcolo numerico tramite computer. Il metodo \textit{collapsed-cone} è alla base del motore dosimetrico implementato nel TPS RayStation e verrà presentato nel dettaglio nella sezione successiva.
@@ -222,29 +222,29 @@ L'algoritmo collapsed-cone discretizza i kernel di deposizione prima di effettua
 Questo approccio è stato presentato indipendemente da Mackie \cite{Reckwerdt1992} e Ahnesj\"{o} \cite{Ahnesjo1989} e fu denominato \textit{collapsed-cone}. Il confronto della dose ottenuta con questo metodo ed il metodo Monte Carlo fornì risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.45\textwidth]{./cap1/kern_ray1.png}$\quad$
-\includegraphics[width=.45\textwidth]{./cap1/kern_ray2.png}
-\caption{Sinistra: distribuzione planare di un kernel di deposizione. Destra: distribuzione 1D di alcuni kernel al variare dell'energia; da notare una prima parte di rilascio rapido di energia dovuta agli elettroni Compton ed una parte più estesa dovuta ai fotoni secondari diffusi che a loro volta re-interagiscono con il mezzo.}
+a) \includegraphics[width=.42\textwidth]{./cap1/kern_ray1.png}$\quad$
+b) \includegraphics[width=.42\textwidth]{./cap1/kern_ray2.png}
+\caption{(a) distribuzione planare di un kernel di deposizione. (b) distribuzione 1D di alcuni kernel al variare dell'energia; da notare una prima parte di rilascio rapido di energia dovuta agli elettroni Compton ed una parte più estesa dovuta ai fotoni secondari diffusi che a loro volta re-interagiscono con il mezzo.}
 \label{fig:kern_ray}
 \end{figure}
 
 Per capire il meccanismo alla base di questa approssimazione partiamo con l'osservare in Fig.\ref{fig:kern_ray} la distribuzione spaziale tipica di alcuni kernel di deposizione. La discretizzazione di questi kernel può essere effettuata in maniera diretta lungo delle semplici linee di integrazione seguendo un processo noto come \textit{ray-tracing}.
 \begin{figure}
 \centering
-\includegraphics[width=.4\textwidth]{./cap1/Kernel_RayTr.eps}
-\includegraphics[width=.45\textwidth]{./cap1/Kernel_CCC.eps}
-\caption{Sinistra: Errore di sampling che si commette discretizzando il kernel solo lungo dei raggi (Ray-tracing). Destra: Meccanismo di ridistribuzione della dose in un settore conico sul proprio asse (Collapsed-cone).}
+a)\includegraphics[width=.4\textwidth]{./cap1/Kernel_RayTr.eps}
+b)\includegraphics[width=.45\textwidth]{./cap1/Kernel_CCC.eps}
+\caption{(a) Errore di sampling che si commette discretizzando il kernel solo lungo dei raggi (Ray-tracing). (b) Meccanismo di ridistribuzione della dose in un settore conico sul proprio asse (Collapsed-cone).}
 \label{fig:raytrace_vs_cc}
 \end{figure}
-Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della divergenza dei raggi \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc})).\\
-Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso (vedi Fig.\ref{fig:raytrace_vs_cc}). Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
+Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della divergenza dei raggi \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc}a)).\\
+Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso (vedi Fig.\ref{fig:raytrace_vs_cc}b). Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
 
 L'operazione di \textquotedblleft\textit{collassamento}\textquotedblright{} dei kernel avviene matematicamente come segue. In primo luogo si effettua un fit analitico del kernel di deposizione calcolato tramite metodologie Monte Carlo. La funzione proposta da Ahnesj\"{o} per questo scopo in coordinate sferiche ha la seguente forma:
 \begin{equation}
 \label{eq:kern_fit}
 s(r,\theta) = \frac{A_\theta e^{-a_\theta r} + B_\theta e^{-b_\theta r}}{r^2}
 \end{equation}
-dove $A_\theta,\,a_\theta,\,B_\theta$ e $b_\theta$ sono parametri di fit che dipendono dall'angolo di scatter $\theta$. I due termini esponenziali descrivono l'uno la caduta rapida del kernel dovuto agli elettroni Compton primari e l'altro la coda più lenta dovuta alle interazioni di scatter secondarie (Fig.\ref{fig:kern_ray}). Da notare che il kernel possiede una simmetria cilindrica per cui l'angolo $\phi$ della tripletta di coordinate sferiche ($r,\theta,\phi$) non è esplicitato. La validità di questo fit è mostrata in Fig.\ref{fig:kern_fit}.
+dove $A_\theta,\,a_\theta,\,B_\theta$ e $b_\theta$ sono parametri di fit che dipendono dall'angolo di scatter $\theta$. I due termini esponenziali descrivono l'uno la caduta rapida del kernel dovuto agli elettroni Compton primari e l'altro la coda più lenta dovuta alle interazioni di scatter secondarie (Fig.\ref{fig:kern_ray}b). Da notare che il kernel possiede una simmetria cilindrica per cui l'angolo $\phi$ della tripletta di coordinate sferiche ($r,\theta,\phi$) non è esplicitato. La validità di questo fit è mostrata in Fig.\ref{fig:kern_fit}.
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap1/kern_fit.png}
@@ -284,15 +284,15 @@ Un ulteriore fenomeno da tenere in conto nell'applicazione dei point spread kern
 Considerando un mezzo con varie disomogeneità, la funzione di scatter perde la sua invarianza spaziale per cui l'equazione \eqref{eq:superp} cessa di essere un'integrale di convoluzione. In termini fisici, in un mezzo disomogeneo non sussiste più l'equilibrio di particelle cariche in ogni punto del volume.
 
 In condizioni standard i kernel sono calcolati in un volume omogeneo di acqua, tuttavia la deposizione di energia cambia se i processi di ionizzazione avvengono in un mezzo differente dall'acqua. Per questo motivo, in linea di principio, i kernel di deposizione andrebbero di volta in volta ricalcolati a seconda della situazione.\\
-Mackie \cite{Mackie1985} dimostrò come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità del mezzo). La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
+Mackie \cite{Mackie1985} dimostrò come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità elettronica del mezzo relativa alla densità elettronica dell'acqua\footnote{\`E necessario utilizzare la densità elettronica in quanto è tra gli elettroni del mezzo che avvengono le interazioni che portano all'assorbimento della dose.}). Questa operazione è nota con il nome di \textit{density-scaling} dei kernel di deposizione. La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
 \begin{figure}[!t]
 \centering
-\includegraphics[width=.4\textwidth]{./cap1/kern_dens.png}
-\includegraphics[width=.59\textwidth]{./cap1/kern_dens2.png}
-\caption{(a) Confronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). Destra: effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
+a) \includegraphics[width=.36\textwidth]{./cap1/kern_dens.png}
+b)\includegraphics[width=.5\textwidth]{./cap1/kern_dens2.png}
+\caption{(a) Confronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). (b) effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
 \label{fig:kern_dens}
 \end{figure}
-Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando il metodo suggerito da Mackie in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante l'accordo non sia perfetto è stato dimostrato \cite{Ahnesjo1989} che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}).
+Nella Fig.\ref{fig:kern_dens}a si può notare l'errore che si commette adottando il metodo suggerito da Mackie in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante l'accordo non sia perfetto è stato dimostrato \cite{Ahnesjo1989} che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}b).
 
 %L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo omogeneo nella forma \cite{Khan2010}:
 %\begin{equation}
@@ -302,18 +302,18 @@ Nella Fig.\ref{fig:kern_dens} si può notare l'errore che si commette adottando 
 %Questa equazione rappresenta \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante. Si è già accennato nella Sez.\ref{}
 
 
-Applicando il teorema di O'Connor alla \eqref{eq:superp}, sostituendo le lunghezze fisiche con le lunghezze radiologiche \cite{Khan2010} si ottiene la seguente equazione:
+Applicando il teorema del \textit{density-scaling} (o di O'Connor) alla \eqref{eq:superp}, sostituendo le lunghezze fisiche con le lunghezze radiologiche \cite{Khan2010} si ottiene la seguente equazione:
 \begin{equation}
 D(\vec{r}) = \iint_{E,V} T_E(\rho_{\vec{r'}} \cdot \vec{r})\, s_E(\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'}))\de\vec{r'} \de E
 \label{eq:superp_disom}
 \end{equation}
 dove $(\rho_{\vec{r'}} \cdot \vec{r})$ è la lunghezza radiologica dalla sorgente di fotoni fino al punto di interazione primaria (ove viene rilasciato il TERMA) e $\rho_{\vec{r}-\vec{r'}}\cdot (\vec{r}-\vec{r'})$ è la lunghezza radiologica dal punto di interazione primaria al punto di deposizione della dose.\\
-Questa equazione è nota come equazione di \textit{convolution-superposition} e rappresenta il problema generico del calcolo della dose per un fascio polienergetico e mezzo disomogeneo.
+Questa equazione è nota come equazione di \textit{convolution-superposition} e rappresenta il problema generico del calcolo della dose per un fascio polienergetico e mezzo disomogeneo. Essa è alla base del motore dosimetrico implementato in RayStation ed è risolta numericamente utilizzando il metodo collapsed-cone.
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap1/kern_trans.png}
-\caption{Sinistra: figura schematica del metodo con cui si costruisce il kernel polienergetico (combinazione di kernel monoenergetici pesati con la componente spettrale). Destra: figura schematica che rappresenta come il kernel si modifica quando viene riscalato tenendo conto delle lunghezze radiologiche attraversate nelle varie direzioni.}
+\caption{(a) figura schematica del metodo con cui si costruisce il kernel polienergetico (combinazione di kernel monoenergetici pesati con la componente spettrale). (b) figura schematica che rappresenta come il kernel si modifica quando viene riscalato tenendo conto delle lunghezze radiologiche attraversate nelle varie direzioni.}
 \label{fig:kern_trans}
 \end{figure}
 
@@ -324,7 +324,7 @@ In Fig.\ref{fig:terma_dose} è riportato graficamente il processo di passaggio d
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap1/terma_dose.png}
-\caption{In alto: trasformazione del TERMA in dose in condizioni di omogeneità. In basso: trasformazione del TERMA in dose su una scansione CT di un paziente reale. Da notare è l'effetto di \textquotedblleft\textit{blurring}\textquotedblright{} dovuto all'applicazione dei kernel di deposizione.}
+\caption{(a) trasformazione del TERMA in dose in condizioni di omogeneità. (b) trasformazione del TERMA in dose su una scansione CT di un paziente reale. Da notare è l'effetto di \textquotedblleft\textit{blurring}\textquotedblright{} dovuto all'applicazione dei kernel di deposizione.}
 \label{fig:terma_dose}
 \end{figure}
 
@@ -334,19 +334,19 @@ In Fig.\ref{fig:terma_dose} è riportato graficamente il processo di passaggio d
 Nella sezione precedente sono state mostrate le approssimazioni intrinseche dell'algoritmo \textit{collapsed-cone}. In questa sezione evidenziamo delle ulteriori approssimazioni adottate in RayStation orientate all'aumento della velocità di calcolo della dose.
 
 \subsection{L'approssimazione \textit{no-kernel-tilting}}
-Un fascio di fotoni generato da un LINAC è tipicamente divergente all'aumentare della distanza dalla sorgente. I kernel di deposizione dell'energia sono calcolati per un fascio che incide verticalmente ed hanno l'asse orientato nella medesima direzione. Un'applicazione rigorosa del metodo convolution/superposition richiederebbe la rotazione dei kernel per allinearli lungo l'angolo di incidenza del raggio primario (vedi Fig.\ref{fig:kern_tilt}).\\
+Un fascio di fotoni generato da un LINAC è tipicamente divergente all'aumentare della distanza dalla sorgente. I kernel di deposizione dell'energia sono calcolati per un fascio che incide verticalmente ed hanno l'asse orientato nella medesima direzione. Un'applicazione rigorosa del metodo convolution/superposition richiederebbe la rotazione dei kernel per allinearli lungo l'angolo di incidenza del raggio primario (vedi Fig.\ref{fig:kern_tilt}a).\\
 \begin{figure}
 \centering
-\includegraphics[width=.35\textwidth]{./cap1/kern_tilt.png}
-\includegraphics[width=.6\textwidth]{./cap1/kern_tilt_b.png}
-\caption{Sinistra: I kernel di deposizione dovrebbero essere ruotati dello stesso angolo di incidenza $\nu$ del raggio primario; tuttavia per ridurre considerevolmente i tempi di calcolo, si applicano kernel con orientazione verticale. Destra: il non ruotare i kernel comporta una deposizione di dose maggiore verso il centro del fascio (linea tratteggiata) confrontata con la dose calcolata senza approssimazione (linea solida); questo può essere corretto secondo \cite{Papanikolaou1993} (vedi testo).} 
+a)\includegraphics[width=.3\textwidth]{./cap1/kern_tilt.png}
+b)\includegraphics[width=.55\textwidth]{./cap1/kern_tilt_b.png}
+\caption{(a) I kernel di deposizione dovrebbero essere ruotati dello stesso angolo di incidenza $\nu$ del raggio primario; tuttavia per ridurre considerevolmente i tempi di calcolo, si applicano kernel con orientazione verticale. (b) il non ruotare i kernel comporta una deposizione di dose maggiore verso il centro del fascio (linea tratteggiata) confrontata con la dose calcolata senza approssimazione (linea solida); questo può essere corretto secondo \cite{Papanikolaou1993} (vedi testo).} 
 \label{fig:kern_tilt}
 \end{figure}
 Questa operazione implicherebbe molteplici rotazioni di matrici \cite{Sharpe1997} con il risultato di aumentare considerevolmente il tempo di calcolo della dose. 
 %Oltre a questo, un ulteriore grande vantaggio dell'approssimazione \textit{no-kernel-tilting} consiste nel fatto di poter calcolare solo una volta le intersezioni dei raggi uscenti dai kernel con la griglia di dose\footnote{Operazione nota come \textit{raytracing}.} e di riutilizzare i risultati per i voxel successivi.
 Per questo motivo vari autori hanno sviluppato dei metodi che consentissero di applicare kernel di deposizione non ruotati (\textit{no-kernel-tilting}) \cite{Sharpe1997,Papanikolaou1993}.
 
-In RayStation è implementato il metodo suggerito da Papanikolaou et al. \cite{Papanikolaou1993}. L'idea di questo metodo sta nel considerare che, non ruotando i kernel, si ha un accumulo di dose maggiore verso il centro del fascio (Fig.\ref{fig:kern_tilt}).\\ 
+In RayStation è implementato il metodo suggerito da Papanikolaou et al. \cite{Papanikolaou1993}. L'idea di questo metodo sta nel considerare che, non ruotando i kernel, si ha un accumulo di dose maggiore verso il centro del fascio (Fig.\ref{fig:kern_tilt}b).\\ 
 Papanikolaou ha dimostrato come questo può essere recuperato con i seguenti passaggi:
 \begin{enumerate}
 \item Si rimuove la divergenza dalla fluenza di energia (termine $|\vec{r_0}|^2/|\vec{r'}|^2$ nell'Eq.\eqref{eq:fluence}).
@@ -389,12 +389,12 @@ Per un semplice campo $10x10$ cm$^2$ ed energia 6 MV, la distribuzione di dose c
 \section{Dose aggiuntiva da elettroni di contaminazione}
 \label{sec:dose_electr}
 Come già accennato nella sezione introduttiva (Fig.\ref{fig:processes}), nei primi centimetri di tessuto una parte rilevante della dose totale è dovuta agli elettroni di contaminazione del fascio fotonico. Questi elettroni si originano prevalentemente da processi di scatter dei fotoni con i collimatori ed il flattening-filter all'interno della testata.\\
-Alle energie tipiche della radioterapia, la deposizione della dose di un fascio elettronico avviene repentinamente all'aumentare della profondità (vedi Fig.\ref{fig:electr_enloss}).
+Alle energie tipiche della radioterapia, la deposizione della dose di un fascio elettronico avviene repentinamente all'aumentare della profondità (vedi Fig.\ref{fig:electr_enloss}a).
 \begin{figure}
 \centering
-\includegraphics[width=.5\textwidth]{./cap1/electr_enloss.png}
-\includegraphics[width=.45\textwidth]{./cap1/electr_doseCT.png}
-\caption{Sinistra: diagrammi della dose rilasciata in funzione della profondità di un fascio di elettroni a varie energie. Destra: distribuzione di dose dovuta ad elettroni di contaminazione del fascio calcolata su una CT. Da notare è che questa dose è importante solo nei primi mm di tessuto attraversato.}
+a) \includegraphics[width=.45\textwidth]{./cap1/electr_enloss.png}
+b) \includegraphics[width=.4\textwidth]{./cap1/electr_doseCT.png}
+\caption{(a) diagrammi della dose rilasciata in funzione della profondità di un fascio di elettroni a varie energie. (b) distribuzione di dose dovuta ad elettroni di contaminazione del fascio calcolata su una CT. Da notare è che questa dose risulta importante solo nei primi millimetri di tessuto attraversato.}
 \label{fig:electr_enloss}
 \end{figure}
 
@@ -402,9 +402,9 @@ L'algoritmo dosimetrico implementato in RayStation per il calcolo della dose da 
 
 \begin{figure}
 \centering
-\includegraphics[width=.4\textwidth]{./cap1/electr_pencil.png}$\qquad$
-\includegraphics[width=.45\textwidth]{./cap1/electr_pencil_b.png}
-\caption{Sinistra: kernel di deposizione di tipo \textit{pencil-beam}. Destra: figura schematica che mostra la simmetria cilindrica nel calcolo della dose quando si utilizza un kernel di tipo \textit{pencil-beam}.}
+a) \includegraphics[width=.35\textwidth]{./cap1/electr_pencil.png}$\qquad$
+b) \includegraphics[width=.4\textwidth]{./cap1/electr_pencil_b.png}
+\caption{(a) kernel di deposizione di tipo \textit{pencil-beam}. (b) figura schematica che mostra la simmetria cilindrica nel calcolo della dose quando si utilizza un kernel di tipo \textit{pencil-beam}.}
 \label{fig:electr_pencil}
 \end{figure}
 
@@ -424,7 +424,7 @@ L'Eq.\eqref{eq:electr_superp} è implementata all'interno di RayStation in manie
 \item Vengono applicati i kernel \textit{pencil-beam} per modellizzare lo scatter laterale degli elettroni.
 \end{itemize}
 
-Nella Fig.\ref{fig:electr_enloss} è mostrata la distribuzione di dose dovuta agli elettroni di contaminazione calcolata su una CT di un paziente. Questa dose viene sommata alla dose dovuta ai fotoni calcolata con l'algoritmo collapsed-cone. 
+Nella Fig.\ref{fig:electr_enloss}b è mostrata la distribuzione di dose dovuta agli elettroni di contaminazione calcolata su una CT di un paziente. Questa dose viene sommata alla dose dovuta ai fotoni calcolata con l'algoritmo collapsed-cone. 
 
 
 
