@@ -32,7 +32,7 @@ Una volta che il fascio clinico investe il paziente, il meccanismo di deposizion
 \label{fig:processes}
 \end{figure}
 \vspace{.2cm}
-La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni che portano alla deposizione della dose nel paziente. \`{E} possibile identificare quattro principali meccanismi di rilascio della dose (cerchiati nella figura) che vengono elencati in ordine di importanza:
+La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni che portano alla deposizione della dose nel paziente. \`{E} possibile identificare quattro principali meccanismi di rilascio della dose (evidenziati nella figura) che vengono elencati in ordine di importanza:
 \begin{enumerate}
 \item La dose primaria che rappresenta generalmente fino al 70\% della dose totale. Questa dose è generata dalla parte di fascio fotonico che non ha subito trasformazioni nella testata e che mette in moto particelle cariche le quali direttamente rilasciano la loro energia cinetica nella materia.
 \item La dose di scatter dovuta alla testata (\textit{head scatter dose}) che rappresenta generalmente il 5-10\% della dose totale. Questa parte della dose è dovuta alla componente di fascio fotonico che ha subito interazioni nella testata (prevalentemente nel \textit{flattening-filter}\footnote{\label{foot:flatt} Il \textit{flattening-filter} è un dispositivo di forma piramidale che serve ad attenuare il fascio al centro in modo da realizzare una fluenza di fotoni uniforme lungo la direzione perpendicolare alla direzione di propagazione del fascio.}) e presenta una distribuzione spaziale ed energetica differente dal fascio primario. Il meccanismo di rilascio dell'energia è analogo a quello del fascio primario.
@@ -69,7 +69,7 @@ Un tipico esempio fisico dell'operazione di sovrapposizione è il calcolo del ca
 \begin{equation}
 \mathbf E_0(\mathbf r) = \sum_{i=1}^N \mathbf E_{0i}(r) = \frac {1}{4 \pi \varepsilon_0} \sum_{i=1}^N q_i \frac {\mathbf r - \mathbf r_i'} {\left \| \mathbf r - \mathbf r_i' \right \|^3}
 \end{equation}
-Nel caso continuo, l'operazione di sovrapposizione può essere espressa con un integrale, esteso a tutto il dominio di definizione del problema, tra una funzione primaria $p$ ed una funzione coefficiente $s$ nota in alcuni ambiti come funzione kernel:
+Nel caso continuo, l'operazione di sovrapposizione può essere espressa con un integrale, esteso a tutto il dominio di definizione del problema, tra una funzione primaria $p$ ed una funzione coefficiente $s$ come funzione kernel:
 \begin{equation}
 \label{eq:sovrapp_math}
 D(x,y,z) = \int_V p(x',y',z')\, s(x,x',y,y',z,z')\de x' \de y' \de z'
@@ -140,7 +140,7 @@ b)\includegraphics[width=.4\textwidth]{./cap1/source_int.png}
 \label{fig:twosources}
 \end{figure}
 La sorgente primaria è modellizzata con un profilo gaussiano ellittico esteso dell'ordine dei mm mentre la sorgente di scatter del flattening-filter è gaussiana circolare estesa dell'ordine dei centimetri \cite{Chaney1994}.\\
-Il calcolo della fluenza viene effettuato su un piano passante per il centro di simmetria rotazionale del LINAC denominato \textit{isocentro} e perpendicolare alla direzione del fascio (Fig.\ref{fig:twosources}).
+Il calcolo della fluenza viene effettuato su un piano passante per il centro di simmetria rotazionale del LINAC denominato \textit{isocentro} e perpendicolare alla direzione del fascio (Fig.\ref{fig:twosources}a).
 Le sorgenti vengono geometricamente proiettate attraverso i collimatori indicati in Fig.\ref{fig:linac} costituiti da blocchi di materiale schermante (\textit{jaws}) e da un dispositivo fatto di lamelle retraibili (\textit{multi-leaf-collimator}) che serve a generare conformazioni irregolari del fascio.\\
 Matematicamente, l'operazione di calcolo della fluenza consiste in un'integrazione pixel per pixel della parte di sorgente \textquotedblleft visibile\textquotedblright{} attraverso i collimatori (Fig.\ref{fig:twosources}b) con un metodo di backprojection.\\
 La mappa di fluenza così ottenuta viene corretta per includere alcuni fenomeni come la trasmissione dei collimatori, la trasmissione della punta e del bordo delle lamelle (\textit{leaf tip e tongue}\&\textit{groove}), il peso relativo delle sorgenti ed altri processi che verrano discussi in seguito.
@@ -154,7 +154,7 @@ Il TERMA differenziale in energia può essere scritto nella seguente forma gener
 \label{eq:termaE}
 T(\vec{r'},E) = \frac{\mu}{\rho}(\vec{r'},E)\,\Psi(\vec{r'},E)
 \end{equation}
-dove $\vec{r'}$ è la coordinata del punto di interazione primaria, $\mu/\rho$ il coefficiente di assorbimento lineare massico e $\Psi$ la fluenza di energia primaria.
+dove $\vec{r'}$ è la coordinata del punto di interazione primaria, $\mu/\rho$ il coefficiente di assorbimento lineare massico, $\Psi$ la fluenza di energia primaria ed $E$ l'energia del fascio primario.
 
 \begin{figure}
 \centering
@@ -195,7 +195,7 @@ Moltiplicando il termine $\mu / \rho(\vec{r'},E)$  con la fluenza espressa dalla
 \end{figure}
 Alle energie tipiche dei fotoni utilizzati in radioterapia l'effetto predominante è l'effetto Compton (Fig.\ref{fig:compt_dom}) secondo cui l'interazione del fotone primario genera un fotone diffuso ed un elettrone con una certa energia cinetica. Una modellizzazione completa del trasporto del fotone diffuso e dell'elettrone messo in moto richiede un approccio statistico di tipo Monte Carlo, computazionalmente molto dispendioso. L'approccio convolution/superposition racchiude i processi statistici di deposizione dell'energia nella funzione di scatter introdotta nell'Eq.\eqref{eq:superp} ed agisce in maniera deterministica.
 
-La funzione di scatter è ottenibile a partire da una simulazione Monte Carlo in cui un unico fotone viene fatto interagire forzatamente all'interno di un volume omogeneo di acqua e si va ad osservare la deposizione della dose che ne deriva. Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il software Monte Carlo EGS sviluppato dallo Stanford Linear Accelerator Center che pubblicò nella metà degli anni '80 delle funzioni di scatter discretizzate in forma tabulare (vedi Fig.\ref{fig:mackie_kernels}).
+La funzione di scatter è ottenibile a partire da una simulazione Monte Carlo in cui un unico fotone viene fatto interagire forzatamente all'interno di un volume omogeneo di acqua (elemento più simile ai tessuti molli umani) e si va ad osservare la deposizione della dose che ne deriva. Questa operazione è stata effettuata da Mackie \cite{Mackie1985} utilizzando il software Monte Carlo EGS sviluppato dallo Stanford Linear Accelerator Center che pubblicò nella metà degli anni '80 delle funzioni di scatter discretizzate in forma tabulare (vedi Fig.\ref{fig:mackie_kernels}).
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap1/mackie_kernels.png}
@@ -213,11 +213,11 @@ Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, in
 Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante (l'integrale è un prodotto di convoluzione). Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione  diventa un semplice prodotto delle trasformate delle funzioni nello spazio di Fourier. L'operazione di antitrasformata del prodotto delle funzioni trasformate permette di ottenere la distribuzione di dose. Questa operazione è stata dimostrata comportare un numero di operazioni inferiore alla somma diretta pari a $N^3\log_2 N$ \cite{Wong1996}. Il limite di questa metodologia è che risulta esattamente applicabile solo su uno spazio continuo. La discretizzazione che inevitabilmente va effettuata per un calcolo numerico comporta delle approssimazioni. Inoltre questo metodo risulta essere difficilmente estensibile al caso disomogeneo in cui il kernel perde di invarianza spaziale. Sono stati studiati vari approcci basati su correzioni orientate a recuperare l'invarianza spaziale dei kernel anche nel caso disomogeneo. I risultati tuttavia non si sono rivelati soddisfacenti se comparati con il metodo presentato nel paragrafo successivo \cite{Wong1996}.\\
 
 \textbf{Metodo di \textit{Collapsed-cone-convolution}:\\}
-Questo metodo è quello che si è rivelato il più soddisfacente nella storia degli algoritmi \textit{model-based} in quanto facilmente estensibile al caso disomogeneo e polienergetico. Contiene inoltre come parte fondante una discretizzazione dei kernel di deposizione facilmente adattabile ad un calcolo numerico tramite computer. Il metodo \textit{collapsed-cone} è alla base del motore dosimetrico implementato nel TPS RayStation e verrà presentato nel dettaglio nella sezione successiva.
+Questo metodo è quello che si è rivelato il più soddisfacente nella storia degli algoritmi \textit{model-based} in quanto facilmente estensibile al caso disomogeneo e polienergetico. Contiene inoltre come parte fondante una discretizzazione spaziale dei kernel di deposizione facilmente adattabile ad un calcolo numerico tramite computer. Il metodo \textit{collapsed-cone} è alla base del motore dosimetrico implementato nel TPS RayStation e verrà presentato nel dettaglio nella sezione successiva.
 
 
 \subsection{L'approssimazione \textit{collapsed-cone}}
-L'algoritmo collapsed-cone discretizza i kernel di deposizione prima di effettuare la convoluzione in modo da poter effettuare il trasporto della radiazione non in tutte le direzioni ma solo in un loro sottoinsieme (questa operazione avverrebbe in ogni caso impiegando un qualsiasi metodo di risoluzione numerico tramite computer).
+L'algoritmo collapsed-cone discretizza spazialmente i kernel di deposizione prima di effettuare la convoluzione in modo da tener conto del trasporto della radiazione non in tutte le direzioni ma solo in un loro sottoinsieme (questa operazione avverrebbe in ogni caso impiegando un qualsiasi metodo di risoluzione numerico tramite computer).
 
 Questo approccio è stato presentato indipendemente da Mackie \cite{Reckwerdt1992} e Ahnesj\"{o} \cite{Ahnesjo1989} e fu denominato \textit{collapsed-cone}. Il confronto della dose ottenuta con questo metodo ed il metodo Monte Carlo fornì risultati eccellenti per l'epoca. Questi risultati rappresentano ancora oggi il benchmark per il calcolo della dose con TPS utilizzando metodi non statistici.
 \begin{figure}[!t]
@@ -236,7 +236,7 @@ b)\includegraphics[width=.45\textwidth]{./cap1/Kernel_CCC.eps}
 \caption{(a) Errore di sampling che si commette discretizzando il kernel solo lungo dei raggi (Ray-tracing). (b) Meccanismo di ridistribuzione della dose in un settore conico sul proprio asse (Collapsed-cone).}
 \label{fig:raytrace_vs_cc}
 \end{figure}
-Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della divergenza dei raggi \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc}a)).\\
+Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della particolare forma dei kernel di deposizione nonché della divergenza dei raggi \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc}a)).\\
 Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso (vedi Fig.\ref{fig:raytrace_vs_cc}b). Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
 
 L'operazione di \textquotedblleft\textit{collassamento}\textquotedblright{} dei kernel avviene matematicamente come segue. In primo luogo si effettua un fit analitico del kernel di deposizione calcolato tramite metodologie Monte Carlo. La funzione proposta da Ahnesj\"{o} per questo scopo in coordinate sferiche ha la seguente forma:
@@ -267,15 +267,22 @@ Il metodo collapsed-cone esteso al caso più generico (fascio polienergetico e m
 \label{fig:kern_collaps}
 \end{figure}
 
-In RayStation il numero di settori in cui viene discretizzato il kernel è 128 che corrispondono a 8 direzioni lungo l'angolo di scatter $\theta$ e 16 lungo l'angolo di simmetria cilindrica $\phi$. Il campionamento è più fitto nella direzione di propagazione del fascio dove è presente il gradiente più intenso.
+In RayStation il numero di settori in cui viene discretizzato il kernel è 128 che corrisponde a 8 direzioni lungo l'angolo di scatter $\theta$ e 16 lungo l'angolo di simmetria cilindrica $\phi$. Il campionamento è più fitto nella direzione di propagazione del fascio dove è presente il gradiente più intenso.
 
-Così come implementato il metodo non richiede nelle ipotesi che il kernel sia un invariante spaziale come nel caso del metodo a trasformata di Fourier. Questo rende semplice la generalizzazione al caso disomogeneo che verrà trattata in seguito alla generalizzazione al caso polienergetico nelle sezioni a seguire.
+Così come implementato il metodo non richiede nelle ipotesi che il kernel sia un invariante spaziale come nel caso del metodo a trasformata di Fourier. Questo rende semplice dal punto di vista computazionale  la generalizzazione al caso disomogeneo che verrà trattata in seguito alla generalizzazione al caso polienergetico nelle sezioni a seguire.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap1/LinacSpectrum.png}
+\caption{Spettro di energia tipico di un fascio radioterapico (solo componente fotonica)}
+\label{fig:LinacSpectrum}
+\end{figure}
 
 \subsection{La generalizzazione al caso polienergetico}
-Un tipico fascio di fotoni generato da un LINAC per radioterapia contiene uno spettro polienergetico. Inoltre lo spettro subisce uno spostamento verso energie più alte a causa dell'attraversamento della materia (effetto di \textit{depth-hardening}). Questo suggerisce il fatto che non è possibile considerare un unico kernel di deposizione nel passaggio dal TERMA alla dose. Boyer et al. assieme a Zhu e Van Dyk \cite{Boyer1989,Zhu1995} hanno dimostrato che una discretizzazione in 5 bin sia sufficiente a rappresentare lo spettro di un LINAC da 6MV. Sulla base di ciò, Papanikolaou et al. \cite{Papanikolaou1993} hanno investigato i possibili metodi di estensione del metodo convolution al caso polienergetico dimostrando che è sufficiente combinare kernel monoergetici pesati con le relative componenti spettrali. Nel medesimo lavoro viene dimostrato che il problema del depth-hardening può essere risolto riscalando i kernel con dei fattori che dipendono dalla lunghezza radiologica attraversata.
+Un tipico fascio di fotoni generato da un LINAC per radioterapia contiene uno spettro polienergetico (vedi Fig.\ref{fig:LinacSpectrum}). Inoltre lo spettro subisce uno spostamento verso energie più alte a causa dell'attraversamento della materia (effetto di \textit{depth-hardening}). Questo suggerisce il fatto che non è possibile considerare un unico kernel di deposizione nel passaggio dal TERMA alla dose. Boyer et al. assieme a Zhu e Van Dyk \cite{Boyer1989,Zhu1995} hanno dimostrato che una discretizzazione in 5 bin sia sufficiente a rappresentare lo spettro di un LINAC da 6MV. Sulla base di ciò, Papanikolaou et al. \cite{Papanikolaou1993} hanno investigato i possibili metodi di estensione del metodo convolution al caso polienergetico dimostrando che è sufficiente combinare kernel monoergetici pesati con le relative componenti spettrali. Nel medesimo lavoro viene dimostrato che il problema del depth-hardening può essere risolto riscalando i kernel con dei fattori che dipendono dalla lunghezza radiologica attraversata.
 
 Per applicare questi principi, nel TPS sono memorizzati una serie di point spread kernel computati con il motore Monte Carlo EDKnrc incluso in EGS4nrc per le seguenti energie del fotone primario incidente: 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9 10, 12, 14, 16, 18, 20 MeV. Queste energie corrispondono ai bin implementati in RayStation per rappresentare uno spettro fotonico (es. per un fascio da 6 MV i bin coinvolti vanno da 0.5 a 6 MV).\\
-Il peso di ogni componente spettrale viene stabilito in fase di modellizzazione (vedi cap. successivi). Per ora ci interessa sapere che, fissato lo spettro, viene costruito il kernel polienergetico secondo le indicazioni di Papanikolaou et al. \cite{Papanikolaou1993} (media pesata con le componenti spettrali). In seguito viene costruita una libreria di 600 kernel in un intervallo di lunghezze radiologiche da -100 g/cm$^2$ a 200 g/cm$^2$\footnote{Nota: lunghezze radiologiche negative sono necessarie per tenere in conto l'effetto di \textit{off-axis softening} dovuto alla presenza del flattening-filter di cui si parlerà nei capitoli successivi.} da essere utilizzati nel calcolo della dose.
+Il peso di ogni componente spettrale viene stabilito in fase di modellizzazione (vedi cap. successivi). Fissato il peso delle singole componenti spettrali, il kernel polienergetico viene calcolato mediante media dei singoli kernel monoenergetici secondo le indicazioni di Papanikolaou et al. \cite{Papanikolaou1993} (media pesata con le componenti spettrali). CONTINUA QUI In seguito viene costruita una libreria di 600 kernel in un intervallo di lunghezze radiologiche da -100 g/cm$^2$ a 200 g/cm$^2$\footnote{Nota: lunghezze radiologiche negative sono necessarie per tenere in conto l'effetto di \textit{off-axis softening} dovuto alla presenza del flattening-filter di cui si parlerà nei capitoli successivi.} da essere utilizzati nel calcolo della dose.
 
 
 \subsection{La generalizzazione al caso disomogeneo}
