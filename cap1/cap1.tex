@@ -199,7 +199,7 @@ La funzione di scatter è ottenibile a partire da una simulazione Monte Carlo in
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap1/mackie_kernels.png}
-\caption{Funzione di scatter calcolate da Mackie \cite{Mackie1985} per un fotone da 15MV e per due differenti materiali di densità  1g/cc (acqua) e 0.2g/cc.}
+\caption{Funzione di scatter calcolate per un fotone da 15MV e per due differenti materiali di densità  1g/cc (acqua) e 0.2g/cc. \cite{Mackie1985}}
 \label{fig:mackie_kernels}
 \end{figure}
 
@@ -248,7 +248,7 @@ dove $A_\theta,\,a_\theta,\,B_\theta$ e $b_\theta$ sono parametri di fit che dip
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap1/kern_fit.png}
-\caption{Fit analitico dei kernel di deposizione per un fotone da 6MV (a) e da 15MV (b). Tratto da \cite{Ahnesjo1989}.}
+\caption{Fit analitico dei kernel di deposizione per un fotone da 6MV (a) e da 15MV (b) \cite{Ahnesjo1989}.}
 \label{fig:kern_fit}
 \end{figure}
 
@@ -273,8 +273,8 @@ Così come implementato il metodo non richiede nelle ipotesi che il kernel sia u
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{./cap1/LinacSpectrum.png}
-\caption{Spettro di energia tipico di un fascio radioterapico (solo componente fotonica)}
+\includegraphics[width=.7\textwidth]{./cap1/LinacSpectrum.png}
+\caption{Spettro di energia tipico di un fascio radioterapico di energia 6MV (solo componente fotonica)}
 \label{fig:LinacSpectrum}
 \end{figure}
 
@@ -282,7 +282,8 @@ Così come implementato il metodo non richiede nelle ipotesi che il kernel sia u
 Un tipico fascio di fotoni generato da un LINAC per radioterapia contiene uno spettro polienergetico (vedi Fig.\ref{fig:LinacSpectrum}). Inoltre lo spettro subisce uno spostamento verso energie più alte a causa dell'attraversamento della materia (effetto di \textit{depth-hardening}). Questo suggerisce il fatto che non è possibile considerare un unico kernel di deposizione nel passaggio dal TERMA alla dose. Boyer et al. assieme a Zhu e Van Dyk \cite{Boyer1989,Zhu1995} hanno dimostrato che una discretizzazione in 5 bin sia sufficiente a rappresentare lo spettro di un LINAC da 6MV. Sulla base di ciò, Papanikolaou et al. \cite{Papanikolaou1993} hanno investigato i possibili metodi di estensione del metodo convolution al caso polienergetico dimostrando che è sufficiente combinare kernel monoergetici pesati con le relative componenti spettrali. Nel medesimo lavoro viene dimostrato che il problema del depth-hardening può essere risolto riscalando i kernel con dei fattori che dipendono dalla lunghezza radiologica attraversata.
 
 Per applicare questi principi, nel TPS sono memorizzati una serie di point spread kernel computati con il motore Monte Carlo EDKnrc incluso in EGS4nrc per le seguenti energie del fotone primario incidente: 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9 10, 12, 14, 16, 18, 20 MeV. Queste energie corrispondono ai bin implementati in RayStation per rappresentare uno spettro fotonico (es. per un fascio da 6 MV i bin coinvolti vanno da 0.5 a 6 MV).\\
-Il peso di ogni componente spettrale viene stabilito in fase di modellizzazione (vedi cap. successivi). Fissato il peso delle singole componenti spettrali, il kernel polienergetico viene calcolato mediante media dei singoli kernel monoenergetici secondo le indicazioni di Papanikolaou et al. \cite{Papanikolaou1993} (media pesata con le componenti spettrali). CONTINUA QUI In seguito viene costruita una libreria di 600 kernel in un intervallo di lunghezze radiologiche da -100 g/cm$^2$ a 200 g/cm$^2$\footnote{Nota: lunghezze radiologiche negative sono necessarie per tenere in conto l'effetto di \textit{off-axis softening} dovuto alla presenza del flattening-filter di cui si parlerà nei capitoli successivi.} da essere utilizzati nel calcolo della dose.
+Ad ogni bin dello spettro corrisponde un singolo kernel monoenergetico. Il kernel polienergetico viene calcolato mediante media dei singoli kernel monoenergetici pesati con l'intensità delle rispettive componenti spettrali  \cite{Papanikolaou1993}. Questo processo è raffigurato schematicamente nella Fig.\ref{fig:kern_trans}a.
+In seguito viene costruita una libreria di 600 kernel riscalati su un ampio intervallo di lunghezze radiologiche per tenere conto dell'effetto di \textit{depth-hardening} nelle varie situazioni cliniche.
 
 
 \subsection{La generalizzazione al caso disomogeneo}
@@ -291,7 +292,7 @@ Un ulteriore fenomeno da tenere in conto nell'applicazione dei point spread kern
 Considerando un mezzo con varie disomogeneità, la funzione di scatter perde la sua invarianza spaziale per cui l'equazione \eqref{eq:superp} cessa di essere un'integrale di convoluzione. In termini fisici, in un mezzo disomogeneo non sussiste più l'equilibrio di particelle cariche in ogni punto del volume.
 
 In condizioni standard i kernel sono calcolati in un volume omogeneo di acqua, tuttavia la deposizione di energia cambia se i processi di ionizzazione avvengono in un mezzo differente dall'acqua. Per questo motivo, in linea di principio, i kernel di deposizione andrebbero di volta in volta ricalcolati a seconda della situazione.\\
-Mackie \cite{Mackie1985} dimostrò come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità elettronica del mezzo relativa alla densità elettronica dell'acqua\footnote{\`E necessario utilizzare la densità elettronica in quanto è tra gli elettroni del mezzo che avvengono le interazioni che portano all'assorbimento della dose.}). Questa operazione è nota con il nome di \textit{density-scaling} dei kernel di deposizione. La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
+Mackie dimostrò come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità elettronica del mezzo relativa alla densità elettronica dell'acqua\footnote{\`E necessario utilizzare la densità elettronica in quanto è tra gli elettroni del mezzo che avvengono le interazioni che portano all'assorbimento della dose.}) \cite{Mackie1985}. Questa operazione è nota con il nome di \textit{density-scaling} dei kernel di deposizione. La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
 \begin{figure}[!t]
 \centering
 a) \includegraphics[width=.36\textwidth]{./cap1/kern_dens.png}
@@ -299,6 +300,11 @@ b)\includegraphics[width=.5\textwidth]{./cap1/kern_dens2.png}
 \caption{(a) Confronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). (b) effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
 \label{fig:kern_dens}
 \end{figure}
+
+
+
+AGGIUNGI TEOREMA DI OCONNOR da AAPM
+
 Nella Fig.\ref{fig:kern_dens}a si può notare l'errore che si commette adottando il metodo suggerito da Mackie in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante l'accordo non sia perfetto è stato dimostrato \cite{Ahnesjo1989} che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}b).
 
 %L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo omogeneo nella forma \cite{Khan2010}:
@@ -324,16 +330,7 @@ Questa equazione è nota come equazione di \textit{convolution-superposition} e 
 \label{fig:kern_trans}
 \end{figure}
 
-In Fig.\ref{fig:kern_trans} sono riportati due diagrammi schematici riguardo le generalizzazioni al caso polienergetico e disomogeneo.
-
-
-In Fig.\ref{fig:terma_dose} è riportato graficamente il processo di passaggio dal TERMA alla dose. Quello che si può notare è che l'applicazione dei kernel di deposizione comporta un \textquotedblleft\textit{blurring}\textquotedblright{} e un prolungamento della distribuzione di TERMA che è dovuto proprio al movimento delle particelle ionizzanti secondarie messe in moto dai fotoni primari e diffusi.
-\begin{figure}
-\centering
-\includegraphics[width=.8\textwidth]{./cap1/terma_dose.png}
-\caption{(a) trasformazione del TERMA in dose in condizioni di omogeneità. (b) trasformazione del TERMA in dose su una scansione CT di un paziente reale. Da notare è l'effetto di \textquotedblleft\textit{blurring}\textquotedblright{} dovuto all'applicazione dei kernel di deposizione.}
-\label{fig:terma_dose}
-\end{figure}
+In Fig.\ref{fig:kern_trans}b è riportano un diagramma schematico della modificazione di un kernel in un mezzo disomogeneo.
 
 
 
@@ -346,7 +343,7 @@ Un fascio di fotoni generato da un LINAC è tipicamente divergente all'aumentare
 \centering
 a)\includegraphics[width=.3\textwidth]{./cap1/kern_tilt.png}
 b)\includegraphics[width=.55\textwidth]{./cap1/kern_tilt_b.png}
-\caption{(a) I kernel di deposizione dovrebbero essere ruotati dello stesso angolo di incidenza $\nu$ del raggio primario; tuttavia per ridurre considerevolmente i tempi di calcolo, si applicano kernel con orientazione verticale. (b) il non ruotare i kernel comporta una deposizione di dose maggiore verso il centro del fascio (linea tratteggiata) confrontata con la dose calcolata senza approssimazione (linea solida); questo può essere corretto secondo \cite{Papanikolaou1993} (vedi testo).} 
+\caption{(a) I kernel di deposizione dovrebbero essere ruotati dello stesso angolo di incidenza $\nu$ del raggio primario; tuttavia per ridurre considerevolmente i tempi di calcolo, si applicano kernel con orientazione verticale. (b) il non ruotare i kernel comporta una deposizione di dose maggiore verso il centro del fascio (linea tratteggiata) confrontata con la dose calcolata senza approssimazione (linea solida).}
 \label{fig:kern_tilt}
 \end{figure}
 Questa operazione implicherebbe molteplici rotazioni di matrici \cite{Sharpe1997} con il risultato di aumentare considerevolmente il tempo di calcolo della dose. 
@@ -363,22 +360,27 @@ Papanikolaou ha dimostrato come questo può essere recuperato con i seguenti pas
 L'effetto dell'operazione n.1 è quello di aumentare la fluenza di energia lontano dal centro del fascio. Applicando poi i punti 2 e 3 si arriva ad una distribuzione in cui la dose approssima quella calcolata considerando i kernel ruotati.\\
 Sharpe e Papanikolaou \cite{Sharpe1997,Papanikolaou1993} hanno evidenziato come l'approssimazione di \textit{no-tilting} dei kernel presenti i suoi limiti solo in situazioni difficilmente realizzabili clinicamente. In particolare, discrepanze oltre il 3\% si osservano in caso di basse distanze sorgente-superficie del paziente (SSD $< 70$ cm) congiuntamente all'utilizzo di campi estesi ($> 20x20$ cm$^2$).
 
-
+\begin{figure}
+\centering
+\includegraphics[width=.6\textwidth]{./cap1/TERMADepos.eps}
+\caption{Distinzione delle zone utilizzate nell'approssimazione \textit{full-TERMA-deposition}. (CCC: Collapsed Cone Convolution)}
+\label{fig:TERMADepos}
+\end{figure}
 
 \subsection{Approssimazioni \textit{full-TERMA-deposition} e \textit{adaptive interpolation}}
 Ulteriori approssimazioni denominate \textit{full-TERMA-deposition} e \textit{adaptive interpolation} sono volte ad evitare di applicare rigorosamente il metodo di collapsed-cone-superposition su ogni voxel della griglia di dose.\\
 A questo proposito, la \textit{full-TERMA-deposition} può essere riassunta in quattro principali step:
 \begin{enumerate}
-\item Alla fine del calcolo della distribuzione di TERMA vengono identificati quei voxel in cui è stato depositato un TERMA minore dello 0.5\% del massimo TERMA rilasciato nel volume.
+\item Alla fine del calcolo della distribuzione di TERMA vengono identificati quei voxel in cui è stato depositato un TERMA minore dello 0.5\% del massimo TERMA rilasciato nel volume (zona (1) nella Fig.\ref{fig:TERMADepos}).
 \item A partire da questi voxel viene costruita una iso-superficie che viene poi espansa di una lunghezza radiologica di 5 cm isotropicamente.
-\item Al di fuori della superficie precedentemente calcolata non viene effettuato il trasporto del TERMA con l'algoritmo collapsed-cone bensì si assume un rilascio locale di tutta l'energia.
-\item All'interno del volume compreso tra la superficie TERMA$_i= 0.5\%$ TERMA$_{max}$ e la sua espansione di $5$ cm  il trasporto avviene solo su alcune delle 128 direzioni del kernel di deposizione. 
+\item All'interno del volume compreso tra la superficie TERMA$_i= 0.5\%$ TERMA$_{max}$ e la sua espansione di $5$ cm  il trasporto avviene solo su alcune delle 128 direzioni del kernel di deposizione (zona (2) nella Fig.\ref{fig:TERMADepos}). 
+\item Al di fuori della superficie precedentemente calcolata non viene effettuato il trasporto del TERMA con l'algoritmo collapsed-cone bensì si assume un rilascio locale di tutta l'energia (zona (3) nella Fig.\ref{fig:TERMADepos}).
 \end{enumerate}
-Questa approssimazione è stata osservata generare un'errore sul calcolo della dose minore dello 0.2\% su punti peraltro a bassa rilevanza clinica \cite{RaySearchLaboratories2014}.\\
+Questa approssimazione è stata osservata generare un'errore sul calcolo della dose minore dello 0.2\% su punti in generale a bassa rilevanza clinica \cite{RaySearchLaboratories2014}.\\
 
-\begin{figure}
+\begin{figure}[!t]
 \centering
-\includegraphics[width=\textwidth]{./cap1/dose_interp.png}
+\includegraphics[width=.8\textwidth]{./cap1/dose_interp.png}
 \caption{L'approssimazione di \textit{adaptive interpolation}. I voxel in blu sono quelli calcolati con l'algoritmo collapsed-cone.}
 \label{fig:dose_interp}
 \end{figure}
@@ -400,7 +402,7 @@ Alle energie tipiche della radioterapia, la deposizione della dose di un fascio 
 \begin{figure}
 \centering
 a) \includegraphics[width=.45\textwidth]{./cap1/electr_enloss.png}
-b) \includegraphics[width=.4\textwidth]{./cap1/electr_doseCT.png}
+b) \includegraphics[width=.4\textwidth]{./cap1/electr_doseCT_zoom.png}
 \caption{(a) diagrammi della dose rilasciata in funzione della profondità di un fascio di elettroni a varie energie. (b) distribuzione di dose dovuta ad elettroni di contaminazione del fascio calcolata su una CT. Da notare è che questa dose risulta importante solo nei primi millimetri di tessuto attraversato.}
 \label{fig:electr_enloss}
 \end{figure}
@@ -417,12 +419,12 @@ b) \includegraphics[width=.4\textwidth]{./cap1/electr_pencil_b.png}
 
 
 Questo tipo di algoritmo è denominato \textit{pencil-beam} e rappresenta una versione semplificata del collapsed-cone.\\
-L'equazione che permette il calcolo della dose è analoga alla \eqref{eq:superp} rappresentabile semplicemente in coordinate cilindiriche:
+L'equazione che permette il calcolo della dose è analoga alla \eqref{eq:superp} rappresentabile in coordinate cilindiriche:
 \begin{equation}
 \label{eq:electr_superp}
 D(d) = 2\pi \iint_{E,V} \Psi(r,d,E)\, s(r,d,E)\, r\de r \de E
 \end{equation}
-
+dove $E$ e $V$ sono rispettivamente l'energia ed il volume di integrazione, $r$ la coordinata di integrazione e $d$ il punto di valutazione della dose.
 L'Eq.\eqref{eq:electr_superp} è implementata all'interno di RayStation in maniera analoga al caso dei fotoni. Schematicamente i passaggi che vengono seguiti sono:
 \begin{itemize}
 \item I kernel \textit{pencil-beam} sono pre-calcolati con un modello Monte Carlo (software EGSnrc).
