@@ -32,7 +32,7 @@ Una volta che il fascio clinico investe il paziente, il meccanismo di deposizion
 \label{fig:processes}
 \end{figure}
 \vspace{.2cm}
-La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni che portano alla deposizione della dose nel paziente. \`{E} possibile identificare quattro principali meccanismi di rilascio della dose (evidenziati nella figura) che vengono elencati in ordine di importanza:
+La Fig.\ref{fig:processes} riassume schematicamente le principali interazioni che portano alla deposizione della dose nel paziente. \`{E} possibile identificare quattro principali meccanismi di rilascio della dose (evidenziati nella figura) che vengono elencati di seguito:
 \begin{enumerate}
 \item La dose primaria che rappresenta generalmente fino al 70\% della dose totale. Questa dose è generata dalla parte di fascio fotonico che non ha subito trasformazioni nella testata e che mette in moto particelle cariche le quali direttamente rilasciano la loro energia cinetica nella materia.
 \item La dose di scatter dovuta alla testata (\textit{head scatter dose}) che rappresenta generalmente il 5-10\% della dose totale. Questa parte della dose è dovuta alla componente di fascio fotonico che ha subito interazioni nella testata (prevalentemente nel \textit{flattening-filter}\footnote{\label{foot:flatt} Il \textit{flattening-filter} è un dispositivo di forma piramidale che serve ad attenuare il fascio al centro in modo da realizzare una fluenza di fotoni uniforme lungo la direzione perpendicolare alla direzione di propagazione del fascio.}) e presenta una distribuzione spaziale ed energetica differente dal fascio primario. Il meccanismo di rilascio dell'energia è analogo a quello del fascio primario.
@@ -190,7 +190,7 @@ Moltiplicando il termine $\mu / \rho(\vec{r'},E)$  con la fluenza espressa dalla
 \begin{figure}
 \centering
 \includegraphics[width=.7\textwidth]{./cap1/compt_dom.png}
-\caption{Prevalenza degli effetti di interazione dei fotoni con la materia in funzione dell'energia del fotone. L'effetto Compton è prevalente per le energie () e i materiali tipici della radioterapia .}
+\caption{Prevalenza degli effetti di interazione dei fotoni con la materia in funzione dell'energia del fotone. L'effetto Compton è prevalente per le energie e i materiali tipici della radioterapia.}
 \label{fig:compt_dom}
 \end{figure}
 Alle energie tipiche dei fotoni utilizzati in radioterapia l'effetto predominante è l'effetto Compton (Fig.\ref{fig:compt_dom}) secondo cui l'interazione del fotone primario genera un fotone diffuso ed un elettrone con una certa energia cinetica. Una modellizzazione completa del trasporto del fotone diffuso e dell'elettrone messo in moto richiede un approccio statistico di tipo Monte Carlo, computazionalmente molto dispendioso. L'approccio convolution/superposition racchiude i processi statistici di deposizione dell'energia nella funzione di scatter introdotta nell'Eq.\eqref{eq:superp} ed agisce in maniera deterministica.
@@ -207,7 +207,7 @@ Nota la funzione di scatter, assieme alla distribuzione di TERMA, è necessario 
 Questa operazione è effettuata per via numerica (tramite computer) e presuppone una discretizzazione dello spazio di integrazione e delle funzioni integrande. I metodi adottabili sono i seguenti:\\
 
 \textbf{Somma diretta:\\}
-Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, in linea di principio è possibile arrivare alla dose assorbita in maniera triviale risolvendo per somma diretta l'integrale \eqref{eq:superp}. Tuttavia, questa operazione su una griglia di $N^3$ voxel e generalizzata ad un mezzo disomogeneo, risulta essere un problema  di ordine $N^7$ \cite{Ahnesjo1989}. Un tale numero di operazioni è difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare risolvendo numericamente l'integrale \eqref{eq:superp} sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9=10^5\,sec\approx 2\, ore!$.}. \\
+Applicando le funzioni di scatter (kernel) ai punti di deposizione del TERMA, in linea di principio è possibile arrivare alla dose assorbita in maniera triviale risolvendo per somma diretta l'integrale \eqref{eq:superp}. Tuttavia, questa operazione su una griglia di $N^3$ voxel e generalizzata ad un mezzo disomogeneo, risulta essere un problema  di ordine $N^7$ \cite{Ahnesjo1989}. Un tale numero di operazioni è difficilmente gestibile anche con le moderne potenze di calcolo\footnote{Se immaginiamo di discretizzare un paziente di dimensioni $20x20x20$ cm$^3$ con voxel di lato $0.3$ cm otteniamo una griglia di circa $70x70x70$ voxel. Il numero di operazioni da effettuare risolvendo numericamente l'integrale \eqref{eq:superp} sarebbe $70^7\approx 10^{13}$. Disponendo di un computer capace di effettuare operazioni con frequenza dell'ordine del GHz$\equiv 10^9\,s^{-1}$ il tempo di risolvere $10^{13}$ operazioni sarebbe $t=10^{13}/10^9\,s=10^5\,s\approx 2\, ore!$.}. \\
 
 \textbf{Metodo di Fast Fourier Transform (FFT):\\}
 Un possibile approccio alternativo alla risoluzione della \eqref{eq:superp} si basa sulla considerazione per cui, nel caso di un mezzo omogeneo, la funzione di scatter della \eqref{eq:superp} risulta essere spazialmente invariante (l'integrale è un prodotto di convoluzione). Questo permette l'applicazione della teoria degli spazi di Fourier per cui l'integrale di convoluzione  diventa un semplice prodotto delle trasformate delle funzioni nello spazio di Fourier. L'operazione di antitrasformata del prodotto delle funzioni trasformate permette di ottenere la distribuzione di dose. Questa operazione è stata dimostrata comportare un numero di operazioni inferiore alla somma diretta pari a $N^3\log_2 N$ \cite{Wong1996}. Il limite di questa metodologia è che risulta esattamente applicabile solo su uno spazio continuo. La discretizzazione che inevitabilmente va effettuata per un calcolo numerico comporta delle approssimazioni. Inoltre questo metodo risulta essere difficilmente estensibile al caso disomogeneo in cui il kernel perde di invarianza spaziale. Sono stati studiati vari approcci basati su correzioni orientate a recuperare l'invarianza spaziale dei kernel anche nel caso disomogeneo. I risultati tuttavia non si sono rivelati soddisfacenti se comparati con il metodo presentato nel paragrafo successivo \cite{Wong1996}.\\
@@ -236,7 +236,7 @@ b)\includegraphics[width=.45\textwidth]{./cap1/Kernel_CCC.eps}
 \caption{(a) Errore di sampling che si commette discretizzando il kernel solo lungo dei raggi (Ray-tracing). (b) Meccanismo di ridistribuzione della dose in un settore conico sul proprio asse (Collapsed-cone).}
 \label{fig:raytrace_vs_cc}
 \end{figure}
-Tuttavia Ahnesj\"{o} notò che questo metodo semplicistico di discretizzazione può portare ad un errore di sampling ampio a causa della particolare forma dei kernel di deposizione nonché della divergenza dei raggi \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc}a)).\\
+Tuttavia Ahnesj\"{o} notò che questo metodo di discretizzazione semplicistico può portare ad un errore di sampling ampio a causa sia della divergenza dei raggi di ray-tracing sia della particolare forma dei kernel di deposizione  \cite{Ahnesjo1989} (i.e. una larga parte di deposizione di energia non viene conteggiata a meno di usare un campionamento angolare fittissimo complicato da gestire a livello computazionale (vedi Fig.\ref{fig:raytrace_vs_cc}a)).\\
 Per questo Ahnesj\"{o} propose di discretizzare i kernel in coordinate sferiche con dei coni aventi il vertice nel punto di interazione e sottendenti un certo angolo solido. Tutte le deposizioni di energia contenute all'interno della superficie conica che sottende l'angolo solido vengono \textquotedblleft\textit{collassate}\textquotedblright{} sull'asse del cono stesso (vedi Fig.\ref{fig:raytrace_vs_cc}b). Con questa procedura, l'energia totale depositata risulta spazialmente ridistribuita ma viene conteggiata per intero.
 
 L'operazione di \textquotedblleft\textit{collassamento}\textquotedblright{} dei kernel avviene matematicamente come segue. In primo luogo si effettua un fit analitico del kernel di deposizione calcolato tramite metodologie Monte Carlo. La funzione proposta da Ahnesj\"{o} per questo scopo in coordinate sferiche ha la seguente forma:
@@ -287,12 +287,11 @@ In seguito viene costruita una libreria di 600 kernel riscalati su un ampio inte
 
 
 \subsection{La generalizzazione al caso disomogeneo}
-Un ulteriore fenomeno da tenere in conto nell'applicazione dei point spread kernel è la disomogeneità del mezzo. 
 
 Considerando un mezzo con varie disomogeneità, la funzione di scatter perde la sua invarianza spaziale per cui l'equazione \eqref{eq:superp} cessa di essere un'integrale di convoluzione. In termini fisici, in un mezzo disomogeneo non sussiste più l'equilibrio di particelle cariche in ogni punto del volume.
 
-In condizioni standard i kernel sono calcolati in un volume omogeneo di acqua, tuttavia la deposizione di energia cambia se i processi di ionizzazione avvengono in un mezzo differente dall'acqua. Per questo motivo, in linea di principio, i kernel di deposizione andrebbero di volta in volta ricalcolati a seconda della situazione.\\
-Mackie dimostrò come sia possibile evitare di ricalcolare i kernel per ogni situazione sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho\,l$) (dove $\rho$ è la densità elettronica del mezzo relativa alla densità elettronica dell'acqua\footnote{\`E necessario utilizzare la densità elettronica in quanto è tra gli elettroni del mezzo che avvengono le interazioni che portano all'assorbimento della dose.}) \cite{Mackie1985}. Questa operazione è nota con il nome di \textit{density-scaling} dei kernel di deposizione. La base di questa metodologia era in realtà nota già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
+In condizioni standard i kernel sono calcolati in un volume omogeneo di acqua, tuttavia la deposizione di energia cambia se i processi di ionizzazione avvengono in un mezzo differente. Per questo motivo, in linea di principio, i kernel di deposizione andrebbero di volta in volta ricalcolati a seconda della situazione.\\
+Mackie propose un'approssimazione orientata ad evitare di ricalcolare i kernel in ogni singola situazione clinica. Seconda questa approssimazione, i kernel di deposizione per un mezzo disomogeneo si possono ottenere a partire dal kernel calcolato in acqua e sostituendo tutte le lunghezze fisiche ($l$) con le lunghezze radiologiche ($\rho_{H_2O}^{e^-}\cdot\,l$) (dove $\rho_{H_2O}^{e^-}$ è la densità elettronica del mezzo relativa alla densità elettronica dell'acqua\footnote{\`E necessario utilizzare la densità elettronica in quanto è tra gli elettroni del mezzo che avvengono le interazioni che portano all'assorbimento della dose.}) \cite{Mackie1985}. Questa operazione è nota con il nome di \textit{density-scaling} dei kernel di deposizione ed era in realtà conosciuta già prima dell'avvento degli algoritmi di convolution come Teorema di O'Connor \cite{OConnor1957}.\\
 \begin{figure}[!t]
 \centering
 a) \includegraphics[width=.36\textwidth]{./cap1/kern_dens.png}
@@ -300,12 +299,14 @@ b)\includegraphics[width=.5\textwidth]{./cap1/kern_dens2.png}
 \caption{(a) Confronto tra un kernel calcolato direttamente con un metodo Monte Carlo (linea solida) e un kernel calcolato in condizioni omogenee riscalato secondo la lunghezza radiologica (linea tratteggiata); le isolinee corrispondono ad una dose relativa di 1000, 500, 100, 50, 10, 5, 1; il punto A posizionato appena sotto l'interfaccia aria/acqua presenta la massima discrepanza (50\%). (b) effetto globale su un insieme di interazioni; un \textit{averaging} delle incertezze sui singoli kernel si risolve in un accordo accettabile su un fantoccio complesso che simula un torace \cite{Woo1990,Arnfield2000,Ahnesjo1989}.}
 \label{fig:kern_dens}
 \end{figure}
+In particolare questo teorema fu formulato per mettere in relazione la dose calcolata in due mezzi di differente densità ma stessa composizione chimica. In queste condizioni O'Connor dimostrò che il numero di fotoni scatterati rispetto al numero di fotoni primari rimane invariato nei due mezzi qualora tutte le distanze geometriche (includendo anche la dimensione del campo, la distanza dalla sorgente etc.) siano riscalate con le lunghezze radiologiche \cite{OConnor1957}. Le ipotesi alla base di questo teorema sono:
+\begin{itemize}
+\item Mezzo infinitamente esteso (per cui si realizza la condizione di equilibrio di particelle cariche)
+\item Composizione chimica dei due mezzi identica.
+\end{itemize}
+Queste condizioni non sono realizzabili in pratica per cui è inevitabile che il metodo del density-scaling dei kernel comporti degli errori quando applicato ad una situazione clinica reale.
 
-
-
-AGGIUNGI TEOREMA DI OCONNOR da AAPM
-
-Nella Fig.\ref{fig:kern_dens}a si può notare l'errore che si commette adottando il metodo suggerito da Mackie in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante l'accordo non sia perfetto è stato dimostrato \cite{Ahnesjo1989} che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui la densità cambia repentinamente (vedi Fig.\ref{fig:kern_dens}b).
+Nella Fig.\ref{fig:kern_dens}a si può notare l'errore che si commette applicando il teorema di O'Connor nella forma suggerita da Mackie ai kernel di deposizione in una configurazione di disomogeneità aria/acqua che può simulare una situazione tessuto/polmone (Woo e Cunningham \cite{Woo1990}). Nonostante la comparazione del kernel calcolato direttamente e del kernel calcolato con il metodo del density-scaling presenti degli errori fino al 50\%, è stato dimostrato \cite{Ahnesjo1989} che su un insieme numeroso di interazioni interviene un effetto di \textit{averaging} per cui discrepanze significative rimangono solo in condizioni di estrema disomogeneità, ossia vicino alle interfacce in cui si ha un cambio repentino di densità (vedi Fig.\ref{fig:kern_dens}b).
 
 %L'integrale espresso nell'Eq.\ref{eq:superp} può essere riscritto per un mezzo omogeneo nella forma \cite{Khan2010}:
 %\begin{equation}
@@ -314,6 +315,7 @@ Nella Fig.\ref{fig:kern_dens}a si può notare l'errore che si commette adottando
 %\end{equation}
 %Questa equazione rappresenta \textit{principio di convolution} per il calcolo della dose. Considerando un mezzo infinitamente esteso, la funzione $s$ è spazialmente invariante. Si è già accennato nella Sez.\ref{}
 
+In Fig.\ref{fig:kern_trans}b è riportato un diagramma schematico della modificazione di un kernel in un mezzo disomogeneo quando viene applicato il metodo del \textit{density-scaling}.
 
 Applicando il teorema del \textit{density-scaling} (o di O'Connor) alla \eqref{eq:superp}, sostituendo le lunghezze fisiche con le lunghezze radiologiche \cite{Khan2010} si ottiene la seguente equazione:
 \begin{equation}
@@ -330,7 +332,6 @@ Questa equazione è nota come equazione di \textit{convolution-superposition} e 
 \label{fig:kern_trans}
 \end{figure}
 
-In Fig.\ref{fig:kern_trans}b è riportano un diagramma schematico della modificazione di un kernel in un mezzo disomogeneo.
 
 
 

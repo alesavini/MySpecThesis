@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.2.1">
-<info created="D:20160217101349" modified="D:20160217104657"/>
+<info created="D:20160217101349" modified="D:20160221154859"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -271,7 +271,6 @@ h
 <text matrix="1 0 0 1 8 -8" transformations="translations" pos="336 708" stroke="black" type="label" width="12.73" height="7.473" depth="2.49" valign="baseline">(2)</text>
 <text matrix="1 0 0 1 -8 -4" transformations="translations" pos="392 720" stroke="black" type="label" width="12.73" height="7.473" depth="2.49" valign="baseline">(3)</text>
 <text matrix="1 0 0 1 20 -8" transformations="translations" pos="244 568" stroke="black" type="label" width="50.092" height="11.761" depth="0" valign="baseline" size="LARGE">Patient</text>
-<text matrix="1 0 0 1 -36 -4" transformations="translations" pos="260 624" stroke="black" type="label" width="132.721" height="7.476" depth="1.49" valign="baseline">$TERMA = 0.5\% TERMA_{max}$</text>
 <path stroke="black" arrow="normal/normal">
 288 640 m
 288 628 l
@@ -284,5 +283,8 @@ h
 <text transformations="translations" pos="240 672" stroke="black" type="label" width="39.02" height="6.918" depth="0" valign="baseline">full CCC</text>
 <text matrix="1 0 0 1 -8 0" transformations="translations" pos="224 704" stroke="black" type="label" width="53.715" height="6.926" depth="1.93" valign="baseline">partial CCC</text>
 <text matrix="1 0 0 1 0 -4" transformations="translations" pos="192 736" stroke="black" type="label" width="37.36" height="6.808" depth="0" valign="baseline">No CCC</text>
+<text matrix="1 0 0 1 184 -144" transformations="translations" pos="32 772" stroke="black" type="minipage" width="144" height="12.197" depth="7.23" valign="top">\centering
+$TERMA = 0.5\% TERMA_{max}$\\
+Isosurface</text>
 </page>
 </ipe>

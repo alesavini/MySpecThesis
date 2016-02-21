@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.2.1">
-<info created="D:20160201181617" modified="D:20160201194302"/>
+<info created="D:20160201181617" modified="D:20160221120136"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -334,27 +334,27 @@ h
 </path>
 <path stroke="1 0 0" arrow="normal/small">
 248 672 m
-256 672 l
+254.43 672.023 l
 </path>
 <path stroke="1 0 0" arrow="normal/small">
 264 672 m
-256 672 l
+257.571 672 l
 </path>
 <path stroke="1 0 0" arrow="normal/small">
 244 656 m
-252 656 l
+253.599 655.983 l
 </path>
 <path stroke="1 0 0" arrow="normal/small">
 268 656 m
-260 656 l
+258.424 655.989 l
 </path>
-<path matrix="1 0 0 1 -0.113805 -4" stroke="1 0 0" arrow="normal/small">
-240 640 m
-252 640 l
+<path stroke="1 0 0" arrow="normal/small">
+239.886 636 m
+252.6 636.002 l
 </path>
-<path matrix="1 0 0 1 0.243399 -4" stroke="1 0 0" arrow="normal/small">
-272 640 m
-260 640 l
+<path stroke="1 0 0" arrow="normal/small">
+272.243 636 m
+259.4 636.001 l
 </path>
 <path stroke="1 0 0" arrow="normal/small">
 236 624 m
@@ -650,8 +650,8 @@ h
 269.902 648.465 l
 </path>
 <path stroke="0 1 0" arrow="normal/small">
-254.679 640.081 m
-252 604 l
+256 640.216 m
+255.95 603.961 l
 </path>
 <text matrix="1 0 0 1 -64 -8" transformations="translations" pos="240 604" stroke="black" type="label" width="150.132" height="6.926" depth="1.93" valign="baseline">Contribution collapsed on the axis</text>
 </page>
