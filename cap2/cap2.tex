@@ -5,8 +5,8 @@
 
 
 \section{Dosimetria di base di un LINAC}
-Per costruire un modello dosimetrico di un LINAC è necessario effettuare delle misurazioni di dose in condizioni denominate condizioni di riferimento.\\
-Storicamente, queste misurazioni vengono effettuate con detector a camera a ionizzazione\footnote{La camera a ionizzazione è un rivelatore di radiazione ionizzante a gas. \`E costituita da due elettrodi che racchiudono un certo volume di aria. Al passaggio della radiazione, l'aria viene ionizzata e libera coppie di ioni. Grazie ad un campo elettrico applicato tra i due elettrodi gli ioni migrano fino a giungere sugli elettrodi, provocando un segnale in corrente rivelabile.}. Tuttavia, con l'avvento delle tecniche di radioterapia avanzata, sono stati introdotti negli ultimi anni una molteplicità di detector di nuova generazione specie per soddisfare le esigenze di accuratezza di misura per piccoli campi di irradiazione\footnote{Un campo quadrato è ritenuto \textit{piccolo} se inferiore a $4$x$4$ cm$^2$ \cite{Das2008}.}. Nella sezione seguente verranno presentati i concetti classici di dosimetria di un LINAC propedeutici alla modellizzazione di un TPS. Ci si soffermerà dapprima alla dosimetria propedeutica alla messa in uso clinico della tecnica di irradiazione denominata \textit{radioterapia conformazionale}\footnote{La radioterapia conformazionale o 3D-CRT è una tecnica di irradiazione che  fa impiego di fasci di irradiazione collimati sul target per i quali la pianificazione ed il calcolo della dose vengono effettuati su uno studio di tomografia computerizzata del paziente.}. Le problematiche relative alla dosimetria dei piccoli campi e alle tecniche di irradiazione avanzate verranno discusse a seguire. 
+
+In questa sezione verranno presentati i concetti base di dosimetria di un LINAC. Sulla base delle misure dosimetriche è possibile costruire un modello fisico-matematico del LINAC all'interno del TPS in modo da poterlo utilizzare per il calcolo della dose nelle diverse situazioni cliniche. Storicamente, le misurazioni di dose vengono effettuate con detector a camera a ionizzazione\footnote{La camera a ionizzazione è un rivelatore di radiazione ionizzante a gas. \`E costituita da due elettrodi che racchiudono un certo volume di aria. Al passaggio della radiazione, l'aria viene ionizzata e libera coppie di ioni. Grazie ad un campo elettrico applicato tra i due elettrodi gli ioni migrano fino a giungere sugli elettrodi, provocando un segnale in corrente rivelabile.}. Con l'avvento delle tecniche di radioterapia avanzata, sono stati introdotti negli ultimi anni una molteplicità di detector di nuova generazione specie per soddisfare le esigenze di accuratezza di misura per piccoli campi di irradiazione\footnote{Un campo quadrato è ritenuto \textit{piccolo} se inferiore a $4$x$4$ cm$^2$ \cite{Das2008}.}. Ci si soffermerà dapprima alla dosimetria propedeutica alla messa in uso clinico della tecnica di irradiazione denominata \textit{radioterapia conformazionale}\footnote{La radioterapia conformazionale o 3D-CRT è una tecnica di irradiazione che  fa impiego di fasci di irradiazione collimati sul target per i quali la pianificazione ed il calcolo della dose vengono effettuati su uno studio di tomografia computerizzata del paziente.}. Le problematiche relative alla dosimetria dei piccoli campi e alle tecniche di irradiazione avanzate verranno discusse a seguire. 
 
 \subsection{Dosimetria relativa}
 \label{sec:dos_rel}
@@ -40,8 +40,8 @@ Nella Fig.\ref{fig:pdd_prof} è possibile visualizzare gli andamenti tipici di u
 
 Nelle curve di dose-profondità è possibile distinguere tre zone:
 \begin{itemize}
-\item \textit{Zona di accrescimento della dose o di build-up:} la prima parte ascendente della PDD in cui avvengono le prime interazioni dei fotoni nel mezzo. Gli elettroni vengono messi in moto da queste interazioni primarie e depositano energia più avanti con i processi descritti nel capitolo 1. Se non vi fossero gli elettroni di contaminazione del fascio, la dose in superficie sarebbe nulla\footnote{Questo effetto è considerato un beneficio in radioterapia ed è noto anche come \textit{skin-sparing-effect.}}.
-\item \textit{Massimo della PDD:} all'aumentare della profondità, aumenta la produzione di particelle secondarie fino ad arrivare ad un equilibrio noto come equilibrio di particelle cariche (CPE). In queste condizioni il numero di particelle cariche uscenti da un volume è uguale al numero di particelle entranti in esso.
+\item \textit{Zona di accrescimento della dose o di build-up:} la prima parte ascendente della PDD in cui avvengono le prime interazioni dei fotoni nel mezzo. Gli elettroni vengono messi in moto da queste interazioni primarie e depositano energia più avanti con i processi descritti nel cap.1. Se non vi fossero gli elettroni di contaminazione del fascio, la dose in superficie sarebbe nulla\footnote{Questo effetto è considerato un beneficio in radioterapia ed è noto anche come \textit{skin-sparing-effect.}}.
+\item \textit{Massimo della PDD:} all'aumentare della profondità, aumenta la produzione di particelle secondarie fino ad arrivare all'equilibrio di particelle cariche (CPE, vedi cap.1). Questa condizione viene raggiunta nel punto di massimo della curva dose-profondità.
 \item \textit{Parte discendente della PDD:} aumentando ulteriormente la profondità di tessuto attraversato, l'intensità del fascio primario decresce esponenzialmente e conseguentemente anche la dose segue questo andamento.
 \end{itemize}
 
@@ -81,7 +81,7 @@ Queste misure costituiscono solo un'indicazione e possono essere estese o ridott
 
 \subsection{Dosimetria assoluta}
 \label{sec:dose_ass}
-Oltre le misure di dosimetria relativa, è necessario effettuare una misura di dose assoluta che permette di trasformare tutte le curve relative in curve di dose reale (in unità di Gray). La misurazione della dose assoluta è regolata da specifici protocolli redatti da organizzazioni internazionali come l'AAPM (America) \cite{Almond1999} e la International Atomic Energy Agency (IAEA) (Europa/Resto del Mondo) \cite{Andreo2006}.\\
+La misurazione della dose assoluta è regolata da specifici protocolli redatti da organizzazioni internazionali come l'AAPM (America) \cite{Almond1999} e la International Atomic Energy Agency (IAEA) (Europa/Resto del Mondo) \cite{Andreo2006}.\\
 Per il commissioning dell'acceleratore oggetto di questa tesi è stato seguito il protocollo IAEA TRS-398 secondo cui la dose assoluta può essere ottenuta con la seguente formula:
 \begin{equation}
 D = M\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{sat}
@@ -103,7 +103,7 @@ I suddetti fattori correttivi sono riportati in forma tabellare oppure si ricava
 \subsection{Accuratezza richiesta per la 3D-CRT}
 \label{sec:accu_3D}
 L'accuratezza richiesta per il calcolo della dose in radioterapia conformazionale si basa su criteri stabiliti agli inizi degli anni duemila da Van Dyk et al. e Venselaar et al. \cite{Dyk1993,Venselaar2001}. Da questi due lavori pioneristici, sono scaturite un certo numero di raccomandazioni da parte di organi internazionali (AAPM, ESTRO, IAEA) che hanno stabilito i limiti di accettabilità per la precisione di un calcolo di dose tramite TPS \cite{Fraass1998,Mijnheer2004,IAEA430}.\\
-Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} della \textit{European SocieTy for Radiotherapy \& Oncology} (ESTRO) intitolato `\textit{Quality Assurance of Treatment Planning Systems Practical Examples for Non-Imrt Photon Beams}'. 
+Il protocollo adottato per il commissioning della tecnica 3D-CRT è il \textit{booklet no.7} della \textit{European SocieTy for Radiotherapy \& Oncology} (ESTRO) intitolato `\textit{Quality Assurance of Treatment Planning Systems Practical Examples for Non-Imrt Photon Beams}'. 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.65\textwidth]{./cap2/Accuracy_zones.png}\\\vspace{.3cm}
@@ -112,7 +112,7 @@ Il protocollo adottato per gli scopi di questa tesi è il \textit{booklet no.7} 
 \label{fig:accuracy_zones}
 \end{figure}
 
-Rimanendo nell'ambito della radioterapia tradizionale 3D-CRT, è sufficiente effettuare misure di PDD, profili e output factor per dimensioni di campo che vanno da 5$x$5 cm$^2$ a 40$x$40 cm$^2$. Per tali dimensioni di campo è possibile utilizzare detector a camera a ionizzazione senza incorrere nelle problematiche che riguardano i piccoli campi di irradiazione ($< 4x4\,$cm$^2$) \cite{Das2008}. Un TPS per 3D-CRT deve riprodurre le misure effettuate con delle accuratezze variabili a seconda della regione di valutazione. Nella Fig.\ref{fig:accuracy_zones} è riportata la distinzione  delle varie zone di interesse di un fascio di irradiazione assieme alle tolleranze applicabili ad ognuna di esse. I valori numerici sono indicati nel booklet ESTRO no.7 e sono riportati nella Tab.\ref{tab:tol}.\\
+Nell'ambito della 3D-CRT, è sufficiente effettuare misure di PDD, profili e output factor per dimensioni di campo che vanno da 5$x$5 cm$^2$ a 40$x$40 cm$^2$. Per tali dimensioni è possibile utilizzare detector a camera a ionizzazione senza incorrere nelle problematiche di misura associate ai piccoli campi di irradiazione ($< 4x4\,$cm$^2$) \cite{Das2008}. Un TPS per 3D-CRT deve riprodurre le misure dosimetriche di riferimento con delle accuratezze variabili a seconda della regione di valutazione. Nella Fig.\ref{fig:accuracy_zones} è riportata la distinzione  delle varie zone di interesse di un fascio di irradiazione assieme alle tolleranze applicabili ad ognuna di esse. I valori numerici sono indicati nel booklet ESTRO no.7 e sono riportati nella Tab.\ref{tab:tol}.\\
 \begin{table}
 \centering
 \includegraphics[width=\textwidth]{./cap2/accuracy_tol.png}
@@ -127,14 +127,19 @@ I criteri di accettabilità del calcolo vengono applicati valutando due principa
 \begin{equation}
 \delta = 100\% \times \frac{D_{calc} - D_{meas}}{D_{N}}
 \end{equation}
-dove $D_{calc}$ e $D_{meas}$ rappresentano le dosi misurate e calcolate in un punto e $D_N$ rappresenta la dose di normalizzazione della differenza. Secondo le indicazioni ESTRO, $D_N$ è data dalla \textit{dose misurata locale} al punto di valutazione ($D_N=D_{meas}$) nelle zone ad alta dose mentre è data dalla \textit{dose misurata a centro asse} ($D_N=D_{CAX,meas}$) nelle zone a bassa dose (es. code dei profili).\\
-La valutazione in differenza di dose è adatta per le zone in cui si ha un basso gradiente ($\delta D < 3\%\,$mm$^{-1}$) (es. parte discendente della PDD e parte in-field e out-field dei profili).
+dove $D_{calc}$ e $D_{meas}$ rappresentano le dosi misurate e calcolate in un punto e $D_N$ rappresenta la dose di normalizzazione della differenza. Secondo le indicazioni ESTRO, la dose di normalizzazione $D_N$ può assumere due valori, in particolare:
+\begin{itemize}
+\item[-] $D_N=D_{meas}$: la dose di normalizzazione è data dalla \textit{dose misurata locale} al punto di valutazione nelle zone ad alta (zone $\delta_1$ e $\delta_3$ indicate in Fig.\ref{fig:accuracy_zones}a).
+\item[-] $D_N=D_{meas,CAX}$: la dose di normalizzazione è data dalla \textit{dose massima misurata a centro asse} nelle zone a bassa dose (zona $\delta_4$ indicata in Fig.\ref{fig:accuracy_zones}a).
+\end{itemize}
 
-\item[Distanza di accordo:] fissato un punto nello spazio individuato dal vettore $\vec{r}_{meas}$ corrispondente ad una certa dose misurata, la distanza di accordo rappresenta la minima distanza tra $\vec{r}_{meas}$ e tutti i punti aventi la medesima dose calcolata individuati dai vettori $\vec{r}_{calc}$.
+La valutazione in differenza di dose è adatta per le zone in cui si ha un basso gradiente ($\delta D < 3\%\,$mm$^{-1}$) (es. parte discendente della PDD (zona $\delta_1$ in Fig.\ref{fig:accuracy_zones}a) e parte in-field e out-field dei profili(zone $\delta_3$ e $\delta_4$ indicate in Fig.\ref{fig:accuracy_zones}a)).
+
+\item[Distanza di accordo:] fissato un punto nello spazio individuato dal vettore $\vec{r}_{m}$ corrispondente ad una certa dose misurata, la distanza di accordo rappresenta la minima distanza tra $\vec{r}_{m}$ e tutti i punti aventi la medesima dose calcolata individuati dai vettori $\vec{r}_{c,i}$ (vedi Fig.\ref{fig:DTA}).
 \begin{equation}
-DTA = \min_{\vec{r}_{calc}} \left|\vec{r}_{meas} - \vec{r}_{calc}\right|
+DTA = \min_{\vec{r}_{c,i}} \left|\vec{r}_{m} - \vec{r}_{c,i}\right|
 \end{equation}
-L'utilizzo della distanza di accordo come criterio di confronto è consigliata dal protocollo ESTRO per le valutazioni di accettabilità delle zone ad alto gradiente ($\delta D > 3\%\,$mm$^{-1}$) (es. build-up delle PDD e penombre dei profili) (vedi Fig.\ref{fig:DTA}).
+L'utilizzo della distanza di accordo come criterio di confronto è consigliata dal protocollo ESTRO per le valutazioni di accettabilità delle zone ad alto gradiente ($\delta D > 3\%\,$mm$^{-1}$) (es. build-up delle PDD e penombre dei profili (zona $\delta_2$ in Fig.\ref{fig:accuracy_zones}a)) .
 \end{description}
 
 \begin{figure}
@@ -145,9 +150,9 @@ L'utilizzo della distanza di accordo come criterio di confronto è consigliata d
 \end{figure}
 
 I valori di tolleranza in differenza di dose e DTA (Tab.\ref{tab:tol}) oscillano tra il 2\% - 2 mm, per geometrie semplici, (es. campo quadrato, fantoccio omogeneo) e il 5\% - 3 mm per i calcoli più complessi (es. dose fuori campo in condizioni di disomogeneità e asimmetria).\\
-Una metodologia conveniente per eseguire una valutazione combinata dei criteri di differenza di dose e distanza di accordo è stata sviluppata da Low et al. \cite{Low1998}. Essa si basa sul dividere queste due quantità con le rispettive tolleranze e sommarle per costruire un indice adimensionale denominato \textit{$gamma$-index} (lettera greca per `c' che sta per `combined-index'):
+Una metodologia conveniente per eseguire una valutazione combinata dei criteri di differenza di dose e distanza di accordo è stata sviluppata da Low et al. \cite{Low1998}. Essa si basa sul combinare queste due quantità e le loro tolleranze per costruire un indice adimensionale denominato \textit{$gamma$-index} (lettera greca per `c' che sta per `combined-index'):
 \begin{equation}
-\gamma = \min_{\vec{r}_{c}} \sqrt{\frac{|\vec{r}_{m}-\vec{r}_{c}|^2}{\Delta r}   + \frac{\left[D_{m}(\vec{r}_{m})-D_{c}(\vec{r}_{c})\right]^2}{\Delta D} }
+\gamma = \min_{\vec{r}_{c,i}} \sqrt{\frac{|\vec{r}_{m}-\vec{r}_{c,i}|^2}{\Delta r}   + \frac{\left[D_{m}(\vec{r}_{m})-D_{c}(\vec{r}_{c,i})\right]^2}{\Delta D} }
 \label{eq:gamma}
 \end{equation}
 dove i pedici `$m$' e `$c$' indicano `misurato' e `calcolato' e $\Delta r$ e $\Delta D$ costituiscono le tolleranze rispettivamente per la distanza di accordo e la differenza di dose. Il criterio di accettabilità viene soddisfatto nel punto di interesse se risulta $\gamma < 1$.
@@ -159,18 +164,18 @@ dove i pedici `$m$' e `$c$' indicano `misurato' e `calcolato' e $\Delta r$ e $\D
 \label{fig:gamma10x10}
 \end{figure}
 
-Tuttavia, le raccomandazioni ESTRO sconsigliano di valutare l'accettabilità del calcolo di un profilo o PDD con un criterio puntuale bensì, di utilizzare un criterio che consideri globalmente tutti i punti della curva di dose. Questo criterio è detto livello di confidenza dell'indice $\gamma$ ed è stato introdotto da Venselaar et al.\cite{Venselaar2001}:
+Le raccomandazioni ESTRO sconsigliano di applicare il criterio di accettabilità singolarmente per tutti i punti della curva di dose. Questo perché potrebbe verificarsi che la percentuale di punti che non rispetta il criterio di accettabilità (i.e. $\gamma > 1$) sia esigua rispetto al numero totale di punti valutati. Per questo motivo è stato proposto di utilizzare un criterio che consideri globalmente tutti i punti della curva dosimetrica in un unico indice. Questo indice è detto livello di confidenza dell'indice $\gamma$ ed è stato introdotto da Venselaar et al.\cite{Venselaar2001}:
 \begin{equation}
 CL(\gamma) = \bar{\gamma} + 1.5\,\sigma(\gamma)
 \label{eq:clgamma}
 \end{equation}
-dove $\bar{\gamma}$ è la media di tutti i valori dell'indice $\gamma$ calcolati sulla curva di dose e $\sigma(\gamma)$ è la loro deviazione standard (vedi Fig.\ref{fig:gamma10x10}).
+dove $\bar{\gamma}$ è la media di tutti i valori dell'indice $\gamma$ calcolati per ogni punto della curva di dose e $\sigma(\gamma)$ è la loro deviazione standard (vedi Fig.\ref{fig:gamma10x10}).
 Il confronto tra una curva di dose misurata e la corrispettiva calcolata risulta in tolleranza se il livello di confidenza dell'indice $\gamma$ risulta minore di 1 ($CL(\gamma) < 1$).
 
 
 \subsection{Accuratezza richiesta per le tecniche avanzate (IMRT e VMAT). La problematica dei piccoli campi di irradiazione}
 \label{sec:accu_spec}
-Per tecniche `avanzate' si intendono maggiormente le tecniche ad intensità modulata (IMRT). A differenza della 3D-CRT, queste tecniche realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
+A differenza della 3D-CRT, le tecniche avanzate di irradiazione realizzano una distribuzione di dose modulata all'interno del medesimo fascio di irradiazione (\textit{Intensity-modulated-radiation-therapy o IMRT}) con il beneficio di ottenere una maggiore conformazione della dose attorno al bersaglio \cite{ICRU2010} (Fig.\ref{fig:3D_IMRT}).\\
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{./cap2/3D_IMRT.png}
@@ -186,7 +191,7 @@ La dosimetria dei piccoli campi di irradiazione presenta varie criticità \cite{
 \begin{itemize}
 \item[-] Questo effetto si realizza quando le dimensioni del campo sono comparabili con il range medio degli elettroni secondari. Per energie del fascio primario minori di $10\,$MV, la condizione CPE non è soddisfatta per dimensioni di campo al di sotto di $3x3\,$cm$^2$.
 \end{itemize}
-\item Apertura dei collimatori comparabili con la dimensioni proiettate della sorgente.
+\item Apertura dei collimatori comparabili con la dimensioni della sorgente proiettate a livello di questi.
 \begin{itemize}
 \item[-] Questo crea un doppio effetto che consiste in una forte riduzione della dose sull'asse centrale del fascio assieme ad una modificazione della forma del profilo (forma ogivale e allargamento della penombra) (vedi Fig.\ref{fig:small_eff}a).
 \end{itemize}
@@ -214,9 +219,8 @@ Oltre ad indicare i criteri di accettazione per le curve di dose, il TG-119 ripo
 
 \section[Scelte adottate per le misure]{Scelte adottate per le misure\protect\footnote{Le misure e la conseguente modellizzazione del LINAC sono presentate in questo lavoro per un fascio di energia nominale pari a $6\,$MV. Il processo è stato ripetuto per un'altra energia pari a $15\,$MV ma non verrà discusso in quanto analogo.}}
 
-
 \subsection{PDD e Profili di dose}
-Il LINAC oggetto di questa tesi è un modello Trilogy\textsuperscript{\textcopyright} prodotto dalla Varian Medical Systems. Esso è progettato per poter erogare trattamenti radioterapici in tecnica conformazionale o ad intensità modulata (IMRT) step-and-shoot e dinamica fino ad una dimensione di campo massima $40x40\,$cm$^2$. \`E inoltre in grado di erogare trattamenti volumetrici ad arco con intensità e rateo di dose modulati (VMAT) fino ad una dimensione di campo massima $30x30\,$cm$^2$. Oltre a queste caratteristiche legate all'erogazione, è inoltre capace di effettuare uno studio di tomografia computerizzata del paziente prima del trattamento, in modo da verificare in tre dimensioni l'accurata collocazione sia del paziente in sé sia dei suoi organi interni, rispetto alle posizioni pianificate.
+Il LINAC oggetto di questa tesi è un modello Trilogy\textsuperscript{\textcopyright} prodotto dalla Varian Medical Systems. Esso è progettato per poter erogare trattamenti radioterapici in tecnica conformazionale o ad intensità modulata (IMRT) step-and-shoot e dinamica fino ad una dimensione di campo massima $40x40\,$cm$^2$. \`E inoltre in grado di erogare trattamenti volumetrici ad arco con intensità e rateo di dose modulati (VMAT) fino ad una dimensione di campo massima $30x30\,$cm$^2$. Oltre a queste caratteristiche legate all'erogazione, è capace di effettuare uno studio di tomografia computerizzata del paziente prima del trattamento, in modo da verificare in tre dimensioni l'accurata collocazione sia del paziente in sé sia dei suoi organi interni, rispetto alle posizioni pianificate.
 
 La distanza tra la sorgente di radiazione e l'acqua contenuta del fantoccio di misura (SSD) è stata posta a $90\,$cm sulle basi delle raccomandazioni della ditta ed anche del report 106 dell'AAPM \cite{Das2008a} che indica $90\,$cm come la SSD più vicina alle condizioni dei trattamenti più comuni.
 
@@ -225,7 +229,8 @@ Seguendo le linee guida AAPM TG-120 citate nella sezione precedente \cite{Low201
 \item Dimensioni di campo (in cm$^2$) $5x5$, $7x7$, $10x10$, $15x15$, $20x20$, $30x30$ e $40x40$ misurate con detector a camera a ionizzazione modello CC13 prodotto dalla IBA Dosimetry (volume attivo: $0.13\,$cm$^3$).
 \item Dimensioni di campo (in cm$^2$) $1x1$, $2x2$, $3x3$ e $4x4$ misurate con detector a semiconduttore (diodo) modello PFD prodotto dalla IBA Dosimtery (volume attivo: $0.09\,$mm$^3$).
 \end{itemize}
-Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, in Fig.\ref{fig:pen_of}a vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
+%Queste scelte ricalcano le raccomandazioni dei consolidati protocolli di dosimetria per quanto riguarda l'utilizzo della camera a ionizzazione per i campi al di sopra di $4x4\,$cm$^2$ mentre considerano le nuove evidenze sperimentali \cite{Das2008a,Low2011} riguardo l'utilizzo di detector di piccole dimensioni per i campi al di sotto di $5x5\,$cm$^2$. Nello specifico, 
+L'esigenza di ridurre il volume del detector per i campi piccoli è mostrata in Fig.\ref{fig:pen_of}a dove vengono confrontate le penombre dei profili di dose misurate con vari detector tra cui quelli utilizzati nell'ambito di questo lavoro.
 \begin{figure}[!t]
 \centering
 a)\includegraphics[width=.75\textwidth]{./cap2/pen_smear.png}\\
@@ -279,7 +284,7 @@ b)\includegraphics[width=.8\textwidth]{./cap2/OF_plots/OFSmall.eps}
 \caption{(a) output factor misurati con la camera a ionizzazione; da notare è la normalizzazione ($OF=1$) per il campo $10x10\,$cm$^2$. (b) interconfronto tra vari detector nella stima degli output factor dei piccoli campi.}
 \label{fig:OF_res}
 \end{figure}
-In esse si può notare come la misura degli OF per piccoli campi presenti un certo grado di variabilità a seconda del detector utilizzato. Le variabilità più ampie si riscontrano per i campi di dimensione $\leq 2x2\,$cm$^2$ (superiori al $5\%$, vedi Tab.\ref{tab:delta_OF}). 
+Si può notare come la misura degli OF per piccoli campi presenti un certo grado di variabilità a seconda del detector utilizzato. Le variabilità più ampie si riscontrano per i campi di dimensione $\leq 2x2\,$cm$^2$ (superiori al $5\%$, vedi Tab.\ref{tab:delta_OF}). 
 
 \begin{table}
 \centering
@@ -314,7 +319,7 @@ OF(XxY)=\frac{D(XxY)}{D(10x10)}\times k
 dove il fattore $k$ dipende dal particolare detector, dalle dimensioni del campo, dalla qualità del fascio, dalla profondità di misura dell'OF etc. e serve a compensare le criticità legate alla natura del detector.\\
 I fattori $k$ si calcolano con metodo Monte Carlo simulando tutto il processo di irradiazione e raccolta della ionizzazione da parte del particolare detector. Queste simulazioni sono condotte da vari gruppi di ricerca affiliati al task group n. 155 della AAPM e i risultati verranno inclusi nel report contenente le raccomandazioni per la dosimetria a piccoli campi \cite{AAPMTG155}. 
 
-Tuttavia, al tempo di redazione di questo lavoro (Gennaio 2016), il report risulta ancora in sviluppo per cui una correzione degli OF misurati con un certo detector va valutata con cautela. Considerando le tolleranze nella Tab.\ref{tab:tol} estese anche ai campi piccoli \cite{Low2011}, si può adottare una soglia del $2\%$ sulla valutazione degli OF. Osservando la Tab.\ref{tab:delta_OF}, si nota che il detector PFD fornisce valori in accordo con il detector Exradin W1 fino ad un campo di dimensioni $2x2\,$cm$^2$. Questo detector è stato dimostrato non avere fattori di correzione Monte Carlo rilevanti fino a campi di dimensione $0.5x0.5\,$cm$^2$ \cite{Francescon2014} per cui è assunto come benchmark. Alla luce di ciò, la scelta adottata nelle misure degli OF è stata quella di ritenere accettabili le misure effettuate con il rivelatore PFD fino ad un campo di dimensioni $2x2\,$cm$^2$ e di limitare il commissioning del TPS a questa dimensione di campo minima. Ciò appare essere un buon compromesso per bilanciare la necessità di utilizzo di piccoli campi con l'affidabilità della misura. Questa scelta è stata tradotta successivamente in una limitazione della dimensione di campo minima impiegabile nella pianificazione del trattamento pari a $2x2\,$cm$^2$.
+Tuttavia, al tempo di redazione di questo lavoro (Gennaio 2016), il report risulta ancora in sviluppo per cui una correzione degli OF misurati con un certo detector va valutata con cautela. Considerando le tolleranze nella Tab.\ref{tab:tol} estese anche ai campi piccoli \cite{Low2011} e notando che la misura di OF corrisponde ad una geometria semplice di irradiazione in un mezzo omogeneo, si può adottare una soglia del $2\%$ sull'incertezza associata agli OF. Osservando la Tab.\ref{tab:delta_OF}, si nota che il detector PFD fornisce valori in accordo con il detector Exradin W1 fino ad un campo di dimensioni $2x2\,$cm$^2$. Il detector Exradin W1 è stato dimostrato non avere fattori di correzione Monte Carlo rilevanti fino a campi di dimensione $0.5x0.5\,$cm$^2$ \cite{Francescon2014} per cui è assunto come benchmark. Alla luce di ciò, la scelta adottata nelle misure degli OF è stata quella di ritenere accettabili le misure effettuate con il rivelatore PFD fino ad un campo di dimensioni $2x2\,$cm$^2$ e di limitare il commissioning del TPS a questa dimensione di campo minima. Ciò appare essere un buon compromesso per bilanciare la necessità di utilizzo di piccoli campi con l'affidabilità della misura. Questa scelta è stata tradotta successivamente in una limitazione della dimensione di campo minima impiegabile nella pianificazione del trattamento pari a $2x2\,$cm$^2$.
 
 %INDAGINE SOTTO INTERESSANTE MA RIMOSSA PER BRIVTIà
 %A titolo esplorativo e per gli scopi di questo lavoro, è stata tuttavia indagata la possibilità di utilizzare delle correzioni per le misure di OF con i rivelatori PFD e CC01 recentemente pubblicate da uno dei gruppi affiliati al TG-155 \cite{Benmakhlouf2014}.\\
@@ -354,7 +359,7 @@ Tuttavia, al tempo di redazione di questo lavoro (Gennaio 2016), il report risul
 
 
 \subsection{MLC}
-In radioterapia conformazionale l'MLC ha unicamente la funzione di sagomare il campo ai bordi del target. D'altra parte, nelle tecniche avanzate IMRT e VMAT, la modulazione di intensità si effettua combinando tra loro diverse collimazioni (segmenti, Fig.\ref{fig:IMRT_Segments}). Per questo motivo è necessario tenere in conto maggiormente i dettagli costruttivi dell'MLC nella modellizzazione del TPS.
+In radioterapia conformazionale l'MLC ha unicamente la funzione di sagomare il campo ai bordi del target. D'altra parte, nelle tecniche avanzate IMRT e VMAT, la modulazione di intensità si effettua combinando tra loro diverse collimazioni (detti segmenti, Fig.\ref{fig:IMRT_Segments}). Per questo motivo è necessario tenere in conto maggiormente i dettagli costruttivi dell'MLC nella modellizzazione del TPS.
 
 \begin{figure}
 \centering
