@@ -128,6 +128,12 @@ I criteri di accettabilità del calcolo vengono applicati valutando due principa
 \delta = 100\% \times \frac{D_{calc} - D_{meas}}{D_{N}}
 \end{equation}
 
+dove $D_{calc}$ e $D_{meas}$ rappresentano le dosi misurate e calcolate in un punto e $D_N$ rappresenta la dose di normalizzazione della differenza. Secondo le indicazioni ESTRO, la dose di normalizzazione $D_N$ può assumere due valori, in particolare:
+\begin{itemize}
+\item[-] $D_N=D_{meas}$: la dose di normalizzazione è data dalla \textit{dose misurata locale} al punto di valutazione nelle zone ad alta (zone $\delta_1$ e $\delta_3$ indicate in Fig.\ref{fig:accuracy_zones}a).
+\item[-] $D_N=D_{meas,CAX}$: la dose di normalizzazione è data dalla \textit{dose massima misurata a centro asse} nelle zone a bassa dose (zona $\delta_4$ indicata in Fig.\ref{fig:accuracy_zones}a).
+\end{itemize}
+
 La valutazione in differenza di dose è adatta per le zone in cui si ha un basso gradiente ($\delta D < 3\%\,$mm$^{-1}$) (es. parte discendente della PDD (zona $\delta_1$ in Fig.\ref{fig:accuracy_zones}a) e parte in-field e out-field dei profili(zone $\delta_3$ e $\delta_4$ indicate in Fig.\ref{fig:accuracy_zones}a)).
 
 \item[Distanza di accordo:] fissato un punto nello spazio individuato dal vettore $\vec{r}_{m}$ corrispondente ad una certa dose misurata, la distanza di accordo rappresenta la minima distanza tra $\vec{r}_{m}$ e tutti i punti aventi la medesima dose calcolata individuati dai vettori $\vec{r}_{c,i}$ (vedi Fig.\ref{fig:DTA}).
