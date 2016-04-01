@@ -207,7 +207,7 @@ La dosimetria dei piccoli campi di irradiazione presenta varie criticità \cite{
 \end{itemize}
 \begin{figure}
 \centering
-a)\includegraphics[width=.7\textwidth]{./cap2/small_eff1.png}
+a)\includegraphics[width=.7\textwidth]{./cap2/small_eff1.png}\\
 b)\includegraphics[width=.7\textwidth]{./cap2/small_eff2.png}
 \caption{(a) la sovrapposizione delle penombre dei collimatori (legate alle dimensioni della sorgente primaria) porta ad una modificazione della forma del profilo di dose (forma ogivale e penombre allargate) assieme ad una forte riduzione della dose al centro. (b) un detector di dimensioni comparabili con le dimensioni del profilo può portare ad una sottostima della dose a causa dell'effetto di \textit{volume averaging}.}
 \label{fig:small_eff}
@@ -381,9 +381,9 @@ L'MLC oggetto di questa tesi è prodotto dalla Varian Medical Systems (modello M
 
 \begin{figure}
 \centering
-a)\includegraphics[width=.4\textwidth]{./cap2/MLC_leaf_varian.png}
-b)\includegraphics[width=.3\textwidth]{./cap2/MLC_side.png}
-c)\includegraphics[width=.3\textwidth]{./cap2/MLC_front.png}
+a)\includegraphics[width=.45\textwidth]{./cap2/MLC_leaf_varian.png}\\
+b)\includegraphics[width=.4\textwidth]{./cap2/MLC_side.png}
+c)\includegraphics[width=.4\textwidth]{./cap2/MLC_front.png}
 \caption{Foto e schemi costruttivi dell'MLC Millenium 120.}
 \label{fig:MLC_details}
 \end{figure}
@@ -629,10 +629,12 @@ In Fig.\ref{fig:MLC_tip_model}, è riportato il particolare del confronto dei pr
 
 \begin{figure}
 \centering
-\begin{tabular}{m{.38\textwidth}m{.6\textwidth}}
-\vspace*{-.3cm}\includegraphics[width=.38\textwidth]{./cap2/MLC_tip_model.png} &
-\includegraphics[width=.6\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling.eps}
-\end{tabular}
+\includegraphics[width=.5\textwidth]{./cap2/MLC_tip_model.png}
+\includegraphics[width=.8\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling.eps}
+%\begin{tabular}{m{.38\textwidth}m{.6\textwidth}}
+%\vspace*{-.3cm}\includegraphics[width=.38\textwidth]{./cap2/MLC_tip_model.png} &
+%\includegraphics[width=.6\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling.eps}
+%\end{tabular}
 \caption{(a) Modello della punta dei leaf implementato in RayStation. (b) Modellizzazione dell'effetto di leaf tip utilizzando i campi descritti nella Fig.\ref{fig:MLC_tip_effect}.}
 \label{fig:MLC_tip_model}
 \end{figure}
@@ -640,8 +642,8 @@ In Fig.\ref{fig:MLC_tip_model}, è riportato il particolare del confronto dei pr
 La modellizzazione dell'effetto di leaf tip è stata in seguito verificata misurando profili di campi adiacenti fuori dall'asse centrale con la stessa tecnica indicata in Fig.\ref{fig:MLC_tip_effect}. I medesimi campi sono stati riprodotti nel TPS utilizzando il parametro di leaf tip width ottimizzato pari a $0.3\,$cm. Il confronto misurato/calcolato è riportato in Fig.\ref{fig:MLC_tip_model_offaxis} e dimostra come il modello della punta del leaf sia accurato anche in situazioni diverse da quelle di riferimento.
 \begin{figure}
 \centering
-a)\includegraphics[width=.5\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxis.eps}
-b)\includegraphics[width=.5\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxisSUM.eps}
+a)\includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxis.eps}
+b)\includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling_offaxisSUM.eps}
 \caption{(a) profili crossline di campi adiacenti fuori asse centrale misurati con il diodo Razor (IBA Dosimetry) a $10\,$cm di profondità. (b) somma dei campi adiacenti e confronto con il calcolo.}
 \label{fig:MLC_tip_model_offaxis}
 \end{figure}
@@ -651,8 +653,8 @@ b)\includegraphics[width=.5\textwidth]{./cap2/MLC_Plots/Abutted/PlotMLC_Tip_mode
 L'effetto di tongue\&{}groove è stato modellizzato utilizzando le misure indicate in Fig.\ref{fig:MLC_TG_effect}. Il parametro che descrive questo effetto in RayPhysics è la \textit{tongue\&{}groove region} espressa in centimetri. Al pari della leaf tip width, la \textit{tongue\&{}groove region} rappresenta la porzione del bordo del leaf, proiettata all'isocentro, per cui la trasmissione viene calcolata come la radice quadrata della trasmissione del MLC (vedi Fig.\ref{fig:MLC_Regions}a). 
 \begin{figure}
 \centering
-\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/TG/TG_modeling.eps}
-\includegraphics[width=.49\textwidth]{./cap2/MLC_Plots/TG/TG_modelingZOOM.eps}
+\includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/TG/TG_modeling.eps}
+\includegraphics[width=.7\textwidth]{./cap2/MLC_Plots/TG/TG_modelingZOOM.eps}
 \caption{Modellizzazione dell'effetto di tongue\&{}groove utilizzando i campi descritti nella Fig.\ref{fig:MLC_TG_effect}.}
 \label{fig:MLC_TG_modeling}
 \end{figure}
@@ -786,8 +788,8 @@ Il sistema di verifica pre-trattamento disponibile presso l'azienda ospedaliera 
 
 \begin{figure}
 \centering
-a)\includegraphics[width=.5\textwidth]{./cap2/MatriXX_Alone.png}
-b)\includegraphics[width=.5\textwidth]{./cap2/MatriXX_Cube.png}
+a)\includegraphics[width=.45\textwidth]{./cap2/MatriXX_Alone.png}
+b)\includegraphics[width=.45\textwidth]{./cap2/MatriXX_Cube.png}
 \caption{Rivelatore MatriXX (a) e suo posizionamento all'interno del MultiCube (b) sul lettino del LINAC per effettuare la verifica pre-trattamento}
 \label{fig:MatriXX}
 \end{figure}
@@ -797,8 +799,8 @@ Il processo di verifica pre-trattamento si realizza con questa strumentazione ef
 
 \begin{figure}
 \centering
-a)\includegraphics[width=.5\textwidth]{./cap2/MatriXX_CT.png}
-b)\includegraphics[width=.5\textwidth]{./cap2/MatriXX_CT_Plan.png}
+a)\includegraphics[width=.45\textwidth]{./cap2/MatriXX_CT.png}
+b)\includegraphics[width=.45\textwidth]{./cap2/MatriXX_CT_Plan.png}
 \caption{(a) studio CT del complesso MatriXX più MultiCube. (b) erogazione di un piano di trattamento volumetrico ad arco sul complesso MatriXX più MultiCube per la verifica pre-trattamento.}
 \label{fig:MatriXX_CT}
 \end{figure}
