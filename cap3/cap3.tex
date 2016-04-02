@@ -3,7 +3,7 @@
 \textsf{In questo capitolo si passa ....}
 
 \section{Origini e razionale della radioterapia adattiva}
-Per radioterapia adattiva o \textit{adaptive radiation therapy} si intende una tecnica di erogazione della dose che di `adatta' ai possibili cambiamenti che si verificano durante il trattamento, rispetto alla situazione iniziale di pianificazione. I cambiamenti che si possono verificare durante un trattamento radiante possono essere di varia natura e riguardare sia l'interno del paziente (progressione/regressione del target, dimagrimento, diverso stato di riempimento degli organi cavi), sia il suo  posizionamento sul lettino di trattamento (incertezza di setup). Il metodo tradizionale di affrontare il problema dei cambiamenti rispetto alla situazione di pianificazione è esposto nei report della \textit{International Commission of Radiological Units} ICRU no.50 e no.62, ripreso anche nel recente report no.83 per le tecniche ad intensità modulata \cite{ICRU2010}. Esso consiste nell'espandere i target di un certo margine di sicurezza in modo da assicurare la loro corretta irradiazione anche in presenza di incertezze dovute al movimento degli organi interni e al posizionamento del paziente.
+Per radioterapia adattiva o \textit{adaptive radiation therapy} si intende una tecnica di erogazione della dose che si `adatta' ai possibili cambiamenti che si verificano durante il trattamento, rispetto alla situazione iniziale di pianificazione. I cambiamenti che si possono verificare durante un trattamento radiante possono essere di varia natura e riguardare sia l'interno del paziente (progressione/regressione del target, dimagrimento, diverso stato di riempimento degli organi cavi), sia il suo  posizionamento sul lettino di trattamento (incertezza di setup). Il metodo tradizionale di affrontare il problema dei cambiamenti rispetto alla situazione di pianificazione è esposto nei report della \textit{International Commission of Radiological Units} (ICRU) no.50 e no.62, ripreso anche nel recente report no.83 per le tecniche ad intensità modulata \cite{ICRU2010}. Esso consiste nell'espandere i target di un certo margine di sicurezza in modo da assicurare la loro corretta irradiazione anche in presenza delle succitate incertezze.
 \begin{figure}
 \centering
 a)\includegraphics[width=.25\textwidth]{./cap3/ptv.png}
@@ -13,7 +13,7 @@ b) \includegraphics[width=.64\textwidth]{./cap3/adapt0.png}
 \end{figure}
 
 Nella Fig.\ref{fig:adapt0} sono riportate le definizioni dei volumi coinvolti nella pianificazione del trattamento radioterapico assieme ad uno schema del processo standard di pianificazione ed erogazione del piano del trattamento.\\
-Il meccanismo che ha portato alla definizione dei vari volumi in radioterapia procede in vari step:
+Il meccanismo che ha portato alla definizione dei singoli volumi procede in vari step:
 \begin{description}
 \item[Gross Target Volume (GTV):] questo volume identifica il tumore a livello macroscopico (rivelabile attraverso strumenti ottici, imaging radiologico ed evenutale esame obiettivo del medico).
 
@@ -33,7 +33,7 @@ PTV_{margin} = 2.5\Sigma + 0.7\sigma
 \end{equation}
 dove $\Sigma$ rappresenta l'errore sistematico ossia quell'errore che si ripete per tutto il ciclo di trattamento (es. paziente dimagrito rispetto alla pianficazione) mentre $\sigma$ è l'errore random (es. movimento d'organo).
 
-In un approccio non adattivo i margini da dare al CTV per arrivare al PTV si trovano effettuando uno studio di coorte per un fissato sito di irradiazione. Nello studio si valutano gli errori sistematici e random su una popolazione di pazienti e si applica la formula di Van Herk secondo le direttive ICRU \cite{ICRU62}. La pianificazione viene quindi effettuata stabilendo delle condizioni di irradiazione del planning target volume (PTV)  che vengono ripetute per tutto il ciclo di trattamento (Fig.\ref{fig:adapt0}).\\
+In un approccio non adattivo i margini da dare al CTV per arrivare al PTV si trovano effettuando uno studio di coorte per un fissato sito di irradiazione. In questo studio si valutano gli errori sistematici e random su una popolazione di pazienti e si applica la formula di Van Herk secondo le direttive ICRU \cite{ICRU62}. La pianificazione viene quindi effettuata stabilendo delle condizioni di irradiazione del planning target volume (PTV)  che vengono ripetute per tutto il ciclo di trattamento (Fig.\ref{fig:adapt0}).\\
 Questo tipo di approccio può tuttavia essere non è ottimale per lo specifico paziente come indicato schematicamente nella Fig.\ref{fig:margins}. In un approccio di \textit{adaptive radiotherapy} è invece possibile studiare il singolo caso ed adattare il trattamento allo specifico paziente.
 \begin{figure}
 \centering
@@ -42,7 +42,7 @@ Questo tipo di approccio può tuttavia essere non è ottimale per lo specifico p
 \label{fig:margins}
 \end{figure}
 
-Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta  da Yan et al.\cite{Yan1996}. In questo lavoro veniva per la prima volta proposto un adattamento del piano di cura a seguito di rilevazioni effettuate nelle prime cinque sedute di trattamento con un dispositivo in grado di `fotografare' la posizione del paziente e di confrontarla rispetto alla posizione di pianficazione\footnote{Il dispositivo in oggetto è denominato \textit{portal imager} e consiste in un pannello elettronico montato sul LINAC ed è in grado di generare un'immagine utilizzando raggi di energia dell'ordine dei MeV uscenti dal LINAC allo stesso modo in cui vengono generate le radiografie classiche con i raggi di energia dell'ordine del keV.}. A seguito di queste rilevazioni Yan proponeva di stimare l'errore sistematico paziente-specifico calcolando la media delle deviazioni tra posizione pianificata e posizione di trattamento rilevate nelle prime cinque sedute e di adattare il piano spostando il centro di irradiazione di questa quantità.
+Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta  da Yan et al.\cite{Yan1996}. In questo lavoro veniva per la prima volta proposto un adattamento del piano di cura a seguito di rilevazioni effettuate nelle prime cinque sedute di trattamento con un dispositivo in grado di `fotografare' la posizione del paziente e di confrontarla rispetto alla posizione di pianficazione. Il dispositivo in oggetto è denominato \textit{portal imager} e consiste in un pannello elettronico montato sul LINAC ed è in grado di generare un'immagine utilizzando raggi di energia dell'ordine dei MeV uscenti dal LINAC allo stesso modo in cui vengono generate le radiografie classiche con i raggi di energia dell'ordine del keV. A seguito di queste rilevazioni Yan proponeva di stimare l'errore sistematico paziente-specifico calcolando la media delle deviazioni tra posizione pianificata e posizione di trattamento rilevate nelle prime cinque sedute e di adattare il piano spostando il centro di irradiazione di questa quantità.
 
 \begin{figure}[!t]
 \centering
@@ -64,14 +64,14 @@ Entrambi gli approcci adaptive presentati in questa sezione sono raffigurati sch
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.6\textwidth]{./cap3/Verellen.png}
-\caption{Il paradigma dell'arancia di Verellen \cite{Verellen2007} per illustrare l'importanza della riduzione dei margini in radioterapia. In pratica il volume occupato dalla buccia di un arancia è comparabile con il volume dell'arancia stessa. La riduzione anche di pochi millimetri del PTV può comportare una riduzione del volume da irradiare considerevole che si traduce in un maggior risparmio dei tessuti sani.}
+\caption{Il paradigma dell'arancia di Verellen \cite{Verellen2007} per illustrare l'importanza della riduzione dei margini in radioterapia. In pratica il volume occupato dalla buccia di un'arancia è comparabile con il volume dell'arancia stessa. La riduzione anche di pochi millimetri del PTV può comportare una riduzione del volume da irradiare considerevole che si traduce in un maggior risparmio dei tessuti sani.}
 \label{fig:verellen}
 \end{figure}
 
 
 
 \section{Il concetto attuale di \textit{adaptive-radiotherapy} implementato in RayStation}
-Il concetto di radioterapia adattiva ha subito negli anni vari aggiornamenti e revisioni ma solo negli ultimi anni è divenuto oggetto di grande interesse. Ciò è dovuto principalmente all'avvento  delle tecniche di imaging per il controllo volumetrico del posizionamento del paziente installate sui moderni LINAC\footnote{La tecnica più diffusa implementata nei moderni LINAC è denominata \textit{cone-beam-computed-tomography o CBCT}. Essa consiste in un sistema capace di ricostruire immagini tomografiche del paziente utilizzando un fascio conico di raggi X e di confrontarle con lo studio CT di pianificazione.}.
+Il concetto di radioterapia adattiva ha subito negli anni vari aggiornamenti e revisioni ma solo negli ultimi anni è divenuto oggetto di grande interesse. Ciò è dovuto principalmente all'avvento  delle tecniche di imaging per il controllo volumetrico del posizionamento del paziente installate sui moderni LINAC. La tecnica più diffusa implementata nei moderni LINAC è denominata \textit{cone-beam-computed-tomography o CBCT}. Essa consiste in un sistema capace di ricostruire immagini tomografiche del paziente utilizzando un fascio conico di raggi X e di confrontarle con lo studio CT di pianificazione.
 
 \begin{figure}[!t]
 \centering
@@ -83,14 +83,14 @@ Il concetto di radioterapia adattiva ha subito negli anni vari aggiornamenti e r
 
  Nella Fig.\ref{fig:HN_DVH} è illustrato un tipico esempio di irradiazione del distretto testa-collo di largo interesse per la radioterapia adattiva per i grossi cambiamenti che avvengono in itinere nell'anatomia del paziente. A causa dei rapidi gradienti di dose realizzati con le tecniche ad intensità modulata, piccoli cambiamenti di anatomia del paziente possono avere un largo impatto sulla distribuzione di dose finale sia per il target che per gli organi a rischio (Fig.\ref{fig:HN_DVH}d). \\
  
-Il TPS RayStation affronta il problema della radioterapia adattiva offrend una soluzione `all-in-one' che si articola in cinque principali step:
-\begin{description}
-\item[1) Acquisizione degli studi CBCT:] le CBCT acquisite dal sistema di imaging montato sul LINAC vengono spedite al TPS.
-\item[2) Deformazione elastica:] viene effettuata una registrazione elastica tra la CT di pianificazione e le CBCT. Questa operazione consiste nel trovare il campo di deformazione geometrico che, se applicato alla CBCT di controllo,   trasforma quest'ultima nella CT di pianificazione. La trasformazione in oggetto è unicamente geometrica: vengono solo variate le coordinate dei pixel ma non il loro valore in scala di grigi.
-\item[3) Calcolo della dose in CBCT:] il piano di trattamento viene trasferito alle CBCT e ricalcolato in modo da ottenere la distribuzione di dose relativa alle specifiche frazioni. 
-\item[4) Deformazione delle dosi:] sulla base della registrazione deformabile geometrica viene deformata la distribuzione di dose calcolata in CBCT e riportata sulla CT di pianificazione. In questo modo si possono confrontare le distribuzioni di dose pianificata ed effettivamente erogata sulla CT di pianificazione.
-\item[5) Adattamento del piano:] sulla base delle differenze tra le distribuzioni di dose pianificata ed erogata si decide o meno di effettuare una ripianificazione del trattamento.
-\end{description}
+Il TPS RayStation affronta il problema della radioterapia adattiva offrendo una soluzione `all-in-one' che si articola in cinque principali step:
+\begin{itemize}
+\item[\textbf{a)}] \textbf{Acquisizione degli studi CBCT:} le CBCT acquisite dal sistema di imaging montato sul LINAC vengono spedite al TPS.
+\item[\textbf{b)}] \textbf{Deformazione elastica:} viene effettuata una registrazione elastica tra la CT di pianificazione e le CBCT. Questa operazione consiste nel trovare il campo di deformazione geometrico che, se applicato alla CBCT di controllo,   trasforma quest'ultima nella CT di pianificazione. La trasformazione in oggetto è unicamente geometrica: vengono solo variate le coordinate dei pixel ma non il loro valore in scala di grigi.
+\item[\textbf{c)}] \textbf{Calcolo della dose in CBCT:} il piano di trattamento viene trasferito alle CBCT e ricalcolato in modo da ottenere la distribuzione di dose relativa alle specifiche frazioni. 
+\item[\textbf{d)}] \textbf{Deformazione delle dosi:} sulla base della registrazione deformabile geometrica viene deformata la distribuzione di dose calcolata in CBCT e riportata sulla CT di pianificazione. In questo modo si possono confrontare le distribuzioni di dose pianificata ed effettivamente erogata sulla CT di pianificazione.
+\item[\textbf{e)}] \textbf{Adattamento del piano:} sulla base delle differenze tra le distribuzioni di dose pianificata ed erogata si decide o meno di effettuare una ripianificazione del trattamento.
+\end{itemize}
 
 Tutti questi passaggi (a parte il primo) presentano delle criticità che al giorno d'oggi non sono del tutto superate in maniera condivisa. In particolare, le questioni su cui vi è ancora un largo dibattito nella comunità scientifica possono essere riassunte nei punti seguenti:\\
 
@@ -102,11 +102,11 @@ Tutti questi passaggi (a parte il primo) presentano delle criticità che al gior
 \textbf{Calcolo della dose in CBCT}
 \begin{itemize}
 \item Quanto è accurato il calcolo della dose in CBCT?
-\item Calibrare o non calibrare la CBCT in termini di scala di grigi - densità?
+\item Calibrare o non calibrare la CBCT in termini di scala di grigi - densità elettronica/fisica?
 \end{itemize}
 \textbf{Deformazione delle dosi:}
 \begin{itemize}
-\item Quanto è giusto deformare le dosi applicando la trasformazione geometrica?
+\item Quanto è giusto deformare le dosi utilizzando la trasformazione geometrica?
 \end{itemize}
 \textbf{Adattamento del piano:}
 \begin{itemize}
@@ -115,7 +115,7 @@ Tutti questi passaggi (a parte il primo) presentano delle criticità che al gior
 \item Che livello di verifica pre-trattamento è richiesto per il piano adattato?
 \end{itemize}
 
-Come mostrato in un recente point/counterpoint pubblicato su \textit{Medical Physics} \cite{Schultheiss2012}, la comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate. Per questo motivo il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora (Febbraio 2016) in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
+Come mostrato in un recente point/counterpoint pubblicato su \textit{Medical Physics} \cite{Schultheiss2012}, la comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate. Per questo motivo il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora (Marzo 2016) in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
 
 \subsection{Studio multicentrico per l'ottimizzazione del protocollo di deformazione elastica}
 Il TPS RayStation implementa un algoritmo di deformazione elastica ibrido \cite{RaySearchLaboratories2014}. In particolare, il campo di deformazione viene trovato considerando la differenza tra i livelli di grigio tra lo studio di riferimento e lo studio target, assieme alla presenza di eventuali strutture geometriche che fungono da guida (ROI di controllo).
@@ -131,9 +131,9 @@ F =& \alpha \cdot (1- Correlation\, Coefficient) + \\
 \end{equation}
 dove il \textit{Correlation coefficient} è un termine del tipo coefficiente di correlazione di Pearson e misura la correlazione tra i livelli di grigio delle due immagini (è uguale a 1 per immagini identiche). Il termine di regolarizzazione (\textit{Regularization Term}) aumenta all'aumentare dell'intensità della deformazione e serve a penalizzare soluzioni improbabili dal punto di vista fisico. Infine il \textit{ROI Penalty Term} è un termine che diminuisce quanto più le ROI di controllo tra le due immagini sono sovrapposte.
 
-Nella corrente implementazione dell'algoritmo di deformazione in RayStation (v.4.7) i termini peso $\alpha$, $\beta$ e $\gamma$, il coefficiente di correlazione ed il termine di regolarizzazione sono tutti fissati dalla ditta. Quello che viene lasciato all'operatore è la scelta delle ROI di controllo controllato dall'ultimo termine della Eq.\eqref{eq:def}.
+Nella corrente implementazione dell'algoritmo di deformazione in RayStation (v.4.7) i termini peso $\alpha$, $\beta$ e $\gamma$, il coefficiente di correlazione ed il termine di regolarizzazione sono tutti fissati dalla ditta. Quello che viene lasciato all'operatore è la scelta delle ROI di controllo (ultimo termine della Eq.\eqref{eq:def}).
 
-Il razionale dello studio multicentrico cui si è presi parte consiste nell'investigare l'accuratezza di vari algoritmi di registrazione deformabile disponibili commercialmente e di sviluppare le metodologie che portano alla migliore deformazione possibile. A questo proposito è stato riunito un gruppo di 13 istituzioni italiane (Gruppo YES) per un totale di 5 diverse soluzioni commerciali per la registrazione elastica, tra cui il TPS RayStation. Lo studio si articola in più fasi ed è tutt'ora (Febbraio 2016) in corso di svolgimento. Nell'ambito di questo lavoro di tesi discuteremo i risultati raggiunti nella fase riguardante i casi clinici.
+Il razionale dello studio multicentrico cui si è presi parte consiste nell'investigare l'accuratezza di vari algoritmi di registrazione deformabile disponibili commercialmente e di sviluppare le metodologie che portano alla migliore deformazione possibile. A questo proposito è stato riunito un gruppo di 13 istituzioni italiane (Gruppo YES - Your Elastic Solution) per un totale di 5 diverse soluzioni commerciali per la registrazione elastica, tra cui il TPS RayStation. Lo studio si articola in più fasi ed è tutt'ora (Marzo 2016) in corso di svolgimento. Nell'ambito di questo lavoro di tesi discuteremo i risultati raggiunti nella fase riguardante i casi clinici.
 
 Per la fase clinica dello studio YES sono stati reclutati 3 studi CT per i distretti pelvico, testa-collo e polmonare (Fig.\ref{fig:YES_sites}).
 \begin{figure}
@@ -143,11 +143,11 @@ Per la fase clinica dello studio YES sono stati reclutati 3 studi CT per i distr
 \label{fig:YES_sites}
 \end{figure}
 Per ogni distretto è stato creato un altro studio CT in cui è stata simulata tramite software (ImSimQA) una deformazione che tipicamente si realizza nella routine clinica:
-\begin{description}
-\item[Distretto pelvico:] riempimento vescicale minore rispetto alla CT di pianificazione ed aumento del volume rettale.
-\item[Distretto testa-collo:] riduzione del volume linfonodale.
-\item[Distretto polmonare:] riduzione di volume del tumore.
-\end{description}
+\begin{itemize}
+\item[\textbf{a)}] \textbf{Distretto pelvico:} riempimento vescicale minore rispetto alla CT di pianificazione ed aumento del volume rettale.
+\item[\textbf{b)}] \textbf{Distretto testa-collo:} riduzione del volume linfonodale.
+\item[\textbf{c)}] \textbf{Distretto polmonare:} riduzione di volume del tumore.
+\end{itemize}
 Ogni istituzione aveva il compito di ricavare in maniera inversa la deformazione simulata utilizzando gli strumenti in proprio possesso. Sulla base della deformazione ottenuta veniva richiesto di mappare delle regioni di interesse (ROI) dalla CT iniziale alla CT deformata. Le ROI mappate da ogni centro sono state poi confrontate con le ROI `gold' deformate secondo la deformazione introdotta via software, nota solo al centro coordinatore.\\
 L'indicatore utilizzato per confrontare le ROI mappate dai centri con le ROI `gold' è l'indice di conformità di Jaccard:
 \begin{equation}
@@ -173,9 +173,9 @@ Il secondo risultato è spiegabile con la peculiarità del sito toracico (tumore
 Oltre ai risultati ottenuti a livello multicentrico, il lavoro è stato approfondito nell'ambito di questa tesi con l'intento di sviluppare dei protocolli di registrazione deformabile sito-specifici propedeutici al commissioning del TPS RayStation per l'adaptive radiotherapy. 
 %Alla data di redazione di questa tesi (Febbraio 2016) l'ottimizzazione dei protocolli è ancora in via di sviluppo, presenteremo qui di seguito i risultati preliminari.
 
-A questo proposito, durante la creazione delle deformazioni per lo studio multicentrico si è distinto l'approccio finalizzato a stressare l'algoritmo (orientato ad ottenere il miglior risultato possibile) da quello che può essere un approccio più orientato alla routine clinica. Più precisamente, dati uno studio CT di riferimento ed uno deformato, il metodo più preciso di effettuare una registrazione deformabile consiste nell'utilizzare una risoluzione di griglia molto fitta assieme all'impiego di numerose ROI di controllo che guidano l'algoritmo. Usualmente le ROI di controllo rappresentano degli organi a basso contrasto rispetto ai tessuti circostanti che l'algoritmo non riesce ad individuare con il solo termine di correlazione della Eq.\eqref{eq:def}. Volendo ad es. utilizzare la vescica come ROI di controllo in una deformazione del distretto pelvico, è necessario che questa sia delineata nello studio di riferimento e nello studio deformato. In un'implementazione di adaptive radiotherapy clinica con valutazione dosimetrica di ogni seduta di trattamento (approccio più preciso ed affidabile), l'utilizzo di una ROI di controllo per la registrazione deformabile presuppone la sua delineazione su ogni studio, operazione che può risultare estremamente time-consuming in un'ottica di routine clinica\footnote{Tipicamente il numero di sedute di trattamento di un paziente standard si aggira tra 20 e 30. Senza nessun ausilio le ROI di controllo andrebbero contornate su tutti gli studi CBCT acquisiti prima di ogni seduta di trattamento.}.
+A questo proposito, durante la creazione delle deformazioni per lo studio multicentrico si è distinto l'approccio finalizzato a stressare l'algoritmo (orientato ad ottenere il miglior risultato possibile) da quello che può essere un approccio più orientato alla routine clinica. Più precisamente, dati uno studio CT di riferimento ed uno deformato, il metodo più preciso di effettuare una registrazione deformabile consiste nell'utilizzare una risoluzione di griglia molto fitta assieme all'impiego di numerose ROI di controllo che guidano l'algoritmo. Usualmente le ROI di controllo rappresentano degli organi a basso contrasto rispetto ai tessuti circostanti che l'algoritmo non riesce ad individuare con il solo termine di correlazione della Eq.\eqref{eq:def}. Volendo ad es. utilizzare la vescica come ROI di controllo in una deformazione del distretto pelvico, è necessario che questa sia delineata nello studio di riferimento e nello studio deformato. In un'implementazione di adaptive radiotherapy clinica con valutazione dosimetrica di ogni seduta di trattamento (approccio più preciso ed affidabile), l'utilizzo di una ROI di controllo per la registrazione deformabile presuppone la sua delineazione su ogni studio, operazione che può risultare estremamente time-consuming in un'ottica di routine clinica. Tipicamente il numero di sedute di trattamento di un paziente standard si aggira tra 20 e 30. Senza nessun ausilio le ROI di controllo andrebbero contornate su tutti gli studi CBCT acquisiti prima di ogni seduta di trattamento.
 
-Per i motivi sopra citati, il principio fondante lo sviluppo dei protocolli di registrazione deformabile è quello quello di trovare il miglior compromesso tra precisione della deformazione ed impiego di ROI di controllo. Accanto a ciò sono in corso di studio anche i vari strumenti di contornazione semi-automatica offerti dal TPS RayStation per velocizzare la delineazione di ROI di controllo.
+Per i motivi sopra citati, il principio fondante lo sviluppo dei protocolli di registrazione deformabile è stato quello di trovare il miglior compromesso tra precisione della deformazione ed impiego di ROI di controllo. Accanto a ciò sono in corso di studio anche i vari strumenti di contornazione semi-automatica offerti dal TPS RayStation per velocizzare la delineazione di ROI di controllo.
 
 I protocolli risultano essere in via di perfezionamento in accordo con i risultati che emergeranno nelle successive fasi dello studio multicentrico. Verranno presentati nelle sezioni seguenti i risultati preliminari a cui si è giunti nelle fasi finali di questo lavoro di tesi. 
 
@@ -213,7 +213,7 @@ Nel caso del sito testa-collo la deformazione proposta corrisponde alla tipica r
 
 L'approccio che ha portato alla stesura del protocollo per le deformazioni del sito testa-collo è basato sui seguenti ragionamenti:
 \begin{itemize}
-\item Gli organi coinvolti in questo distretto sono pressoché stabili. Più precismanete, anche in presenza di deformazioni, i rapporti anatomici dei tessuti molli con i segmenti ossei sono usualmente conservati.
+\item Gli organi coinvolti in questo distretto sono pressoché stabili. Più precisamente, anche in presenza di deformazioni, i rapporti anatomici dei tessuti molli con i segmenti ossei sono usualmente conservati.
 \item Il tipo di deformazione che si osserva è `prevedibile'. Più precismanete, ci si aspetta che nel corso del trattamento si va incontro ad una riduzione del volume linfonodale.
 \end{itemize}
 Sulla base di queste considerazioni la proposta di protocollo per il sito toracico è la seguente:
@@ -251,6 +251,8 @@ L'applicazione dei protocolli preliminari mostrati ha portato a deformazioni di 
 
 
 \subsection{Studio multicentrico per predire la necessità di adattare il piano}
+
+
 Esordisci dicendo che pur velocizzando all'estremo la procedura etc etc, il processo di adaptive così come esistente è cumbersome!...non è applicabbile a tutti i pzti...inoltre è stato dimostrato che non tutti ne beneficia allo stesso modo (ritrova la referenza)....per questo motivo lo sviluppo ulteriore riguarda tutto il project di guidi di predire, di selezionare, di trovare il miglior tempo per l'adattamento ettc etc.
 Continua qui prendi i risultati dell'AIFM etc etc
 sottosezione adaptive (GUIDI) con risultati preliminari tipo quella roba delle parotidi etc etc e siamo quasi quasi per finire :OOO
