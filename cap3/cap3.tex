@@ -1,9 +1,11 @@
 \chapter{La radioterapia adattiva. Implementazione iniziale e sviluppi futuri}
 \minitoc
-\textsf{In questo capitolo si passa ....}
+\textsf{}
 
 \section{Origini e razionale della radioterapia adattiva}
-Per radioterapia adattiva o \textit{adaptive radiation therapy} si intende una tecnica di erogazione della dose che si `adatta' ai possibili cambiamenti che si verificano durante il trattamento, rispetto alla situazione iniziale di pianificazione. I cambiamenti che si possono verificare durante un trattamento radiante possono essere di varia natura e riguardare sia l'interno del paziente (progressione/regressione del target, dimagrimento, diverso stato di riempimento degli organi cavi), sia il suo  posizionamento sul lettino di trattamento (incertezza di setup). Il metodo tradizionale di affrontare il problema dei cambiamenti rispetto alla situazione di pianificazione è esposto nei report della \textit{International Commission of Radiological Units} (ICRU) no.50 e no.62, ripreso anche nel recente report no.83 per le tecniche ad intensità modulata \cite{ICRU2010}. Esso consiste nell'espandere i target di un certo margine di sicurezza in modo da assicurare la loro corretta irradiazione anche in presenza delle succitate incertezze.
+Per radioterapia adattiva o \textit{adaptive radiation therapy} si intende una tecnica di erogazione della dose che si `adatta' ai possibili cambiamenti che si verificano durante il trattamento, rispetto alla situazione iniziale di pianificazione. I cambiamenti che si possono verificare durante un trattamento radiante possono essere di varia natura e riguardare sia l'interno del paziente (progressione/regressione del target, dimagrimento, diverso stato di riempimento degli organi cavi), sia il suo  posizionamento sul lettino di trattamento (incertezza di setup). 
+
+Il metodo tradizionale di affrontare il problema dei cambiamenti rispetto alla situazione di pianificazione è esposto nei report della \textit{International Commission of Radiological Units} (ICRU) no.50 e no.62, ripreso anche nel recente report no.83 per le tecniche ad intensità modulata \cite{ICRU2010}. Esso consiste nell'espandere i target di un certo margine di sicurezza in modo da assicurare la loro corretta irradiazione anche in presenza delle succitate incertezze.
 \begin{figure}
 \centering
 a)\includegraphics[width=.25\textwidth]{./cap3/ptv.png}
@@ -251,17 +253,50 @@ L'applicazione dei protocolli preliminari mostrati ha portato a deformazioni di 
 
 
 \section{Studio multicentrico per predire la necessità di adattare il piano}
+Lo studio multi-centrico cui si è presi parte fa parte di un progetto di ricerca del Ministero della Salute, dal titolo: \textit{``Dose warping methods for IGRT and Adaptive RT: dose accumulation based on organ motion and anatomical variations of the patients during radiation therapy treatments''}. Lo studio si pone come fine quello di sviluppare un metodo predittivo in grado di fornire parametri quantitativi che aiutino il medico radioterapista ed il fisico medico a decidere il momento in cui applicare o meno un processo di radioterapia adattiva sul determinato paziente.
+
+Un approccio di tal genere appare quanto mai utile nelle realtà cliniche moderne in cui un processo di radioterapia adattiva è inapplicabile su larga scala a tutta la popolazione di pazienti a causa dei sottoprocessi time consuming da mettere in campo per questo scopo (primo tra tutti l'identificazione giornaliera dei volumi di interesse per il trattamento che dovrebbe essere eseguita dal medico radioterapista). Questa considerazione è supportata anche da evidenze in letteratura \cite{Capelle2012} secondo cui un approccio di radioterapia adattiva su pazienti non accuratamente selezionati porta a benefici clinici trascurabili ed ad un impiego improprio di risorse.
 
 
-Esordisci dicendo che pur velocizzando all'estremo la procedura etc etc, il processo di adaptive così come esistente è cumbersome!...non è applicabbile a tutti i pzti...inoltre è stato dimostrato che non tutti ne beneficia allo stesso modo (ritrova la referenza)....per questo motivo lo sviluppo ulteriore riguarda tutto il project di guidi di predire, di selezionare, di trovare il miglior tempo per l'adattamento ettc etc.
-Continua qui prendi i risultati dell'AIFM etc etc
-sottosezione adaptive (GUIDI) con risultati preliminari tipo quella roba delle parotidi etc etc e siamo quasi quasi per finire :OOO
+La patologia su cui si è inizialmente focalizzato lo studio è quella dei tumori riguardanti il distretto testa-collo. La prima fase dello studio è stata quella di caratterizzare il comportamento dei pazienti affetti da questa patologia tramite un'analisi retrospettiva del database posseduto dal centro coordinatore (Policlinico di Modena). \`E stata analizzata una coorte di 40 pazienti. In accordo con il comportamento generale, la variazione più importante che si registra durante il corso del trattamento radioterapico è la riduzione del volume delle parotidi dovuta a fenomeni di risposta alla terapia e ad un generale dimagrimento del paziente (Fig.\ref{fig:Modena_DV}).
+\begin{figure}
+\includegraphics[width=.8\textwidth]{./cap3/Modena_volDecrease.png}\\
+\includegraphics[width=.8\textwidth]{./cap3/Modena_dosIncrease.png}
+\caption{(a) trend di decrescita del volume della parotide destra e conseguente trend di incremento (b) della dose media.}
+\label{fig:Modena_DV}
+\end{figure}
 
+L'analisi retrospettiva è stata ulteriormente approfondita correlando le variazioni di dose e di volume sotto forma di scatter plot come in Fig.\ref{fig:Modena_trend}. Quello che si può osservare è una divisione della popolazione in due sottogruppi: il gruppo di pazienti che subisce grandi variazioni dosimetriche e volumetriche (che potrebbero beneficiare di un approccio adattivo) ed il gruppo di pazienti che invece rimane entro un limitato range di variabilità rispetto alle condizioni iniziali.
 
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./cap3/Modena_trend.png}
+\caption{Analisi scatter plot delle sei settimane di trattamento per la parotide destra. Tutte le variazioni sono normalizzate rispetto al valore iniziale di dose o di volume per omogeneizzare il campione (i.e. un punto vicino alla coordinata (100,100) rappresenta una variazione nulla rispetto alla condizione iniziale.)}
+\label{fig:Modena_trend}
+\end{figure}
 
+Sulla base di queste di queste osservazioni il centro coordinatore ha sviluppato un algoritmo capace di effettuare una separazione statistica (\textit{clustering}) delle due popolazioni in modo da individuare i pazienti che possono beneficiare di un approccio adattivo nonché la settimana per cui la differenza tra le popolazioni diventa significativa (ipotetica settimana in cui si può pensare di effettuare una modifica adattiva del piano)\cite{Guidi2015}. Le soglie di variazione che stabiliscono la separazione dei due cluster sono:
+\begin{itemize}
+\item Variazione del volume dell'organo rispetto al volume iniziale di più del 30\%.
+\item Variazione di dose all'interno dell'organo maggiori del 10\%.
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=.7\textwidth]{./cap3/Modena_cluster.png}
+\caption{Esempio di clusterizzazione dei dati per la parotide valutata nell'ultima settimana di trattamento}
+\label{fig:Modena_cluster}
+\end{figure}
 
+Lo studio multi-centrico ha coinvolto quattro centri italiani tra cui la ASL di Teramo. Ogni centro aveva il compito di reclutare una serie di pazienti con neoplasia del distretto testa-collo di cui sono state osservate variazioni significative durante il corso del trattamento e di inviarle al centro coordinatore. I trattamenti presi in considerazione hanno durata di circa sei settimane. I pazienti di ogni centro sono stati analizzati dal centro coordinatore ed è stato ricavato l'outcome predetto dall'algoritmo. \\
+I risultati sono riportati in Fig.\ref{fig:Modena_results}. Dai grafici mostrati si può desumere che la percentuale di pazienti che beneficerebbe di una ripianificazione adattiva aumenta con il proseguire del trattamento. Questo trend è stato osservato per tutti i centri coinvolti. In particolare si nota che l'inversione tra la percentuale di pazienti che non necessitano di ripianificazione e quelli per cui una ripianificazione è suggerita avviene durante la quarta settimana di trattamento. Questa evidenza si riscontra con più precisione osservando il comportamento della popolazione ottenuto mediando i risultati dei singoli centri (Fig.\ref{fig:Modena_results}b).
 
+\begin{figure}
+\centering
+a)\includegraphics[width=.95\textwidth]{./cap3/Modena_specRes.png}\\
+b)\includegraphics[width=.95\textwidth]{./cap3/Modena_globRes.png}
+\caption{Risultati dell'analisi multicentrica per la predizione del tempo ottimale di ripianificazione distinti per centro (a) e mediati su tutti i centri (b). \textit{Correct treatment:} percentuale di pazienti che non necessitano di ripianificazione; \textit{Suggested Re-planning:} percentuale di pazienti per cui è suggerita una ripianficazione; \textit{Bias:} percentuale di pazienti per cui l'algoritmo non è stato in grado di discriminare il trend; \textit{Warning:} percentuale di pazienti per cui si sono rilevate alte variabilità fuori dai limiti di applicabilità dell'algoritmo (possibile errore di set-up del paziente).}
+\label{fig:Modena_results}
+\end{figure}
 
-
-
+A seguito dei risultati ottenuti in questo studio, è in corso di svolgimento la redazione di un protocollo di radioterapia adattiva locale secondo il quale si prevede una valutazione multidisciplinare dei pazienti testa-collo all'inizio della quarta settimana di trattamento per decidere o meno un adattamento del piano sulla base della particolare situazione clinica. 
 
