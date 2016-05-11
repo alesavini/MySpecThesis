@@ -48,6 +48,7 @@
 \setbeamercolor*{bibliography entry title}{fg=black}
 
 \newcommand{\ac}{\\ \vspace{0.2cm}}
+\newcommand{\de}{\,\text{d}}
 
 \title[Commissioning TPS]{Commissioning di un sistema di elaborazione di piani di trattamento radioterapici\\\vspace*{.05cm}
         per tecniche 3D-CRT, IMRT,\\\vspace*{.1cm} VMAT e Radioterapia Adattiva}
@@ -125,9 +126,51 @@
 
 
 \section[L'algoritmo \protect\textit{collapsed cone}]{L'algoritmo \protect\textit{collapsed cone} e la sua implementazione in RayStation}
-\begin{frame}{bla bla}
-bla bla
+
+\begin{frame}{Introduzione RT a fasci esterni}
+\begin{center}
+\structure{Acceleratore lineare (LINAC)}\\ \vspace{.2cm}
+\includegraphics[width=.6\textwidth]{../cap1/linac.PNG}
+\end{center}
+\footnotesize
+\structure{Radioterapia a fasci esterni:} tecnica medica che fa impiego di radiazioni ionizzanti per il trattamento di patologie (neoplasie maligne principalmente).\ac 
+\structure{Dose fisica:} al pari della dose farmacologica è la quantità utilizzata per ottenere l'effetto terapeutico.
+$$D = \frac{d \bar{\varepsilon}}{d m} \qquad\qquad \text{Unità: J\,kg}^{-1} \equiv \text{Gray [Gy]}$$
 \end{frame}
+
+\begin{frame}{Introduzione RT a fasci esterni}
+\begin{center}
+\small
+\structure{Principali interazioni radiazione-paziente}\\ \vspace{.2cm}
+\includegraphics[width=.8\textwidth]{../cap1/processes.PNG}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Introduzione RT a fasci esterni}
+\begin{center}
+\small
+%\structure{Principali interazioni radiazione-paziente}\\ \vspace{.2cm}
+\includegraphics[width=.5\textwidth]{../cap1/processes.PNG}
+\end{center}
+\begin{itemize}
+\footnotesize
+\item \alert{Dose primaria:} originata dalla parte di fascio che non ha interagito nella testata $\Rightarrow$ $\sim 70\%$ della dose totale).
+\item \alert{\textit{Head scatter dose}:} originata dalla parte di fascio che ha interagito nella testata (\textit{flattening filter}) $\Rightarrow$ $\sim 5\div 10\%$ della dose totale.
+\item \alert{\textit{Phantom scatter dose}:} dovuta ai processi di scatter all'interno del paziente dalla parte di fascio che ha interagito nella testata (\textit{flattening filter}) $\Rightarrow$ $\sim 30\%$ della dose totale.
+\item \alert{Dose da contaminazione:} originata dalla parte di fascio non fotonica (prevalentemente elettroni) $\Rightarrow$ comparabile con la dose primaria solo nei primi $mm$ di tessuto.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\begin{columns}
+
+\end{columns}
+\end{frame}
+
+
 
 \section[Modellizzazione del LINAC]{Modellizzazione fisica del LINAC nel TPS RayStation}
 \begin{frame}{Indice}
