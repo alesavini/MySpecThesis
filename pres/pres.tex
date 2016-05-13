@@ -34,7 +34,7 @@
 \usepackage{ragged2e}
 \usepackage{everysel}
 
-%\usepackage[symbol*]{footmisc}
+%\usepackage[symbol]{footmisc}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 \usepackage{caption}
@@ -48,14 +48,14 @@
 \setbeamercolor*{bibliography entry title}{fg=black}
 
 \newcommand{\ac}{\\ \vspace{0.2cm}}
-\newcommand{\de}{\,\text{d}}
+\newcommand{\de}{\,\textrm{d}}
 
 \title[Commissioning TPS]{Commissioning di un sistema di elaborazione di piani di trattamento radioterapici\\\vspace*{.05cm}
         per tecniche 3D-CRT, IMRT,\\\vspace*{.1cm} VMAT e Radioterapia Adattiva}
 \institute{\tiny Università dell'Aquila\ac Tesi di Specializzazione\\ Scuola di Specializzazione in Fisica Medica}
 \date{05.Lug.2016}
 \author{\textit{Alessandro Savini}}
-\renewcommand{\thefootnote}{$\star$} 
+
 
 
 
@@ -135,7 +135,7 @@
 \footnotesize
 \structure{Radioterapia a fasci esterni:} tecnica medica che fa impiego di radiazioni ionizzanti per il trattamento di patologie (neoplasie maligne principalmente).\ac 
 \structure{Dose fisica:} al pari della dose farmacologica è la quantità utilizzata per ottenere l'effetto terapeutico.
-$$D = \frac{d \bar{\varepsilon}}{d m} \qquad\qquad \text{Unità: J\,kg}^{-1} \equiv \text{Gray [Gy]}$$
+$$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1} \equiv \text{Gray [Gy]}$$
 \end{frame}
 
 \begin{frame}{Introduzione RT a fasci esterni}
@@ -152,10 +152,10 @@ $$D = \frac{d \bar{\varepsilon}}{d m} \qquad\qquad \text{Unità: J\,kg}^{-1} \eq
 \begin{center}
 \small
 %\structure{Principali interazioni radiazione-paziente}\\ \vspace{.2cm}
-\includegraphics[width=.5\textwidth]{../cap1/processes.PNG}
+\includegraphics[width=.6\textwidth]{../cap1/processes.PNG}
 \end{center}
 \begin{itemize}
-\footnotesize
+\scriptsize
 \item \alert{Dose primaria:} originata dalla parte di fascio che non ha interagito nella testata $\Rightarrow$ $\sim 70\%$ della dose totale).
 \item \alert{\textit{Head scatter dose}:} originata dalla parte di fascio che ha interagito nella testata (\textit{flattening filter}) $\Rightarrow$ $\sim 5\div 10\%$ della dose totale.
 \item \alert{\textit{Phantom scatter dose}:} dovuta ai processi di scatter all'interno del paziente dalla parte di fascio che ha interagito nella testata (\textit{flattening filter}) $\Rightarrow$ $\sim 30\%$ della dose totale.
@@ -166,9 +166,200 @@ $$D = \frac{d \bar{\varepsilon}}{d m} \qquad\qquad \text{Unità: J\,kg}^{-1} \eq
 
 \begin{frame}{Algoritmi di calcolo della dose}
 \begin{columns}
+\column{.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../cap1/processes.PNG}
+\column{.05\textwidth}
+\large$$\Rightarrow$$
+\column{.48\textwidth}
+\includegraphics[width=.5\textwidth]{../cap1/superp1.png}
+\includegraphics[width=.5\textwidth]{../cap1/superp2.png}
+\end{columns}
+\vspace{.5cm}
+\small $$D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'$$
+\begin{itemize}
+\scriptsize
+\item \structure{$D(x,y,z):$} dose nel punto $P$.
+\item \structure{$T(P'):$} \textit{Total-Energy-Released-in-Matter} (TERMA) $\rightarrow$ fluenza di energia ($\Psi\, [J\, m^{-2}]$) $\times$ coefficiente assorbimento massico ($\mu/\rho\,[kg^{-1}\, m^{2}]$) nel punto $P'$ .
+\item \structure{$s(P'\rightarrow P):$} \textit{funzione di scatter} $\rightarrow$ quantità di energia assorbita in $P$ dovuta ad un'interazione di un fotone con energia fissata nel punto $P'$.
+\end{itemize}
+\end{frame}
 
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\small $$D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'$$\\ \vspace{.5cm}
+\structure{Step per il calcolo della dose:}
+\begin{itemize}
+\footnotesize
+\item Calcolo della fluenza di energia.
+\item Calcolo della distribuzione di TERMA.
+\item Applicazione delle funzioni di scatter e del principio di \textit{convolution-superposition} per il calcolo della dose finale.
+\item Somma del contributo dovuto alle particelle di contaminazione (elettroni).
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\scriptsize
+\begin{itemize}
+\setbeamercolor{item}{fg=red}
+\scriptsize
+\item \color{red}Calcolo della fluenza di energia e del TERMA.
+\end{itemize}
+\vspace{.2cm}
+\scriptsize
+\begin{enumerate}
+\item[1.] Proiezione delle sorgenti attraverso i collimatori sul \textit{fluence-plane}.
+\end{enumerate}
+\begin{columns}
+\column{.4\textwidth}
+\includegraphics[width=\textwidth]{../cap1/twosources.png}
+\column{.3\textwidth}
+\includegraphics[width=\textwidth]{../cap1/source_int.png}
+\column{.3\textwidth}
+\includegraphics[width=\textwidth]{../cap1/TERMA_isoPatient.eps}
+\end{columns}
+
+\uncover<2->{
+\scriptsize
+\begin{enumerate}
+\item[2.] CT del paziente $\rightarrow$ mappa del coefficiente di attenuazione ($\mu/\rho$) proiezione ed attenuazione della fluenza all'interno del paziente $\rightarrow$ distribuzione di TERMA.
+\end{enumerate}
+\vspace{-.3cm}
+
+\begin{align*}
+TERMA(\vec{r'},E) &= \frac{\mu}{\rho}(\vec{r'},E) \cdot \Psi(\vec{r'},E)\\
+				  &= \frac{\mu}{\rho}(\vec{r'},E) \cdot \frac{|\vec{r_0}|^2}{|\vec{r'}|^2}\Psi(\vec{r_0},E)\,\exp{\left( -\int_{\vec{r_0}}^{\vec{r'}} \mu(\vec{r'},E) \de l \right)}
+\end{align*}
+}
+\end{frame}
+
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\small $$D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'$$\\ \vspace{.5cm}
+\structure{Step per il calcolo della dose:}
+\begin{itemize}
+\footnotesize
+\item Calcolo della fluenza di energia.
+\item Calcolo della distribuzione di TERMA.
+\setbeamercolor{item}{fg=red}
+\item \alert{Applicazione delle funzioni di scatter e del principio di \textit{convolution-superposition} per il calcolo della dose finale.}
+\setbeamercolor{item}{fg=structure}
+\item Somma del contributo dovuto alle particelle di contaminazione (elettroni).
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\scriptsize
+\begin{itemize}
+\setbeamercolor{item}{fg=red}
+\scriptsize
+\item \color{red}Applicazione delle funzioni di scatter.
+\end{itemize}
+\vspace{.2cm}
+\scriptsize
+\begin{enumerate}
+\item[1.] Calcolo \textit{Monte Carlo} della funzione di scatter generata forzando l'interazione di un fotone ad energia fissata in un punto di un mezzo omogeneo $\sim{}\infty$ esteso.
+\end{enumerate}
+\begin{columns}
+\column{.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../cap1/kern_ray1.png}
+\column{.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../cap1/kern_ray2.png}
+\end{columns}
+
+\uncover<2->{
+\scriptsize
+\begin{enumerate}
+\item[2.] Risoluzione dell'integrale per il calcolo della dose totale.
+\end{enumerate}
+$$D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'$$
+}
+\end{frame}
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+
+\small \begin{equation}
+D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'
+\label{eq:conv}
+\end{equation}
+
+\vspace{.5cm}
+\structure{Metodi di risoluzione (computazionali):}
+\begin{itemize}
+\small
+\item Somma diretta $\rightarrow$ $\sim N^7$ operazioni.
+\begin{itemize}
+\scriptsize
+\item $N:$ numero di voxel della griglia di dose.
+\end{itemize}
+\item Teorema di convoluzione $\rightarrow$ $\sim N^3\log_2 N$ operazioni.
+\begin{itemize}
+\scriptsize
+\item Applicabile senza correzioni solo al caso omogeneo per il quale vale che $s(P'\rightarrow P) = s(P'- P)$ $\rightarrow$ (invariante spaziale).
+\end{itemize}
+\item \textit{Collapsed-cone-convolution} $\rightarrow$ $\sim MN^3$ operazioni.
+\begin{itemize}
+ \scriptsize 
+\item $M:$ numero di direzioni di discretizzazione angolare.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\small
+\centering
+\alert{\textit{Collapsed-cone-convolution}}\\\vspace{.3cm}
+\begin{columns}[t]
+\column{.5\textwidth}
+\centering
+\includegraphics[height=4cm]{../cap1/Kernel_RayTr.eps}\\\vspace{.5cm}
+\scriptsize
+\structure{Discretizzazione angolare sempice}
+\begin{itemize}
+\scriptsize
+\item Necessario un alto numero di direzioni per evitare errore di \textit{sampling}.
+\end{itemize}
+
+\column{.5\textwidth}
+\centering
+\includegraphics[height=4cm]{../cap1/Kernel_CCC.eps}\\\vspace{.5cm}
+\scriptsize
+\structure{Discretizzazione \textit{collapsed-cone}}
+\begin{itemize}
+\scriptsize
+\item Contributo di un settore conico collassato lungo l'asse.
+\item Necessario un campionamento angolare ridotto.
+\end{itemize}
 \end{columns}
 \end{frame}
+
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\small
+\centering
+\alert{\textit{Collapsed-cone-convolution}\\
+\footnotesize Generalizzazione al caso poli-energetico e disomogeneo} \\ \vspace{.5cm}
+\includegraphics[width=.7\textwidth]{../cap1/kern_trans.png}\\
+\scriptsize
+\begin{itemize}
+\item[a)] Kernel polienergetico
+\end{itemize}
+\end{frame}
+
+
+
+
 
 
 
