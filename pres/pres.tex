@@ -345,20 +345,76 @@ D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 
 
 
-\begin{frame}{Algoritmi di calcolo della dose}
+\begin{frame}[t]{Algoritmi di calcolo della dose}
 \small
-\centering
+{\centering
 \alert{\textit{Collapsed-cone-convolution}\\
 \footnotesize Generalizzazione al caso poli-energetico e disomogeneo} \\ \vspace{.5cm}
 \includegraphics[width=.7\textwidth]{../cap1/kern_trans.png}\\
 \scriptsize
 \begin{itemize}
-\item[a)] Kernel polienergetico
+\item[a)] \structure{\normalfont{Funzione di scatter polienergetica}} $\rightarrow$ media di kernel polienergetici pesati con lo spettro di energia del fascio primario.
+\item[b)] \structure{\normalfont{Density-scaling:}} $\rightarrow$ forma dei kernel scalata con la lunghezza radiologica ($Lunghezze\,\rightarrow\,Lunghezze \times Densit\grave{a}$)
 \end{itemize}
+}
+\only<2->{\color{Dgreen} \scriptsize \bf Tutto ciò per evitare di ricalcolare le funzioni di scatter con metodo MC per ogni possibile situazione!}
 \end{frame}
 
 
 
+\begin{frame}{Algoritmi di calcolo della dose}
+\begin{columns}[t]
+\column{.49\textwidth}
+%\begin{center}
+\includegraphics[width=\textwidth]{../cap1/kern_dens_pres.png}
+%\end{center}
+\scriptsize
+\begin{itemize}
+\item Metodo del \textit{density-scaling} $\rightarrow$ discrepanze fino al 50\% sul singolo kernel rispetto al MC (punto A).
+\end{itemize}
+\column{.03\textwidth}
+%\vspace{-3cm}
+%\large $$\Rightarrow$$
+\column{.5\textwidth}
+%\includegraphics[width=\textwidth]{../cap1/kern_dens2_pres.png}
+%\scriptsize
+%\begin{itemize}
+%\item Tuttavia su un grande numero di interazioni $\rightarrow$ effetto di \textit{averaging}.
+%\item Discrepanze rispetto al MC significative (> 10\%) solo alle interfacce.
+%\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Algoritmi di calcolo della dose}
+\begin{columns}[t]
+\column{.49\textwidth}
+%\begin{center}
+\includegraphics[width=\textwidth]{../cap1/kern_dens_pres.png}
+%\end{center}
+\scriptsize
+\begin{itemize}
+\item Metodo del \textit{density-scaling} $\rightarrow$ discrepanze fino al 50\% sul singolo kernel rispetto al MC (punto A).
+\end{itemize}
+\column{.03\textwidth}
+\vspace{-3cm}
+\large $$\Rightarrow$$
+\column{.5\textwidth}
+\includegraphics[width=\textwidth]{../cap1/kern_dens2_pres.png}
+\scriptsize
+\begin{itemize}
+\item Tuttavia su un grande numero di interazioni $\rightarrow$ effetto di \textit{averaging}.
+\item Discrepanze rispetto al MC significative (> 10\%) solo alle interfacce.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+
+VEDERE COME INSERIRE IL DISCORSO DEL CPE!
+
+E POI PARTIRE CON RAYSTATION!
 
 
 
