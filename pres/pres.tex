@@ -125,7 +125,7 @@
 
 
 
-\section[L'algoritmo \protect\textit{collapsed cone}]{L'algoritmo \protect\textit{collapsed cone} e la sua implementazione in RayStation}
+\section[Intro RT fasci esterni]{Introduzione alla radioterapia a fasci esterni}
 
 \begin{frame}{Introduzione RT a fasci esterni}
 \begin{center}
@@ -163,6 +163,7 @@ $$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1}
 \end{itemize}
 \end{frame}
 
+\section{Algoritmi di calcolo della dose}
 
 \begin{frame}{Algoritmi di calcolo della dose}
 \begin{columns}
@@ -193,7 +194,7 @@ $$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1}
 \footnotesize
 \item Calcolo della fluenza di energia.
 \item Calcolo della distribuzione di TERMA.
-\item Applicazione delle funzioni di scatter e del principio di \textit{convolution-superposition} per il calcolo della dose finale.
+\item Applicazione delle funzioni di scatter.
 \item Somma del contributo dovuto alle particelle di contaminazione (elettroni).
 \end{itemize}
 
@@ -245,7 +246,7 @@ TERMA(\vec{r'},E) &= \frac{\mu}{\rho}(\vec{r'},E) \cdot \Psi(\vec{r'},E)\\
 \item Calcolo della fluenza di energia.
 \item Calcolo della distribuzione di TERMA.
 \setbeamercolor{item}{fg=red}
-\item \alert{Applicazione delle funzioni di scatter e del principio di \textit{convolution-superposition} per il calcolo della dose finale.}
+\item \alert{Applicazione delle funzioni di scatter.}
 \setbeamercolor{item}{fg=structure}
 \item Somma del contributo dovuto alle particelle di contaminazione (elettroni).
 \end{itemize}
@@ -264,7 +265,7 @@ TERMA(\vec{r'},E) &= \frac{\mu}{\rho}(\vec{r'},E) \cdot \Psi(\vec{r'},E)\\
 \vspace{.2cm}
 \scriptsize
 \begin{enumerate}
-\item[1.] Calcolo \textit{Monte Carlo} della funzione di scatter generata forzando l'interazione di un fotone ad energia fissata in un punto di un mezzo omogeneo $\sim{}\infty$ esteso.
+\item[1.] Calcolo \textit{Monte Carlo} della funzione di scatter generata forzando l'interazione di un fotone ad energia fissata in un punto di un mezzo omogeneo $\sim{}\infty$ esteso (ove si verifica la condizione di equilibrio di particelle cariche o CPE).
 \end{enumerate}
 \begin{columns}
 \column{.4\textwidth}
@@ -280,7 +281,7 @@ TERMA(\vec{r'},E) &= \frac{\mu}{\rho}(\vec{r'},E) \cdot \Psi(\vec{r'},E)\\
 \begin{enumerate}
 \item[2.] Risoluzione dell'integrale per il calcolo della dose totale.
 \end{enumerate}
-$$D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'$$
+$$D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'\, \overset{\scriptscriptstyle CPE}{=}\, \underbrace{\int_V T(P')\,s(P' - P)\, \de V'}_{Int.Convoluzione}$$
 }
 \end{frame}
 
@@ -296,20 +297,22 @@ D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 \structure{Metodi di risoluzione (computazionali):}
 \begin{itemize}
 \small
-\item Somma diretta $\rightarrow$ $\sim N^7$ operazioni.
+\item Somma diretta $\rightarrow$ $\sim N^6$ operazioni.
 \begin{itemize}
 \scriptsize
 \item $N:$ numero di voxel della griglia di dose.
+\item Estensione al caso disomogeneo $\rightarrow$ ulteriori $N$ operazioni.
 \end{itemize}
 \item Teorema di convoluzione $\rightarrow$ $\sim N^3\log_2 N$ operazioni.
 \begin{itemize}
 \scriptsize
-\item Applicabile senza correzioni solo al caso omogeneo per il quale vale che $s(P'\rightarrow P) = s(P'- P)$ $\rightarrow$ (invariante spaziale).
+\item Applicabile senza correzioni solo al caso omogeneo per il quale vale che $s(P'\rightarrow P) = s(P'- P)$ $\rightarrow$ (invariante spaziale, condizioni CPE).
 \end{itemize}
-\item \textit{Collapsed-cone-convolution} $\rightarrow$ $\sim MN^3$ operazioni.
+\item \textit{Collapsed-cone-convolution} $\rightarrow$ $\sim MN^2$ operazioni.
 \begin{itemize}
  \scriptsize 
 \item $M:$ numero di direzioni di discretizzazione angolare.
+\item Approssimabile per trattare il caso disomogeneo (assenza di CPE) con ulteriori $N$ operazioni.
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -327,7 +330,7 @@ D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 \structure{Discretizzazione angolare sempice}
 \begin{itemize}
 \scriptsize
-\item Necessario un alto numero di direzioni per evitare errore di \textit{sampling}.
+\item Necessario un alto numero di direzioni per limitare l'errore di \textit{under-sampling}.
 \end{itemize}
 
 \column{.5\textwidth}
@@ -380,7 +383,7 @@ D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 %\scriptsize
 %\begin{itemize}
 %\item Tuttavia su un grande numero di interazioni $\rightarrow$ effetto di \textit{averaging}.
-%\item Discrepanze rispetto al MC significative (> 10\%) solo alle interfacce.
+%\item Discrepanze rispetto al MC significative (\sim 10\%) solo alle interfacce.
 %\end{itemize}
 \end{columns}
 \end{frame}
@@ -404,18 +407,10 @@ D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 \scriptsize
 \begin{itemize}
 \item Tuttavia su un grande numero di interazioni $\rightarrow$ effetto di \textit{averaging}.
-\item Discrepanze rispetto al MC significative (> 10\%) solo alle interfacce.
+\item Discrepanze rispetto al MC significative ($\sim 10\%$) solo alle interfacce (assenza di CPE).
 \end{itemize}
 \end{columns}
 \end{frame}
-
-
-
-
-VEDERE COME INSERIRE IL DISCORSO DEL CPE!
-
-E POI PARTIRE CON RAYSTATION!
-
 
 
 
@@ -424,9 +419,49 @@ E POI PARTIRE CON RAYSTATION!
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}{bla bla}
-bla bla
+\begin{frame}{Modellizzazione del LINAC}
+\small
+\structure{Step da seguire:}
+\begin{itemize}
+\item Acquisizione di misure dosimetriche del fascio di radiazione prodotto dal LINAC.
+\item \textit{Tuning} dei parametri del modello fisico del LINAC implementato nel TPS in modo da riprodurre le misure acquisite.
+\item Verifica della modellizzazione per casi clinici.
+\end{itemize}
 \end{frame}
+
+
+\begin{frame}{Modellizzazione del LINAC}
+\begin{itemize}
+\scriptsize
+\setbeamercolor{item}{fg=red}
+\item \alert{Dosimetria del LINAC}
+\end{itemize}
+\includegraphics[height=5cm]{./img/Prof3D_ann.png}
+\begin{itemize}
+\scriptsize
+\item \structure{\normalfont \textit{Percentage-Depth-Dose o PDD:}} si ottiene muovendo il detector (camera a ionizzazione) lungo l'asse del fascio e registrando la dose in punti con step di $\sim 1\,mm$.
+\item \structure{\normalfont \textit{Profili di dose:}} si ottengono muovendo il detector in piani perpendicolari all'asse del fascio a varie profondità.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modellizzazione del LINAC}
+\begin{itemize}
+\scriptsize
+\setbeamercolor{item}{fg=red}
+\item \alert{Dosimetria del LINAC}
+\end{itemize}
+\vspace{.75cm}
+\centering
+\includegraphics[height=3.5cm]{../cap2/pdd_prof.png}\\
+\vspace{.75cm}
+\begin{itemize}
+\scriptsize
+\item[a)] \structure{\normalfont \textit{Percentage-Depth-Dose o PDD:}} si ottiene muovendo il detector (camera a ionizzazione) lungo l'asse del fascio e registrando la dose in punti con step di $\sim 1\,mm$.
+\item[b)] \structure{\normalfont \textit{Profili di dose:}} si ottengono muovendo il detector in piani perpendicolari all'asse del fascio a varie profondità.
+\end{itemize}
+\end{frame}
+
 
 \section[La radioterapia adattiva]{La radioterapia adattiva, implementazione iniziale e sviluppi futuri}
 \begin{frame}{Indice}
