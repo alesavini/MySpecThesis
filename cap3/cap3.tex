@@ -17,7 +17,7 @@ b) \includegraphics[width=.64\textwidth]{./cap3/adapt0.png}
 Nella Fig.\ref{fig:adapt0} sono riportate le definizioni dei volumi coinvolti nella pianificazione del trattamento radioterapico assieme ad uno schema del processo standard di pianificazione ed erogazione del piano del trattamento.\\
 Il meccanismo che ha portato alla definizione dei singoli volumi procede in vari step:
 \begin{description}
-\item[Gross Target Volume (GTV):] questo volume identifica il tumore a livello macroscopico (rivelabile attraverso strumenti ottici, imaging radiologico ed evenutale esame obiettivo del medico).
+\item[Gross Target Volume (GTV):] questo volume identifica il tumore a livello macroscopico (rivelabile attraverso strumenti ottici, imaging radiologico, esame obiettivo clinico,\ldots).
 
 \item[Clinical Target Volume (CTV):] volume che comprende il GTV ed un margine attorno ad esso in cui vi è alta probabilità di presenza di malattia che ancora non si manifesta clinicamente (sub-clinica).
 
@@ -35,8 +35,8 @@ PTV_{margin} = 2.5\Sigma + 0.7\sigma
 \end{equation}
 dove $\Sigma$ rappresenta l'errore sistematico ossia quell'errore che si ripete per tutto il ciclo di trattamento (es. paziente dimagrito rispetto alla pianficazione) mentre $\sigma$ è l'errore random (es. movimento d'organo).
 
-In un approccio non adattivo i margini da dare al CTV per arrivare al PTV si trovano effettuando uno studio di coorte per un fissato sito di irradiazione. In questo studio si valutano gli errori sistematici e random su una popolazione di pazienti e si applica la formula di Van Herk secondo le direttive ICRU \cite{ICRU62}. La pianificazione viene quindi effettuata stabilendo delle condizioni di irradiazione del planning target volume (PTV)  che vengono ripetute per tutto il ciclo di trattamento (Fig.\ref{fig:adapt0}).\\
-Questo tipo di approccio può tuttavia essere non è ottimale per lo specifico paziente come indicato schematicamente nella Fig.\ref{fig:margins}. In un approccio di \textit{adaptive radiotherapy} è invece possibile studiare il singolo caso ed adattare il trattamento allo specifico paziente.
+In un approccio non adattivo i margini da dare al CTV per arrivare al PTV si trovano effettuando uno studio di coorte per un fissato sito di irradiazione. In questo studio si valutano gli errori sistematici e random su una popolazione di pazienti e si applica la formula di Van Herk secondo le direttive ICRU \cite{ICRU62}. La pianificazione viene quindi effettuata stabilendo delle condizioni di irradiazione del planning target volume (PTV)  che vengono ripetute per tutto il ciclo di trattamento (Fig.\ref{fig:adapt0}b).\\
+Questo tipo di approccio può tuttavia non essere ottimale per lo specifico paziente come indicato schematicamente nella Fig.\ref{fig:margins}. In un approccio di \textit{adaptive radiotherapy} è invece possibile studiare il singolo caso ed adattare il trattamento allo specifico paziente.
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{./cap3/margins.png}
@@ -44,7 +44,7 @@ Questo tipo di approccio può tuttavia essere non è ottimale per lo specifico p
 \label{fig:margins}
 \end{figure}
 
-Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta  da Yan et al.\cite{Yan1996}. In questo lavoro veniva per la prima volta proposto un adattamento del piano di cura a seguito di rilevazioni effettuate nelle prime cinque sedute di trattamento con un dispositivo in grado di `fotografare' la posizione del paziente e di confrontarla rispetto alla posizione di pianficazione. Il dispositivo in oggetto è denominato \textit{portal imager} e consiste in un pannello elettronico montato sul LINAC ed è in grado di generare un'immagine utilizzando raggi di energia dell'ordine dei MeV uscenti dal LINAC allo stesso modo in cui vengono generate le radiografie classiche con i raggi di energia dell'ordine del keV. A seguito di queste rilevazioni Yan proponeva di stimare l'errore sistematico paziente-specifico calcolando la media delle deviazioni tra posizione pianificata e posizione di trattamento rilevate nelle prime cinque sedute e di adattare il piano spostando il centro di irradiazione di questa quantità.
+Il termine \textit{adaptive radiotherapy} è stato introdotto per la prima volta  da Yan et al.\cite{Yan1996}. In questo lavoro veniva per la prima volta proposto un adattamento del piano di cura a seguito di rilevazioni effettuate nelle prime cinque sedute di trattamento con un dispositivo in grado di `fotografare' la posizione del paziente e di confrontarla rispetto alla posizione di pianificazione. Il dispositivo in oggetto è denominato \textit{portal imager} e consiste in un pannello elettronico montato sul LINAC che è in grado di generare un'immagine utilizzando raggi di energia dell'ordine dei MeV allo stesso modo in cui vengono generate le radiografie classiche con i raggi di energia dell'ordine del keV. A seguito di queste rilevazioni Yan proponeva di stimare l'errore sistematico paziente-specifico calcolando la media delle deviazioni tra posizione pianificata e posizione di trattamento rilevate nelle prime cinque sedute e di adattare il piano spostando il centro di irradiazione di questa quantità.
 
 \begin{figure}[!t]
 \centering
@@ -56,17 +56,17 @@ b)\includegraphics[width=.95\textwidth]{./cap3/adapt2.png}
 
 Pochi anni dopo sempre Yan et al.\cite{Yan2000} pubblicano un altro studio in cui aggiungono alla rilevazione tramite portal-imager anche un rilevazione di tomografia computerizzata del paziente per le prime cinque sedute in modo da osservare il problema del movimento d'organo oltre all'errore di setup. Questo permise agli autori di definire un PTV paziente-specifico che veniva calcolato con la procedura seguente:
 \begin{itemize}
-\item Si delineava il CTV sui cinque studi CT acquisite in sede delle prime cinque frazioni di trattamento.
+\item Si delinea il CTV sui cinque studi CT acquisite in sede delle prime cinque frazioni di trattamento.
 \item Si uniscono i contorni dei cinque CTV con il CTV di pianficazione a costituire il cosiddetto \textit{CTV-hull}.
 \item Si espande il \textit{CTV-hull} del margine corrispondente all'errore sistematico misurato tramite le cinque rilevazioni tramite portal-imager per formare il \textit{confidence-limit PTV o cl-PTV}. 
 \end{itemize}
 Entrambi gli approcci adaptive presentati in questa sezione sono raffigurati schematicamente nella Fig.\ref{fig:adaptYAN}.
 
-\`E stato dimostrato che la riduzione del PTV e la conseguente ripianficazione possibile grazie all'applicazione di queste tecniche di adaptive radiotherapy ha portato ad un decremento significativo delle tossicità per gli organi sani, preservando il controllo della malattia \cite{Park2012}. Questo dato è facilmente comprensibile con il paradigma dell'arancia di Verellen \cite{Verellen2007} illustrato in Fig.\ref{fig:verellen}.
+\`E stato dimostrato che la riduzione del PTV e la conseguente ripianficazione possibile grazie all'applicazione di queste tecniche di adaptive radiotherapy ha portato ad un decremento significativo delle tossicità per gli organi sani, preservando il controllo della malattia \cite{Park2012}. Questo dato è facilmente comprensibile con il paradigma dell'arancia di Verellen \cite{Verellen2007} illustrato in Fig.\ref{fig:verellen}. In pratica, il volume occupato dalla buccia di un'arancia è comparabile con il volume dell'arancia stessa. Tradotto, la riduzione anche di pochi millimetri del PTV può comportare una riduzione del volume da irradiare considerevole che porta ad un maggior risparmio dei tessuti sani.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=.6\textwidth]{./cap3/Verellen.png}
-\caption{Il paradigma dell'arancia di Verellen \cite{Verellen2007} per illustrare l'importanza della riduzione dei margini in radioterapia. In pratica il volume occupato dalla buccia di un'arancia è comparabile con il volume dell'arancia stessa. La riduzione anche di pochi millimetri del PTV può comportare una riduzione del volume da irradiare considerevole che si traduce in un maggior risparmio dei tessuti sani.}
+\caption{Il paradigma dell'arancia di Verellen \cite{Verellen2007} per illustrare l'importanza della riduzione dei margini in radioterapia.}
 \label{fig:verellen}
 \end{figure}
 
@@ -104,7 +104,6 @@ Tutti questi passaggi (a parte il primo) presentano delle criticità che al gior
 \textbf{Calcolo della dose in CBCT}
 \begin{itemize}
 \item Quanto è accurato il calcolo della dose in CBCT?
-\item Calibrare o non calibrare la CBCT in termini di scala di grigi - densità elettronica/fisica?
 \end{itemize}
 \textbf{Deformazione delle dosi:}
 \begin{itemize}
@@ -117,7 +116,7 @@ Tutti questi passaggi (a parte il primo) presentano delle criticità che al gior
 \item Che livello di verifica pre-trattamento è richiesto per il piano adattato?
 \end{itemize}
 
-Come mostrato in un recente point/counterpoint pubblicato su \textit{Medical Physics} \cite{Schultheiss2012}, la comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate. Per questo motivo il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora (Aprile 2016) in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
+Come mostrato in un recente point/counterpoint pubblicato su \textit{Medical Physics} \cite{Schultheiss2012}, la comunità scientifica non è ancora giunta ad una risposta precisa ed esaustiva per le domande sopra elencate. Per questo motivo il commissioning del TPS dal punto di vista della radioterapia adattiva risulta tutt'ora in fase di ottimizzazione. In particolare, gli sforzi che si stanno compiendo in questo senso consistono nella partecipazione a due studi multicentrici nazionali orientati a chiarire gli aspetti più dibattuti ossia quelli riguardanti la deformazione elastica e l'adattamento del piano.
 
 \section{Studio multicentrico per l'ottimizzazione del protocollo di deformazione elastica}
 Il TPS RayStation implementa un algoritmo di deformazione elastica ibrido \cite{RaySearchLaboratories2014}. In particolare, il campo di deformazione viene trovato considerando la differenza tra i livelli di grigio tra lo studio di riferimento e lo studio target, assieme alla presenza di eventuali strutture geometriche che fungono da guida (ROI di controllo).
@@ -135,7 +134,7 @@ dove il \textit{Correlation coefficient} è un termine del tipo coefficiente di 
 
 Nella corrente implementazione dell'algoritmo di deformazione in RayStation (v.4.7) i termini peso $\alpha$, $\beta$ e $\gamma$, il coefficiente di correlazione ed il termine di regolarizzazione sono tutti fissati dalla ditta. Quello che viene lasciato all'operatore è la scelta delle ROI di controllo (ultimo termine della Eq.\eqref{eq:def}).
 
-Il razionale dello studio multicentrico cui si è presi parte consiste nell'investigare l'accuratezza di vari algoritmi di registrazione deformabile disponibili commercialmente e di sviluppare le metodologie che portano alla migliore deformazione possibile. A questo proposito è stato riunito un gruppo di 13 istituzioni italiane (Gruppo YES - Your Elastic Solution) per un totale di 5 diverse soluzioni commerciali per la registrazione elastica, tra cui il TPS RayStation. Lo studio si articola in più fasi ed è tutt'ora (Aprile 2016) in corso di svolgimento. Nell'ambito di questo lavoro di tesi discuteremo i risultati raggiunti nella fase riguardante i casi clinici.
+Il razionale dello studio multicentrico cui si è presi parte consiste nell'investigare l'accuratezza di vari algoritmi di registrazione deformabile disponibili commercialmente e di sviluppare le metodologie che portano alla migliore deformazione possibile. A questo proposito è stato riunito un gruppo di 13 istituzioni italiane (Gruppo YES - Your Elastic Solution) per un totale di 5 diverse soluzioni commerciali per la registrazione elastica, tra cui il TPS RayStation. Lo studio si articola in più fasi ed è tutt'ora in corso di svolgimento. Nell'ambito di questo lavoro di tesi discuteremo i risultati raggiunti nella fase riguardante i casi clinici.
 
 Per la fase clinica dello studio YES sono stati reclutati 3 studi CT per i distretti pelvico, testa-collo e polmonare (Fig.\ref{fig:YES_sites}).
 \begin{figure}
@@ -153,21 +152,23 @@ Per ogni distretto è stato creato un altro studio CT in cui è stata simulata t
 Ogni istituzione aveva il compito di ricavare in maniera inversa la deformazione simulata utilizzando gli strumenti in proprio possesso. Sulla base della deformazione ottenuta veniva richiesto di mappare delle regioni di interesse (ROI) dalla CT iniziale alla CT deformata. Le ROI mappate da ogni centro sono state poi confrontate con le ROI `gold' deformate secondo la deformazione introdotta via software, nota solo al centro coordinatore.\\
 L'indicatore utilizzato per confrontare le ROI mappate dai centri con le ROI `gold' è l'indice di conformità di Jaccard:
 \begin{equation}
-J(ROI_{A},ROI_{B}) = \frac{|ROI_{A} \cap ROI_{B}|}{|ROI_{A} \cup ROI_{B}|}
+CI(ROI_{A},ROI_{B}) = \frac{|ROI_{A} \cap ROI_{B}|}{|ROI_{A} \cup ROI_{B}|}
 \end{equation}
 Questo indice è uguale a 0 per ROI disgiunte mentre è uguale a 1 per ROI esattamente sovrapposte.
-I risultati raggiunti a livello multicentrico sono riassunti nella Fig.\ref{fig:YES_results} e possono essere riassunti principalmente nei seguenti punti:
+I risultati raggiunti a livello multicentrico sono riassunti principalmente nei seguenti punti:
 \begin{itemize}
-\item La differenza tra le performance globali dei vari centri non è risultata statisticamente significativa tranne che per un centro (Fig.\ref{fig:YES_results}a). 
-\item La deformazione è risultata statisticamente più accurata  nel caso torace piuttosto che i casi pelvici e testa-collo (Fig.\ref{fig:YES_results}b).
+\item La differenza tra le performance globali dei vari centri non è risultata statisticamente significativa tranne che per un centro. 
+\item La deformazione è risultata statisticamente più accurata  nel caso torace piuttosto che i casi pelvici e testa-collo.
 \end{itemize}
-\begin{figure}
-\centering
-\includegraphics[width=.49\textwidth]{./cap3/YES_results_a.png}
-\includegraphics[width=.49\textwidth]{./cap3/YES_results_b.png}
-\caption{(a) risultati del confronto per quanto riguarda l'accuratezza globale delle deformazioni effettuate dai singoli centri. (b) risultati dell'accuratezza raggiunta considerando tutti i centri a seconda del sito di interesse. I valori statisticamente differenti dal campione sono cerchiati in rosso. Il test statistico utilizzato è del tipo ANOVA (\textit{ANalysis Of VAriances}).}
-\label{fig:YES_results}
-\end{figure}
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=.49\textwidth]{./cap3/YES_results_a.png}
+%\includegraphics[width=.49\textwidth]{./cap3/YES_results_b.png}
+%\caption{(a) risultati del confronto per quanto riguarda l'accuratezza globale delle deformazioni effettuate dai singoli centri. (b) risultati dell'accuratezza raggiunta considerando tutti i centri a seconda del sito di interesse. I valori statisticamente differenti dal campione sono cerchiati in rosso. Il test statistico utilizzato è del tipo ANOVA (\textit{ANalysis Of VAriances}).}
+%\label{fig:YES_results}
+%\end{figure}
+
 Dal primo risultato si può evincere che i software commerciali esistenti portano a soluzioni di precisione comparabile pur implementando algoritmi differenti tra loro. Le performance relative al centro fuori fluttuazione statistica sono imputabili ad un differente livello di training degli operatori coinvolti piuttosto che ad un inferiorità dell'algoritmo utilizzato.
 
 Il secondo risultato è spiegabile con la peculiarità del sito toracico (tumore polmonare) rispetto ai siti testa-collo e pelvico. In questi ultimi, molti dei tessuti coinvolti risultano essere differenti di pochi livelli nella scala di grigi (basso contrasto) per cui è necessario guidare la deformazione con varie ROI di controllo (il coefficiente di correlazione dei grigi non è sufficiente ad ottenere una deformazione accurata). Diversa è la situazione per il caso toracico in cui il tessuto tumorale all'interno del polmone risulta essere ad alto contrasto con il materiale circostante (aria) per cui la deformazione risulta semplice da trovare da parte dell'algoritmo, senza bisogno di particolari `aiuti'.\\
@@ -192,7 +193,7 @@ Il cambiamento anatomico proposto dal gruppo multicentrico per il sito toracico 
 \end{figure}
 Il razionale dello sviluppo del protocollo di deformazione per questo sito si articola nei seguenti punti:
 \begin{itemize}
-\item La massa oggetto del cambiamento ha un alto contrasto con il tessuto circostante. Per questo motivo la deformazione da effettuare è semplice da trovare con l'algoritmo utilizzando in gran parte il termine di correlazione dei grigi dell'Eq.\eqref{eq:def}.
+\item La massa oggetto del cambiamento ha un alto contrasto con il tessuto circostante. Per questo motivo la deformazione da effettuare è semplice da trovare da parte dell'algoritmo senza ausilio di ROI di controllo (il solo termine di correlazione dei livelli di grigio è sufficiente a calcolare una deformazione accurata).
 \item La zona di interesse da deformare riguarda una piccola porzione dell'intero studio CT. Per questo motivo ha senso ridurre la zona di analisi dell'algoritmo unicamente alla parte di interesse. \`E stato osservato che questa operazione aumenta sia la velocità di esecuzione che la precisione della deformazione finale. Lo strumento che RayStation offre in questo caso è detto \textit{Focus ROI}. Definita una \textit{Focus ROI}, il sistema applica l'algoritmo di deformazione unicamente all'interno di essa. 
 \end{itemize}
 Sulla base di queste considerazioni e dell'esperienza maturata, la proposta di protocollo per il sito toracico è la seguente:
@@ -227,13 +228,7 @@ Sulla base di queste considerazioni la proposta di protocollo per il sito toraci
 
 \subsection{Protocollo di registrazione deformabile - Prostata}
 Il cambiamento del riempimento degli organi interni al distretto pelvico (retto e vescica, Fig.\ref{fig:YES_PR}) rende questo sito uno dei più complessi da trattare con approccio di adaptive radiotherapy. 
-\begin{figure}
-\centering
-\includegraphics[width=.48\textwidth]{./cap3/YES_PR.png}
-\includegraphics[width=.48\textwidth]{./cap3/YES_PR_shrink.png}
-\caption{Studio multicentrico - caso prostata: riduzione del volume vescicale ed espansione del volume rettale.}
-\label{fig:YES_PR}
-\end{figure}
+
 
 Le considerazioni propedeutiche alla stesura del protocollo sono state le seguenti:
 \begin{itemize}
@@ -248,8 +243,16 @@ Il protocollo proposto per questo sito consiste nei seguenti passaggi:
 \end{enumerate}
 L'applicazione clinica di questo protocollo può risultare molto time-consuming in quanto richiede un importante intervento dell'operatore nella contornazione delle ROI di controllo. Per ovviare a questo limite sono in studio a livello multicentrico le soluzioni di contornazione automatica offerte dal TPS.
 
+\begin{figure}
+\centering
+\includegraphics[width=.48\textwidth]{./cap3/YES_PR.png}
+\includegraphics[width=.48\textwidth]{./cap3/YES_PR_shrink.png}
+\caption{Studio multicentrico - caso prostata: riduzione del volume vescicale ed espansione del volume rettale.}
+\label{fig:YES_PR}
+\end{figure}
 
-L'applicazione dei protocolli preliminari mostrati ha portato a deformazioni di precisione comparabile con gli altri centri (Fig.\ref{fig:YES_results}). La discussione approfondita riguardo il confronto e l'eventuale ottimizzazione a livello multicentrico è programmata nelle prossime fasi dello studio.
+
+L'applicazione dei protocolli preliminari mostrati ha portato a deformazioni di precisione comparabile con gli altri centri. La discussione approfondita riguardo il confronto e l'eventuale ottimizzazione a livello multicentrico è programmata nelle prossime fasi dello studio.
 
 
 \section{Studio multicentrico per predire la necessità di adattare il piano}
@@ -258,24 +261,24 @@ Lo studio multi-centrico cui si è presi parte fa parte di un progetto di ricerc
 Un approccio di tal genere appare quanto mai utile nelle realtà cliniche moderne in cui un processo di radioterapia adattiva è inapplicabile su larga scala a tutta la popolazione di pazienti a causa dei sottoprocessi time consuming da mettere in campo per questo scopo (primo tra tutti l'identificazione giornaliera dei volumi di interesse per il trattamento che dovrebbe essere eseguita dal medico radioterapista). Questa considerazione è supportata anche da evidenze in letteratura \cite{Capelle2012} secondo cui un approccio di radioterapia adattiva su pazienti non accuratamente selezionati porta a benefici clinici trascurabili ed ad un impiego improprio di risorse.
 
 
-La patologia su cui si è inizialmente focalizzato lo studio è quella dei tumori riguardanti il distretto testa-collo. La prima fase dello studio è stata quella di caratterizzare il comportamento dei pazienti affetti da questa patologia tramite un'analisi retrospettiva del database posseduto dal centro coordinatore (Policlinico di Modena). \`E stata analizzata una coorte di 40 pazienti. In accordo con il comportamento generale, la variazione più importante che si registra durante il corso del trattamento radioterapico è la riduzione del volume delle parotidi dovuta a fenomeni di risposta alla terapia e ad un generale dimagrimento del paziente (Fig.\ref{fig:Modena_DV}).
-\begin{figure}
-\includegraphics[width=.8\textwidth]{./cap3/Modena_volDecrease.png}\\
-\includegraphics[width=.8\textwidth]{./cap3/Modena_dosIncrease.png}
-\caption{(a) trend di decrescita del volume della parotide destra e conseguente trend di incremento (b) della dose media.}
-\label{fig:Modena_DV}
-\end{figure}
+La patologia su cui si è inizialmente focalizzato lo studio è quella dei tumori riguardanti il distretto testa-collo. La prima fase dello studio è stata quella di caratterizzare il comportamento dei pazienti affetti da questa patologia tramite un'analisi retrospettiva del database posseduto dal centro coordinatore (Policlinico di Modena). \`E stata analizzata una coorte di 40 pazienti. In accordo con il comportamento generale, la variazione più importante che si registra durante il corso del trattamento radioterapico è la riduzione del volume delle parotidi dovuta a fenomeni di risposta alla terapia e ad un generale dimagrimento del paziente. % (Fig.\ref{fig:Modena_DV}).
+%\begin{figure}
+%\includegraphics[width=.8\textwidth]{./cap3/Modena_volDecrease.png}\\
+%\includegraphics[width=.8\textwidth]{./cap3/Modena_dosIncrease.png}
+%\caption{(a) trend di decrescita del volume della parotide destra e conseguente trend di incremento (b) della dose media.}
+%\label{fig:Modena_DV}
+%\end{figure}
 
 L'analisi retrospettiva è stata ulteriormente approfondita correlando le variazioni di dose e di volume sotto forma di scatter plot come in Fig.\ref{fig:Modena_trend}. Quello che si può osservare è una divisione della popolazione in due sottogruppi: il gruppo di pazienti che subisce grandi variazioni dosimetriche e volumetriche (che potrebbero beneficiare di un approccio adattivo) ed il gruppo di pazienti che invece rimane entro un limitato range di variabilità rispetto alle condizioni iniziali.
 
 \begin{figure}
-\centering
-\includegraphics[width=\textwidth]{./cap3/Modena_trend.png}
-\caption{Analisi scatter plot delle sei settimane di trattamento per la parotide destra. Tutte le variazioni sono normalizzate rispetto al valore iniziale di dose o di volume per omogeneizzare il campione (i.e. un punto vicino alla coordinata (100,100) rappresenta una variazione nulla rispetto alla condizione iniziale.)}
+\centerline{
+\hspace{-1.6cm}\includegraphics[width=1.32\textwidth]{./cap3/Modena_trend_s.png}}
+\caption{Analisi scatter plot delle sei settimane di trattamento per la parotide destra. Tutte le variazioni sono normalizzate rispetto al valore iniziale di dose o di volume per omogeneizzare il campione (i.e. un punto vicino alla coordinata (100,100) rappresenta una variazione volumetrica e dosimetrica nulla rispetto alla condizione iniziale).}
 \label{fig:Modena_trend}
 \end{figure}
 
-Sulla base di queste di queste osservazioni il centro coordinatore ha sviluppato un algoritmo capace di effettuare una separazione statistica (\textit{clustering}) delle due popolazioni in modo da individuare i pazienti che possono beneficiare di un approccio adattivo nonché la settimana per cui la differenza tra le popolazioni diventa significativa (ipotetica settimana in cui si può pensare di effettuare una modifica adattiva del piano)\cite{Guidi2015}. Le soglie di variazione che stabiliscono la separazione dei due cluster sono:
+Sulla base di queste di queste osservazioni il centro coordinatore ha sviluppato un algoritmo capace di effettuare una separazione statistica (\textit{clustering}) delle due popolazioni in modo da individuare i pazienti che possono beneficiare di un approccio adattivo nonché la settimana per cui la differenza tra le popolazioni diventa significativa (ipotetica settimana in cui si può pensare di effettuare una modifica adattiva del piano)\cite{Guidi2015} (Fig.\ref{fig:Modena_cluster}). Le soglie di variazione che stabiliscono la separazione dei due cluster sono:
 \begin{itemize}
 \item Variazione del volume dell'organo rispetto al volume iniziale di più del 30\%.
 \item Variazione di dose all'interno dell'organo maggiori del 10\%.
@@ -283,12 +286,12 @@ Sulla base di queste di queste osservazioni il centro coordinatore ha sviluppato
 \begin{figure}
 \centering
 \includegraphics[width=.7\textwidth]{./cap3/Modena_cluster.png}
-\caption{Esempio di clusterizzazione dei dati per la parotide valutata nell'ultima settimana di trattamento}
+\caption{Esempio di clusterizzazione dei dati per la parotide valutata nell'ultima settimana di trattamento per una coorte di 40 pazienti. In blu: pazienti con variazioni volumetriche e dosimetriche non eccessive per cui non è necessario un re-planning. In rosso: pazienti con variazioni volumetriche e dosimetriche ampie per cui è consigliato un re-planning.}
 \label{fig:Modena_cluster}
 \end{figure}
 
 Lo studio multi-centrico ha coinvolto quattro centri italiani tra cui la ASL di Teramo. Ogni centro aveva il compito di reclutare una serie di pazienti con neoplasia del distretto testa-collo di cui sono state osservate variazioni significative durante il corso del trattamento e di inviarle al centro coordinatore. I trattamenti presi in considerazione hanno durata di circa sei settimane. I pazienti di ogni centro sono stati analizzati dal centro coordinatore ed è stato ricavato l'outcome predetto dall'algoritmo. \\
-I risultati sono riportati in Fig.\ref{fig:Modena_results}. Dai grafici mostrati si può desumere che la percentuale di pazienti che beneficerebbe di una ripianificazione adattiva aumenta con il proseguire del trattamento. Questo trend è stato osservato per tutti i centri coinvolti. In particolare si nota che l'inversione tra la percentuale di pazienti che non necessitano di ripianificazione e quelli per cui una ripianificazione è suggerita avviene durante la quarta settimana di trattamento. Questa evidenza si riscontra con più precisione osservando il comportamento della popolazione ottenuto mediando i risultati dei singoli centri (Fig.\ref{fig:Modena_results}b).
+I risultati sono riportati in Fig.\ref{fig:Modena_results}a. Dai grafici mostrati si può desumere che la percentuale di pazienti che beneficerebbe di una ripianificazione adattiva aumenta con il proseguire del trattamento. Questo trend è stato osservato per tutti i centri coinvolti. In particolare si nota che l'inversione tra la percentuale di pazienti che non necessitano di ripianificazione e quelli per cui una ripianificazione è suggerita avviene durante la quarta settimana di trattamento. Questa evidenza si riscontra con più precisione osservando il comportamento della popolazione ottenuto mediando i risultati dei singoli centri (Fig.\ref{fig:Modena_results}b).
 
 \begin{figure}
 \centering
