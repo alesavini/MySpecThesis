@@ -485,25 +485,6 @@ $$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{
 
 
 
-\begin{frame}{Modellizzazione del LINAC}
-\begin{itemize}
-\scriptsize
-\setbeamercolor{item}{fg=red}
-\item \alert{Dosimetria del LINAC}
-\end{itemize}
-\vspace{.75cm}
-\centering
-\includegraphics[height=3.5cm]{../cap2/of.png}
-\scriptsize
-$$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{sat}\qquad (\textrm{IAEA TRS-398})$$
-\begin{itemize}
-\scriptsize
-\item[c)] \structure{\normalfont \textit{Output factor:}} misure relative dell'intensità del fascio al variare delle dimensioni del campo di irradiazione.
-\item[d)] \structure{\normalfont Dose assoluta (in Gy):} misura che trasforma tutte le curve di dose relativa in dose assoluta.
-\end{itemize}
-\end{frame}
-
-
 
 
 \begin{frame}[t]{Modellizzazione del LINAC}
@@ -521,7 +502,7 @@ $$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{
 \begin{center}
 \includegraphics[width=.9\textwidth]{../cap2/Accuracy_pdd_prof.png}
 \end{center}
-{\color{Dgreen} Distinzione in zone:}
+{\structure{ \normalfont Distinzione in zone:}}
 \begin{itemize}
 \scriptsize
 \item  Centro Asse, Alta dose, Basso gradiente ($\delta_1 \sim 2\% \div 4\%$).
@@ -569,7 +550,7 @@ $$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{
 \includegraphics[width=.6\textwidth]{../cap2/IMRT_Segments_2.jpg}
 \end{center}
 \uncover<2->{
-{\color{Dgreen} \bf Effetti:} 
+\structure{Effetti:} 
 \begin{itemize}
 \scriptsize
 \item Parziale oscuramento della sorgente $\rightarrow$ brusca caduta dell'output factor.
@@ -583,8 +564,23 @@ $$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{
 
 \begin{frame}[t]{Modellizzazione del LINAC}
 \footnotesize
-\structure{Soluzione:} Misure con vari detector di nuova generazione.
-metti grafico OF e poi grafico tagliato e parlare della scelta fatta fino al 2x2....
+\structure{Soluzione:} impiego di detector di nuova generazione (a stato solido) di ridotte dimensioni.\\ \vspace{.5cm}
+
+\alert{\bf Problema:} risposta dei detector che può dipendere da vari fattori (e.g. dimensione del campo).\\ \vspace{.3cm}
+
+\includegraphics[height=4cm]{../cap2/OF_plots/OFSmall.eps}
+
+\end{frame}
+
+
+\begin{frame}[t]{Modellizzazione del LINAC}
+\footnotesize
+\structure{Soluzione:} impiego di detector di nuova generazione (a stato solido) di ridotte dimensioni.\\ \vspace{.5cm}
+
+\alert{\bf Problema:} risposta dei detector che può dipendere da vari fattori (e.g. dimensione del campo).\\ \vspace{.3cm}
+
+\includegraphics[height=4.6cm]{./img/OF_MOD.eps}\\\vspace{.2cm}
+{\color{Dgreen} \textbf{Scelta:} considerate per il commissioning solo le misure con dimensione di campo $> 2x2\,cm^2$.}
 
 \end{frame}
 
