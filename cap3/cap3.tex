@@ -193,7 +193,7 @@ Il cambiamento anatomico proposto dal gruppo multicentrico per il sito toracico 
 \end{figure}
 Il razionale dello sviluppo del protocollo di deformazione per questo sito si articola nei seguenti punti:
 \begin{itemize}
-\item La massa oggetto del cambiamento ha un alto contrasto con il tessuto circostante. Per questo motivo la deformazione da effettuare è semplice da trovare da parte dell'algoritmo senza ausilio di ROI di controllo (il solo termine di correlazione dei livelli di grigio è sufficiente a calcolare una deformazione accurata).
+\item La massa oggetto del cambiamento ha un alto contrasto rispetto al tessuto circostante. Per questo motivo la deformazione da effettuare è semplice da trovare da parte dell'algoritmo senza ausilio di ROI di controllo (il solo termine di correlazione dei livelli di grigio è sufficiente a calcolare una deformazione accurata).
 \item La zona di interesse da deformare riguarda una piccola porzione dell'intero studio CT. Per questo motivo ha senso ridurre la zona di analisi dell'algoritmo unicamente alla parte di interesse. \`E stato osservato che questa operazione aumenta sia la velocità di esecuzione che la precisione della deformazione finale. Lo strumento che RayStation offre in questo caso è detto \textit{Focus ROI}. Definita una \textit{Focus ROI}, il sistema applica l'algoritmo di deformazione unicamente all'interno di essa. 
 \end{itemize}
 Sulla base di queste considerazioni e dell'esperienza maturata, la proposta di protocollo per il sito toracico è la seguente:
@@ -214,7 +214,7 @@ Nel caso del sito testa-collo la deformazione proposta corrisponde alla tipica r
 \label{fig:YES_HN}
 \end{figure}
 
-L'approccio che ha portato alla stesura del protocollo per le deformazioni del sito testa-collo è basato sui seguenti ragionamenti:
+L'approccio che ha portato alla stesura del protocollo per le deformazioni del sito testa-collo si basa sulle seguenti considerazioni:
 \begin{itemize}
 \item Gli organi coinvolti in questo distretto sono pressoché stabili. Più precisamente, anche in presenza di deformazioni, i rapporti anatomici dei tessuti molli con i segmenti ossei sono usualmente conservati.
 \item Il tipo di deformazione che si osserva è `prevedibile'. Più precismanete, ci si aspetta che nel corso del trattamento si va incontro ad una riduzione del volume linfonodale.
@@ -222,7 +222,7 @@ L'approccio che ha portato alla stesura del protocollo per le deformazioni del s
 Sulla base di queste considerazioni la proposta di protocollo per il sito toracico è la seguente:
 \begin{enumerate}
 \item Si effettua una registrazione rigida tra i due studi, privilegiando le strutture ossee.
-\item Si effettua una registrazione deformabile utilizzando come ROI di controllo la ROI che rappresenta il contorno del paziente (denominata \textit{External}). Questo perché il cambiamento anatomico è prevedibile e coinvolge maggiormente il contorno del paziente, lasciando le zone interne invariate. La delineazione di questa ROI di controllo è immediata qualora debba essere fatta su molteplici studi grazie agli strumenti di contornazione automatica messi a disposizione da RayStation. Con queste scelte, il protocollo risulta essere un buon compromesso tra precisione della deformazione (come dimostrato dal confronto con gli altri centri) e fattibilità a livello di routine clinica.
+\item Si effettua una registrazione deformabile utilizzando come ROI di controllo la ROI che rappresenta il contorno esterno del paziente. Questo perché il cambiamento anatomico è prevedibile e coinvolge maggiormente il contorno del paziente, lasciando le zone interne invariate. La delineazione di questa ROI di controllo è immediata qualora debba essere fatta su molteplici studi grazie agli strumenti di contornazione automatica messi a disposizione da RayStation. Con queste scelte, il protocollo risulta essere un buon compromesso tra precisione della deformazione e fattibilità a livello di routine clinica.
 \end{enumerate}
 
 
@@ -241,7 +241,7 @@ Il protocollo proposto per questo sito consiste nei seguenti passaggi:
 \item Si effettua una registrazione rigida tra i due studi, privilegiando le strutture ossee.
 \item Si contornano sugli studi deformati le ROI corrispondenti agli organi vescica, retto e prostata con vescicole seminali. Queste ROI vengono utilizzate come ROI di controllo per guidare la deformazione nella zona a basso contrasto.
 \end{enumerate}
-L'applicazione clinica di questo protocollo può risultare molto time-consuming in quanto richiede un importante intervento dell'operatore nella contornazione delle ROI di controllo. Per ovviare a questo limite sono in studio a livello multicentrico le soluzioni di contornazione automatica offerte dal TPS.
+L'applicazione clinica di questo protocollo può risultare time-consuming in quanto richiede un importante intervento dell'operatore nella contornazione delle ROI di controllo. Per ovviare a questo limite sono in studio a livello multicentrico le soluzioni di contornazione automatica offerte dal TPS.
 
 \begin{figure}
 \centering
@@ -256,7 +256,7 @@ L'applicazione dei protocolli preliminari mostrati ha portato a deformazioni di 
 
 
 \section{Studio multicentrico per predire la necessità di adattare il piano}
-Lo studio multi-centrico cui si è presi parte fa parte di un progetto di ricerca del Ministero della Salute, dal titolo: \textit{``Dose warping methods for IGRT and Adaptive RT: dose accumulation based on organ motion and anatomical variations of the patients during radiation therapy treatments''}. Lo studio si pone come fine quello di sviluppare un metodo predittivo in grado di fornire parametri quantitativi che aiutino il medico radioterapista ed il fisico medico a decidere il momento in cui applicare o meno un processo di radioterapia adattiva sul determinato paziente.
+Lo studio multi-centrico cui si è presi parteconsiste in un progetto di ricerca del Ministero della Salute, dal titolo: \textit{``Dose warping methods for IGRT and Adaptive RT: dose accumulation based on organ motion and anatomical variations of the patients during radiation therapy treatments''}. Lo studio si pone come fine quello di sviluppare un metodo predittivo in grado di fornire parametri quantitativi che aiutino il medico radioterapista ed il fisico medico a decidere il momento in cui applicare o meno un processo di radioterapia adattiva sul determinato paziente.
 
 Un approccio di tal genere appare quanto mai utile nelle realtà cliniche moderne in cui un processo di radioterapia adattiva è inapplicabile su larga scala a tutta la popolazione di pazienti a causa dei sottoprocessi time consuming da mettere in campo per questo scopo (primo tra tutti l'identificazione giornaliera dei volumi di interesse per il trattamento che dovrebbe essere eseguita dal medico radioterapista). Questa considerazione è supportata anche da evidenze in letteratura \cite{Capelle2012} secondo cui un approccio di radioterapia adattiva su pazienti non accuratamente selezionati porta a benefici clinici trascurabili ed ad un impiego improprio di risorse.
 

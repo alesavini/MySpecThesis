@@ -341,7 +341,7 @@ D(x,y,z) = \int_V T(P')\,s(P'\rightarrow P)\, \de V'
 \begin{itemize}
 \scriptsize
 \item Contributo di un settore conico collassato lungo l'asse.
-\item Necessario un campionamento angolare ridotto.
+\item Necessario un campionamento angolare ridotto $\rightarrow$ tempi di calcolo della dose $\sim\,sec \div min$ con computer moderni.
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -568,7 +568,7 @@ $$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{
 
 \alert{\bf Problema:} risposta dei detector che può dipendere da vari fattori (e.g. dimensione del campo).\\ \vspace{.3cm}
 
-\includegraphics[height=4cm]{../cap2/OF_plots/OFSmall.eps}
+\includegraphics[height=4.3cm]{../cap2/OF_plots/OFSmall.eps}
 
 \end{frame}
 
@@ -580,9 +580,28 @@ $$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{
 \alert{\bf Problema:} risposta dei detector che può dipendere da vari fattori (e.g. dimensione del campo).\\ \vspace{.3cm}
 
 \includegraphics[height=4.6cm]{./img/OF_MOD.eps}\\\vspace{.2cm}
-{\color{Dgreen} \textbf{Scelta:} considerate per il commissioning solo le misure con dimensione di campo $> 2x2\,cm^2$.}
+{\scriptsize \color{Dgreen} \textbf{Scelta:} considerate per il commissioning solo le misure con dimensione di campo $> 2x2\,cm^2$ $\rightarrow$ (impostato come limite inferiore di dimensione di campo di trattamento).}
 
 \end{frame}
+
+
+
+\begin{frame}[t]{Modellizzazione del LINAC}
+\scriptsize
+\alert{\bf Problema:} Come effettuare una valutazione di accettabilità globale di un profilo o PDD?\\ \vspace{.3cm}
+
+\structure{Soluzione:} impiego del criterio dell'indice $\gamma$ (valutazione combinata di differenza di dose e distanza di accordo).
+$$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\vec{r}_{c,i}|^2}{\Delta r}}_{Dist.\,to\,agr.}}   + \smash[b]{\underbrace{\frac{\left[D_{m}(\vec{r}_{m})-D_{c}(\vec{r}_{c,i})\right]^2}{\Delta D}}_{Dose\,diff.}}}$$
+\vspace{.3cm}
+\begin{columns}
+\column{.4\textwidth}
+\includegraphics[width=\textwidth]{./img/gamma_example_prof.png}
+\column{.53\textwidth}
+\includegraphics[width=\textwidth]{./img/profCrossline_2x2_depth_100.png}
+\end{columns}
+\end{frame}
+
+INTRODURRE POI IL PROBLEMA DELLE ESTRO BOOK 9 PER IMRT PER CUI L'ACCORDO SUI PROFILI NON BASTA...CI DEVE ESSERE UNA COSA PATIENT-SPECIFIC...E ALLORA INTRODUCI IL TG-119
 
 
 
