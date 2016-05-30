@@ -569,7 +569,8 @@ $$\text{d)}\qquad D(Gy) = M_{raw}\,N_{d,w}\,k_{Q,Q_0}\,k_{TP}\,k_h\,k_{pol}\,k_{
 
 \alert{\bf Problema ulteriore:} risposta dei detector che può dipendere da vari fattori (e.g. dimensione del campo).\\ \vspace{.3cm}
 
-\includegraphics[height=4.3cm]{../cap2/OF_plots/OFSmall.eps}
+%\includegraphics[height=4.3cm]{../cap2/OF_plots/OFSmall.eps}
+\includegraphics[height=4.6cm]{./img/OF_Empty.eps}
 
 \end{frame}
 
@@ -602,12 +603,19 @@ $$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\
 \end{columns}
 \centering
 \vspace{.2cm}
-{\color{Dgreen} \bf Criterio di accettazione: $\gamma < 1$}
+{\color{Dgreen} \bf Criterio di accettazione: $\gamma < 1$ $\rightarrow$ soddisfatto}
 \end{frame}
 
 
 
-\begin{frame}[t]{Modellizzazione del LINAC}
+
+\section{Verifica della modellizzazione}
+
+\begin{frame}{Indice}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}[t]{Verifica della modellizzazione}
 \scriptsize
 \alert{\bf Problema:} nelle moderne tecniche ad intensità modulata può non essere sufficiente  verificare unicamente l'accordo dose misurata - dose calcolata per campi semplici (\textit{ESTRO booklet no.9}).\\ \vspace{.3cm}
 
@@ -637,8 +645,7 @@ $$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\
 
 
 
-
-\begin{frame}{Modellizzazione del LINAC}
+\begin{frame}{Verifica della modellizzazione}
 \scriptsize
 \alert{\bf Problema:} nelle moderne tecniche ad intensità modulata può non essere sufficiente  verificare unicamente l'accordo dose misurata - dose calcolata per campi semplici (\textit{ESTRO booklet no.9}).\\ \vspace{.3cm}
 
@@ -665,7 +672,7 @@ $$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\
 \end{columns}
 \end{frame}
 
-\begin{frame}[t]{Modellizzazione del LINAC}
+\begin{frame}[t]{Verifica della modellizzazione}
 \vspace{-.5cm}
 \begin{center}
 \footnotesize
@@ -679,7 +686,7 @@ $$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\
 \end{frame}
 
 
-\begin{frame}[t]{Modellizzazione del LINAC}
+\begin{frame}[t]{Verifica della modellizzazione}
 \footnotesize
 \alert{Confronto Multicentrico}\\ \vspace{.2cm}
 \includegraphics[width=.8\textwidth]{./img/TG119.png}
@@ -694,7 +701,7 @@ $$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\
 \end{frame}
 
 
-\begin{frame}[t]{Modellizzazione del LINAC}
+\begin{frame}[t]{Verifica della modellizzazione}
 \footnotesize
 \centering
 \alert{Pianificazione dei casi suggeriti dall'AAPM-TG119}\\\vspace{.1cm}
@@ -712,19 +719,21 @@ $$\large \Downarrow$$
 
 
 
-\begin{frame}[t]{Modellizzazione del LINAC}
+\begin{frame}[t]{Verifica della modellizzazione}
 \footnotesize
 \centering
 \alert{Confronto con i risultati del TG-119 utilizzando il $\gamma$\textit{-pass-rate}}\\\vspace{.1cm}
 \includegraphics[width=.8\textwidth]{../cap2/TG119_Plots/TG_119_gamma.eps}
 \begin{itemize}
+\scriptsize
+\item Confronto effettuato per varie tecniche di erogazione della dose ad intensità modulata (SMLC, DMLC e VMAT) e per criteri $\gamma(3\%,3mm)$ e $\gamma(2\%,2mm)$.
 \item In tutti i casi la verifica pre-trattamento ha dimostrato un accordo tra la distribuzione di dose misurata e calcolata all'interno delle soglie di variabilità dello studio multicentrico AAPM-TG119.
 \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}[t]{Modellizzazione del LINAC}
+\begin{frame}[t]{Verifica della modellizzazione}
 \footnotesize
 \centering
 \alert{Ulteriori verifiche per casi clinici reali}\\\vspace{.1cm}
@@ -762,7 +771,7 @@ HN5  & 99.6\% & 94.3\%\\
 \caption{\tiny Valori dei pass-rate del $\gamma$\textit{-index} con tolleranze $3\%,3\,mm$ e $2\%,2\,mm$ relativi a verifiche pre-trattamento di piani VMAT su pazienti reali di tipo prostata (Pr.) e testa/collo (HN).}
 \end{table}
 \begin{itemize}
-\item<2-> A seguito dei risultati positivi ottenuti il sistema di elaborazione di piani di trattamento è stato posto in uso clinico presso la ASL di Teramo.
+\item A seguito dei risultati positivi ottenuti il sistema di elaborazione di piani di trattamento è stato posto in uso clinico presso la ASL di Teramo.
 \end{itemize}
 \end{frame}
 
@@ -778,11 +787,96 @@ HN5  & 99.6\% & 94.3\%\\
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}{bla bla}
-Parlare del fatto che ora sappiamo che in quel pixel c'è la dose giusta entro una precisione tollerabile clinicamente\\
 
-allora il commissioning è stato esteso anche alla radioterapia adattiva, definirla, dire che si è preso parte a due studi multi centrici italiani in corso di svolgimento per mettere in atto queste tecniche di innovative in cui il piano di trattamento non è sempre lo stesso ma si adatta ai cambiamenti del paziente...
+\begin{frame}{La radioterapia adattiva}
+\footnotesize
+\alert{\bf Problema:} l'anatomia del paziente si evolve durante il trattamento mentre l'erogazione della dose rimane fissata.\\ \vspace{.5cm}
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\small
+\structure{CT Inizio} \\ \vspace{.1cm}
+\includegraphics[width=.8\textwidth]{./img/Slice_INIZIO_c.png}
+\column{.5\textwidth}
+\centering
+\small
+\structure{CT @ 30fx}\\ \vspace{.1cm}
+\includegraphics[width=.8\textwidth]{./img/Slice_FINE_c.png}
+\end{columns}
+\vspace{.3cm}
+
+\structure{``Soluzione'':} erogare un piano di trattamento che si adatta alle variazioni del paziente.
 \end{frame}
+
+
+\begin{frame}{La radioterapia adattiva}
+\centering
+\alert{Processo di erogazione della dose \textit{standard}}\\ \vspace{.4cm}
+\includegraphics[width=.7\textwidth]{../cap3/Adapt0.png}
+$$\large \Downarrow$$
+\alert{Esempio di processo di erogazione della dose \textit{adattivo}}\\ \vspace{.4cm}
+\includegraphics[width=.8\textwidth]{../cap3/Adapt2.png}
+
+\end{frame}
+
+
+
+\begin{frame}{La radioterapia adattiva}
+\footnotesize
+\alert{\bf Problema ulteriore:} radioterapia adattiva inapplicabile su larga scala (time-consuming e impiego improprio di risorse).
+\begin{itemize}
+\setbeamercolor{item}{fg=red}
+\item Come selezionare i pazienti su cui applicare un processo di RT adattiva?
+\item Sulla base di quali criteri è appropriato adattare l'erogazione della dose?
+\item \`E possibile automatizzare alcuni processi ripetitivi e \textit{time-consuming}?
+\end{itemize}
+\vspace{.5cm}
+\uncover<2->{
+\structure{Soluzioni:} \ldots{}da trovare e consolidare\ldots\\ \vspace{.5cm}
+
+{\color{Dgreen} \bf Metodo:} partecipazioni a due studi multicentrici per studiare e trovare soluzioni condivise.}
+
+\end{frame}
+
+\begin{frame}{La radioterapia adattiva}
+\footnotesize
+Project GR-2010-2318757 of the Minister of Health:
+\begin{quotation}
+\scriptsize
+``Dose warping methods for IGRT and Adaptive RT: dose accumulation based on organ motion and anatomical variations of the patients during radiation therapy treatments.''
+\end{quotation}
+\vspace{-.3cm}
+\begin{center}
+\includegraphics[width=.8\textwidth]{./img/Pub_mod.png}\\ \vspace{.2cm}
+\end{center}
+\vspace{-.3cm}
+\footnotesize
+\structure{Scopi:}
+\begin{itemize}
+\scriptsize
+\item Sviluppo di un algoritmo predittivo basato su rete neurale per individuare i pazienti e il giorno ideale in cui è necessario adattare il piano.
+\item Sviluppo di sistemi di scripting per automatizzare processi ripetitivi e time-consuming.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{La radioterapia adattiva}
+\footnotesize
+Gruppo YES: \textit{``Your Elastic Solution''}
+
+\vspace{-.1cm}
+\begin{center}
+\includegraphics[width=\textwidth]{./img/Pub_YES.png}\\ \vspace{.2cm}
+\end{center}
+\vspace{-.1cm}
+\footnotesize
+\structure{Scopo:}
+\begin{itemize}
+\scriptsize
+\item Sviluppo di metodologie condivise per l'ottimizzazione dei processi di deformazione elastica funzionali alla deformazione ed adattamento della dose erogata al paziente.
+\end{itemize}
+\end{frame}
+
 
 
 \begin{frame}{Pubblicazioni}
@@ -796,5 +890,11 @@ allora il commissioning è stato esteso anche alla radioterapia adattiva, defini
 \includegraphics[width=.9\textwidth]{./img/Pub.png}
 \end{center}
 \end{frame}
+
+\begin{frame}
+\centering
+\Huge Grazie per l'attenzione
+\end{frame}
+
 
 \end{document}
