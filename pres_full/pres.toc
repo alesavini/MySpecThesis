@@ -1,0 +1,17 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\beamer@endinputifotherversion {3.36pt}
+\defcounter {refsection}{0}\relax 
+\select@language {italian}
+\defcounter {refsection}{0}\relax 
+\select@language {italian}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {1}{Introduzione alla radioterapia a fasci esterni}{2}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {2}{Algoritmi di calcolo della dose}{5}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {3}{Modellizzazione fisica del LINAC nel TPS RayStation}{18}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {4}{Verifica della modellizzazione}{32}{0}{4}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {5}{La radioterapia adattiva, implementazione iniziale e sviluppi futuri}{41}{0}{5}
