@@ -13,5 +13,3 @@
 \beamer@sectionintoc {3}{Modellizzazione fisica del LINAC nel TPS RayStation}{12}{0}{3}
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {4}{Verifica della modellizzazione}{20}{0}{4}
-\defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {5}{La radioterapia adattiva, implementazione iniziale e sviluppi futuri}{29}{0}{5}
