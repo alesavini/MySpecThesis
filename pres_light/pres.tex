@@ -124,6 +124,10 @@
 \titlepage
 \end{frame}
 
+\begin{frame}{Indice}
+\tableofcontents
+\end{frame}
+
 
 
 \section[Intro RT fasci esterni]{Introduzione alla radioterapia a fasci esterni}
@@ -724,7 +728,7 @@ $$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\
 \vspace{-.25cm}
 \scriptsize
 \structure{\normalfont Definizione di $\gamma$-\textit{pass\,rate}:} percentuale di punti misurati per cui vale che $\gamma < 1$.\\ \vspace{.2cm}
-{\color{Dgreen} Criterio di accettazione:} per tolleranze $\Delta D = 3\%$ e $DTA = 3\,mm$ $\rightarrow$ $\gamma$\textit{-pass rate}$\; >90\div 95\%$
+{\color{Dgreen} Criterio di accettazione:} per tolleranze $\Delta D = 3\%$ e $DTA = 3\,mm$ $\rightarrow$ $\gamma$\textit{-pass rate}$\; >90\div 95\%$.
 \end{frame}
 
 
@@ -823,6 +827,31 @@ HN5  & 99.6\% & 94.3\%\\
 %AGGIUNGERE DISCORSO SULL'MLC
 
 
+\section[La radioterapia adattiva]{Appendice - La radioterapia adattiva}
+
+\begin{frame}{Appendice - La radioterapia adattiva}
+\footnotesize
+\alert{\bf Problema:} l'anatomia del paziente si evolve durante il trattamento mentre l'erogazione della dose rimane fissata.\\ \vspace{.5cm}
+\begin{columns}
+\column{.5\textwidth}
+\centering
+\small
+\structure{CT Inizio} \\ \vspace{.1cm}
+\includegraphics[width=.8\textwidth]{./img/Slice_INIZIO_c.png}
+\column{.5\textwidth}
+\centering
+\small
+\structure{CT @ 30fx}\\ \vspace{.1cm}
+\includegraphics[width=.8\textwidth]{./img/Slice_FINE_c.png}
+\end{columns}
+\vspace{.3cm}
+
+\structure{``Soluzione'':} erogare un piano di trattamento che si adatta alle variazioni del paziente (si effettua una ripianificazione del trattamento in itinere).
+\end{frame}
+
+
+
+
 
 \begin{frame}{Pubblicazioni}
 \begin{itemize}
@@ -864,7 +893,7 @@ HN5  & 99.6\% & 94.3\%\\
 \end{columns}
 \vspace{.3cm}
 
-\structure{``Soluzione'':} erogare un piano di trattamento che si adatta alle variazioni del paziente.
+\structure{``Soluzione'':} erogare un piano di trattamento che si adatta alle variazioni del paziente (si effettua una ripianificazione del trattamento in itinere).
 \end{frame}
 
 
