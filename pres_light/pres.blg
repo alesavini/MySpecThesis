@@ -1,9 +1,0 @@
-[2] Config.pm:327> INFO - This is Biber 2.2
-[3] Config.pm:330> INFO - Logfile is 'pres.blg'
-[1452] biber-MSWIN:283> INFO - === lun mag , 2016, 10:26:52
-[1453] Biber.pm:334> INFO - Reading 'pres.bcf'
-[2326] Biber.pm:677> INFO - Found 0 citekeys in bib section 0
-[2327] Utils.pm:147> WARN - The file 'pres.bcf' does not contain any citations!
-[2787] bbl.pm:505> INFO - Writing 'pres.bbl' with encoding 'UTF-8'
-[2999] bbl.pm:596> INFO - Output to pres.bbl
-[3000] Biber.pm:107> INFO - WARNINGS: 1

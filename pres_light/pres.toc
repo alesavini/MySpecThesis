@@ -8,10 +8,10 @@
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {1}{Introduzione alla radioterapia a fasci esterni}{3}{0}{1}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {2}{Algoritmi di calcolo della dose}{5}{0}{2}
+\beamer@sectionintoc {2}{Algoritmi di calcolo della dose}{4}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {3}{Modellizzazione fisica del LINAC nel TPS RayStation}{13}{0}{3}
+\beamer@sectionintoc {3}{Modellizzazione fisica del LINAC nel TPS RayStation}{11}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {4}{Verifica della modellizzazione}{21}{0}{4}
+\beamer@sectionintoc {4}{Verifica della modellizzazione}{20}{0}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {5}{Appendice - La radioterapia adattiva}{30}{0}{5}
+\beamer@sectionintoc {5}{Appendice - La radioterapia adattiva}{28}{0}{5}

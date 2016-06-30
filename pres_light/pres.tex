@@ -53,8 +53,10 @@
 \title[Commissioning TPS]{Commissioning di un sistema di elaborazione di piani di trattamento radioterapici\\\vspace*{.05cm}
         per tecniche 3D-CRT, IMRT,\\\vspace*{.1cm} VMAT e Radioterapia Adattiva}
 \institute{\tiny Università dell'Aquila\ac Tesi di Specializzazione\\ Scuola di Specializzazione in Fisica Medica}
-\date{05.Lug.2016}
-\author{\textit{Alessandro Savini}}
+\date{\footnotesize 04.Lug.2016}
+\author[A.Savini]{
+\tiny \textbf{Specializzando:}\footnotesize{} Alessandro Savini $\qquad$ \tiny\textbf{Relatore:}\footnotesize{} dr. Giovanni Orlandi
+}
 
 
 
@@ -132,16 +134,16 @@
 
 \section[Intro RT fasci esterni]{Introduzione alla radioterapia a fasci esterni}
 
-\begin{frame}{Introduzione RT a fasci esterni}
-\begin{center}
-\structure{Acceleratore lineare (LINAC)}\\ \vspace{.2cm}
-\includegraphics[width=.6\textwidth]{../cap1/linac.PNG}
-\end{center}
-\footnotesize
-\structure{Radioterapia a fasci esterni:} tecnica medica che fa impiego di radiazioni ionizzanti per il trattamento di patologie (neoplasie maligne principalmente).\ac 
-\structure{Dose fisica:} al pari della dose farmacologica è la quantità utilizzata per ottenere l'effetto terapeutico.
-$$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1} \equiv \text{Gray [Gy]}$$
-\end{frame}
+%\begin{frame}{Introduzione RT a fasci esterni}
+%\begin{center}
+%\structure{Acceleratore lineare (LINAC)}\\ \vspace{.2cm}
+%\includegraphics[width=.6\textwidth]{../cap1/linac.PNG}
+%\end{center}
+%\footnotesize
+%\structure{Radioterapia a fasci esterni:} tecnica medica che fa impiego di radiazioni ionizzanti per il trattamento di patologie (neoplasie maligne principalmente).\ac 
+%\structure{Dose fisica:} al pari della dose farmacologica è la quantità utilizzata per ottenere l'effetto terapeutico.
+%$$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1} \equiv \text{Gray [Gy]}$$
+%\end{frame}
 
 \begin{frame}{Introduzione RT a fasci esterni}
 \begin{center}
@@ -149,6 +151,9 @@ $$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1}
 \structure{Principali interazioni radiazione-paziente}\\ \vspace{.2cm}
 \includegraphics[width=.8\textwidth]{../cap1/processes.PNG}
 \end{center}
+\footnotesize
+\structure{Dose fisica:} al pari della dose farmacologica è la quantità utilizzata per ottenere l'effetto terapeutico.
+$$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1} \equiv \text{Gray [Gy]}$$
 \end{frame}
 
 
@@ -186,7 +191,7 @@ $$D = \frac{\de \bar{\varepsilon}}{\de m} \qquad\qquad \text{Unità: J\,kg}^{-1}
 \begin{itemize}
 \scriptsize
 \item \structure{$D(x,y,z):$} dose nel punto $P$.
-\item \structure{$T(P'):$} \textit{Total-Energy-Released-in-Matter} (TERMA) $\rightarrow$ fluenza di energia ($\Psi\, [J\, m^{-2}]$) $\times$ coefficiente assorbimento massico ($\mu/\rho\,[kg^{-1}\, m^{2}]$) nel punto $P'$ .
+\item \structure{$T(P'):$} \textit{Total-Energy-Released-in-Matter} (TERMA). % $\rightarrow$ fluenza di energia ($\Psi\, [J\, m^{-2}]$) $\times$ coefficiente assorbimento massico ($\mu/\rho\,[kg^{-1}\, m^{2}]$) nel punto $P'$ .
 \item \structure{$s(P'\rightarrow P):$} \textit{funzione di scatter} $\rightarrow$ quantità di energia assorbita in $P$ dovuta ad un'interazione di un fotone con energia fissata nel punto $P'$.
 \end{itemize}
 \end{frame}
@@ -390,11 +395,11 @@ D(x,y,z) = \int_V T(P')\,{\color{red}s(P'\rightarrow P)}\, \de V'
 \includegraphics[width=.7\textwidth]{../cap1/kern_trans.png}\\
 \scriptsize
 \begin{itemize}
-\item[a)] \structure{\normalfont{Funzione di scatter polienergetica}} $\rightarrow$ media di kernel polienergetici pesati con lo spettro di energia del fascio primario.
-\item[b)] \structure{\normalfont{Density-scaling:}} $\rightarrow$ forma dei kernel scalata con la lunghezza radiologica ($Lunghezze\,\rightarrow\,Lunghezze \times Densit\grave{a}$)
+\item[a)] \structure{\normalfont{Funzione di scatter polienergetica}} $\rightarrow$ media di kernel monoenergetici pesati con lo spettro di energia del fascio primario.
+\item[b)] \structure{\normalfont{Density-scaling:}} $\rightarrow$ forma dei kernel scalata con la lunghezza radiologica ($Lunghezze\,\rightarrow\,Lunghezze / Densit\grave{a}$)
 \end{itemize}
 }
-\only<2->{\color{Dgreen} \scriptsize \bf Tutto ciò per evitare di ricalcolare le funzioni di scatter con metodo MC per ogni possibile situazione!}
+\color{Dgreen} \scriptsize \bf Tutto ciò per evitare di ricalcolare le funzioni di scatter con metodo MC per ogni possibile situazione!
 \end{frame}
 
 
@@ -545,10 +550,12 @@ D(x,y,z) = \int_V T(P')\,{\color{red}s(P'\rightarrow P)}\, \de V'
 \footnotesize
 \structure{Scopo:} riprodurre le misure dosimetriche.\\\vspace{.2cm}
 \alert{\textbf{Problema:}} quale accuratezza è richiesta?\\
-\only<2->{
+
 \begin{center}
 \includegraphics[width=.9\textwidth]{../cap2/Accuracy_pdd_prof.png}
 \end{center}
+
+\only<2->{
 {\structure{ \normalfont Distinzione in zone (ESTRO booklet no.7):}}
 \begin{itemize}
 \scriptsize
@@ -558,6 +565,7 @@ D(x,y,z) = \int_V T(P')\,{\color{red}s(P'\rightarrow P)}\, \de V'
 \item  Fuori Asse, Bassa dose, Basso gradiente ($\delta_4 \sim 3\% \div 5\%$).
 \end{itemize}
 }
+
 \end{frame}
 
 
@@ -585,6 +593,20 @@ D(x,y,z) = \int_V T(P')\,{\color{red}s(P'\rightarrow P)}\, \de V'
 \vspace{.5cm}
 \centering
 \includegraphics[width=\textwidth]{./img/RayPhysics_gui.PNG}
+\end{frame}
+
+\begin{frame}{Modellizzazione del LINAC}
+\begin{itemize}
+\scriptsize
+\setbeamercolor{item}{fg=red}
+\item \alert{\textit{Tuning} dei parametri del modello del LINAC implementato nel TPS}
+\end{itemize}
+\vspace{.5cm}
+\centering
+\includegraphics[width=.3\textwidth]{../cap2/tip5.PNG} $\quad$
+\includegraphics[width=.3\textwidth]{../cap2/tip6.PNG}\\ \vspace{.5cm}
+\includegraphics[width=.5\textwidth]{../cap2/MLC_Plots/Abutted/abutted_m.eps}
+\includegraphics[width=.5\textwidth]{../cap2/MLC_Plots/Abutted/PlotMLC_Tip_modeling.eps}
 \end{frame}
 
 
@@ -747,34 +769,34 @@ $$\gamma = \min_{\vec{r}_{c,i}} \sqrt{\smash[b]{\underbrace{\frac{|\vec{r}_{m}-\
 \end{frame}
 
 
-\begin{frame}[t]{Verifica della modellizzazione}
+%\begin{frame}[t]{Verifica della modellizzazione}
+%\footnotesize
+%\centering
+%\alert{Pianificazione dei casi suggeriti dall'AAPM-TG119}\\\vspace{.1cm}
+%\includegraphics[width=.25\textwidth]{./img/TG119_ours1.PNG}
+%\includegraphics[width=.25\textwidth]{./img/TG119_ours2.PNG}
+%\includegraphics[width=.25\textwidth]{./img/TG119_ours3.PNG}
+%\includegraphics[width=.25\textwidth]{./img/TG119_ours4.PNG}
+%$$\large \Downarrow$$
+%\alert{Verifica dosimetrica pre-trattamento}\\\vspace{.1cm}
+%\includegraphics[height=2.5cm]{../cap2/MatriXX_Alone.png}$\qquad$
+%\includegraphics[height=2.5cm]{../cap2/MatriXX_Cube.png}
+%$$\large \Downarrow$$
+%\alert{Confronto con i risultati del TG-119 utilizzando il $\gamma$\textit{-pass-rate}}\\\vspace{.1cm}
+%\end{frame}
+
+
+
+\begin{frame}{Verifica della modellizzazione}
 \footnotesize
 \centering
-\alert{Pianificazione dei casi suggeriti dall'AAPM-TG119}\\\vspace{.1cm}
-\includegraphics[width=.25\textwidth]{./img/TG119_ours1.PNG}
-\includegraphics[width=.25\textwidth]{./img/TG119_ours2.PNG}
-\includegraphics[width=.25\textwidth]{./img/TG119_ours3.PNG}
-\includegraphics[width=.25\textwidth]{./img/TG119_ours4.PNG}
-$$\large \Downarrow$$
-\alert{Verifica dosimetrica pre-trattamento}\\\vspace{.1cm}
-\includegraphics[height=2.5cm]{../cap2/MatriXX_Alone.png}$\qquad$
-\includegraphics[height=2.5cm]{../cap2/MatriXX_Cube.png}
-$$\large \Downarrow$$
-\alert{Confronto con i risultati del TG-119 utilizzando il $\gamma$\textit{-pass-rate}}\\\vspace{.1cm}
-\end{frame}
-
-
-
-\begin{frame}[t]{Verifica della modellizzazione}
-\footnotesize
-\centering
-\alert{Confronto con i risultati del TG-119 utilizzando il $\gamma$\textit{-pass-rate}}\\\vspace{.1cm}
-\includegraphics[width=.8\textwidth]{../cap2/TG119_Plots/TG_119_gamma.eps}
-\begin{itemize}
-\scriptsize
-\item Confronto effettuato per varie tecniche di erogazione della dose ad intensità modulata (SMLC, DMLC e VMAT) e per criteri $\gamma(3\%,3mm)$ e $\gamma(2\%,2mm)$.
-\item In tutti i casi la verifica pre-trattamento ha dimostrato un accordo tra la distribuzione di dose misurata e calcolata all'interno delle soglie di variabilità dello studio multicentrico AAPM-TG119.
-\end{itemize}
+\alert{Confronto con i risultati del TG-119 utilizzando il $\gamma$\textit{-pass-rate}}\\\vspace{.5cm}
+\includegraphics[width=.85\textwidth]{../cap2/TG119_Plots/TG_119_gamma.eps}
+%\begin{itemize}
+%\scriptsize
+%\item Confronto effettuato per varie tecniche di erogazione della dose ad intensità modulata (SMLC, DMLC e VMAT) e per criteri $\gamma(3\%,3mm)$ e $\gamma(2\%,2mm)$.
+%\item In tutti i casi la verifica pre-trattamento ha dimostrato un accordo tra la distribuzione di dose misurata e calcolata all'interno delle soglie di variabilità dello studio multicentrico AAPM-TG119.
+%\end{itemize}
 \end{frame}
 
 
